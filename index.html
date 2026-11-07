@@ -25,98 +25,23 @@
         }
     </script>
     <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #020617; overflow-x: hidden; }
-        .glass { background: rgba(15, 23, 42, 0.82); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.1); }
-        .glass-card { background: rgba(30, 41, 59, 0.85); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #030712; overflow-x: hidden; }
+        .glass { background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .glass-card { background: rgba(30, 41, 59, 0.9); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.12); }
         .gradient-bg { background: linear-gradient(135deg, #22c55e 0%, #15803d 100%); }
         .gradient-text { background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .glow-box { box-shadow: 0 0 50px rgba(34, 197, 94, 0.2); }
-        
-        /* Faux arrière-plan animé de logiciels */
-        .bg-mockup-grid {
-            position: fixed;
-            inset: 0;
-            z-index: 0;
-            opacity: 0.18;
-            pointer-events: none;
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 1.5rem;
-            padding: 2rem;
-            filter: blur(3px);
-        }
-        .fake-window {
-            background: rgba(30, 41, 59, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 1rem;
-            padding: 1rem;
-            height: 280px;
-            display: flex;
-            flex-direction: column;
-            gap: 0.75px;
-        }
+        .glow-box { box-shadow: 0 0 40px rgba(34, 197, 94, 0.25); }
     </style>
 </head>
-<body class="text-slate-100 min-h-screen flex flex-col justify-between selection:bg-brand-500 selection:text-white relative">
-
-    <!-- ARRIÈRE-PLAN VIVANT : Faux logiciels et tableaux de bord ouverts -->
-    <div class="bg-mockup-grid hidden md:grid">
-        <!-- Fenêtre 1 : Faux tableau de bord SaaS de facturation -->
-        <div class="fake-window">
-            <div class="flex items-center gap-2 mb-2">
-                <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
-                <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
-                <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
-                <span class="text-[10px] text-slate-400 ml-2 font-mono">app.facturartisan.io/dashboard</span>
-            </div>
-            <div class="bg-slate-900/80 p-3 rounded-lg flex-grow space-y-2">
-                <div class="flex justify-between text-[10px] text-slate-400"><span>CA du mois : 8 450 €</span><span class="text-brand-400">+24% vs N-1</span></div>
-                <div class="h-16 bg-brand-500/10 rounded border border-brand-500/20 flex items-end p-1 gap-1">
-                    <div class="bg-brand-500 w-full h-[40%] rounded-t"></div>
-                    <div class="bg-brand-500 w-full h-[65%] rounded-t"></div>
-                    <div class="bg-brand-500 w-full h-[50%] rounded-t"></div>
-                    <div class="bg-brand-500 w-full h-[85%] rounded-t"></div>
-                    <div class="bg-brand-500 w-full h-[100%] rounded-t"></div>
-                </div>
-                <div class="space-y-1">
-                    <div class="h-2 bg-slate-800 rounded w-3/4"></div>
-                    <div class="h-2 bg-slate-800 rounded w-1/2"></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Fenêtre 2 : Faux Stripe / Paiements en direct -->
-        <div class="fake-window">
-            <div class="flex items-center gap-2 mb-2">
-                <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
-                <div class="w-3 h-3 rounded-full bg-yellow-500/80">div class="w-3 h-3 rounded-full bg-green-500/80"></div>
-                <span class="text-[10px] text-slate-400 ml-2 font-mono">dashboard.stripe.com/payments</span>
-            </div>
-            <div class="bg-slate-900/80 p-3 rounded-lg flex-grow space-y-2.5">
-                <div class="text-[10px] font-bold text-slate-400 uppercase">Derniers abonnements reçus</div>
-                <div class="flex justify-between items-center text-xs bg-slate-800/60 p-2 rounded">
-                    <span class="text-slate-300">⚡ Abonnement Pro (29€)</span>
-                    <span class="text-brand-400 font-bold">+29,00 €</span>
-                </div>
-                <div class="flex justify-between items-center text-xs bg-slate-800/60 p-2 rounded">
-                    <span class="text-slate-300">⚡ Abonnement Pro (29€)</span>
-                    <span class="text-brand-400 font-bold">+29,00 €</span>
-                </div>
-                <div class="flex justify-between items-center text-xs bg-slate-800/60 p-2 rounded">
-                    <span class="text-slate-300">⚡ Abonnement Pro (49€)</span>
-                    <span class="text-brand-400 font-bold">+49,00 €</span>
-                </div>
-            </div>
-        </div>
-    </div>
+<body class="text-slate-100 min-h-screen flex flex-col justify-between selection:bg-brand-500 selection:text-white">
 
     <!-- Header -->
-    <header class="glass sticky top-0 z-40 px-6 py-4 flex justify-between items-center border-b border-white/10 shadow-lg">
+    <header class="glass sticky top-0 z-40 px-8 py-4 flex justify-between items-center border-b border-white/10 shadow-xl">
         <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl gradient-bg flex items-center justify-center text-white font-extrabold text-xl shadow-lg shadow-brand-500/30">
+            <div class="w-10 h-10 rounded-xl gradient-bg flex items-center justify-center text-white font-black text-xl shadow-lg shadow-brand-500/30">
                 N
             </div>
-            <span class="font-extrabold text-xl tracking-wider text-white">NEXORA<span class="text-brand-500">.AI</span></span>
+            <span class="font-black text-xl tracking-wider text-white">NEXORA<span class="text-brand-500">.AI</span></span>
         </div>
         <div>
             <a href="https://buy.stripe.com/aFai4f2UT9JQzhSell19W02" target="_blank" class="px-5 py-2.5 rounded-xl text-sm font-bold gradient-bg text-white shadow-lg shadow-brand-500/25 hover:opacity-95 hover:scale-105 transition duration-200 inline-flex items-center gap-2">
@@ -125,50 +50,52 @@
         </div>
     </header>
 
-    <!-- Main Content (Au premier plan par-dessus les faux logiciels) -->
-    <main class="flex-grow max-w-4xl mx-auto w-full p-4 sm:p-8 flex flex-col justify-center my-6 relative z-10">
+    <!-- Main Content -->
+    <main class="flex-grow max-w-4xl mx-auto w-full px-6 py-12 flex flex-col justify-center items-center text-center relative z-10">
         
-        <!-- Hero Section -->
-        <div class="text-center mb-10">
-            <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold bg-brand-500/10 text-brand-400 border border-brand-500/30 mb-3 shadow-lg">
-                ⚡ Studio de Création Micro-SaaS
-            </span>
-            <h1 class="text-4xl sm:text-6xl font-black text-white tracking-tight mb-4 drop-shadow-md">
-                Concevez votre logiciel, <br/><span class="gradient-text">Visualisez votre potentiel financier</span>
-            </h1>
-            <p class="text-slate-200 text-sm sm:text-base max-w-2xl mx-auto drop-shadow">
-                Entrez le domaine ou le service que vous souhaitez commercialiser. L'IA génère la structure de l'application et évalue sa faisabilité économique en direct.
-            </p>
-        </div>
+        <!-- Hero Tag -->
+        <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold bg-brand-500/10 text-brand-400 border border-brand-500/30 mb-6 shadow-md">
+            ⚡ Le générateur de business automatisé
+        </span>
 
-        <!-- Générateur de Projet -->
-        <section class="glass p-6 sm:p-8 rounded-3xl border border-white/15 shadow-2xl mb-8 relative">
-            <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-3">Quel service ou logiciel voulez-vous lancer ?</label>
+        <!-- Hero Title -->
+        <h1 class="text-4xl sm:text-6xl font-black text-white tracking-tight mb-6 leading-tight">
+            Tapez une idée, créez votre logiciel, <br/>
+            <span class="gradient-text">Encaissez vos abonnements.</span>
+        </h1>
+
+        <p class="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
+            Entrez un domaine d'activité. Nexora structure l'application, configure le module client et prépare votre tunnel de vente en quelques secondes.
+        </p>
+
+        <!-- Search / Generation Box -->
+        <div class="glass w-full p-6 sm:p-8 rounded-3xl border border-white/15 shadow-2xl mb-8 text-left glow-box">
+            <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-3">Quel service ou logiciel voulez-vous commercialiser ?</label>
             
             <div class="flex flex-col sm:flex-row gap-3 mb-4">
-                <input type="text" id="projectInput" placeholder="ex: Facturation IA pour Artisans, Suivi de Chantiers BTP..." class="flex-grow bg-slate-900 border border-white/15 rounded-xl px-5 py-4 text-base text-white focus:outline-none focus:border-brand-500 transition shadow-inner">
+                <input type="text" id="projectInput" placeholder="ex: Facturation IA pour Artisans, Devis BTP, Gestion de chantiers..." class="flex-grow bg-slate-900 border border-white/20 rounded-xl px-5 py-4 text-base text-white focus:outline-none focus:border-brand-500 transition shadow-inner">
                 <button onclick="generateSaaSBlueprint()" class="gradient-bg text-white px-8 py-4 rounded-xl text-base font-bold shadow-lg shadow-brand-500/25 hover:opacity-95 transition flex items-center justify-center gap-2 shrink-0">
                     <i class="fa-solid fa-wand-magic-sparkles"></i> Créer le SaaS
                 </button>
             </div>
 
-            <!-- Suggestions -->
+            <!-- Suggestions rapides -->
             <div class="flex flex-wrap gap-2 text-xs text-slate-300 items-center">
-                <span>Exemples d'applications :</span>
-                <button onclick="fillPrompt('Logiciel de Devis & Factures pour Artisans BTP')" class="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg text-white border border-white/10 transition">Facturation Artisans</button>
-                <button onclick="fillPrompt('Gestionnaire de Planning et Chantiers')" class="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg text-white border border-white/10 transition">Planning BTP</button>
-                <button onclick="fillPrompt('Assistant IA pour Agences Immobilières')" class="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg text-white border border-white/10 transition">IA Immobilier</button>
+                <span class="text-slate-400">Idées populaires :</span>
+                <button onclick="fillPrompt('Logiciel de Devis & Factures pour Artisans BTP')" class="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg text-white border border-white/10 transition font-medium">Facturation Artisans</button>
+                <button onclick="fillPrompt('Gestionnaire de Planning et Chantiers')" class="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg text-white border border-white/10 transition font-medium">Planning BTP</button>
+                <button onclick="fillPrompt('Assistant IA pour Agences Immobilières')" class="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg text-white border border-white/10 transition font-medium">IA Immobilier</button>
             </div>
 
-            <!-- Ébauche de l'application -->
-            <div id="blueprintOutput" class="hidden mt-8 p-6 bg-slate-900/95 rounded-2xl border border-brand-500/30"></div>
-        </section>
+            <!-- Ébauche de l'application (Masquée au départ) -->
+            <div id="blueprintOutput" class="hidden mt-6 p-6 bg-slate-900 rounded-2xl border border-brand-500/30"></div>
+        </div>
 
     </main>
 
-    <!-- FENÊTRE SURGISSANTE (POP-UP / MODAL PAR-DESSUS) -->
+    <!-- FENÊTRE SURGISSANTE (POP-UP / MODAL DU SIMULATEUR) -->
     <div id="simulatorModal" class="fixed inset-0 bg-slate-950/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
-        <div class="glass-card glow-box border border-brand-500/40 rounded-3xl p-6 sm:p-8 max-w-lg w-full relative space-y-6">
+        <div class="glass-card glow-box border border-brand-500/40 rounded-3xl p-6 sm:p-8 max-w-lg w-full relative space-y-6 text-left">
             
             <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-lg w-8 h-8 rounded-full bg-white/5 flex items-center justify-center border border-white/10">
                 <i class="fa-solid fa-xmark"></i>
@@ -182,10 +109,10 @@
                 <p class="text-xs text-slate-300 mt-1">L'ébauche de votre SaaS <strong id="modalSaaSTitle" class="text-brand-400"></strong> est prête.</p>
             </div>
 
-            <!-- Formulaire de saisie d'objectif -->
+            <!-- Formulaire de saisie -->
             <div class="space-y-4">
                 <div>
-                    <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">Combien viserez-vous de revenus par mois ? (€)</label>
+                    <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">Combien visez-vous de revenus par mois ? (€)</label>
                     <div class="flex gap-2">
                         <input type="number" id="targetIncomeInput" value="5000" step="500" class="flex-grow bg-slate-900 border border-white/20 rounded-xl px-4 py-3 text-xl font-bold text-brand-400 focus:outline-none focus:border-brand-500 transition">
                         <button onclick="calculateGoal()" class="gradient-bg text-white px-5 py-3 rounded-xl text-sm font-bold shadow-lg shadow-brand-500/25 hover:opacity-95 transition">
@@ -194,10 +121,10 @@
                     </div>
                 </div>
 
-                <!-- Zone du calcul de faisabilité -->
-                <div id="calculationResult" class="bg-slate-900/90 p-5 rounded-2xl border border-brand-500/30 space-y-3">
+                <!-- Zone de calcul -->
+                <div class="bg-slate-900 p-5 rounded-2xl border border-brand-500/30 space-y-3">
                     <div class="flex justify-between items-center text-xs text-slate-400 border-b border-white/10 pb-2">
-                        <span>Hypothèse de tarif mensuel :</span>
+                        <span>Tarif abonnement mensuel :</span>
                         <select id="priceSelect" onchange="calculateGoal()" class="bg-slate-800 text-white font-bold rounded px-2 py-1 border border-white/10">
                             <option value="29">29 € / mois</option>
                             <option value="49" selected>49 € / mois</option>
@@ -206,13 +133,11 @@
                         </select>
                     </div>
 
-                    <div id="analysisDetails" class="text-sm text-slate-200 leading-relaxed py-1">
-                        <!-- Résultat calculé dynamiquement -->
-                    </div>
+                    <div id="analysisDetails" class="text-sm text-slate-200 leading-relaxed py-1"></div>
                 </div>
             </div>
 
-            <!-- Bouton d'action Stripe principal -->
+            <!-- Bouton Stripe -->
             <div>
                 <a href="https://buy.stripe.com/aFai4f2UT9JQzhSell19W02" target="_blank" class="w-full inline-block text-center gradient-bg text-white py-4 rounded-xl text-base font-extrabold shadow-xl shadow-brand-500/30 hover:scale-105 transition">
                     Activer et Déployer mon SaaS (29€) →
@@ -228,7 +153,7 @@
         &copy; 2026 NEXORA AI. Tous droits réservés.
     </footer>
 
-    <!-- Scripts JavaScript -->
+    <!-- Scripts -->
     <script>
         let currentSaaSName = "";
 
@@ -267,13 +192,13 @@
                         </div>
                         
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-                            <div class="bg-slate-800/80 p-3.5 rounded-xl border border-white/5">
+                            <div class="bg-slate-800 p-3.5 rounded-xl border border-white/5">
                                 <span class="text-brand-400 font-bold block mb-1">💻 Dashboard Utilisateur :</span>
-                                <p class="text-slate-300">Formulaires intuitifs, exports PDF et gestion d'abonnements autonomes.</p>
+                                <p class="text-slate-300">Formulaires intuitifs, exports PDF et gestion d'abonnements.</p>
                             </div>
-                            <div class="bg-slate-800/80 p-3.5 rounded-xl border border-white/5">
+                            <div class="bg-slate-800 p-3.5 rounded-xl border border-white/5">
                                 <span class="text-brand-400 font-bold block mb-1">💳 Monétisation Stripe :</span>
-                                <p class="text-slate-300">Intégration d'abonnements récurrents pré-configurée.</p>
+                                <p class="text-slate-300">Paiements récurrents pré-configurés.</p>
                             </div>
                         </div>
                     </div>
@@ -300,13 +225,13 @@
             const exactRevenue = clientsNeeded * price;
 
             analysisDetails.innerHTML = `
-                Pour atteindre votre objectif de <strong class="text-white">${target.toLocaleString('fr-FR')} € / mois</strong> avec un abonnement fixé à <strong>${price} € / mois</strong> :<br>
+                Pour atteindre <strong class="text-white">${target.toLocaleString('fr-FR')} € / mois</strong> à <strong>${price} € / mois</strong> par abonné :<br>
                 <div class="my-2 p-3 bg-brand-500/10 rounded-xl border border-brand-500/20 text-center">
-                    <span class="text-xs text-slate-300 block">Nombre de clients abonnés nécessaires :</span>
+                    <span class="text-xs text-slate-300 block">Clients abonnés nécessaires :</span>
                     <strong class="text-2xl font-black text-brand-400">${clientsNeeded} clients</strong>
                     <span class="text-[11px] text-slate-400 block mt-0.5">Revenu estimé : ${exactRevenue.toLocaleString('fr-FR')} € / mois</span>
                 </div>
-                <p class="text-xs text-slate-300 text-center">💡 <em>Faisabilité :</em> Trouver <strong>${clientsNeeded} clients professionnels</strong> dans votre secteur cible est un objectif tout à fait concret et mesurable.</p>
+                <p class="text-xs text-slate-300 text-center">💡 <em>Faisabilité :</em> Atteindre <strong>${clientsNeeded} clients</strong> dans ce secteur est un objectif mesurable et réaliste.</p>
             `;
         }
 
