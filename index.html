@@ -73,6 +73,12 @@
   <div class="glow w-[500px] h-[500px] bg-brand-500 -top-20 -left-20"></div>
   <div class="glow w-[600px] h-[600px] bg-purple-600 top-1/3 -right-20"></div>
 
+  <!-- Alerte de Succès après Paiement -->
+  <div id="successBanner" class="hidden bg-emerald-500/20 border-b border-emerald-500/40 text-emerald-300 px-6 py-4 text-center font-medium text-sm flex items-center justify-center space-x-3">
+    <i class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>
+    <span>Félicitations ! Votre abonnement **Nexora Pro** est activé. Vous avez désormais un accès illimité au studio IA.</span>
+  </div>
+
   <!-- En-tête Navigation -->
   <header class="sticky top-0 z-50 glass">
     <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
@@ -87,6 +93,7 @@
         <a href="#features" class="hover:text-white transition-colors">Fonctionnalités</a>
         <a href="#demo" class="hover:text-white transition-colors">Démonstration IA</a>
         <a href="#pricing" class="hover:text-white transition-colors">Tarifs</a>
+        <a href="#faq" class="hover:text-white transition-colors">FAQ</a>
       </nav>
 
       <div class="flex items-center space-x-4">
@@ -196,14 +203,52 @@
           </li>
         </ul>
 
-        <!-- Lien direct de paiement sécurisé officiel -->
         <div class="mt-6">
           <a href="https://buy.stripe.com/aFa14f2UT9JQ2hSell9fW02" target="_blank" class="block w-full text-center gradient-bg hover:opacity-90 text-white font-bold py-4 rounded-xl shadow-lg shadow-brand-500/30 transition-all">
             Souscrire à l'abonnement
           </a>
         </div>
-
       </div>
+    </div>
+  </section>
+
+  <!-- Section FAQ -->
+  <section id="faq" class="py-16 px-6 max-w-4xl mx-auto">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl font-bold text-white mb-3">Foire Aux Questions</h2>
+      <p class="text-gray-400 text-sm">Tout ce que vous devez savoir sur NEXORA AI</p>
+    </div>
+
+    <div class="space-y-4">
+      <details class="glass-card p-5 rounded-2xl cursor-pointer group">
+        <summary class="font-semibold text-white flex justify-between items-center list-none">
+          <span>Puis-je annuler mon abonnement à tout moment ?</span>
+          <i class="fa-solid fa-chevron-down text-gray-400 group-open:rotate-180 transition-transform"></i>
+        </summary>
+        <p class="text-gray-400 text-sm mt-3 leading-relaxed">
+          Oui, absolument. Votre abonnement est sans aucun engagement. Vous pouvez annuler votre récurrence en un clic à tout moment depuis votre espace Stripe ou sur simple demande au support.
+        </p>
+      </details>
+
+      <details class="glass-card p-5 rounded-2xl cursor-pointer group">
+        <summary class="font-semibold text-white flex justify-between items-center list-none">
+          <span>Quels moyens de paiement sont acceptés ?</span>
+          <i class="fa-solid fa-chevron-down text-gray-400 group-open:rotate-180 transition-transform"></i>
+        </summary>
+        <p class="text-gray-400 text-sm mt-3 leading-relaxed">
+          Nous acceptons toutes les cartes bancaires (Visa, Mastercard, American Express), Apple Pay, Google Pay, Amazon Pay ainsi que le service Link de Stripe.
+        </p>
+      </details>
+
+      <details class="glass-card p-5 rounded-2xl cursor-pointer group">
+        <summary class="font-semibold text-white flex justify-between items-center list-none">
+          <span>Mes données sont-elles sécurisées ?</span>
+          <i class="fa-solid fa-chevron-down text-gray-400 group-open:rotate-180 transition-transform"></i>
+        </summary>
+        <p class="text-gray-400 text-sm mt-3 leading-relaxed">
+          Toutes les transactions bancaires sont chiffrées et traitées directement par Stripe avec le plus haut niveau de certification PCI-DSS. Vos données générées restent strictement confidentielles.
+        </p>
+      </details>
     </div>
   </section>
 
@@ -219,6 +264,12 @@
   </footer>
 
   <script>
+    // Vérifier si l'utilisateur revient d'un paiement réussi
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('success') === 'true') {
+      document.getElementById('successBanner').classList.remove('hidden');
+    }
+
     async function generateAIContent() {
       const prompt = document.getElementById('promptInput').value.trim();
       const outputContainer = document.getElementById('outputContainer');
