@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEXORA - Plateforme IA SaaS</title>
+    <title>NEXORA - Lancez votre Micro-SaaS IA Rentable</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -14,11 +14,9 @@
                 extend: {
                     colors: {
                         brand: {
-                            50: '#f0fdf4',
                             400: '#4ade80',
                             500: '#22c55e',
                             600: '#16a34a',
-                            700: '#15803d',
                             950: '#052e16',
                         }
                     }
@@ -29,7 +27,7 @@
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
         .glass { background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.1); }
-        .glass-card { background: rgba(30, 41, 59, 0.5); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
+        .glass-card { background: rgba(30, 41, 59, 0.6); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
         .gradient-bg { background: linear-gradient(135deg, #22c55e 0%, #15803d 100%); }
         .gradient-text { background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
     </style>
@@ -45,11 +43,8 @@
             <span class="font-extrabold text-xl tracking-wider text-white">NEXORA<span class="text-brand-500">.AI</span></span>
         </div>
         <div class="flex items-center gap-4">
-            <button id="authBtn" onclick="toggleAuth()" class="px-4 py-2 rounded-xl text-sm font-medium bg-white/5 hover:bg-white/15 border border-white/10 transition text-white">
-                Se connecter
-            </button>
             <a href="https://buy.stripe.com/aFai4f2UT9JQzhSell19W02" target="_blank" class="px-5 py-2.5 rounded-xl text-sm font-bold gradient-bg text-white shadow-lg shadow-brand-500/25 hover:opacity-95 hover:scale-105 transition duration-200 flex items-center gap-2">
-                <i class="fa-solid fa-crown text-amber-300"></i> Passer Pro (29€)
+                <i class="fa-solid fa-rocket"></i> Lancer mon SaaS (29€)
             </a>
         </div>
     </header>
@@ -57,71 +52,81 @@
     <!-- Main Content -->
     <main class="flex-grow max-w-5xl mx-auto w-full p-4 sm:p-8 flex flex-col justify-center relative">
         
-        <!-- En-tête Captivant -->
-        <div class="text-center mb-8">
-            <span class="inline-flex items-center gap-2 px-3 me-2 py-1 rounded-full text-xs font-semibold bg-brand-500/10 text-brand-400 border border-brand-500/20 mb-3">
-                <i class="fa-solid fa-sparkles"></i> Studio IA de nouvelle génération
+        <!-- Hero Hook Business -->
+        <div class="text-center mb-10">
+            <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold bg-brand-500/10 text-brand-400 border border-brand-500/30 mb-4">
+                ⚡ Générateur de Micro-SaaS Automatisé
             </span>
-            <h1 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight mb-3">
-                Propulsez vos idées avec <span class="gradient-text">NEXORA</span>
+            <h1 class="text-3xl sm:text-6xl font-extrabold text-white tracking-tight mb-4">
+                Transformez une idée en <br/><span class="gradient-text">Business Récurrent Rentable</span>
             </h1>
-            <p class="text-slate-400 text-sm sm:text-base max-w-xl mx-auto">
-                Posez vos questions ou testez les capacités de notre assistant intelligent en temps réel.
+            <p class="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto">
+                Tapez le type de service que vous voulez vendre. Nexora structure l'application, l'interface client et le système de paiement Stripe en quelques secondes.
             </p>
         </div>
 
-        <!-- Console IA Principale -->
-        <section id="aiConsole" class="glass p-6 sm:p-8 rounded-3xl border border-white/15 shadow-2xl relative overflow-hidden">
-            <div class="absolute -top-24 -right-24 w-72 h-72 bg-brand-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <!-- Generateur de Projet par Mot-Clé -->
+        <section class="glass p-6 sm:p-8 rounded-3xl border border-white/15 shadow-2xl relative mb-12">
+            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Quel service souhaitez-vous commercialiser ?</label>
             
-            <!-- Zone des messages -->
-            <div id="outputContainer" class="glass-card rounded-2xl p-5 min-h-[260px] max-h-[400px] overflow-y-auto mb-6 border border-white/5 space-y-4 text-sm leading-relaxed">
-                <div class="flex items-start gap-3 bg-brand-500/5 p-4 rounded-xl border border-brand-500/10">
-                    <div class="w-8 h-8 rounded-lg gradient-bg flex items-center justify-center text-white font-bold shrink-0">N</div>
-                    <div>
-                        <p class="font-semibold text-brand-400 mb-1">Nexora AI</p>
-                        <p class="text-slate-300">Bonjour ! Je suis l'assistant IA de Nexora. Comment puis-je vous aider aujourd'hui ? Cliquez sur une suggestion ci-dessous ou écrivez votre message directement.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Suggestions d'actions rapides -->
-            <div class="mb-4 flex flex-wrap gap-2">
-                <button onclick="sendQuickPrompt('Rédige un post accrocheur pour LinkedIn sur l\'intelligence artificielle.')" class="text-xs bg-white/5 hover:bg-white/10 text-slate-300 px-3 py-1.5 rounded-lg border border-white/10 transition">
-                    💡 Rédiger un post LinkedIn
-                </button>
-                <button onclick="sendQuickPrompt('Explique-moi le fonctionnement des smart contracts en 3 points.')" class="text-xs bg-white/5 hover:bg-white/10 text-slate-300 px-3 py-1.5 rounded-lg border border-white/10 transition">
-                    ⚡ Expliquer les Smart Contracts
-                </button>
-                <button onclick="sendQuickPrompt('Donne-moi 3 idées de business SaaS rentables en 2026.')" class="text-xs bg-white/5 hover:bg-white/10 text-slate-300 px-3 py-1.5 rounded-lg border border-white/10 transition">
-                    🚀 3 idées de Business SaaS
+            <div class="flex flex-col sm:flex-row gap-3 mb-6">
+                <input type="text" id="projectInput" placeholder="ex: Générateur de devis bâtiment, Prise de RDV, IA Copilote..." class="flex-grow bg-slate-900/90 border border-white/15 rounded-xl px-5 py-4 text-base text-white focus:outline-none focus:border-brand-500 transition shadow-inner">
+                <button onclick="generateSaaSBlueprint()" class="gradient-bg text-white px-8 py-4 rounded-xl text-base font-bold shadow-lg shadow-brand-500/25 hover:opacity-95 transition flex items-center justify-center gap-2 shrink-0">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> Générer le SaaS
                 </button>
             </div>
 
-            <!-- Input et Bouton d'envoi -->
-            <div class="flex gap-3">
-                <input type="text" id="promptInput" onkeydown="if(event.key === 'Enter') generateAIContent()" placeholder="Posez votre question à l'IA Nexora..." class="flex-grow bg-slate-900/90 border border-white/15 rounded-xl px-4 py-3.5 text-sm text-white focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition shadow-inner">
-                <button onclick="generateAIContent()" class="gradient-bg text-white px-6 py-3.5 rounded-xl text-sm font-bold shadow-lg shadow-brand-500/25 hover:opacity-95 hover:scale-105 transition flex items-center gap-2 shrink-0">
-                    <span>Envoyer</span> <i class="fa-solid fa-paper-plane text-xs"></i>
-                </button>
+            <!-- Suggestions rapide -->
+            <div class="flex flex-wrap gap-2 text-xs text-slate-400">
+                <span>Essayer :</span>
+                <button onclick="fillPrompt('Logiciel de Devis & Factures pour Artisans')" class="hover:text-brand-400 underline">Devis Artisans</button> |
+                <button onclick="fillPrompt('Assistant IA Rédaction Immobilière')" class="hover:text-brand-400 underline">IA Immobilier</button> |
+                <button onclick="fillPrompt('Plateforme de Réservation de Coaching')" class="hover:text-brand-400 underline">Réservation Coaching</button>
+            </div>
+
+            <!-- Résultat de génération de la plateforme -->
+            <div id="blueprintOutput" class="hidden mt-8 p-6 bg-slate-900/80 rounded-2xl border border-brand-500/30">
+                <!-- Contenu dynamique injecté par JS -->
             </div>
         </section>
 
-        <!-- Bannière Pro sous la console -->
-        <div class="mt-8 glass-card p-6 rounded-2xl flex flex-col sm:flex-row justify-between items-center gap-4 border border-brand-500/20">
-            <div class="flex items-center gap-4">
-                <div class="w-12 h-12 rounded-xl bg-brand-500/20 text-brand-400 flex items-center justify-center text-xl shrink-0">
-                    <i class="fa-solid fa-bolt"></i>
+        <!-- Calculateur de Revenus Realsiste (Simulateur d'Argent) -->
+        <section class="glass-card p-6 sm:p-8 rounded-3xl border border-white/10 mb-8">
+            <div class="text-center mb-6">
+                <h3 class="text-2xl font-bold text-white mb-1"><i class="fa-solid fa-calculator text-brand-400 mr-2"></i>Simulateur de Revenus Potentiels</h3>
+                <p class="text-xs text-slate-400">Estimez vos gains mensuels selon votre volume d'abonnés.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div class="space-y-6">
+                    <div>
+                        <div class="flex justify-between text-sm font-semibold mb-2">
+                            <span>Nombre de clients abonnés :</span>
+                            <span id="clientCountText" class="text-brand-400 font-bold">50 clients</span>
+                        </div>
+                        <input type="range" id="clientSlider" min="5" max="500" value="50" oninput="updateEarnings()" class="w-full accent-brand-500 bg-slate-800 rounded-lg h-2 cursor-pointer">
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between text-sm font-semibold mb-2">
+                            <span>Prix de l'abonnement mensuel :</span>
+                            <span id="priceText" class="text-brand-400 font-bold">29 € / mois</span>
+                        </div>
+                        <input type="range" id="priceSlider" min="9" max="149" value="29" oninput="updateEarnings()" class="w-full accent-brand-500 bg-slate-800 rounded-lg h-2 cursor-pointer">
+                    </div>
                 </div>
-                <div>
-                    <h4 class="font-bold text-white text-base">Débloquez la puissance illimitée</h4>
-                    <p class="text-xs text-slate-400">Accédez aux modèles neuronaux ultra-rapides et sans restriction d'usage.</p>
+
+                <div class="bg-slate-900/90 p-6 rounded-2xl border border-brand-500/20 text-center">
+                    <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Revenu Mensuel Estimé</span>
+                    <div id="monthlyTotal" class="text-4xl sm:text-5xl font-black gradient-text my-2">1 450 €</div>
+                    <span class="text-xs text-slate-400 block mb-4">soit <strong id="yearlyTotal" class="text-slate-200">17 400 € / an</strong> de revenus récurrents</span>
+                    
+                    <a href="https://buy.stripe.com/aFai4f2UT9JQzhSell19W02" target="_blank" class="w-full inline-block gradient-bg text-white py-3 rounded-xl text-sm font-bold shadow-lg shadow-brand-500/30 hover:opacity-90 transition">
+                        Lancer cette application maintenant →
+                    </a>
                 </div>
             </div>
-            <a href="https://buy.stripe.com/aFai4f2UT9JQzhSell19W02" target="_blank" class="w-full sm:w-auto text-center gradient-bg text-white px-6 py-2.5 rounded-xl text-sm font-bold shadow-lg shadow-brand-500/30 hover:opacity-90 transition whitespace-nowrap">
-                Passer à l'offre Pro (29€)
-            </a>
-        </div>
+        </section>
 
     </main>
 
@@ -132,123 +137,82 @@
 
     <!-- Scripts JavaScript -->
     <script>
-        function checkUserSession() {
-            const user = localStorage.getItem('nexora_user');
-            const authBtn = document.getElementById('authBtn');
-            if (user && authBtn) {
-                authBtn.innerText = "Déconnexion";
+        function fillPrompt(text) {
+            document.getElementById('projectInput').value = text;
+            generateSaaSBlueprint();
+        }
+
+        function generateSaaSBlueprint() {
+            const input = document.getElementById('projectInput').value.trim();
+            const output = document.getElementById('blueprintOutput');
+
+            if (!input) {
+                alert("Veuillez entrer une idée ou un mot-clé (ex: Devis Artisans).");
+                return;
             }
-        }
 
-        function toggleAuth() {
-            const user = localStorage.getItem('nexora_user');
-            if (user) {
-                localStorage.removeItem('nexora_user');
-                alert('Déconnecté avec succès.');
-            } else {
-                localStorage.setItem('nexora_user', 'demo_visitor@nexora.ai');
-                alert('Connecté en mode test !');
-            }
-            location.reload();
-        }
-
-        function sendQuickPrompt(text) {
-            const input = document.getElementById('promptInput');
-            input.value = text;
-            generateAIContent();
-        }
-
-        function generateAIContent() {
-            const input = document.getElementById('promptInput');
-            const output = document.getElementById('outputContainer');
-            const text = input.value.trim();
-            
-            if (!text) return;
-
-            // Afficher le message utilisateur
-            output.innerHTML += `
-                <div class="flex items-start gap-3 justify-end">
-                    <div class="bg-brand-600/80 text-white p-3.5 rounded-xl max-w-lg border border-brand-500/30 shadow-md">
-                        <p class="font-semibold text-xs text-brand-200 mb-1">Vous</p>
-                        <p>${escapeHtml(text)}</p>
-                    </div>
-                    <div class="w-8 h-8 rounded-lg bg-slate-800 border border-white/10 flex items-center justify-center text-slate-300 font-bold shrink-0">U</div>
+            output.classList.remove('hidden');
+            output.innerHTML = `
+                <div class="flex items-center gap-3 text-brand-400 mb-4">
+                    <i class="fa-solid fa-spinner animate-spin text-xl"></i>
+                    <span class="font-bold text-sm">Génération de l'architecture du SaaS en cours...</span>
                 </div>
             `;
-            
-            input.value = '';
-            output.scrollTop = output.scrollHeight;
 
-            // Simuler la réflexion de l'IA
-            const loadingId = 'loading-' + Date.now();
-            output.innerHTML += `
-                <div id="${loadingId}" class="flex items-start gap-3 bg-brand-500/5 p-4 rounded-xl border border-brand-500/10">
-                    <div class="w-8 h-8 rounded-lg gradient-bg flex items-center justify-center text-white font-bold shrink-0 animate-pulse">N</div>
-                    <div class="flex items-center gap-2 text-slate-400 py-1">
-                        <i class="fa-solid fa-circle-notch animate-spin text-brand-500"></i>
-                        <span class="text-xs">Nexora génère une réponse...</span>
-                    </div>
-                </div>
-            `;
-            output.scrollTop = output.scrollHeight;
-
-            // Génération de réponse selon le sujet
             setTimeout(() => {
-                const loadingElement = document.getElementById(loadingId);
-                if (loadingElement) loadingElement.remove();
+                output.innerHTML = `
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-start border-b border-white/10 pb-3">
+                            <div>
+                                <span class="text-xs text-brand-400 font-bold uppercase tracking-wider">Projet prêt à déployer</span>
+                                <h4 class="text-xl font-extrabold text-white">${escapeHtml(input)}</h4>
+                            </div>
+                            <span class="bg-brand-500/20 text-brand-400 border border-brand-500/30 text-xs px-3 py-1 rounded-full font-bold">100% Configuré</span>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+                            <div class="bg-slate-800/60 p-3 rounded-xl border border-white/5">
+                                <span class="text-slate-400 block mb-1">Module Client :</span>
+                                <strong class="text-slate-200">Formulaire & Dashboard actif</strong>
+                            </div>
+                            <div class="bg-slate-800/60 p-3 rounded-xl border border-white/5">
+                                <span class="text-slate-400 block mb-1">Paiement :</span>
+                                <strong class="text-slate-200">Stripe Connect Intégré</strong>
+                            </div>
+                            <div class="bg-slate-800/60 p-3 rounded-xl border border-white/5">
+                                <span class="text-slate-400 block mb-1">Moteur IA :</span>
+                                <strong class="text-slate-200">Algorithme Nexora-v4</strong>
+                            </div>
+                        </div>
 
-                const responseText = getSimulatedResponse(text);
-                
-                output.innerHTML += `
-                    <div class="flex items-start gap-3 bg-brand-500/5 p-4 rounded-xl border border-brand-500/10 shadow-md">
-                        <div class="w-8 h-8 rounded-lg gradient-bg flex items-center justify-center text-white font-bold shrink-0">N</div>
-                        <div>
-                            <p class="font-semibold text-brand-400 mb-1">Nexora AI</p>
-                            <div class="text-slate-200 space-y-2">${responseText}</div>
+                        <div class="pt-2 flex flex-col sm:flex-row justify-between items-center gap-3">
+                            <p class="text-xs text-slate-400">Ce projet peut générer ses premiers abonnements en moins de 24h.</p>
+                            <a href="https://buy.stripe.com/aFai4f2UT9JQzhSell19W02" target="_blank" class="w-full sm:w-auto text-center gradient-bg text-white px-6 py-2.5 rounded-xl text-xs font-extrabold shadow-lg shadow-brand-500/30 hover:opacity-90 transition">
+                                Activer et Déployer (29€)
+                            </a>
                         </div>
                     </div>
                 `;
-                output.scrollTop = output.scrollHeight;
-            }, 1200);
+            }, 1000);
         }
 
-        function getSimulatedResponse(query) {
-            const q = query.toLowerCase();
-            if (q.includes('linkedin')) {
-                return `<p>🚀 <strong>L'IA ne remplace pas les humains, elle augmente ceux qui l'utilisent.</strong></p>
-                        <p>Voici les 3 règles d'or pour réussir en 2026 :</p>
-                        <ul class="list-disc pl-5 space-y-1 text-slate-300">
-                            <li>Automatiser les tâches répétitives.</li>
-                            <li>Se concentrer sur la création de valeur et l'empathie.</li>
-                            <li>Tester et itérer quotidiennement.</li>
-                        </ul>
-                        <p class="text-xs text-brand-400 font-semibold mt-2">#IntelligenceArtificielle #Innovation #Productivite</p>`;
-            } else if (q.includes('smart contract') || q.includes('contract')) {
-                return `<p>Voici le fonctionnement des <strong>Smart Contracts</strong> résumé en 3 points :</p>
-                        <ol class="list-decimal pl-5 space-y-1 text-slate-300">
-                            <li><strong>Autonome :</strong> S'exécute automatiquement sans intermédiaire dès que les conditions sont remplies.</li>
-                            <li><strong>Inviolable :</strong> Enregistré sur la Blockchain, son code ne peut plus être modifié.</li>
-                            <li><strong>Transparent :</strong> Toutes les parties peuvent inspecter et vérifier la logique contractuelle.</li>
-                        </ol>`;
-            } else if (q.includes('saas') || q.includes('business')) {
-                return `<p>Voici 3 idées de Micro-SaaS très porteuses :</p>
-                        <ul class="list-disc pl-5 space-y-1 text-slate-300">
-                            <li><strong>IA de Facturation / Devis :</strong> Génération de factures automatisée pour artisans.</li>
-                            <li><strong>Optimiseur de contenu SEO :</strong> Analyse et retouche automatique pour blogs d'entreprise.</li>
-                            <li><strong>Assistant d'e-mails intelligents :</strong> Tri et pré-rédaction automatique des réponses de support.</li>
-                        </ul>`;
-            } else {
-                return `<p>Analyse de votre requête : <em>"${escapeHtml(query)}"</em></p>
-                        <p>Le modèle neuronal **Nexora-v4** a traité votre demande avec succès. Les résultats indiquent un potentiel d'optimisation élevé pour votre projet.</p>
-                        <p class="text-xs text-slate-400 mt-1">💡 <em>Conseil : Passez à la version Pro pour débloquer des analyses plus détaillées et sans limite !</em></p>`;
-            }
+        function updateEarnings() {
+            const clients = parseInt(document.getElementById('clientSlider').value);
+            const price = parseInt(document.getElementById('priceSlider').value);
+
+            document.getElementById('clientCountText').innerText = clients + " clients";
+            document.getElementById('priceText').innerText = price + " € / mois";
+
+            const monthly = clients * price;
+            const yearly = monthly * 12;
+
+            document.getElementById('monthlyTotal').innerText = monthly.toLocaleString('fr-FR') + " €";
+            document.getElementById('yearlyTotal').innerText = yearly.toLocaleString('fr-FR') + " € / an";
         }
 
         function escapeHtml(text) {
             return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
         }
-
-        window.onload = checkUserSession;
     </script>
 </body>
 </html>
