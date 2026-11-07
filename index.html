@@ -50,7 +50,7 @@
     </header>
 
     <!-- Main Content -->
-    <main class="flex-grow max-w-5xl mx-auto w-full p-4 sm:p-8 flex flex-col justify-center relative">
+    <main class="flex-grow max-w-5xl mx-auto w-full p-4 sm:p-8 flex flex-col justify-center relative my-8">
         
         <!-- Hero Hook Business -->
         <div class="text-center mb-10">
@@ -69,28 +69,26 @@
         <section class="glass p-6 sm:p-8 rounded-3xl border border-white/15 shadow-2xl relative mb-12">
             <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Quel service souhaitez-vous commercialiser ?</label>
             
-            <div class="flex flex-col sm:flex-row gap-3 mb-6">
-                <input type="text" id="projectInput" placeholder="ex: Générateur de devis bâtiment, Prise de RDV, IA Copilote..." class="flex-grow bg-slate-900/90 border border-white/15 rounded-xl px-5 py-4 text-base text-white focus:outline-none focus:border-brand-500 transition shadow-inner">
+            <div class="flex flex-col sm:flex-row gap-3 mb-4">
+                <input type="text" id="projectInput" placeholder="ex: Logiciel de Devis BTP, Facturation Artisans, Prise de RDV..." class="flex-grow bg-slate-900/90 border border-white/15 rounded-xl px-5 py-4 text-base text-white focus:outline-none focus:border-brand-500 transition shadow-inner">
                 <button onclick="generateSaaSBlueprint()" class="gradient-bg text-white px-8 py-4 rounded-xl text-base font-bold shadow-lg shadow-brand-500/25 hover:opacity-95 transition flex items-center justify-center gap-2 shrink-0">
                     <i class="fa-solid fa-wand-magic-sparkles"></i> Générer le SaaS
                 </button>
             </div>
 
-            <!-- Suggestions rapide -->
-            <div class="flex flex-wrap gap-2 text-xs text-slate-400">
-                <span>Essayer :</span>
-                <button onclick="fillPrompt('Logiciel de Devis & Factures pour Artisans')" class="hover:text-brand-400 underline">Devis Artisans</button> |
-                <button onclick="fillPrompt('Assistant IA Rédaction Immobilière')" class="hover:text-brand-400 underline">IA Immobilier</button> |
-                <button onclick="fillPrompt('Plateforme de Réservation de Coaching')" class="hover:text-brand-400 underline">Réservation Coaching</button>
+            <!-- Suggestions rapides -->
+            <div class="flex flex-wrap gap-2 text-xs text-slate-400 items-center">
+                <span>Essayer un modèle :</span>
+                <button onclick="fillPrompt('Logiciel de Devis & Factures pour Artisans')" class="bg-white/5 hover:bg-white/10 px-3 py-1 rounded-lg text-slate-300 border border-white/10 transition">Devis Artisans</button>
+                <button onclick="fillPrompt('Assistant IA Gestion de Chantiers')" class="bg-white/5 hover:bg-white/10 px-3 py-1 rounded-lg text-slate-300 border border-white/10 transition">Chantiers BTP</button>
+                <button onclick="fillPrompt('Plateforme de Réservation de Coaching')" class="bg-white/5 hover:bg-white/10 px-3 py-1 rounded-lg text-slate-300 border border-white/10 transition">Réservation Pro</button>
             </div>
 
-            <!-- Résultat de génération de la plateforme -->
-            <div id="blueprintOutput" class="hidden mt-8 p-6 bg-slate-900/80 rounded-2xl border border-brand-500/30">
-                <!-- Contenu dynamique injecté par JS -->
-            </div>
+            <!-- Résultat de génération -->
+            <div id="blueprintOutput" class="hidden mt-8 p-6 bg-slate-900/9rup rounded-2xl border border-brand-500/30"></div>
         </section>
 
-        <!-- Calculateur de Revenus Realsiste (Simulateur d'Argent) -->
+        <!-- Calculateur de Revenus Réaliste (Simulateur d'Argent) -->
         <section class="glass-card p-6 sm:p-8 rounded-3xl border border-white/10 mb-8">
             <div class="text-center mb-6">
                 <h3 class="text-2xl font-bold text-white mb-1"><i class="fa-solid fa-calculator text-brand-400 mr-2"></i>Simulateur de Revenus Potentiels</h3>
@@ -116,7 +114,7 @@
                     </div>
                 </div>
 
-                <div class="bg-slate-900/90 p-6 rounded-2xl border border-brand-500/20 text-center">
+                <div class="bg-slate-900/90 p-6 rounded-2xl border border-brand-500/20 text-center shadow-xl">
                     <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Revenu Mensuel Estimé</span>
                     <div id="monthlyTotal" class="text-4xl sm:text-5xl font-black gradient-text my-2">1 450 €</div>
                     <span class="text-xs text-slate-400 block mb-4">soit <strong id="yearlyTotal" class="text-slate-200">17 400 € / an</strong> de revenus récurrents</span>
@@ -186,14 +184,14 @@
                         </div>
 
                         <div class="pt-2 flex flex-col sm:flex-row justify-between items-center gap-3">
-                            <p class="text-xs text-slate-400">Ce projet peut générer ses premiers abonnements en moins de 24h.</p>
+                            <p class="text-xs text-slate-400">Ce projet peut générer ses premiers abonnements dès aujourd'hui.</p>
                             <a href="https://buy.stripe.com/aFai4f2UT9JQzhSell19W02" target="_blank" class="w-full sm:w-auto text-center gradient-bg text-white px-6 py-2.5 rounded-xl text-xs font-extrabold shadow-lg shadow-brand-500/30 hover:opacity-90 transition">
                                 Activer et Déployer (29€)
                             </a>
                         </div>
                     </div>
                 `;
-            }, 1000);
+            }, 800);
         }
 
         function updateEarnings() {
