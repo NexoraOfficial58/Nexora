@@ -26,14 +26,81 @@
     </script>
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #030712; overflow-x: hidden; }
-        .glass { background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.1); }
-        .glass-card { background: rgba(30, 41, 59, 0.9); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.12); }
+        .glass { background: rgba(15, 23, 42, 0.88); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.12); }
+        .glass-card { background: rgba(30, 41, 59, 0.9); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.15); }
         .gradient-bg { background: linear-gradient(135deg, #22c55e 0%, #15803d 100%); }
         .gradient-text { background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .glow-box { box-shadow: 0 0 40px rgba(34, 197, 94, 0.25); }
+        .glow-box { box-shadow: 0 0 50px rgba(34, 197, 94, 0.15); }
+
+        /* FENÊTRES FLOTTANTES EN ARRIÈRE-PLAN (STYLE CODE / DASHBOARD) */
+        .floating-window {
+            position: absolute;
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+            padding: 1rem;
+            z-index: 1;
+            pointer-events: none;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+        .window-header {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 0.75rem;
+        }
+        .dot { width: 8px; height: 8px; border-radius: 50%; }
+        .dot-red { background: #ef4444; }
+        .dot-yellow { background: #f59e0b; }
+        .dot-green { background: #22c55e; }
     </style>
 </head>
-<body class="text-slate-100 min-h-screen flex flex-col justify-between selection:bg-brand-500 selection:text-white">
+<body class="text-slate-100 min-h-screen flex flex-col justify-between selection:bg-brand-500 selection:text-white relative">
+
+    <!-- FENÊTRES FLOTTANTES D'ORDINATEUR EN ARRIÈRE-PLAN -->
+    <!-- Fenêtre gauche : Faux code source / API -->
+    <div class="floating-window hidden lg:block left-12 top-40 w-72">
+        <div class="window-header">
+            <div class="dot dot-red"></div>
+            <div class="dot dot-yellow"></div>
+            <div class="dot dot-green"></div>
+            <span class="text-[10px] text-slate-400 font-mono ml-1">api_stripe_connect.js</span>
+        </div>
+        <div class="space-y-1.5 font-mono text-[11px] text-slate-300">
+            <p class="text-brand-400">const stripe = require('stripe');</p>
+            <p class="text-slate-400">// Connexion abonnement 29€</p>
+            <p class="text-white">async function createSub() {</p>
+            <p class="pl-3 text-slate-300">return await stripe.subscriptions.create({</p>
+            <p class="pl-6 text-brand-400">amount: 2900,</p>
+            <p class="pl-6 text-brand-400">currency: 'eur'</p>
+            <p class="pl-3 text-slate-300">});</p>
+            <p class="text-white">}</p>
+        </div>
+    </div>
+
+    <!-- Fenêtre droite : Faux tableau de bord de ventes -->
+    <div class="floating-window hidden lg:block right-12 top-48 w-72">
+        <div class="window-header">
+            <div class="dot dot-red"></div>
+            <div class="dot dot-yellow"></div>
+            <div class="dot dot-green"></div>
+            <span class="text-[10px] text-slate-400 font-mono ml-1">revenue_live.json</span>
+        </div>
+        <div class="space-y-2">
+            <div class="flex justify-between text-xs">
+                <span class="text-slate-400">Abonnements actifs</span>
+                <span class="text-brand-400 font-bold">142 users</span>
+            </div>
+            <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                <div class="bg-brand-500 h-full w-[70%]"></div>
+            </div>
+            <div class="bg-slate-900/90 p-2.5 rounded-lg border border-white/5 flex justify-between items-center text-xs">
+                <span class="text-slate-300">⚡ Paiement reçu</span>
+                <span class="text-brand-400 font-bold">+29,00 €</span>
+            </div>
+        </div>
+    </div>
 
     <!-- Header -->
     <header class="glass sticky top-0 z-40 px-8 py-4 flex justify-between items-center border-b border-white/10 shadow-xl">
@@ -50,8 +117,8 @@
         </div>
     </header>
 
-    <!-- Main Content -->
-    <main class="flex-grow max-w-4xl mx-auto w-full px-6 py-12 flex flex-col justify-center items-center text-center relative z-10">
+    <!-- Main Content (Au premier plan) -->
+    <main class="flex-grow max-w-3xl mx-auto w-full px-6 py-12 flex flex-col justify-center items-center text-center relative z-10">
         
         <!-- Hero Tag -->
         <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold bg-brand-500/10 text-brand-400 border border-brand-500/30 mb-6 shadow-md">
@@ -64,7 +131,7 @@
             <span class="gradient-text">Encaissez vos abonnements.</span>
         </h1>
 
-        <p class="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
+        <p class="text-slate-300 text-base sm:text-lg max-w-xl mx-auto mb-10 leading-relaxed">
             Entrez un domaine d'activité. Nexora structure l'application, configure le module client et prépare votre tunnel de vente en quelques secondes.
         </p>
 
@@ -73,7 +140,7 @@
             <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-3">Quel service ou logiciel voulez-vous commercialiser ?</label>
             
             <div class="flex flex-col sm:flex-row gap-3 mb-4">
-                <input type="text" id="projectInput" placeholder="ex: Facturation IA pour Artisans, Devis BTP, Gestion de chantiers..." class="flex-grow bg-slate-900 border border-white/20 rounded-xl px-5 py-4 text-base text-white focus:outline-none focus:border-brand-500 transition shadow-inner">
+                <input type="text" id="projectInput" placeholder="ex: Facturation IA pour Artisans, Devis BTP..." class="flex-grow bg-slate-900 border border-white/20 rounded-xl px-5 py-4 text-base text-white focus:outline-none focus:border-brand-500 transition shadow-inner">
                 <button onclick="generateSaaSBlueprint()" class="gradient-bg text-white px-8 py-4 rounded-xl text-base font-bold shadow-lg shadow-brand-500/25 hover:opacity-95 transition flex items-center justify-center gap-2 shrink-0">
                     <i class="fa-solid fa-wand-magic-sparkles"></i> Créer le SaaS
                 </button>
@@ -81,13 +148,12 @@
 
             <!-- Suggestions rapides -->
             <div class="flex flex-wrap gap-2 text-xs text-slate-300 items-center">
-                <span class="text-slate-400">Idées populaires :</span>
+                <span class="text-slate-400">Idées :</span>
                 <button onclick="fillPrompt('Logiciel de Devis & Factures pour Artisans BTP')" class="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg text-white border border-white/10 transition font-medium">Facturation Artisans</button>
                 <button onclick="fillPrompt('Gestionnaire de Planning et Chantiers')" class="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg text-white border border-white/10 transition font-medium">Planning BTP</button>
-                <button onclick="fillPrompt('Assistant IA pour Agences Immobilières')" class="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg text-white border border-white/10 transition font-medium">IA Immobilier</button>
             </div>
 
-            <!-- Ébauche de l'application (Masquée au départ) -->
+            <!-- Ébauche de l'application -->
             <div id="blueprintOutput" class="hidden mt-6 p-6 bg-slate-900 rounded-2xl border border-brand-500/30"></div>
         </div>
 
