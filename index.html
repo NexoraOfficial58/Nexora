@@ -3,21 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEXORA - Lancez votre Micro-SaaS IA Rentable</title>
+    <title>NEXORA - Imprimez du Cash en Automatique</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800;900&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
-                        brand: {
-                            400: '#4ade80',
-                            500: '#22c55e',
-                            600: '#16a34a',
-                            950: '#052e16',
+                        neon: {
+                            400: '#34d399',
+                            500: '#10b981',
+                            green: '#00ff66',
                         }
                     }
                 }
@@ -25,93 +24,92 @@
         }
     </script>
     <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; }
-        .glass { background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.1); }
-        .glass-card { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
-        .gradient-bg { background: linear-gradient(135deg, #22c55e 0%, #15803d 100%); }
-        .gradient-text { background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #030712; }
+        .glow-box { background: rgba(17, 24, 39, 0.8); backdrop-filter: blur(20px); border: 1px solid rgba(0, 255, 102, 0.2); box-shadow: 0 0 40px rgba(0, 255, 102, 0.05); }
+        .neon-btn { background: linear-gradient(135deg, #00ff66 0%, #059669 100%); box-shadow: 0 0 25px rgba(0, 255, 102, 0.4); }
+        .neon-btn:hover { box-shadow: 0 0 35px rgba(0, 255, 102, 0.7); }
+        .text-glow { text-shadow: 0 0 20px rgba(0, 255, 102, 0.5); }
     </style>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col justify-between selection:bg-brand-500 selection:text-white">
+<body class="text-slate-100 min-h-screen flex flex-col justify-between selection:bg-neon-green selection:text-black">
 
-    <!-- Navigation -->
-    <header class="glass sticky top-0 z-50 px-6 py-4 flex justify-between items-center border-b border-white/10 shadow-lg">
+    <!-- Header -->
+    <header class="border-b border-white/10 bg-slate-950/80 backdrop-blur sticky top-0 z-50 px-6 py-4 flex justify-between items-center">
         <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl gradient-bg flex items-center justify-center text-white font-extrabold text-xl shadow-lg shadow-brand-500/30">
+            <div class="w-10 h-10 rounded-xl neon-btn flex items-center justify-center text-black font-black text-xl">
                 N
             </div>
-            <span class="font-extrabold text-xl tracking-wider text-white">NEXORA<span class="text-brand-500">.AI</span></span>
+            <span class="font-black text-xl tracking-wider text-white">NEXORA<span class="text-neon-green">.AI</span></span>
         </div>
-        <div>
-            <a href="https://buy.stripe.com/aFai4f2UT9JQzhSell19W02" target="_blank" class="px-5 py-2.5 rounded-xl text-sm font-bold gradient-bg text-white shadow-lg shadow-brand-500/25 hover:opacity-95 hover:scale-105 transition duration-200 inline-flex items-center gap-2">
-                <i class="fa-solid fa-rocket"></i> Lancer mon SaaS (29€)
-            </a>
-        </div>
+        <a href="https://buy.stripe.com/aFai4f2UT9JQzhSell19W02" target="_blank" class="px-5 py-2.5 rounded-xl text-sm font-black neon-btn text-black hover:scale-105 transition duration-200 flex items-center gap-2">
+            <i class="fa-solid fa-bolt"></i> DÉBLOQUER LE PASS PRO (29€)
+        </a>
     </header>
 
-    <!-- Main Content -->
-    <main class="flex-grow max-w-4xl mx-auto w-full p-4 sm:p-8 flex flex-col justify-center my-6">
+    <!-- Main -->
+    <main class="flex-grow max-w-4xl mx-auto w-full p-4 sm:p-8 my-6">
         
-        <!-- Hero Section -->
-        <div class="text-center mb-8">
-            <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold bg-brand-500/10 text-brand-400 border border-brand-500/30 mb-3">
-                ⚡ Générateur de Micro-SaaS Clé en Main
+        <!-- Hero Cash Hook -->
+        <div class="text-center mb-10">
+            <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-black bg-neon-green/10 text-neon-green border border-neon-green/30 mb-4 animate-pulse">
+                🔥 LA MACHINE À CASH DES MOINS DE 25 ANS
             </span>
-            <h1 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight mb-3">
-                Générez votre logiciel, <br/><span class="gradient-text">Encaissez vos abonnements</span>
+            <h1 class="text-4xl sm:text-7xl font-black text-white tracking-tight mb-4 uppercase">
+                Générez <span class="text-neon-green text-glow">10k€/mois</span> en vendant des logiciels sans coder.
             </h1>
-            <p class="text-slate-300 text-sm sm:text-base max-w-xl mx-auto">
-                Testez votre idée de business. Nexora crée l'ébauche de votre application et calcule votre potentiel de revenus en temps réel.
+            <p class="text-slate-400 text-base sm:text-lg max-w-2xl mx-auto">
+                Tapez une idée, l'IA crée l'application, branche Stripe, et vous encaissez vos premiers abonnements en 24h chrono. Zéro technique. Pur profit.
             </p>
         </div>
 
-        <!-- Générateur de Projet -->
-        <section class="glass p-6 sm:p-8 rounded-3xl border border-white/15 shadow-2xl mb-8">
-            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Quel service voulez-vous commercialiser ?</label>
+        <!-- Générateur de Business Machine -->
+        <section class="glow-box p-6 sm:p-8 rounded-3xl mb-8 relative overflow-hidden">
+            <div class="absolute -top-32 -right-32 w-64 h-64 bg-neon-green/10 rounded-full blur-3xl pointer-events-none"></div>
+            
+            <label class="block text-xs font-black text-neon-green uppercase tracking-widest mb-3">1. Choisissez ou tapez votre business ultra-rentable :</label>
             
             <div class="flex flex-col sm:flex-row gap-3 mb-4">
-                <input type="text" id="projectInput" placeholder="ex: Facturation Artisans, Devis BTP..." class="flex-grow bg-slate-900 border border-white/15 rounded-xl px-4 py-3.5 text-base text-white focus:outline-none focus:border-brand-500 transition">
-                <button onclick="generateSaaSBlueprint()" class="gradient-bg text-white px-6 py-3.5 rounded-xl text-sm font-bold shadow-lg shadow-brand-500/25 hover:opacity-95 transition flex items-center justify-center gap-2 shrink-0">
-                    <i class="fa-solid fa-wand-magic-sparkles"></i> Générer l'ébauche
+                <input type="text" id="projectInput" placeholder="ex: Facturation IA pour influenceurs, SaaS de devis BTP..." class="flex-grow bg-slate-900 border border-white/20 rounded-xl px-5 py-4 text-base text-white focus:outline-none focus:border-neon-green transition">
+                <button onclick="generateCashMachine()" class="neon-btn text-black px-8 py-4 rounded-xl text-base font-black transition flex items-center justify-center gap-2 shrink-0">
+                    <i class="fa-solid fa-fire"></i> CRÉER LE SAAS
                 </button>
             </div>
 
-            <!-- Suggestions -->
             <div class="flex flex-wrap gap-2 text-xs text-slate-400 items-center">
-                <span>Idées :</span>
-                <button onclick="fillPrompt('Logiciel de Devis et Factures pour Artisans')" class="bg-white/5 hover:bg-white/10 px-3 py-1 rounded-lg text-slate-300 border border-white/10 transition">Facturation Artisans</button>
-                <button onclick="fillPrompt('Assistant IA pour Suivi de Chantiers BTP')" class="bg-white/5 hover:bg-white/10 px-3 py-1 rounded-lg text-slate-300 border border-white/10 transition">Chantiers BTP</button>
+                <span>Idées qui cartonnent :</span>
+                <button onclick="fillPrompt('SaaS de Facturation Automatique pour Artisans')" class="bg-white/5 hover:bg-white/10 px-3 py-1.5 rounded-lg text-slate-200 border border-white/10 transition">⚡ Facturation BTP</button>
+                <button onclick="fillPrompt('IA de Génération de Contenu TikTok / Reels')" class="bg-white/5 hover:bg-white/10 px-3 py-1.5 rounded-lg text-slate-200 border border-white/10 transition">🚀 Automatisation TikTok</button>
             </div>
 
-            <!-- Résultat Ébauche -->
-            <div id="blueprintOutput" class="hidden mt-6 p-6 bg-slate-900 rounded-2xl border border-brand-500/30"></div>
+            <!-- Résultat Cash -->
+            <div id="cashOutput" class="hidden mt-6 p-6 bg-slate-950/90 rounded-2xl border border-neon-green/40 shadow-2xl"></div>
         </section>
 
-        <!-- Simulateur d'objectif de revenus -->
-        <section id="simulatorSection" class="glass-card p-6 sm:p-8 rounded-3xl border border-white/10">
+        <!-- Simulateur de Fric -->
+        <section id="simulatorSection" class="glow-box p-6 sm:p-8 rounded-3xl border border-white/10">
             <div class="text-center mb-6">
-                <h3 class="text-2xl font-bold text-white mb-1"><i class="fa-solid fa-bullseye text-brand-400 mr-2"></i>Simulateur d'Objectif Financier</h3>
-                <p class="text-xs text-slate-400">Entrez le montant que vous aimeriez gagner par mois.</p>
+                <h3 class="text-3xl font-black text-white mb-1 uppercase">💰 Simulateur de <span class="text-neon-green">Cash Récurrent</span></h3>
+                <p class="text-xs text-slate-400">Combien de tunes voulez-vous faire tomber chaque mois ?</p>
             </div>
 
-            <div class="max-w-md mx-auto space-y-5">
+            <div class="max-w-md mx-auto space-y-6">
                 <div>
-                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Objectif mensuel (€)</label>
+                    <label class="block text-xs font-black text-slate-400 uppercase tracking-wider mb-2">Votre objectif de cash mensuel (€)</label>
                     <div class="flex gap-3">
-                        <input type="number" id="targetIncomeInput" value="10000" class="flex-grow bg-slate-900 border border-white/15 rounded-xl px-4 py-3 text-lg font-bold text-white focus:outline-none focus:border-brand-500 transition">
-                        <button onclick="calculateCustomGoal()" class="gradient-bg text-white px-6 py-3 rounded-xl text-sm font-bold shadow-lg shadow-brand-500/25 hover:opacity-95 transition whitespace-nowrap">
-                            Calculer
+                        <input type="number" id="targetIncomeInput" value="10000" class="flex-grow bg-slate-900 border border-white/20 rounded-xl px-4 py-3.5 text-xl font-black text-neon-green focus:outline-none focus:border-neon-green transition">
+                        <button onclick="calculateCashGoal()" class="neon-btn text-black px-6 py-3.5 rounded-xl text-sm font-black transition whitespace-nowrap">
+                            SIMULER
                         </button>
                     </div>
                 </div>
 
-                <!-- Résultat du calcul -->
-                <div id="goalResult" class="hidden bg-slate-900 p-6 rounded-2xl border border-brand-500/30 text-center space-y-4 shadow-xl">
-                    <span class="text-xs font-bold text-brand-400 uppercase tracking-wider">Analyse de rentabilité Nexora</span>
-                    <p id="goalAnalysisText" class="text-slate-200 text-sm leading-relaxed"></p>
+                <!-- Résultat choc -->
+                <div id="goalResult" class="hidden bg-slate-950 p-6 rounded-2xl border border-neon-green/50 text-center space-y-4 shadow-2xl">
+                    <span class="text-xs font-black text-neon-green uppercase tracking-widest">⚡ Verdict de la Machine Nexora</span>
+                    <p id="goalAnalysisText" class="text-slate-100 text-sm leading-relaxed"></p>
                     <div>
-                        <a href="https://buy.stripe.com/aFai4f2UT9JQzhSell19W02" target="_blank" class="inline-block gradient-bg text-white w-full py-3.5 rounded-xl text-sm font-bold shadow-lg shadow-brand-500/30 hover:opacity-90 transition">
-                            Activer et Lancer mon SaaS (29€) →
+                        <a href="https://buy.stripe.com/aFai4f2UT9JQzhSell19W02" target="_blank" class="inline-block neon-btn text-black w-full py-4 rounded-xl text-base font-black hover:scale-105 transition shadow-2xl">
+                            DÉPLOYER CE BUSINESS & ENCAISSER (29€) 🚀
                         </a>
                     </div>
                 </div>
@@ -122,30 +120,30 @@
 
     <!-- Footer -->
     <footer class="text-center py-6 text-xs text-slate-500 border-t border-white/5">
-        &copy; 2026 NEXORA AI. Tous droits réservés.
+        &copy; 2026 NEXORA AI. Tous droits réservés. Devenez votre propre patron.
     </footer>
 
     <!-- Scripts -->
     <script>
         function fillPrompt(text) {
             document.getElementById('projectInput').value = text;
-            generateSaaSBlueprint();
+            generateCashMachine();
         }
 
-        function generateSaaSBlueprint() {
+        function generateCashMachine() {
             const input = document.getElementById('projectInput').value.trim();
-            const output = document.getElementById('blueprintOutput');
+            const output = document.getElementById('cashOutput');
 
             if (!input) {
-                alert("Veuillez entrer une idée ou un mot-clé.");
+                alert("Entre une idée de business d'abord !");
                 return;
             }
 
             output.classList.remove('hidden');
             output.innerHTML = `
-                <div class="flex items-center gap-3 text-brand-400 py-3">
-                    <i class="fa-solid fa-spinner animate-spin text-lg"></i>
-                    <span class="font-bold text-sm">Génération de l'ébauche du logiciel en cours...</span>
+                <div class="flex items-center gap-3 text-neon-green py-3">
+                    <i class="fa-solid fa-microchip animate-spin text-xl"></i>
+                    <span class="font-black text-sm uppercase tracking-wider">L'IA déploie l'infrastructure et connecte Stripe...</span>
                 </div>
             `;
 
@@ -154,25 +152,25 @@
                     <div class="space-y-4">
                         <div class="flex justify-between items-start border-b border-white/10 pb-3">
                             <div>
-                                <span class="text-xs text-brand-400 font-bold uppercase">Prototype Prêt</span>
-                                <h4 class="text-lg font-extrabold text-white">${escapeHtml(input)}</h4>
+                                <span class="text-xs font-black text-neon-green uppercase">Statut : Prêt à encaisser</span>
+                                <h4 class="text-xl font-black text-white uppercase">${escapeHtml(input)}</h4>
                             </div>
-                            <span class="bg-brand-500/20 text-brand-400 text-xs px-3 py-1 rounded-full font-bold">100% Configuré</span>
+                            <span class="bg-neon-green/20 text-neon-green text-xs px-3 py-1 rounded-full font-black border border-neon-green/30">100% Automatisé</span>
                         </div>
                         
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-                            <div class="bg-slate-800/80 p-3 rounded-xl border border-white/5">
-                                <span class="text-brand-400 font-bold block mb-1">💻 Interface :</span>
-                                <p class="text-slate-300">Dashboard pro, formulaires intuitifs et exports automatiques.</p>
+                            <div class="bg-slate-900 p-4 rounded-xl border border-white/10">
+                                <span class="text-neon-green font-black block mb-1">🚀 Tunnel de Vente :</span>
+                                <p class="text-slate-300">Optimisé pour la conversion agressive, design pro, effet wahou garanti.</p>
                             </div>
-                            <div class="bg-slate-800/80 p-3 rounded-xl border border-white/5">
-                                <span class="text-brand-400 font-bold block mb-1">💳 Paiement :</span>
-                                <p class="text-slate-300">Intégration Stripe configurée pour vos abonnements (29€/mois).</p>
+                            <div class="bg-slate-900 p-4 rounded-xl border border-white/10">
+                                <span class="text-neon-green font-black block mb-1">💸 Paiements Stripe :</span>
+                                <p class="text-slate-300">Abonnements automatiques à 29€/mois configurés pour tomber sur ton compte.</p>
                             </div>
                         </div>
 
                         <div class="pt-2 text-center">
-                            <a href="#simulatorSection" class="text-xs text-brand-400 font-bold hover:underline">Voir le simulateur de revenus en bas ↓</a>
+                            <a href="#simulatorSection" class="text-xs font-black text-neon-green hover:underline">↓ VOIR COMBIEN TU VAS TE FAIRE (SIMULATEUR)</a>
                         </div>
                     </div>
                 `;
@@ -180,26 +178,27 @@
             }, 800);
         }
 
-        function calculateCustomGoal() {
+        function calculateCashGoal() {
             const target = parseInt(document.getElementById('targetIncomeInput').value);
             const goalResult = document.getElementById('goalResult');
             const analysisText = document.getElementById('goalAnalysisText');
 
             if (!target || target <= 0) {
-                alert("Veuillez entrer un montant valide.");
+                alert("Entre un montant valide.");
                 return;
             }
 
             goalResult.classList.remove('hidden');
-            analysisText.innerHTML = `<span class="text-slate-400"><i class="fa-solid fa-circle-notch animate-spin mr-1"></i> Calcul des projections en cours...</span>`;
+            analysisText.innerHTML = `<span class="text-slate-400"><i class="fa-solid fa-spinner animate-spin mr-1"></i> Calcul des marges et du potentiel viral...</span>`;
 
             setTimeout(() => {
                 const subPrice = 29;
                 const clientsNeeded = Math.ceil(target / subPrice);
+                const yearlyCash = target * 12;
 
                 analysisText.innerHTML = `
-                    Pour viser <strong class="text-white">${target.toLocaleString('fr-FR')} €/mois</strong> à 29€/client, il vous faut seulement <strong class="text-brand-400">${clientsNeeded} clients abonnés</strong>.<br>
-                    <span class="text-xs text-slate-300 mt-2 block">🔥 C'est un objectif tout à fait réalisable avec une simple diffusion ciblée. Le marché est demandeur !</span>
+                    Pour faire <strong class="text-neon-green text-lg">${target.toLocaleString('fr-FR')} € net / mois</strong>, il te suffit de <strong class="text-white text-lg">${clientsNeeded} clients</strong> abonnés à 29€.<br>
+                    <span class="text-xs text-slate-300 mt-2 block">🔥 <strong>Bilan Cash :</strong> Ça représente <strong class="text-neon-green">${yearlyCash.toLocaleString('fr-FR')} € par an</strong> en automatique sur ton compte en banque. C'est exactement pour ça que ce SaaS a été conçu. Passe à l'action maintenant !</span>
                 `;
             }, 700);
         }
