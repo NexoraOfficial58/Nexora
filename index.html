@@ -90,7 +90,7 @@
       </nav>
 
       <div class="flex items-center space-x-4">
-        <button onclick="window.open('https://buy.stripe.com/afAi14f2UT9JQ2hsE119Fw02', '_blank')" class="gradient-bg hover:opacity-90 text-white px-5 py-2.5 rounded-xl font-semibold text-sm shadow-lg shadow-brand-500/25 transition-all transform active:scale-95 flex items-center space-x-2 cursor-pointer">
+        <button onclick="redirigerStripe()" class="gradient-bg hover:opacity-90 text-white px-5 py-2.5 rounded-xl font-semibold text-sm shadow-lg shadow-brand-500/25 transition-all transform active:scale-95 flex items-center space-x-2 cursor-pointer">
           <span>Passer à Pro (29€/mois)</span>
           <i class="fa-solid fa-arrow-right text-xs"></i>
         </button>
@@ -112,7 +112,7 @@
       NEXORA combine les meilleurs modèles d'intelligence artificielle pour automatiser vos rédactions, analyses de données et génération de contenu en un temps record.
     </p>
     <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-      <button onclick="window.open('https://buy.stripe.com/afAi14f2UT9JQ2hsE119Fw02', '_blank')" class="w-full sm:w-auto gradient-bg hover:opacity-90 text-white px-8 py-4 rounded-xl font-bold text-base shadow-xl shadow-brand-500/30 transition-all transform hover:-translate-y-0.5 cursor-pointer">
+      <button onclick="redirigerStripe()" class="w-full sm:w-auto gradient-bg hover:opacity-90 text-white px-8 py-4 rounded-xl font-bold text-base shadow-xl shadow-brand-500/30 transition-all transform hover:-translate-y-0.5 cursor-pointer">
         Débloquer l'accès complet — 29€/mois
       </button>
       <a href="#demo" class="w-full sm:w-auto glass hover:bg-white/10 text-white px-8 py-4 rounded-xl font-semibold text-base transition-all border border-white/10 text-center">
@@ -196,7 +196,7 @@
           </li>
         </ul>
 
-        <button onclick="window.open('https://buy.stripe.com/afAi14f2UT9JQ2hsE119Fw02', '_blank')" class="block w-full text-center gradient-bg hover:opacity-90 text-white font-bold py-4 rounded-xl shadow-lg shadow-brand-500/30 transition-all cursor-pointer">
+        <button onclick="redirigerStripe()" class="block w-full text-center gradient-bg hover:opacity-90 text-white font-bold py-4 rounded-xl shadow-lg shadow-brand-500/30 transition-all cursor-pointer">
           Souscrire à l'abonnement
         </button>
       </div>
@@ -215,6 +215,11 @@
   </footer>
 
   <script>
+    // Fonction de redirection sécurisée forcée
+    function redirigerStripe() {
+      window.location.href = "https://buy.stripe.com/afAi14f2UT9JQ2hsE119Fw02";
+    }
+
     async function generateAIContent() {
       const prompt = document.getElementById('promptInput').value.trim();
       const outputContainer = document.getElementById('outputContainer');
