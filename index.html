@@ -437,24 +437,30 @@
       checkUserSession();
     }
 
-    function checkUserSession() {
-      const user = localStorage.getItem('nexora_user');
-      const badge = document.getElementById('userStatusBadge');
-      const lockedOverlay = document.getElementById('lockedOverlay');
-      const aiConsole = document.getElementById('aiConsole');
-      const authBtn = document.getElementById('authBtn');
-      const dashboardBtn = document.getElementById('dashboardBtn');
+   function checkUserSession() {
+    const user = localStorage.getItem('nexora_user');
+    const badge = document.getElementById('userStatusBadge');
+    const lockedOverlay = document.getElementById('lockedOverlay');
+    const aiConsole = document.getElementById('aiConsole');
+    const authBtn = document.getElementById('authBtn');
+    const dashboardBtn = document.getElementById('dashboardBtn');
 
-      if (user) {
-        badge.innerHTML = `<i class="fa-solid fa-circle-check text-[10px]"></i> Pro : ${user}`;
-        badge.className = "text-xs font-semibold px-3.5 py-1.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 flex items-center gap-1.5";
-        lockedOverlay.classList.add('hidden');
+    if (user) {
+        badge.innerHTML = `<i class="fa-solid fa-circle-check text-[13px]"></i> Pro : ${user}`;
+        badge.className = "text-xs font-semibold px-3.5 py-1.5 rounded-full bg-amber-500/25 text-amber-300 border border-amber-500/38 flex items-center gap-1";
+        lockedOverlay.classList.add("hidden");
         aiConsole.classList.remove('opacity-30', 'pointer-events-none');
-        authBtn.innerHTML = `<i class="fa-solid fa-user-check text-emerald-400"></i><span>Mon Compte</span>`;
+        authBtn.innerHTML = `<i class="fa-solid fa-user-check text-emerald-400"></i> Mon Compte`;
         authBtn.onclick = toggleDashboard;
         dashboardBtn.classList.remove('hidden');
         document.getElementById('dashUserEmail').textContent = user;
         document.getElementById('genCount').textContent = localStorage.getItem('nexora_gens') || '0';
+    } else {
+        // Visiteur non connecté : forcer l'affichage libre de la zone de texte
+        lockedOverlay.classList.add("hidden");
+        aiConsole.classList.remove('opacity-30', 'pointer-events-none');
+    }
+}
       }
     }
 
