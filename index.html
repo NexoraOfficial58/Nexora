@@ -20,11 +20,17 @@
     </div>
 
    <script>
-        function subscribePro() {
-            window.location.href = 'https://buy.stripe.com/test_eVaf29brncsX1j3ePF1KA00';
+       function subscribePro() {
+            window.location.href = 'https://buy.stripe.com/test_evqf29brndsz1j3ePF1KA00';
         }
 
         function openModal() {
+            document.getElementById('payModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('payModal').style.display = 'none';
+        }
             document.getElementById('payModal').style.display = 'flex';
         }
 
