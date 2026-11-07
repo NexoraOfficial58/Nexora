@@ -45,41 +45,27 @@
             <button id="authBtn" onclick="toggleAuth()" class="px-4 py-2 rounded-xl text-sm font-medium bg-white/10 hover:bg-white/20 transition text-white">
                 Se connecter
             </button>
-            <button id="dashboardBtn" class="hidden px-4 py-2 rounded-xl text-sm font-medium gradient-bg text-white shadow-lg shadow-brand-500/20">
-                Mon Dashboard
-            </button>
+            <a href="https://buy.stripe.com/aFai4f2UT9JQzhSell19W02" target="_blank" class="px-4 py-2 rounded-xl text-sm font-medium gradient-bg text-white shadow-lg shadow-brand-500/20 hover:opacity-90 transition">
+                <i class="fa-solid fa-crown mr-1"></i> Pro (29€)
+            </a>
         </div>
     </header>
 
     <!-- Main Content -->
     <main class="flex-grow max-w-5xl mx-auto w-full p-6 flex flex-col justify-center relative">
         
-        <!-- Overlay Verrouillé (Désactivé en mode freemium pour laisser l'accès) -->
-        <div id="lockedOverlay" class="hidden p-10 text-center bg-slate-950/80 backdrop-blur-md rounded-3xl border border-white/10 shadow-2xl relative overflow-hidden mb-6">
-            <div class="w-16 h-16 rounded-2xl gradient-bg flex items-center justify-center text-white text-2xl mx-auto mb-4 shadow-xl shadow-brand-500/30">
-                <i class="fa-solid fa-fingerprint"></i>
-            </div>
-            <h3 class="text-2xl font-bold text-white mb-2">Espace Membre Sécurisé</h3>
-            <p class="text-slate-400 text-sm max-w-md mx-auto mb-8 leading-relaxed">
-                Veuillez vous identifier à votre compte membre ou souscrire à l'offre Nexora Pro pour piloter nos assistants neuronaux.
-            </p>
-            <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <button onclick="toggleAuthModal()" class="glass hover:bg-white/15 text-white px-7 py-3 rounded-xl text-sm font-semibold transition">
-                    Se connecter
-                </button>
-                <a href="https://buy.stripe.com/aFai4f2UT9JQzhSell19W02" target="_blank" class="gradient-bg text-white px-7 py-3 rounded-xl text-sm font-semibold shadow-lg shadow-brand-500/30 hover:opacity-90 transition">
-                    Débloquer Pro (29€)
-                </a>
-            </div>
-        </div>
-
-        <!-- Console IA -->
+        <!-- Console IA (Accessible en mode freemium) -->
         <section id="aiConsole" class="glass p-6 sm:p-10 rounded-3xl border border-white/15 shadow-2xl relative overflow-hidden">
             <div class="absolute -top-24 -right-24 w-72 h-72 bg-brand-500/10 rounded-full blur-3xl pointer-events-none"></div>
             
-            <div class="mb-6">
-                <h1 class="text-2xl sm:text-3xl font-bold text-white mb-2">Studio IA & Dashboard Contextuel</h1>
-                <p class="text-slate-400 text-sm">Posez vos questions ou exécutez vos requêtes neuronales en temps réel.</p>
+            <div class="mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <div>
+                    <h1 class="text-2xl sm:text-3xl font-bold text-white mb-2">Studio IA & Dashboard Contextuel</h1>
+                    <p class="text-slate-400 text-sm">Posez vos questions ou exécutez vos requêtes neuronales en temps réel.</p>
+                </div>
+                <a href="https://buy.stripe.com/aFai4f2UT9JQzhSell19W02" target="_blank" class="gradient-bg text-white px-5 py-2.5 rounded-xl text-xs font-semibold shadow-lg shadow-brand-500/30 hover:opacity-90 transition whitespace-nowrap">
+                    <i class="fa-solid fa-lock-open mr-1"></i> Débloquer l'offre Pro
+                </a>
             </div>
 
             <!-- Zone de chat / résultats -->
@@ -107,23 +93,11 @@
     <script>
         function checkUserSession() {
             const user = localStorage.getItem('nexora_user');
-            const lockedOverlay = document.getElementById('lockedOverlay');
-            const aiConsole = document.getElementById('aiConsole');
             const authBtn = document.getElementById('authBtn');
-            const dashboardBtn = document.getElementById('dashboardBtn');
-
             if (user) {
-                // Utilisateur connecté
-                if (lockedOverlay) lockedOverlay.classList.add('hidden');
-                if (aiConsole) aiConsole.classList.remove('opacity-30', 'pointer-events-none');
                 if (authBtn) authBtn.innerText = "Déconnexion";
-                if (dashboardBtn) dashboardBtn.classList.remove('hidden');
             } else {
-                // Visiteur non connecté (Modèle Freemium : console accessible)
-                if (lockedOverlay) lockedOverlay.classList.add('hidden');
-                if (aiConsole) aiConsole.classList.remove('opacity-30', 'pointer-events-none');
                 if (authBtn) authBtn.innerText = "Se connecter";
-                if (dashboardBtn) dashboardBtn.classList.add('hidden');
             }
         }
 
@@ -155,7 +129,6 @@
             }, 600);
         }
 
-        // Lancer la vérification au chargement
         window.onload = checkUserSession;
     </script>
 </body>
