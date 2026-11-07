@@ -76,7 +76,7 @@
   <!-- Alerte de Succès après Paiement -->
   <div id="successBanner" class="hidden bg-emerald-500/20 border-b border-emerald-500/40 text-emerald-300 px-6 py-4 text-center font-medium text-sm flex items-center justify-center space-x-3">
     <i class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>
-    <span>Félicitations ! Votre abonnement **Nexora Pro** est activé. Connectez-vous ci-dessous pour accéder au studio IA.</span>
+    <span>Félicitations ! Votre abonnement **Nexora Pro** est activé[cite: 3]. Connectez-vous pour profiter du studio complet.</span>
   </div>
 
   <!-- En-tête Navigation -->
@@ -106,18 +106,18 @@
   <section class="relative pt-20 pb-16 px-6 max-w-7xl mx-auto text-center">
     <div class="inline-flex items-center space-x-2 px-4 py-2 rounded-full glass mb-8 border border-brand-500/30 text-xs font-semibold text-brand-100">
       <span class="flex h-2 w-2 rounded-full bg-emerald-400 animate-ping"></span>
-      <span>NEXORA v2.0 est désormais en ligne</span>
+      <span>NEXORA v2.5 Studio Multi-Modèles en ligne</span>
     </div>
     <h1 class="text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight text-white mb-6 leading-tight">
       Déployez l'IA de nouvelle génération <br />
       <span class="gradient-text">pour votre entreprise</span>
     </h1>
     <p class="text-base sm:text-lg md:text-xl text-gray-400 max-w-3xl mx-auto mb-10 leading-relaxed">
-      NEXORA combine les meilleurs modèles d'intelligence artificielle pour automatiser vos rédactions, analyses de données et génération de contenu en un temps record.
+      NEXORA combine les meilleurs modèles d'intelligence artificielle pour automatiser vos rédactions, analyses et créations en un clin d'œil.
     </p>
     <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
       <a href="https://buy.stripe.com/aFa14f2UT9JQ2hSell9fW02" target="_blank" class="w-full sm:w-auto gradient-bg hover:opacity-90 text-white px-8 py-4 rounded-xl font-bold text-base shadow-xl shadow-brand-500/30 transition-all text-center">
-        Débloquer l'accès complet — 29€/mois
+        Débloquer l'accès complet — 29€/mois[cite: 3]
       </a>
       <a href="#demo" class="w-full sm:w-auto glass hover:bg-white/10 text-white px-8 py-4 rounded-xl font-semibold text-base transition-all border border-white/10 text-center">
         Accéder au Studio IA
@@ -125,20 +125,26 @@
     </div>
   </section>
 
-  <!-- Démonstration IA & Espace Membre (Console réservée) -->
+  <!-- Tableau de bord / Studio IA Avancé -->
   <section id="demo" class="py-16 px-6 max-w-5xl mx-auto w-full">
     <div class="glass p-6 sm:p-8 rounded-3xl border border-white/10 shadow-2xl relative">
       
-      <div class="flex items-center justify-between mb-6 pb-4 border-b border-white/10">
+      <!-- En-tête du Studio & Dashboard Status -->
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-white/10">
         <div class="flex items-center space-x-3">
           <div class="w-3 h-3 rounded-full bg-red-500"></div>
           <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
           <div class="w-3 h-3 rounded-full bg-green-500"></div>
-          <span class="text-xs text-gray-400 font-mono ml-2">Nexora AI Studio Console Pro</span>
+          <span class="text-xs text-gray-400 font-mono ml-2">Nexora AI Studio v2.5</span>
         </div>
-        <span id="userStatusBadge" class="text-xs font-semibold px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30">
-          Non connecté
-        </span>
+        <div class="flex items-center space-x-3">
+          <span id="userStatusBadge" class="text-xs font-semibold px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30">
+            Non connecté
+          </span>
+          <button id="dashboardBtn" onclick="toggleDashboard()" class="hidden text-xs bg-brand-500/20 hover:bg-brand-500/40 text-brand-200 border border-brand-500/40 px-3 py-1 rounded-full transition-all">
+            <i class="fa-solid fa-chart-pie mr-1"></i> Mon Dashboard Pro
+          </button>
+        </div>
       </div>
 
       <!-- Zone réservée aux membres non-connectés -->
@@ -146,34 +152,63 @@
         <i class="fa-solid fa-lock text-4xl text-brand-500 mb-4"></i>
         <h3 class="text-xl font-bold text-white mb-2">Espace Membre Protégé</h3>
         <p class="text-gray-400 text-sm max-w-md mx-auto mb-6">
-          Veuillez vous connecter à votre compte ou souscrire à l'offre Nexora Pro pour débloquer la génération illimitée.
+          Connectez-vous à votre compte ou souscrivez à l'offre Nexora Pro pour débloquer les assistants spécialisés[cite: 3].
         </p>
         <div class="flex justify-center gap-4">
           <button onclick="toggleAuthModal()" class="glass hover:bg-white/10 text-white px-6 py-2.5 rounded-xl text-sm font-semibold border border-white/10">
             Se connecter
           </button>
           <a href="https://buy.stripe.com/aFa14f2UT9JQ2hSell9fW02" target="_blank" class="gradient-bg text-white px-6 py-2.5 rounded-xl text-sm font-semibold shadow-lg shadow-brand-500/20">
-            S'abonner (29€/mois)
+            S'abonner (29€/mois)[cite: 3]
           </a>
         </div>
       </div>
 
-      <!-- Console IA active (Débloquée lors de la connexion) -->
-      <div id="aiConsole" class="space-y-4 opacity-40 pointer-events-none transition-all">
+      <!-- Console IA active (Débloquée avec onglets thématiques) -->
+      <div id="aiConsole" class="space-y-6 opacity-40 pointer-events-none transition-all">
+        
+        <!-- Sélecteur d'assistants IA (Onglets) -->
         <div>
-          <label class="block text-sm font-semibold text-gray-300 mb-2">Instructions ou Question pour l'IA :</label>
-          <textarea id="promptInput" rows="3" class="w-full bg-gray-900/80 border border-white/10 rounded-xl p-4 text-white placeholder-gray-500 focus:outline-none focus:border-brand-500 transition-colors" placeholder="Ex: Rédige un email professionnel de prospection pour un service SaaS d'IA..."></textarea>
+          <label class="block text-xs font-semibold text-gray-400 uppercase mb-3">Sélectionnez votre Assistant IA spécialisé :</label>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <button onclick="setAssistant('seo', this)" class="assistant-tab p-3 rounded-xl border border-brand-500 bg-brand-500/20 text-white text-xs font-semibold flex flex-col items-center gap-2 transition-all">
+              <i class="fa-solid fa-globe text-brand-400 text-base"></i>
+              <span>Article SEO</span>
+            </button>
+            <button onclick="setAssistant('social', this)" class="assistant-tab p-3 rounded-xl border border-white/10 bg-gray-900/50 hover:bg-white/5 text-gray-300 text-xs font-semibold flex flex-col items-center gap-2 transition-all">
+              <i class="fa-solid fa-share-nodes text-purple-400 text-base"></i>
+              <span>Posts Sociaux</span>
+            </button>
+            <button onclick="setAssistant('code', this)" class="assistant-tab p-3 rounded-xl border border-white/10 bg-gray-900/50 hover:bg-white/5 text-gray-300 text-xs font-semibold flex flex-col items-center gap-2 transition-all">
+              <i class="fa-solid fa-code text-cyan-400 text-base"></i>
+              <span>Expert Code</span>
+            </button>
+            <button onclick="setAssistant('email', this)" class="assistant-tab p-3 rounded-xl border border-white/10 bg-gray-900/50 hover:bg-white/5 text-gray-300 text-xs font-semibold flex flex-col items-center gap-2 transition-all">
+              <i class="fa-solid fa-envelope-open-text text-emerald-400 text-base"></i>
+              <span>Email Pro</span>
+            </button>
+          </div>
+        </div>
+
+        <div>
+          <label id="promptLabel" class="block text-sm font-semibold text-gray-300 mb-2">Sujet ou mots-clés pour l'article SEO :</label>
+          <textarea id="promptInput" rows="3" class="w-full bg-gray-900/80 border border-white/10 rounded-xl p-4 text-white placeholder-gray-500 focus:outline-none focus:border-brand-500 transition-colors" placeholder="Ex: Les tendances de l'intelligence artificielle en entreprise pour 2026..."></textarea>
         </div>
 
         <div class="flex justify-end">
           <button id="generateBtn" onclick="generateAIContent()" class="gradient-bg text-white px-6 py-3 rounded-xl font-bold text-sm shadow-lg shadow-brand-500/20 hover:opacity-90 transition-all flex items-center space-x-2 cursor-pointer">
             <i class="fa-solid fa-wand-magic-sparkles"></i>
-            <span>Générer avec NEXORA IA</span>
+            <span>Générer le contenu</span>
           </button>
         </div>
 
         <div id="outputContainer" class="hidden mt-6">
-          <label class="block text-sm font-semibold text-gray-300 mb-2">Résultat généré :</label>
+          <div class="flex items-center justify-between mb-2">
+            <label class="block text-sm font-semibold text-gray-300">Résultat généré :</label>
+            <button onclick="copyOutput()" class="text-xs bg-white/10 hover:bg-white/20 text-gray-300 px-3 py-1 rounded-lg transition-all">
+              <i class="fa-solid fa-copy mr-1"></i> Copier
+            </button>
+          </div>
           <div id="aiOutput" class="bg-gray-900/90 border border-white/10 rounded-xl p-5 text-gray-200 text-sm leading-relaxed whitespace-pre-wrap font-sans max-h-96 overflow-y-auto"></div>
         </div>
       </div>
@@ -208,15 +243,15 @@
           </li>
           <li class="flex items-center space-x-3">
             <i class="fa-solid fa-check text-brand-500"></i>
-            <span>Temps de réponse ultra-rapide</span>
+            <span>Assistants spécialisés (SEO, Code, etc.)</span>
+          </li>
+          <li class="flex items-center space-x-3">
+            <i class="fa-solid fa-check text-brand-500"></i>
+            <span>Tableau de bord et historique complet</span>
           </li>
           <li class="flex items-center space-x-3">
             <i class="fa-solid fa-check text-brand-500"></i>
             <span>Support prioritaire 24/7</span>
-          </li>
-          <li class="flex items-center space-x-3">
-            <i class="fa-solid fa-check text-brand-500"></i>
-            <span>Mises à jour et nouveaux modèles inclus</span>
           </li>
         </ul>
 
@@ -296,6 +331,55 @@
     </div>
   </div>
 
+  <!-- Modal Tableau de Bord Utilisateur Pro -->
+  <div id="dashboardModal" class="fixed inset-0 bg-black/70 backdrop-blur-md hidden z-50 flex items-center justify-center p-4">
+    <div class="glass p-8 rounded-3xl border border-white/10 max-w-lg w-full relative">
+      <button onclick="toggleDashboard()" class="absolute top-4 right-4 text-gray-400 hover:text-white">
+        <i class="fa-solid fa-xmark text-xl"></i>
+      </button>
+
+      <div class="flex items-center space-x-3 mb-6">
+        <div class="w-12 h-12 rounded-2xl gradient-bg flex items-center justify-center text-white font-bold text-xl shadow-lg">
+          <i class="fa-solid fa-user-shield"></i>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold text-white">Tableau de bord Pro</h3>
+          <p id="dashUserEmail" class="text-xs text-gray-400"></p>
+        </div>
+      </div>
+
+      <div class="space-y-4 mb-6">
+        <div class="bg-gray-900/60 p-4 rounded-2xl border border-white/10 flex items-center justify-between">
+          <div>
+            <span class="text-xs text-gray-400 block">Statut de l'abonnement</span>
+            <span class="text-emerald-400 font-bold text-sm">Nexora Pro (Actif)</span>
+          </div>
+          <span class="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs border border-emerald-500/30">29€/mois</span>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div class="bg-gray-900/60 p-4 rounded-2xl border border-white/10 text-center">
+            <span class="text-xs text-gray-400 block mb-1">Générations ce mois</span>
+            <span id="genCount" class="text-xl font-extrabold text-white">0</span>
+          </div>
+          <div class="bg-gray-900/60 p-4 rounded-2xl border border-white/10 text-center">
+            <span class="text-xs text-gray-400 block mb-1">Modèle Actif</span>
+            <span class="text-xs font-bold text-brand-400">Gemini 2.5 Flash</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex gap-3">
+        <a href="https://billing.stripe.com/p/login/test_..." target="_blank" class="flex-1 text-center glass hover:bg-white/10 text-white font-semibold py-3 rounded-xl text-xs border border-white/10 transition-all">
+          Gérer mon abonnement Stripe
+        </a>
+        <button onclick="logout()" class="px-5 bg-red-500/20 hover:bg-red-500/30 text-red-300 font-semibold py-3 rounded-xl text-xs border border-red-500/30 transition-all">
+          Déconnexion
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- Pied de page -->
   <footer class="border-t border-white/10 py-12 px-6 glass mt-20">
     <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
@@ -308,20 +392,43 @@
   </footer>
 
   <script>
+    let currentAssistant = 'seo';
+    const promptsConfig = {
+      seo: { label: "Sujet ou mots-clés pour l'article SEO :", placeholder: "Ex: Les tendances de l'intelligence artificielle en entreprise pour 2026..." },
+      social: { label: "Idée ou produit pour le post réseaux sociaux :", placeholder: "Ex: Lancement de notre nouvelle application SaaS de productivité..." },
+      code: { label: "Problème ou code à corriger/générer :", placeholder: "Ex: Écris une fonction JavaScript pour valider un formulaire e-mail..." },
+      email: { label: "Contexte de l'e-mail professionnel :", placeholder: "Ex: Relance client pour une proposition commerciale non signée..." }
+    };
+
+    function setAssistant(type, btnElement) {
+      currentAssistant = type;
+      document.getElementById('promptLabel').textContent = promptsConfig[type].label;
+      document.getElementById('promptInput').placeholder = promptsConfig[type].placeholder;
+
+      document.querySelectorAll('.assistant-tab').forEach(el => {
+        el.className = "assistant-tab p-3 rounded-xl border border-white/10 bg-gray-900/50 hover:bg-white/5 text-gray-300 text-xs font-semibold flex flex-col items-center gap-2 transition-all";
+      });
+      btnElement.className = "assistant-tab p-3 rounded-xl border border-brand-500 bg-brand-500/20 text-white text-xs font-semibold flex flex-col items-center gap-2 transition-all";
+    }
+
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.get('success') === 'true') {
       document.getElementById('successBanner').classList.remove('hidden');
     }
 
     function toggleAuthModal() {
-      const modal = document.getElementById('authModal');
-      modal.classList.toggle('hidden');
+      document.getElementById('authModal').classList.toggle('hidden');
+    }
+
+    function toggleDashboard() {
+      document.getElementById('dashboardModal').classList.toggle('hidden');
     }
 
     function handleAuth(e) {
       e.preventDefault();
       const email = document.getElementById('authEmail').value;
       localStorage.setItem('nexora_user', email);
+      if(!localStorage.getItem('nexora_gens')) localStorage.setItem('nexora_gens', '0');
       toggleAuthModal();
       checkUserSession();
     }
@@ -332,20 +439,30 @@
       const lockedOverlay = document.getElementById('lockedOverlay');
       const aiConsole = document.getElementById('aiConsole');
       const authBtn = document.getElementById('authBtn');
+      const dashboardBtn = document.getElementById('dashboardBtn');
 
       if (user) {
-        badge.textContent = `Connecté : ${user}`;
+        badge.textContent = `Pro Actif : ${user}`;
         badge.className = "text-xs font-semibold px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30";
         lockedOverlay.classList.add('hidden');
         aiConsole.classList.remove('opacity-40', 'pointer-events-none');
-        authBtn.innerHTML = `<i class="fa-solid fa-right-from-bracket text-red-400"></i><span>Déconnexion</span>`;
-        authBtn.onclick = logout;
+        authBtn.innerHTML = `<i class="fa-solid fa-circle-user text-emerald-400"></i><span>Mon Compte</span>`;
+        authBtn.onclick = toggleDashboard;
+        dashboardBtn.classList.remove('hidden');
+        document.getElementById('dashUserEmail').textContent = user;
+        document.getElementById('genCount').textContent = localStorage.getItem('nexora_gens') || '0';
       }
     }
 
     function logout() {
       localStorage.removeItem('nexora_user');
       location.reload();
+    }
+
+    function copyOutput() {
+      const text = document.getElementById('aiOutput').textContent;
+      navigator.clipboard.writeText(text);
+      alert('Résultat copié dans le presse-papier !');
     }
 
     async function generateAIContent() {
@@ -360,14 +477,20 @@
       }
 
       btn.disabled = true;
-      btn.innerHTML = `<i class="fa-solid fa-spinner animate-spin"></i> <span>Traitement en cours...</span>`;
+      btn.innerHTML = `<i class="fa-solid fa-spinner animate-spin"></i> <span>Génération en cours...</span>`;
+
+      let systemInstruction = "Agis en tant qu'expert professionnel.";
+      if(currentAssistant === 'seo') systemInstruction = "Agis en tant qu'expert en référencement SEO et rédacteur web professionnel.";
+      if(currentAssistant === 'social') systemInstruction = "Agis en tant que community manager expert en growth hacking et réseaux sociaux.";
+      if(currentAssistant === 'code') systemInstruction = "Agis en tant qu'architecte logiciel et développeur senior.";
+      if(currentAssistant === 'email') systemInstruction = "Agis en tant qu'expert en copy-writing et communication d'entreprise.";
 
       try {
         const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            contents: [{ parts: [{ text: prompt }] }]
+            contents: [{ parts: [{ text: `${systemInstruction}\n\nRequête : ${prompt}` }] }]
           })
         });
 
@@ -376,12 +499,18 @@
 
         aiOutput.textContent = resultText;
         outputContainer.classList.remove('hidden');
+
+        // Mettre à jour le compteur de générations
+        let gens = parseInt(localStorage.getItem('nexora_gens') || '0') + 1;
+        localStorage.setItem('nexora_gens', gens);
+        document.getElementById('genCount').textContent = gens;
+
       } catch (err) {
         aiOutput.textContent = "Une erreur s'est produite lors de la connexion à l'IA.";
         outputContainer.classList.remove('hidden');
       } finally {
         btn.disabled = false;
-        btn.innerHTML = `<i class="fa-solid fa-wand-magic-sparkles"></i> <span>Générer avec NEXORA IA</span>`;
+        btn.innerHTML = `<i class="fa-solid fa-wand-magic-sparkles"></i> <span>Générer le contenu</span>`;
       }
     }
 
