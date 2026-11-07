@@ -50,23 +50,23 @@
     </header>
 
     <!-- Main Content -->
-    <main class="flex-grow max-w-5xl mx-auto w-full p-4 sm:p-8 flex flex-col justify-center relative my-8">
+    <main class="flex-grow max-w-5xl mx-auto w-full p-4 sm:p-8 flex flex-col justify-center relative my-4">
         
         <!-- Hero Hook Business -->
-        <div class="text-center mb-10">
-            <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold bg-brand-500/10 text-brand-400 border border-brand-500/30 mb-4">
+        <div class="text-center mb-8">
+            <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold bg-brand-500/10 text-brand-400 border border-brand-500/30 mb-3">
                 ⚡ Générateur de Micro-SaaS Clé en Main
             </span>
-            <h1 class="text-3xl sm:text-6xl font-extrabold text-white tracking-tight mb-4">
-                Créez un logiciel, vendez-le, <br/><span class="gradient-text">Encaissez vos abonnements</span>
+            <h1 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight mb-3">
+                Générez votre logiciel, <br/><span class="gradient-text">Encaissez vos abonnements</span>
             </h1>
-            <p class="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto">
-                Testez votre idée de business ci-dessous. Nexora génère l'ébauche de l'application et calcule votre potentiel de revenus instantanément.
+            <p class="text-slate-300 text-sm sm:text-base max-w-2xl mx-auto">
+                Testez votre idée de business. Nexora crée l'ébauche de votre application et calcule votre potentiel de revenus en temps réel.
             </p>
         </div>
 
         <!-- Générateur de Projet par Mot-Clé -->
-        <section class="glass p-6 sm:p-8 rounded-3xl border border-white/15 shadow-2xl relative mb-10">
+        <section class="glass p-6 sm:p-8 rounded-3xl border border-white/15 shadow-2xl relative mb-8">
             <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Quel service voulez-vous commercialiser ?</label>
             
             <div class="flex flex-col sm:flex-row gap-3 mb-4">
@@ -89,7 +89,7 @@
         </section>
 
         <!-- Simulateur d'objectif de revenus interactif -->
-        <section class="glass-card p-6 sm:p-8 rounded-3xl border border-white/10 mb-8">
+        <section id="simulatorSection" class="glass-card p-6 sm:p-8 rounded-3xl border border-white/10 mb-6">
             <div class="text-center mb-6">
                 <h3 class="text-2xl font-bold text-white mb-1"><i class="fa-solid fa-bullseye text-brand-400 mr-2"></i>Simulateur d'Objectif Financier</h3>
                 <p class="text-xs text-slate-400">Entrez le montant que vous aimeriez gagner par mois pour voir si c'est atteignable.</p>
@@ -172,14 +172,13 @@
                             </div>
                         </div>
 
-                        <div class="pt-2 flex flex-col sm:flex-row justify-between items-center gap-3">
+                        <div class="pt-2 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-3">
                             <p class="text-xs text-slate-400">Ce prototype est configuré pour attirer vos premiers clients dès sa mise en ligne.</p>
-                            <a href="https://buy.stripe.com/aFai4f2UT9JQzhSell19W02" target="_blank" class="w-full sm:w-auto text-center gradient-bg text-white px-6 py-2.5 rounded-xl text-xs font-extrabold shadow-lg shadow-brand-500/30 hover:opacity-90 transition">
-                                Activer et Vendre ce SaaS (29€)
-                            </a>
+                            <a href="#simulatorSection" class="text-xs text-brand-400 font-bold hover:underline">Aller au simulateur de gains ↓</a>
                         </div>
                     </div>
                 `;
+                document.getElementById('simulatorSection').scrollIntoView({ behavior: 'smooth' });
             }, 900);
         }
 
@@ -197,15 +196,16 @@
             analysisText.innerHTML = `<span class="text-slate-400"><i class="fa-solid fa-circle-notch animate-spin mr-1"></i> Analyse du marché et calcul de rentabilité en cours...</span>`;
 
             setTimeout(() => {
-                const subPrice = 29; // Prix moyen de l'abo
+                const subPrice = 29;
                 const clientsNeeded = Math.ceil(target / subPrice);
-                // On ajoute une petite variation réaliste pour faire pro (ex: + un petit pourcentage)
                 const realisticEarnings = clientsNeeded * subPrice;
+                const bonus = Math.round(realisticEarnings * 1.05);
 
                 analysisText.innerHTML = `
-                    Pour viser <strong class="text-white">${target.toLocaleString('fr-FR')} €/mois</strong> avec un abonnement à ${subPrice}€, il vous faut exactement <strong class="text-brand-400">${clientsNeeded} clients abonnés</strong>.<br>
-                    <span class="text-xs text-slate-300 mt-2 block">💡 <em>Analyse Nexora :</em> C'est un objectif tout à fait atteignable. Avec une simple campagne ciblée sur les professionnels, générer <strong class="text-white">${realisticEarnings.toLocaleString('fr-FR')} €/mois</strong> de revenus récurrents est validé par notre algorithme !</span>
+                    Pour viser <strong class="text-white">${target.toLocaleString('fr-FR')} €/mois</strong> avec un abonnement à 29€, il vous faut exactement <strong class="text-brand-400">${clientsNeeded} clients abonnés</strong>.<br>
+                    <span class="text-xs text-slate-300 mt-2 block">🔥 <em>Analyse Nexora :</em> C'est un objectif ultra-réaliste. Avec notre système, vous pouvez même dépasser cet objectif et atteindre jusqu'à <strong class="text-white">${bonus.toLocaleString('fr-FR')} €/mois</strong> grâce aux options et ventes additionnelles !</span>
                 `;
+                goalResult.scrollIntoView({ behavior: 'smooth' });
             }, 800);
         }
 
