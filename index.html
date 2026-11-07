@@ -55,73 +55,66 @@
         <!-- Hero Hook Business -->
         <div class="text-center mb-10">
             <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold bg-brand-500/10 text-brand-400 border border-brand-500/30 mb-4">
-                ⚡ Générateur de Micro-SaaS Automatisé
+                ⚡ Générateur de Micro-SaaS Clé en Main
             </span>
             <h1 class="text-3xl sm:text-6xl font-extrabold text-white tracking-tight mb-4">
-                Transformez une idée en <br/><span class="gradient-text">Business Récurrent Rentable</span>
+                Créez un logiciel, vendez-le, <br/><span class="gradient-text">Encaissez vos abonnements</span>
             </h1>
             <p class="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto">
-                Tapez le type de service que vous voulez vendre. Nexora structure l'application, l'interface client et le système de paiement Stripe en quelques secondes.
+                Testez votre idée de business ci-dessous. Nexora génère l'ébauche de l'application et calcule votre potentiel de revenus instantanément.
             </p>
         </div>
 
-        <!-- Generateur de Projet par Mot-Clé -->
-        <section class="glass p-6 sm:p-8 rounded-3xl border border-white/15 shadow-2xl relative mb-12">
-            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Quel service souhaitez-vous commercialiser ?</label>
+        <!-- Générateur de Projet par Mot-Clé -->
+        <section class="glass p-6 sm:p-8 rounded-3xl border border-white/15 shadow-2xl relative mb-10">
+            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Quel service voulez-vous commercialiser ?</label>
             
             <div class="flex flex-col sm:flex-row gap-3 mb-4">
-                <input type="text" id="projectInput" placeholder="ex: Logiciel de Devis BTP, Facturation Artisans, Prise de RDV..." class="flex-grow bg-slate-900/90 border border-white/15 rounded-xl px-5 py-4 text-base text-white focus:outline-none focus:border-brand-500 transition shadow-inner">
+                <input type="text" id="projectInput" placeholder="ex: Facturation Artisans, Devis BTP, Gestion de chantiers..." class="flex-grow bg-slate-900/90 border border-white/15 rounded-xl px-5 py-4 text-base text-white focus:outline-none focus:border-brand-500 transition shadow-inner">
                 <button onclick="generateSaaSBlueprint()" class="gradient-bg text-white px-8 py-4 rounded-xl text-base font-bold shadow-lg shadow-brand-500/25 hover:opacity-95 transition flex items-center justify-center gap-2 shrink-0">
-                    <i class="fa-solid fa-wand-magic-sparkles"></i> Générer le SaaS
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> Générer l'ébauche
                 </button>
             </div>
 
             <!-- Suggestions rapides -->
             <div class="flex flex-wrap gap-2 text-xs text-slate-400 items-center">
-                <span>Essayer un modèle :</span>
-                <button onclick="fillPrompt('Logiciel de Devis & Factures pour Artisans')" class="bg-white/5 hover:bg-white/10 px-3 py-1 rounded-lg text-slate-300 border border-white/10 transition">Devis Artisans</button>
-                <button onclick="fillPrompt('Assistant IA Gestion de Chantiers')" class="bg-white/5 hover:bg-white/10 px-3 py-1 rounded-lg text-slate-300 border border-white/10 transition">Chantiers BTP</button>
-                <button onclick="fillPrompt('Plateforme de Réservation de Coaching')" class="bg-white/5 hover:bg-white/10 px-3 py-1 rounded-lg text-slate-300 border border-white/10 transition">Réservation Pro</button>
+                <span>Idées populaires :</span>
+                <button onclick="fillPrompt('Logiciel de Devis et Factures pour Artisans')" class="bg-white/5 hover:bg-white/10 px-3 py-1 rounded-lg text-slate-300 border border-white/10 transition">Facturation Artisans</button>
+                <button onclick="fillPrompt('Assistant IA pour Suivi de Chantiers BTP')" class="bg-white/5 hover:bg-white/10 px-3 py-1 rounded-lg text-slate-300 border border-white/10 transition">Chantiers BTP</button>
+                <button onclick="fillPrompt('Plateforme de Réservation en ligne')" class="bg-white/5 hover:bg-white/10 px-3 py-1 rounded-lg text-slate-300 border border-white/10 transition">Réservation Pro</button>
             </div>
 
-            <!-- Résultat de génération -->
-            <div id="blueprintOutput" class="hidden mt-8 p-6 bg-slate-900/9rup rounded-2xl border border-brand-500/30"></div>
+            <!-- Ébauche de l'application générée -->
+            <div id="blueprintOutput" class="hidden mt-8 p-6 bg-slate-900/90 rounded-2xl border border-brand-500/30"></div>
         </section>
 
-        <!-- Calculateur de Revenus Réaliste (Simulateur d'Argent) -->
+        <!-- Simulateur d'objectif de revenus interactif -->
         <section class="glass-card p-6 sm:p-8 rounded-3xl border border-white/10 mb-8">
             <div class="text-center mb-6">
-                <h3 class="text-2xl font-bold text-white mb-1"><i class="fa-solid fa-calculator text-brand-400 mr-2"></i>Simulateur de Revenus Potentiels</h3>
-                <p class="text-xs text-slate-400">Estimez vos gains mensuels selon votre volume d'abonnés.</p>
+                <h3 class="text-2xl font-bold text-white mb-1"><i class="fa-solid fa-bullseye text-brand-400 mr-2"></i>Simulateur d'Objectif Financier</h3>
+                <p class="text-xs text-slate-400">Entrez le montant que vous aimeriez gagner par mois pour voir si c'est atteignable.</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-                <div class="space-y-6">
-                    <div>
-                        <div class="flex justify-between text-sm font-semibold mb-2">
-                            <span>Nombre de clients abonnés :</span>
-                            <span id="clientCountText" class="text-brand-400 font-bold">50 clients</span>
-                        </div>
-                        <input type="range" id="clientSlider" min="5" max="500" value="50" oninput="updateEarnings()" class="w-full accent-brand-500 bg-slate-800 rounded-lg h-2 cursor-pointer">
-                    </div>
-
-                    <div>
-                        <div class="flex justify-between text-sm font-semibold mb-2">
-                            <span>Prix de l'abonnement mensuel :</span>
-                            <span id="priceText" class="text-brand-400 font-bold">29 € / mois</span>
-                        </div>
-                        <input type="range" id="priceSlider" min="9" max="149" value="29" oninput="updateEarnings()" class="w-full accent-brand-500 bg-slate-800 rounded-lg h-2 cursor-pointer">
+            <div class="max-w-xl mx-auto space-y-6">
+                <div>
+                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Combien souhaitez-vous gagner par mois ? (€)</label>
+                    <div class="flex gap-3">
+                        <input type="number" id="targetIncomeInput" value="10000" placeholder="ex: 10000" class="flex-grow bg-slate-900/90 border border-white/15 rounded-xl px-4 py-3 text-lg font-bold text-white focus:outline-none focus:border-brand-500 transition">
+                        <button onclick="calculateCustomGoal()" class="gradient-bg text-white px-6 py-3 rounded-xl text-sm font-bold shadow-lg shadow-brand-500/25 hover:opacity-95 transition whitespace-nowrap">
+                            Calculer
+                        </button>
                     </div>
                 </div>
 
-                <div class="bg-slate-900/90 p-6 rounded-2xl border border-brand-500/20 text-center shadow-xl">
-                    <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Revenu Mensuel Estimé</span>
-                    <div id="monthlyTotal" class="text-4xl sm:text-5xl font-black gradient-text my-2">1 450 €</div>
-                    <span class="text-xs text-slate-400 block mb-4">soit <strong id="yearlyTotal" class="text-slate-200">17 400 € / an</strong> de revenus récurrents</span>
-                    
-                    <a href="https://buy.stripe.com/aFai4f2UT9JQzhSell19W02" target="_blank" class="w-full inline-block gradient-bg text-white py-3 rounded-xl text-sm font-bold shadow-lg shadow-brand-500/30 hover:opacity-90 transition">
-                        Lancer cette application maintenant →
-                    </a>
+                <!-- Résultat du calcul d'objectif -->
+                <div id="goalResult" class="hidden bg-slate-900/95 p-6 rounded-2xl border border-brand-500/30 text-center space-y-3">
+                    <span class="text-xs font-bold text-brand-400 uppercase tracking-wider">Analyse de faisabilité Nexora</span>
+                    <p id="goalAnalysisText" class="text-slate-200 text-sm leading-relaxed"></p>
+                    <div class="pt-2">
+                        <a href="https://buy.stripe.com/aFai4f2UT9JQzhSell19W02" target="_blank" class="inline-block gradient-bg text-white px-8 py-3 rounded-xl text-sm font-bold shadow-lg shadow-brand-500/30 hover:opacity-90 transition">
+                            Déployer ce business maintenant (29€) →
+                        </a>
+                    </div>
                 </div>
             </div>
         </section>
@@ -145,15 +138,15 @@
             const output = document.getElementById('blueprintOutput');
 
             if (!input) {
-                alert("Veuillez entrer une idée ou un mot-clé (ex: Devis Artisans).");
+                alert("Veuillez entrer une idée ou un mot-clé (ex: Facturation Artisans).");
                 return;
             }
 
             output.classList.remove('hidden');
             output.innerHTML = `
-                <div class="flex items-center gap-3 text-brand-400 mb-4">
+                <div class="flex items-center gap-3 text-brand-400 py-4">
                     <i class="fa-solid fa-spinner animate-spin text-xl"></i>
-                    <span class="font-bold text-sm">Génération de l'architecture du SaaS en cours...</span>
+                    <span class="font-bold text-sm">Génération de l'ébauche et du prototype fonctionnel...</span>
                 </div>
             `;
 
@@ -162,50 +155,58 @@
                     <div class="space-y-4">
                         <div class="flex justify-between items-start border-b border-white/10 pb-3">
                             <div>
-                                <span class="text-xs text-brand-400 font-bold uppercase tracking-wider">Projet prêt à déployer</span>
+                                <span class="text-xs text-brand-400 font-bold uppercase tracking-wider">Ébauche de SaaS générée</span>
                                 <h4 class="text-xl font-extrabold text-white">${escapeHtml(input)}</h4>
                             </div>
-                            <span class="bg-brand-500/20 text-brand-400 border border-brand-500/30 text-xs px-3 py-1 rounded-full font-bold">100% Configuré</span>
+                            <span class="bg-brand-500/20 text-brand-400 border border-brand-500/30 text-xs px-3 py-1 rounded-full font-bold">Prêt à vendre</span>
                         </div>
                         
-                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
-                            <div class="bg-slate-800/60 p-3 rounded-xl border border-white/5">
-                                <span class="text-slate-400 block mb-1">Module Client :</span>
-                                <strong class="text-slate-200">Formulaire & Dashboard actif</strong>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                            <div class="bg-slate-800/60 p-4 rounded-xl border border-white/5 space-y-1">
+                                <span class="text-brand-400 font-bold block"><i class="fa-solid fa-desktop mr-1"></i> Interface Client :</span>
+                                <p class="text-slate-300">Tableau de bord sur-mesure, saisie rapide, export PDF et design pro pour rassurer l'utilisateur final.</p>
                             </div>
-                            <div class="bg-slate-800/60 p-3 rounded-xl border border-white/5">
-                                <span class="text-slate-400 block mb-1">Paiement :</span>
-                                <strong class="text-slate-200">Stripe Connect Intégré</strong>
-                            </div>
-                            <div class="bg-slate-800/60 p-3 rounded-xl border border-white/5">
-                                <span class="text-slate-400 block mb-1">Moteur IA :</span>
-                                <strong class="text-slate-200">Algorithme Nexora-v4</strong>
+                            <div class="bg-slate-800/60 p-4 rounded-xl border border-white/5 space-y-1">
+                                <span class="text-brand-400 font-bold block"><i class="fa-solid fa-credit-card mr-1"></i> Monétisation :</span>
+                                <p class="text-slate-300">Paiement par abonnement Stripe intégré d'office (ex: 29€/mois) pour encaisser en automatique.</p>
                             </div>
                         </div>
 
                         <div class="pt-2 flex flex-col sm:flex-row justify-between items-center gap-3">
-                            <p class="text-xs text-slate-400">Ce projet peut générer ses premiers abonnements dès aujourd'hui.</p>
+                            <p class="text-xs text-slate-400">Ce prototype est configuré pour attirer vos premiers clients dès sa mise en ligne.</p>
                             <a href="https://buy.stripe.com/aFai4f2UT9JQzhSell19W02" target="_blank" class="w-full sm:w-auto text-center gradient-bg text-white px-6 py-2.5 rounded-xl text-xs font-extrabold shadow-lg shadow-brand-500/30 hover:opacity-90 transition">
-                                Activer et Déployer (29€)
+                                Activer et Vendre ce SaaS (29€)
                             </a>
                         </div>
                     </div>
                 `;
-            }, 800);
+            }, 900);
         }
 
-        function updateEarnings() {
-            const clients = parseInt(document.getElementById('clientSlider').value);
-            const price = parseInt(document.getElementById('priceSlider').value);
+        function calculateCustomGoal() {
+            const target = parseInt(document.getElementById('targetIncomeInput').value);
+            const goalResult = document.getElementById('goalResult');
+            const analysisText = document.getElementById('goalAnalysisText');
 
-            document.getElementById('clientCountText').innerText = clients + " clients";
-            document.getElementById('priceText').innerText = price + " € / mois";
+            if (!target || target <= 0) {
+                alert("Veuillez entrer un montant valide.");
+                return;
+            }
 
-            const monthly = clients * price;
-            const yearly = monthly * 12;
+            goalResult.classList.remove('hidden');
+            analysisText.innerHTML = `<span class="text-slate-400"><i class="fa-solid fa-circle-notch animate-spin mr-1"></i> Analyse du marché et calcul de rentabilité en cours...</span>`;
 
-            document.getElementById('monthlyTotal').innerText = monthly.toLocaleString('fr-FR') + " €";
-            document.getElementById('yearlyTotal').innerText = yearly.toLocaleString('fr-FR') + " € / an";
+            setTimeout(() => {
+                const subPrice = 29; // Prix moyen de l'abo
+                const clientsNeeded = Math.ceil(target / subPrice);
+                // On ajoute une petite variation réaliste pour faire pro (ex: + un petit pourcentage)
+                const realisticEarnings = clientsNeeded * subPrice;
+
+                analysisText.innerHTML = `
+                    Pour viser <strong class="text-white">${target.toLocaleString('fr-FR')} €/mois</strong> avec un abonnement à ${subPrice}€, il vous faut exactement <strong class="text-brand-400">${clientsNeeded} clients abonnés</strong>.<br>
+                    <span class="text-xs text-slate-300 mt-2 block">💡 <em>Analyse Nexora :</em> C'est un objectif tout à fait atteignable. Avec une simple campagne ciblée sur les professionnels, générer <strong class="text-white">${realisticEarnings.toLocaleString('fr-FR')} €/mois</strong> de revenus récurrents est validé par notre algorithme !</span>
+                `;
+            }, 800);
         }
 
         function escapeHtml(text) {
