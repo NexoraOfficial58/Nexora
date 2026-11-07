@@ -26,8 +26,8 @@
     </script>
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
-        .glass { background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.1); }
-        .glass-card { background: rgba(30, 41, 59, 0.6); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
+        .glass { background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .glass-card { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
         .gradient-bg { background: linear-gradient(135deg, #22c55e 0%, #15803d 100%); }
         .gradient-text { background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
     </style>
@@ -42,17 +42,17 @@
             </div>
             <span class="font-extrabold text-xl tracking-wider text-white">NEXORA<span class="text-brand-500">.AI</span></span>
         </div>
-        <div class="flex items-center gap-4">
-            <a href="https://buy.stripe.com/aFai4f2UT9JQzhSell19W02" target="_blank" class="px-5 py-2.5 rounded-xl text-sm font-bold gradient-bg text-white shadow-lg shadow-brand-500/25 hover:opacity-95 hover:scale-105 transition duration-200 flex items-center gap-2">
+        <div>
+            <a href="https://buy.stripe.com/aFai4f2UT9JQzhSell19W02" target="_blank" class="px-5 py-2.5 rounded-xl text-sm font-bold gradient-bg text-white shadow-lg shadow-brand-500/25 hover:opacity-95 hover:scale-105 transition duration-200 inline-flex items-center gap-2">
                 <i class="fa-solid fa-rocket"></i> Lancer mon SaaS (29€)
             </a>
         </div>
     </header>
 
     <!-- Main Content -->
-    <main class="flex-grow max-w-5xl mx-auto w-full p-4 sm:p-8 flex flex-col justify-center relative my-4">
+    <main class="flex-grow max-w-4xl mx-auto w-full p-4 sm:p-8 flex flex-col justify-center my-6">
         
-        <!-- Hero Hook Business -->
+        <!-- Hero Section -->
         <div class="text-center mb-8">
             <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold bg-brand-500/10 text-brand-400 border border-brand-500/30 mb-3">
                 ⚡ Générateur de Micro-SaaS Clé en Main
@@ -60,59 +60,58 @@
             <h1 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight mb-3">
                 Générez votre logiciel, <br/><span class="gradient-text">Encaissez vos abonnements</span>
             </h1>
-            <p class="text-slate-300 text-sm sm:text-base max-w-2xl mx-auto">
+            <p class="text-slate-300 text-sm sm:text-base max-w-xl mx-auto">
                 Testez votre idée de business. Nexora crée l'ébauche de votre application et calcule votre potentiel de revenus en temps réel.
             </p>
         </div>
 
-        <!-- Générateur de Projet par Mot-Clé -->
-        <section class="glass p-6 sm:p-8 rounded-3xl border border-white/15 shadow-2xl relative mb-8">
+        <!-- Générateur de Projet -->
+        <section class="glass p-6 sm:p-8 rounded-3xl border border-white/15 shadow-2xl mb-8">
             <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Quel service voulez-vous commercialiser ?</label>
             
             <div class="flex flex-col sm:flex-row gap-3 mb-4">
-                <input type="text" id="projectInput" placeholder="ex: Facturation Artisans, Devis BTP, Gestion de chantiers..." class="flex-grow bg-slate-900/90 border border-white/15 rounded-xl px-5 py-4 text-base text-white focus:outline-none focus:border-brand-500 transition shadow-inner">
-                <button onclick="generateSaaSBlueprint()" class="gradient-bg text-white px-8 py-4 rounded-xl text-base font-bold shadow-lg shadow-brand-500/25 hover:opacity-95 transition flex items-center justify-center gap-2 shrink-0">
+                <input type="text" id="projectInput" placeholder="ex: Facturation Artisans, Devis BTP..." class="flex-grow bg-slate-900 border border-white/15 rounded-xl px-4 py-3.5 text-base text-white focus:outline-none focus:border-brand-500 transition">
+                <button onclick="generateSaaSBlueprint()" class="gradient-bg text-white px-6 py-3.5 rounded-xl text-sm font-bold shadow-lg shadow-brand-500/25 hover:opacity-95 transition flex items-center justify-center gap-2 shrink-0">
                     <i class="fa-solid fa-wand-magic-sparkles"></i> Générer l'ébauche
                 </button>
             </div>
 
-            <!-- Suggestions rapides -->
+            <!-- Suggestions -->
             <div class="flex flex-wrap gap-2 text-xs text-slate-400 items-center">
-                <span>Idées populaires :</span>
+                <span>Idées :</span>
                 <button onclick="fillPrompt('Logiciel de Devis et Factures pour Artisans')" class="bg-white/5 hover:bg-white/10 px-3 py-1 rounded-lg text-slate-300 border border-white/10 transition">Facturation Artisans</button>
                 <button onclick="fillPrompt('Assistant IA pour Suivi de Chantiers BTP')" class="bg-white/5 hover:bg-white/10 px-3 py-1 rounded-lg text-slate-300 border border-white/10 transition">Chantiers BTP</button>
-                <button onclick="fillPrompt('Plateforme de Réservation en ligne')" class="bg-white/5 hover:bg-white/10 px-3 py-1 rounded-lg text-slate-300 border border-white/10 transition">Réservation Pro</button>
             </div>
 
-            <!-- Ébauche de l'application générée -->
-            <div id="blueprintOutput" class="hidden mt-8 p-6 bg-slate-900/90 rounded-2xl border border-brand-500/30"></div>
+            <!-- Résultat Ébauche -->
+            <div id="blueprintOutput" class="hidden mt-6 p-6 bg-slate-900 rounded-2xl border border-brand-500/30"></div>
         </section>
 
-        <!-- Simulateur d'objectif de revenus interactif -->
-        <section id="simulatorSection" class="glass-card p-6 sm:p-8 rounded-3xl border border-white/10 mb-6">
+        <!-- Simulateur d'objectif de revenus -->
+        <section id="simulatorSection" class="glass-card p-6 sm:p-8 rounded-3xl border border-white/10">
             <div class="text-center mb-6">
                 <h3 class="text-2xl font-bold text-white mb-1"><i class="fa-solid fa-bullseye text-brand-400 mr-2"></i>Simulateur d'Objectif Financier</h3>
-                <p class="text-xs text-slate-400">Entrez le montant que vous aimeriez gagner par mois pour voir si c'est atteignable.</p>
+                <p class="text-xs text-slate-400">Entrez le montant que vous aimeriez gagner par mois.</p>
             </div>
 
-            <div class="max-w-xl mx-auto space-y-6">
+            <div class="max-w-md mx-auto space-y-5">
                 <div>
-                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Combien souhaitez-vous gagner par mois ? (€)</label>
+                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Objectif mensuel (€)</label>
                     <div class="flex gap-3">
-                        <input type="number" id="targetIncomeInput" value="10000" placeholder="ex: 10000" class="flex-grow bg-slate-900/90 border border-white/15 rounded-xl px-4 py-3 text-lg font-bold text-white focus:outline-none focus:border-brand-500 transition">
+                        <input type="number" id="targetIncomeInput" value="10000" class="flex-grow bg-slate-900 border border-white/15 rounded-xl px-4 py-3 text-lg font-bold text-white focus:outline-none focus:border-brand-500 transition">
                         <button onclick="calculateCustomGoal()" class="gradient-bg text-white px-6 py-3 rounded-xl text-sm font-bold shadow-lg shadow-brand-500/25 hover:opacity-95 transition whitespace-nowrap">
                             Calculer
                         </button>
                     </div>
                 </div>
 
-                <!-- Résultat du calcul d'objectif -->
-                <div id="goalResult" class="hidden bg-slate-900/95 p-6 rounded-2xl border border-brand-500/30 text-center space-y-3">
-                    <span class="text-xs font-bold text-brand-400 uppercase tracking-wider">Analyse de faisabilité Nexora</span>
+                <!-- Résultat du calcul -->
+                <div id="goalResult" class="hidden bg-slate-900 p-6 rounded-2xl border border-brand-500/30 text-center space-y-4 shadow-xl">
+                    <span class="text-xs font-bold text-brand-400 uppercase tracking-wider">Analyse de rentabilité Nexora</span>
                     <p id="goalAnalysisText" class="text-slate-200 text-sm leading-relaxed"></p>
-                    <div class="pt-2">
-                        <a href="https://buy.stripe.com/aFai4f2UT9JQzhSell19W02" target="_blank" class="inline-block gradient-bg text-white px-8 py-3 rounded-xl text-sm font-bold shadow-lg shadow-brand-500/30 hover:opacity-90 transition">
-                            Déployer ce business maintenant (29€) →
+                    <div>
+                        <a href="https://buy.stripe.com/aFai4f2UT9JQzhSell19W02" target="_blank" class="inline-block gradient-bg text-white w-full py-3.5 rounded-xl text-sm font-bold shadow-lg shadow-brand-500/30 hover:opacity-90 transition">
+                            Activer et Lancer mon SaaS (29€) →
                         </a>
                     </div>
                 </div>
@@ -126,7 +125,7 @@
         &copy; 2026 NEXORA AI. Tous droits réservés.
     </footer>
 
-    <!-- Scripts JavaScript -->
+    <!-- Scripts -->
     <script>
         function fillPrompt(text) {
             document.getElementById('projectInput').value = text;
@@ -138,15 +137,15 @@
             const output = document.getElementById('blueprintOutput');
 
             if (!input) {
-                alert("Veuillez entrer une idée ou un mot-clé (ex: Facturation Artisans).");
+                alert("Veuillez entrer une idée ou un mot-clé.");
                 return;
             }
 
             output.classList.remove('hidden');
             output.innerHTML = `
-                <div class="flex items-center gap-3 text-brand-400 py-4">
-                    <i class="fa-solid fa-spinner animate-spin text-xl"></i>
-                    <span class="font-bold text-sm">Génération de l'ébauche et du prototype fonctionnel...</span>
+                <div class="flex items-center gap-3 text-brand-400 py-3">
+                    <i class="fa-solid fa-spinner animate-spin text-lg"></i>
+                    <span class="font-bold text-sm">Génération de l'ébauche du logiciel en cours...</span>
                 </div>
             `;
 
@@ -155,31 +154,30 @@
                     <div class="space-y-4">
                         <div class="flex justify-between items-start border-b border-white/10 pb-3">
                             <div>
-                                <span class="text-xs text-brand-400 font-bold uppercase tracking-wider">Ébauche de SaaS générée</span>
-                                <h4 class="text-xl font-extrabold text-white">${escapeHtml(input)}</h4>
+                                <span class="text-xs text-brand-400 font-bold uppercase">Prototype Prêt</span>
+                                <h4 class="text-lg font-extrabold text-white">${escapeHtml(input)}</h4>
                             </div>
-                            <span class="bg-brand-500/20 text-brand-400 border border-brand-500/30 text-xs px-3 py-1 rounded-full font-bold">Prêt à vendre</span>
+                            <span class="bg-brand-500/20 text-brand-400 text-xs px-3 py-1 rounded-full font-bold">100% Configuré</span>
                         </div>
                         
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-                            <div class="bg-slate-800/60 p-4 rounded-xl border border-white/5 space-y-1">
-                                <span class="text-brand-400 font-bold block"><i class="fa-solid fa-desktop mr-1"></i> Interface Client :</span>
-                                <p class="text-slate-300">Tableau de bord sur-mesure, saisie rapide, export PDF et design pro pour rassurer l'utilisateur final.</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                            <div class="bg-slate-800/80 p-3 rounded-xl border border-white/5">
+                                <span class="text-brand-400 font-bold block mb-1">💻 Interface :</span>
+                                <p class="text-slate-300">Dashboard pro, formulaires intuitifs et exports automatiques.</p>
                             </div>
-                            <div class="bg-slate-800/60 p-4 rounded-xl border border-white/5 space-y-1">
-                                <span class="text-brand-400 font-bold block"><i class="fa-solid fa-credit-card mr-1"></i> Monétisation :</span>
-                                <p class="text-slate-300">Paiement par abonnement Stripe intégré d'office (ex: 29€/mois) pour encaisser en automatique.</p>
+                            <div class="bg-slate-800/80 p-3 rounded-xl border border-white/5">
+                                <span class="text-brand-400 font-bold block mb-1">💳 Paiement :</span>
+                                <p class="text-slate-300">Intégration Stripe configurée pour vos abonnements (29€/mois).</p>
                             </div>
                         </div>
 
-                        <div class="pt-2 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-3">
-                            <p class="text-xs text-slate-400">Ce prototype est configuré pour attirer vos premiers clients dès sa mise en ligne.</p>
-                            <a href="#simulatorSection" class="text-xs text-brand-400 font-bold hover:underline">Aller au simulateur de gains ↓</a>
+                        <div class="pt-2 text-center">
+                            <a href="#simulatorSection" class="text-xs text-brand-400 font-bold hover:underline">Voir le simulateur de revenus en bas ↓</a>
                         </div>
                     </div>
                 `;
                 document.getElementById('simulatorSection').scrollIntoView({ behavior: 'smooth' });
-            }, 900);
+            }, 800);
         }
 
         function calculateCustomGoal() {
@@ -193,20 +191,17 @@
             }
 
             goalResult.classList.remove('hidden');
-            analysisText.innerHTML = `<span class="text-slate-400"><i class="fa-solid fa-circle-notch animate-spin mr-1"></i> Analyse du marché et calcul de rentabilité en cours...</span>`;
+            analysisText.innerHTML = `<span class="text-slate-400"><i class="fa-solid fa-circle-notch animate-spin mr-1"></i> Calcul des projections en cours...</span>`;
 
             setTimeout(() => {
                 const subPrice = 29;
                 const clientsNeeded = Math.ceil(target / subPrice);
-                const realisticEarnings = clientsNeeded * subPrice;
-                const bonus = Math.round(realisticEarnings * 1.05);
 
                 analysisText.innerHTML = `
-                    Pour viser <strong class="text-white">${target.toLocaleString('fr-FR')} €/mois</strong> avec un abonnement à 29€, il vous faut exactement <strong class="text-brand-400">${clientsNeeded} clients abonnés</strong>.<br>
-                    <span class="text-xs text-slate-300 mt-2 block">🔥 <em>Analyse Nexora :</em> C'est un objectif ultra-réaliste. Avec notre système, vous pouvez même dépasser cet objectif et atteindre jusqu'à <strong class="text-white">${bonus.toLocaleString('fr-FR')} €/mois</strong> grâce aux options et ventes additionnelles !</span>
+                    Pour viser <strong class="text-white">${target.toLocaleString('fr-FR')} €/mois</strong> à 29€/client, il vous faut seulement <strong class="text-brand-400">${clientsNeeded} clients abonnés</strong>.<br>
+                    <span class="text-xs text-slate-300 mt-2 block">🔥 C'est un objectif tout à fait réalisable avec une simple diffusion ciblée. Le marché est demandeur !</span>
                 `;
-                goalResult.scrollIntoView({ behavior: 'smooth' });
-            }, 800);
+            }, 700);
         }
 
         function escapeHtml(text) {
