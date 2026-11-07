@@ -316,3 +316,238 @@
         document.getElementById('resultat').textContent = "🚀 Application interactive initialisée avec succès !";
     });
 </script>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXORA - Générateur d'Applications IA</title>
+    <style>
+        :root {
+            --bg-main: #0b0f19;
+            --bg-card: #151c2c;
+            --accent: #6366f1;
+            --accent-hover: #4f46e5;
+            --cyan: #06b6d4;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: #1e293b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            padding: 1rem 2rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(11, 15, 25, 0.8);
+            backdrop-filter: blur(8px);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent), var(--cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .btn-pro {
+            background: linear-gradient(135deg, #f59e0b, #ef4444);
+            color: white;
+            border: none;
+            padding: 0.5rem 1.25rem;
+            border-radius: 20px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .prompt-box {
+            width: 100%;
+            max-width: 700px;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1rem;
+            display: flex;
+            gap: 0.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .prompt-box input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .prompt-box button {
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .preview-container {
+            width: 100%;
+            margin-top: 2rem;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            height: 500px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .preview-header {
+            padding: 0.75rem 1rem;
+            background-color: #0d121f;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background-color: white;
+        }
+
+        /* Modal Stripe */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            max-width: 400px;
+            border: 1px solid var(--accent);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">NEXORA</div>
+        <button class="btn-pro" onclick="openModal()">Passer à NEXORA Pro (29€/mois)</button>
+    </header>
+
+    <main>
+        <div class="hero">
+            <h1>Que voulez-vous créer aujourd'hui ?</h1>
+            <p style="color: var(--text-muted);">Décrivez votre projet web et NEXORA le génère en direct.</p>
+        </div>
+
+        <div class="prompt-box">
+            <input type="text" id="promptInput" placeholder="Ex: Crée un portfolio moderne avec un mode sombre et un formulaire de contact...">
+            <button onclick="generateApp()">Générer ✨</button>
+        </div>
+
+        <div class="preview-container">
+            <div class="preview-header">
+                <span>Aperçu en direct</span>
+                <button onclick="openModal()" style="background: transparent; color: var(--cyan); border: 1px solid var(--cyan); padding: 0.25rem 0.75rem; border-radius: 4px; cursor: pointer;">Exporter le code 🔒</button>
+            </div>
+            <iframe id="previewFrame"></iframe>
+        </div>
+    </main>
+
+    <div class="modal" id="payModal">
+        <div class="modal-content">
+            <h2>NEXORA Pro</h2>
+            <p style="margin: 1rem 0; color: var(--text-muted);">Débloquez l'exportation du code HTML/CSS/JS et l'hébergement illimité.</p>
+            <button onclick="alert('Redirection vers Stripe Pay-Wall...')" style="background: linear-gradient(135deg, #f59e0b, #ef4444); color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: bold; cursor: pointer; width: 100%;">S'abonner pour 29€/mois</button>
+            <button onclick="closeModal()" style="background: transparent; color: white; border: none; margin-top: 1rem; cursor: pointer;">Fermer</button>
+        </div>
+    </div>
+
+    <script>
+        const previewFrame = document.getElementById('previewFrame');
+
+        function generateApp() {
+            const prompt = document.getElementById('promptInput').value || "landing page";
+            
+            const htmlContent = `
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <style>
+                        body { font-family: sans-serif; padding: 2rem; text-align: center; background: #f4f4f9; color: #333; }
+                        .card { background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+                        button { background: #6366f1; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; }
+                    </style>
+                </head>
+                <body>
+                    <div class="card">
+                        <h2>Projet généré : ${prompt}</h2>
+                        <p>Votre application web interactive est prête et fonctionnelle.</p>
+                        <br>
+                        <button onclick="alert('Interaction réussie !')">Tester l'interface</button>
+                    </div>
+                </body>
+                </html>
+            `;
+
+            previewFrame.srcdoc = htmlContent;
+        }
+
+        function openModal() { document.getElementById('payModal').style.display = 'flex'; }
+        function closeModal() { document.getElementById('payModal').style.display = 'none'; }
+
+        // Démo initiale
+        generateApp();
+    </script>
+</body>
+</html>
