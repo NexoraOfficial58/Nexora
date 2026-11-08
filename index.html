@@ -263,34 +263,31 @@
         </div>
     </main>
 
-    <!-- FENÈTRE DE CONSTRUCTION EN 3 ÉTAPES VISUELLES IMMERSIVES -->
+    <!-- FENÈTRE DE FABRICATION EN DIRECT AVEC VRAI APERÇU VISUEL PROGRESSIF -->
     <div id="buildModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-950/95 backdrop-blur-xl p-4">
-        <div class="glass-card border border-brand-500/50 rounded-3xl p-6 sm:p-8 max-w-xl w-full relative text-left glow-box space-y-6">
+        <div class="glass-card border border-brand-500/50 rounded-3xl p-6 sm:p-8 max-w-xl w-full relative text-left glow-box space-y-5">
             
             <div class="flex justify-between items-center border-b border-white/10 pb-3">
                 <div class="flex items-center gap-2">
                     <div class="dot dot-red"></div>
                     <div class="dot dot-yellow"></div>
                     <div class="dot dot-green"></div>
-                    <span class="text-xs text-slate-400 font-mono ml-2">Construction du projet en direct</span>
+                    <span class="text-xs text-slate-400 font-mono ml-2">Atelier de fabrication Nexora</span>
                 </div>
-                <span class="text-xs font-mono text-brand-400 font-bold px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/30" id="stepCounter">Étape 1 sur 3</span>
+                <span class="text-xs font-mono text-brand-400 font-bold px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/30" id="stepIndicator">Étape 1 sur 3</span>
             </div>
 
-            <!-- CONTENU VISUEL DE L'ÉTAPE EN COURS -->
-            <div id="stepContentBox" class="bg-slate-950 p-6 rounded-2xl border border-white/15 text-center min-h-[180px] flex flex-col items-center justify-center space-y-3 transition-all duration-300">
-                <!-- Injecté dynamiquement par JS -->
+            <!-- ZONE VISUELLE CONCRÈTE (CHANGEMENT D'APERÇU À CHAQUE ÉTAPE) -->
+            <div id="livePreviewContainer" class="bg-slate-950 p-5 rounded-2xl border border-white/15 min-h-[200px] flex flex-col justify-center space-y-3">
+                <!-- Contenu injecté dynamiquement par JS -->
             </div>
 
-            <!-- Barre de progression globale -->
+            <!-- Barre de progression -->
             <div class="w-full bg-slate-900 h-2.5 rounded-full overflow-hidden border border-white/10">
-                <div id="progressBar" class="bg-gradient-to-r from-emerald-500 to-brand-400 h-full rounded-full transition-all duration-500 w-[33%]"></div>
+                <div id="liveProgressBar" class="bg-gradient-to-r from-emerald-500 to-brand-400 h-full rounded-full transition-all duration-700 w-[33%]"></div>
             </div>
 
-            <div class="flex justify-between items-center text-[11px] text-slate-400 font-mono">
-                <span id="stepDescription">Analyse sémantique de l'activité...</span>
-                <span class="text-brand-400 font-bold" id="percentText">33%</span>
-            </div>
+            <p class="text-[11px] text-center text-slate-400 font-mono" id="liveStatusLabel">Initialisation des serveurs de déploiement...</p>
         </div>
     </div>
 
@@ -321,70 +318,84 @@
             const buildModal = document.getElementById('buildModal');
             buildModal.classList.remove('hidden');
 
-            runBuildSteps(input);
+            runVisualStages(input);
         }
 
-        function runBuildSteps(projectName) {
-            const stepCounter = document.getElementById('stepCounter');
-            const stepContentBox = document.getElementById('stepContentBox');
-            const progressBar = document.getElementById('progressBar');
-            const stepDescription = document.getElementById('stepDescription');
-            const percentText = document.getElementById('percentText');
+        function runVisualStages(projectName) {
+            const stepIndicator = document.getElementById('stepIndicator');
+            const livePreviewContainer = document.getElementById('livePreviewContainer');
+            const liveProgressBar = document.getElementById('liveProgressBar');
+            const liveStatusLabel = document.getElementById('liveStatusLabel');
 
-            // --- ÉTAPE 1 : Base de données & Structure ---
-            stepCounter.textContent = "Étape 1 sur 3";
-            progressBar.style.width = "33%";
-            percentText.textContent = "33%";
-            stepDescription.textContent = "Génération de la base SQL et des tables sécurisées...";
-            stepContentBox.innerHTML = `
-                <div class="w-12 h-12 rounded-2xl bg-brand-500/20 border border-brand-500/40 flex items-center justify-center text-brand-400 text-xl animate-pulse">
-                    <i class="fa-solid fa-database"></i>
+            // --- ÉTAPE 1 : Le Squelette & Nom de Projet ---
+            stepIndicator.textContent = "Étape 1 sur 3";
+            liveProgressBar.style.width = "33%";
+            liveStatusLabel.textContent = `Structuration de la base de données pour : "${projectName}"`;
+            
+            livePreviewContainer.innerHTML = `
+                <div class="flex items-center gap-3 bg-slate-900 p-3 rounded-xl border border-white/10">
+                    <div class="w-8 h-8 rounded-lg bg-brand-500/20 text-brand-400 flex items-center justify-center font-bold">SQL</div>
+                    <div>
+                        <span class="text-[10px] text-slate-400 block">Base de données active</span>
+                        <strong class="text-xs text-white font-mono">db_${escapeHtml(projectName).toLowerCase().replace(/[^a-z0-9]/g, '_')}_prod</strong>
+                    </div>
                 </div>
-                <h4 class="text-base font-black text-white">Création de la structure pour :</h4>
-                <span class="text-brand-400 font-mono text-sm font-bold bg-brand-500/10 px-3 py-1 rounded-lg border border-brand-500/20">"${escapeHtml(projectName)}"</span>
-                <p class="text-xs text-slate-400">Génération automatique des tables clients, catalogues et historiques...</p>
+                <div class="space-y-1.5 pt-1">
+                    <div class="h-2 bg-slate-900 rounded-full w-3/4 animate-pulse"></div>
+                    <div class="h-2 bg-slate-900 rounded-full w-1/2 animate-pulse"></div>
+                </div>
+                <p class="text-xs text-brand-400 font-bold pt-1">✓ Tables clients et répertoires sécurisés créés.</p>
             `;
 
-            // --- ÉTAPE 2 : Interface graphique & Modules ---
+            // --- ÉTAPE 2 : Le Visuel Concret (On voit la maquette du logiciel s'esquisser) ---
             setTimeout(() => {
-                stepCounter.textContent = "Étape 2 sur 3";
-                progressBar.style.width = "66%";
-                percentText.textContent = "66%";
-                stepDescription.textContent = "Assemblage du tableau de bord et des modules clients...";
-                stepContentBox.innerHTML = `
-                    <div class="w-12 h-12 rounded-2xl bg-brand-500/20 border border-brand-500/40 flex items-center justify-center text-brand-400 text-xl animate-bounce">
-                        <i class="fa-solid fa-window-maximize"></i>
+                stepIndicator.textContent = "Étape 2 sur 3";
+                liveProgressBar.style.width = "66%";
+                liveStatusLabel.textContent = "Assemblage des modules graphiques et des tableaux de bord...";
+                
+                livePreviewContainer.innerHTML = `
+                    <div class="bg-slate-900 p-3.5 rounded-xl border border-brand-500/40 space-y-2">
+                        <div class="flex justify-between items-center text-xs border-b border-white/10 pb-2">
+                            <span class="font-black text-white"><i class="fa-solid fa-chart-pie text-brand-400 mr-1.5"></i> Interface ${escapeHtml(projectName)}</span>
+                            <span class="text-[10px] bg-brand-500/20 text-brand-400 px-2 py-0.5 rounded font-bold">Généré en direct</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2 pt-1">
+                            <div class="bg-slate-950 p-2 rounded border border-white/5 text-[11px]">
+                                <span class="text-slate-400 block text-[9px]">Module principal</span>
+                                <strong class="text-white">Actif & Configuré</strong>
+                            </div>
+                            <div class="bg-slate-950 p-2 rounded border border-white/5 text-[11px]">
+                                <span class="text-slate-400 block text-[9px]">Tunnel de vente</span>
+                                <strong class="text-emerald-400">Opérationnel</strong>
+                            </div>
+                        </div>
                     </div>
-                    <h4 class="text-base font-black text-white">Design et Interface de l'application</h4>
-                    <div class="w-full bg-slate-900 p-2.5 rounded-xl border border-white/10 flex items-center justify-between text-xs text-left">
-                        <span class="text-slate-300 font-bold truncate max-w-[200px]">⚡ Dashboard ${escapeHtml(projectName)}</span>
-                        <span class="text-emerald-400 font-mono">Prêt</span>
-                    </div>
-                    <p class="text-xs text-slate-400">Mise en place des graphiques et des tunnels de devis/facturation.</p>
+                    <p class="text-xs text-brand-400 font-bold">✓ Vraie ébauche graphique assemblée avec succès.</p>
                 `;
-            }, 2000);
+            }, 2500);
 
-            // --- ÉTAPE 3 : Connexion Stripe & Finalisation ---
+            // --- ÉTAPE 3 : Connexion Stripe et finalisation ---
             setTimeout(() => {
-                stepCounter.textContent = "Étape 3 sur 3";
-                progressBar.style.width = "100%";
-                percentText.textContent = "100%";
-                stepDescription.textContent = "Câblage de la passerelle de paiement et webhooks...";
-                stepContentBox.innerHTML = `
-                    <div class="w-12 h-12 rounded-2xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 text-xl">
-                        <i class="fa-brands fa-stripe"></i>
+                stepIndicator.textContent = "Étape 3 sur 3";
+                liveProgressBar.style.width = "100%";
+                liveStatusLabel.textContent = "Connexion finale des abonnements et webhooks Stripe...";
+                
+                livePreviewContainer.innerHTML = `
+                    <div class="bg-slate-900 p-4 rounded-xl border border-emerald-500/40 text-center space-y-2">
+                        <div class="w-10 h-10 mx-auto rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-lg">
+                            <i class="fa-brands fa-stripe"></i>
+                        </div>
+                        <h4 class="text-xs font-bold text-white">Passerelle de paiement prête à encaisser</h4>
+                        <p class="text-[11px] text-slate-300">Vos futurs abonnés à 29€ / 49€ pour <strong>${escapeHtml(projectName)}</strong> vont pouvoir régler immédiatement.</p>
                     </div>
-                    <h4 class="text-base font-black text-white">Passerelle Stripe & Abonnements Connectés</h4>
-                    <p class="text-xs text-slate-300">Le système d'encaissement récurrent à 29€ / 49€ est lié au projet.</p>
-                    <span class="text-xs font-bold text-brand-400 font-mono animate-pulse">Ouverture de votre prototype...</span>
                 `;
-            }, 4000);
+            }, 5000);
 
-            // --- FINAL : Fermeture et affichage du Dashboard ---
+            // --- FINAL : Ouverture du Dashboard complet ---
             setTimeout(() => {
                 buildModal.classList.add('hidden');
                 showPrototype(projectName);
-            }, 5500);
+            }, 7000);
         }
 
         function showPrototype(projectName) {
