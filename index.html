@@ -53,7 +53,7 @@
 </head>
 <body class="text-slate-100 min-h-screen flex flex-col justify-between selection:bg-brand-500 selection:text-white relative">
 
-    <!-- FENÊTRES FLOTTANTES (CHIFFRES CRÉDIBLES) -->
+    <!-- FENÊTRES FLOTTANTES (AVEC CHIFFRES QUI ÉVOLUENT EN DIRECT) -->
     <div class="floating-window hidden lg:block left-8 top-36 w-72">
         <div class="window-header">
             <div class="dot dot-red"></div>
@@ -64,15 +64,15 @@
         <div class="space-y-2 font-mono text-[11px]">
             <div class="flex justify-between items-center text-slate-300">
                 <span>Créateurs en ligne :</span>
-                <span class="text-brand-400 font-bold">42 actifs</span>
+                <span id="liveCreators" class="text-brand-400 font-bold">42 actifs</span>
             </div>
             <div class="flex justify-between items-center text-slate-300">
                 <span>SaaS générés ce mois :</span>
-                <span class="text-white font-bold">184 projets</span>
+                <span id="liveProjects" class="text-white font-bold">184 projets</span>
             </div>
             <div class="bg-emerald-500/10 p-2 rounded border border-emerald-500/30 flex justify-between items-center">
                 <span class="text-emerald-300">🔥 Dernier abonnement</span>
-                <span class="text-brand-400 font-bold">+29,00 € (Il y a 45s)</span>
+                <span class="text-brand-400 font-bold">+29,00 €</span>
             </div>
         </div>
     </div>
@@ -87,7 +87,7 @@
         <div class="space-y-2">
             <div class="flex justify-between text-xs">
                 <span class="text-slate-400">Volume encaissé global</span>
-                <span class="text-brand-400 font-bold">34 250 €</span>
+                <span id="liveVolume" class="text-brand-400 font-bold">34 250 €</span>
             </div>
             <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
                 <div class="bg-brand-500 h-full w-[65%]"></div>
@@ -109,7 +109,7 @@
         </div>
         <div class="flex items-center gap-4">
             <span class="hidden sm:inline-flex items-center gap-1.5 text-xs text-brand-400 font-bold bg-brand-500/10 px-3 py-1.5 rounded-full border border-brand-500/20">
-                <span class="w-2 h-2 rounded-full bg-brand-400 animate-ping"></span> 42 créateurs connectés
+                <span class="w-2 h-2 rounded-full bg-brand-400 animate-ping"></span> <span id="headerCreators">42</span> créateurs connectés
             </span>
             <a href="https://buy.stripe.com/aFa14f2UT9JQ2hSell9fW02" target="_blank" class="px-5 py-2.5 rounded-xl text-sm font-bold gradient-bg text-white shadow-lg shadow-brand-500/25 hover:opacity-95 hover:scale-105 transition duration-200 inline-flex items-center gap-2">
                 <i class="fa-solid fa-rocket"></i> Passer Pro (29€)
@@ -132,7 +132,7 @@
             </h1>
 
             <p class="text-slate-300 text-base sm:text-lg max-w-xl mx-auto mb-8 leading-relaxed">
-                Entrez un domaine d'activité. Nexora génère instantanément votre application complète et configure votre tunnel de vente.
+                Entrez un domaine d'activité. Nexora génère instantanément l'ébauche concrète de votre application sous vos yeux.
             </p>
 
             <!-- Champ de saisie -->
@@ -140,9 +140,9 @@
                 <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-3">Quel service ou logiciel voulez-vous commercialiser ?</label>
                 
                 <div class="flex flex-col sm:flex-row gap-3 mb-4">
-                    <input type="text" id="projectInput" placeholder="ex: Facturation IA pour Artisans, Vente de Bijoux..." class="flex-1 bg-white/5 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500">
+                    <input type="text" id="projectInput" placeholder="ex: Facturation BTP, Vente de Bijoux, Réservation..." class="flex-1 bg-white/5 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500">
                     
-                    <button onclick="generateDashboard()" class="gradient-bg text-white px-8 py-4 rounded-xl font-bold flex items-center justify-center gap-2 hover:opacity-90 transition shadow-lg shadow-emerald-500/20 cursor-pointer">
+                    <button onclick="generateVisualApp()" class="gradient-bg text-white px-8 py-4 rounded-xl font-bold flex items-center justify-center gap-2 hover:opacity-90 transition shadow-lg shadow-emerald-500/20 cursor-pointer">
                         <i class="fas fa-wand-magic-sparkles"></i>
                         <span>Créer mon SaaS</span>
                     </button>
@@ -157,114 +157,70 @@
             </div>
         </div>
 
-        <!-- VRAI TABLEAU DE BORD COMPLET (LE SAAS DEVENUE CONCRET) -->
-        <div id="saasDashboard" class="hidden w-full text-left space-y-6">
+        <!-- ZONE DE L'ÉBAUCHE VISUELLE CONCRÈTE (L'APERÇU TYPE "TÉLÉ / LEBONCOIN") -->
+        <div id="visualAppContainer" class="hidden w-full text-left space-y-6">
             
             <div class="flex justify-between items-center bg-slate-900/90 p-4 rounded-2xl border border-white/10">
-                <div class="flex items-center gap-3">
-                    <div class="w-3 h-3 rounded-full bg-brand-400 animate-ping"></div>
-                    <div>
-                        <span class="text-[10px] uppercase tracking-wider font-bold text-brand-400">LOGICIEL 100% OPÉRATIONNEL</span>
-                        <h2 class="text-xl font-black text-white" id="dashboardTitle">Mon Application SaaS</h2>
-                    </div>
+                <div>
+                    <span class="text-[10px] uppercase tracking-wider font-bold text-brand-400">✨ ÉBAUCHE VISUELLE GÉNÉRÉE SUR-MESURE</span>
+                    <h2 class="text-xl font-black text-white" id="appTitleDisplay">Nom du Projet</h2>
                 </div>
                 <button onclick="resetApp()" class="text-xs text-slate-400 hover:text-white bg-white/5 px-3 py-2 rounded-xl border border-white/10">
                     <i class="fa-solid fa-rotate-left"></i> Tester une autre idée
                 </button>
             </div>
 
-            <!-- INTERFACE RICHE : SIDEBAR + CONTENU DE LOGICIEL -->
-            <div class="grid grid-cols-1 md:grid-cols-5 gap-6 glass-card p-6 rounded-3xl border border-brand-500/40 glow-box">
+            <!-- LE VRAI APERÇU VISUEL DE L'APPLICATION (VITRINE / PRODUITS / INTERFACE) -->
+            <div class="glass-card p-6 rounded-3xl border border-brand-500/40 glow-box space-y-6">
                 
-                <!-- Sidebar du logiciel -->
-                <div class="bg-slate-950 p-4 rounded-2xl border border-white/10 space-y-4 md:col-span-1">
-                    <div class="font-bold text-xs text-white border-b border-white/10 pb-3 flex items-center gap-2">
-                        <i class="fa-solid fa-cube text-brand-400"></i>
-                        <span id="sidebarProjectName" class="truncate">Mon SaaS</span>
+                <div class="flex items-center justify-between border-b border-white/10 pb-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-brand-500/20 text-brand-400 flex items-center justify-center font-bold">
+                            <i class="fa-solid fa-window-maximize"></i>
+                        </div>
+                        <div>
+                            <span class="text-[10px] text-slate-400 block font-mono">Aperçu direct de votre future interface</span>
+                            <strong class="text-sm text-white font-bold" id="appSubtitle">Interface active</strong>
+                        </div>
                     </div>
-                    <nav class="space-y-1 text-xs">
-                        <a href="#" class="block p-2.5 rounded-xl bg-brand-500/20 text-brand-400 font-bold"><i class="fa-solid fa-chart-line mr-2"></i> Vue d'ensemble</a>
-                        <a href="#" class="block p-2.5 rounded-xl text-slate-400 hover:bg-white/5"><i class="fa-solid fa-users mr-2"></i> Clients & Abonnés</a>
-                        <a href="#" class="block p-2.5 rounded-xl text-slate-400 hover:bg-white/5"><i class="fa-solid fa-file-invoice-dollar mr-2"></i> Facturation & Devis</a>
-                        <a href="#" class="block p-2.5 rounded-xl text-slate-400 hover:bg-white/5"><i class="fa-solid fa-plug mr-2"></i> Webhooks Stripe</a>
-                        <a href="#" class="block p-2.5 rounded-xl text-slate-400 hover:bg-white/5"><i class="fa-solid fa-gear mr-2"></i> Paramètres API</a>
-                    </nav>
+                    <span class="text-xs font-bold text-emerald-400 bg-emerald-500/10 px-3 py-1.5 rounded-full border border-emerald-500/30">
+                        <i class="fa-solid fa-circle-check mr-1"></i> Généré par l'IA
+                    </span>
                 </div>
 
-                <!-- Contenu principal du dashboard -->
-                <div class="md:col-span-4 space-y-6">
+                <!-- CONTENU VISUEL DYNAMIQUE SELON L'ACTIVITÉ -->
+                <div id="dynamicAppVisuals" class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <!-- Injecté par JavaScript -->
+                </div>
+
+                <!-- LE SIMULATEUR DE REVENUS -->
+                <div class="bg-slate-900 p-5 rounded-2xl border border-brand-500/30 space-y-3">
+                    <div class="flex items-center gap-2 text-brand-400 font-bold text-xs uppercase tracking-wider">
+                        <i class="fa-solid fa-calculator"></i> Simulateur de Revenus en Temps Réel
+                    </div>
                     
-                    <!-- Ligne des indicateurs clés (KPIs) -->
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                        <div class="bg-slate-900 p-4 rounded-2xl border border-white/10">
-                            <span class="text-xs text-slate-400 block">Chiffre d'Affaires Mensuel</span>
-                            <div class="flex items-baseline gap-2 mt-1">
-                                <span class="text-2xl font-black text-white">4 850 €</span>
-                                <span class="text-xs text-brand-400 font-bold">+18.4% 🚀</span>
-                            </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 items-center">
+                        <div>
+                            <label class="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1">Objectif Mensuel Visé (€)</label>
+                            <input type="number" id="targetIncomeInput" value="5000" step="500" oninput="calculateGoal()" class="w-full bg-slate-950 border border-white/20 rounded-xl px-4 py-2.5 text-base font-bold text-brand-400 focus:outline-none focus:border-brand-500">
                         </div>
-                        <div class="bg-slate-900 p-4 rounded-2xl border border-white/10">
-                            <span class="text-xs text-slate-400 block">Abonnés Actifs</span>
-                            <div class="flex items-baseline gap-2 mt-1">
-                                <span class="text-2xl font-black text-white">99 users</span>
-                                <span class="text-xs text-emerald-400 font-bold">Actif</span>
-                            </div>
-                        </div>
-                        <div class="bg-slate-900 p-4 rounded-2xl border border-white/10">
-                            <span class="text-xs text-slate-400 block">Connexion Stripe Connect</span>
-                            <div class="flex items-center gap-1.5 mt-1 text-xs text-brand-400 font-bold">
-                                <i class="fa-solid fa-circle-check"></i> Opérationnel
-                            </div>
+                        <div>
+                            <label class="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1">Prix de votre Abonnement Client</label>
+                            <select id="priceSelect" onchange="calculateGoal()" class="w-full bg-slate-950 text-white font-bold rounded-xl px-4 py-3 border border-white/20 text-xs">
+                                <option value="29">29 € / mois par abonné</option>
+                                <option value="49" selected>49 € / mois par abonné</option>
+                                <option value="79">79 € / mois par abonné</option>
+                                <option value="99">99 € / mois par abonné</option>
+                            </select>
                         </div>
                     </div>
 
-                    <!-- LE SIMULATEUR DE REVENUS INTÉGRÉ AU MILIEU -->
-                    <div class="bg-slate-900/90 p-5 rounded-2xl border border-brand-500/30 space-y-4">
-                        <div class="flex items-center gap-2 text-brand-400 font-bold text-xs uppercase tracking-wider">
-                            <i class="fa-solid fa-calculator"></i> Simulateur de Rentabilité en Temps Réel
-                        </div>
-                        
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 items-center">
-                            <div>
-                                <label class="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1">Objectif Mensuel Visé (€)</label>
-                                <input type="number" id="targetIncomeInput" value="5000" step="500" oninput="calculateGoal()" class="w-full bg-slate-950 border border-white/20 rounded-xl px-4 py-2.5 text-base font-bold text-brand-400 focus:outline-none focus:border-brand-500">
-                            </div>
-                            <div>
-                                <label class="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1">Prix de votre Abonnement Client</label>
-                                <select id="priceSelect" onchange="calculateGoal()" class="w-full bg-slate-950 text-white font-bold rounded-xl px-4 py-3 border border-white/20 text-xs">
-                                    <option value="29">29 € / mois par abonné</option>
-                                    <option value="49" selected>49 € / mois par abonné</option>
-                                    <option value="79">79 € / mois par abonné</option>
-                                    <option value="99">99 € / mois par abonné</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div id="analysisDetails" class="bg-slate-950 p-3.5 rounded-xl border border-white/10 text-xs text-slate-200">
-                        </div>
-                    </div>
-
-                    <!-- FAUX TABLEAU DE DONNÉES RÉALISTE (ACTIVITÉ DU LOGICIEL) -->
-                    <div class="bg-slate-900 p-4 rounded-2xl border border-white/10 space-y-3">
-                        <div class="flex justify-between items-center text-xs text-slate-300 font-bold">
-                            <span>Dernières transactions clients enregistrées</span>
-                            <span class="text-brand-400 font-mono">En direct</span>
-                        </div>
-                        <div class="space-y-2 text-xs">
-                            <div class="bg-slate-950 p-2.5 rounded-xl border border-white/5 flex justify-between items-center">
-                                <span class="text-white font-medium">Abonnement Pro (Licence Mensuelle)</span>
-                                <span class="text-brand-400 font-bold">+49,00 €</span>
-                            </div>
-                            <div class="bg-slate-950 p-2.5 rounded-xl border border-white/5 flex justify-between items-center">
-                                <span class="text-white font-medium">Abonnement Pack Artisans / Boutique</span>
-                                <span class="text-brand-400 font-bold">+49,00 €</span>
-                            </div>
-                        </div>
+                    <div id="analysisDetails" class="bg-slate-950 p-3.5 rounded-xl border border-white/10 text-xs text-slate-200">
                     </div>
                 </div>
             </div>
 
-            <!-- PAYWALL ULTRA-CONCRET (CODE SOURCE FLOUTÉ ET CADENAS) -->
+            <!-- PAYWALL ULTRA-CONCRET (CODE SOURCE ET DÉPLOIEMENT FLOUTÉS) -->
             <div class="relative rounded-3xl overflow-hidden border border-brand-500/50 bg-slate-950 p-6 text-center shadow-2xl">
                 
                 <div class="filter blur-[6px] select-none text-left font-mono text-[10px] text-slate-500 opacity-40 space-y-1">
@@ -304,12 +260,21 @@
 
     <!-- Scripts -->
     <script>
+        // Animation subtile pour faire bouger les chiffres sur les côtés (effet vivant)
+        setInterval(() => {
+            const creators = Math.floor(Math.random() * 6) + 39; // entre 39 et 44
+            const projects = Math.floor(Math.random() * 4) + 182; // entre 182 et 185
+            document.getElementById('liveCreators').textContent = creators + ' actifs';
+            document.getElementById('headerCreators').textContent = creators;
+            document.getElementById('liveProjects').textContent = projects + ' projets';
+        }, 4000);
+
         function fillPrompt(text) {
             document.getElementById('projectInput').value = text;
-            generateDashboard();
+            generateVisualApp();
         }
 
-        function generateDashboard() {
+        function generateVisualApp() {
             const inputField = document.getElementById('projectInput');
             if (!inputField || !inputField.value.trim()) {
                 alert("Veuillez saisir une idée de service ou de logiciel.");
@@ -318,18 +283,89 @@
 
             const input = inputField.value.trim();
             
-            // Masquer le hero et afficher directement le vrai dashboard complet
             document.getElementById('heroSection').classList.add('hidden');
-            document.getElementById('dashboardTitle').textContent = input;
-            document.getElementById('sidebarProjectName').textContent = input.length > 18 ? input.substring(0, 15) + '...' : input;
+            document.getElementById('appTitleDisplay').textContent = input;
+            document.getElementById('appSubtitle').textContent = `Vitrine interactive pour : "${input}"`;
 
-            document.getElementById('saasDashboard').classList.remove('hidden');
+            const container = document.getElementById('dynamicAppVisuals');
+            const lower = input.toLowerCase();
+
+            // Génération de visuels concrets selon le domaine (La "photo de la voiture")
+            if (lower.includes('bijoux') || lower.includes('vente') || lower.includes('boutique')) {
+                container.innerHTML = `
+                    <div class="bg-slate-900 p-4 rounded-2xl border border-white/10 text-center space-y-2">
+                        <div class="h-28 bg-slate-950 rounded-xl flex items-center justify-center text-brand-400 text-3xl border border-white/5"><i class="fa-solid fa-gem"></i></div>
+                        <strong class="text-xs text-white block">Collier Or Diamant</strong>
+                        <span class="text-brand-400 font-bold text-sm">49,00 €</span>
+                        <button class="w-full bg-brand-500/20 text-brand-400 text-[11px] font-bold py-1.5 rounded-lg border border-brand-500/30">Ajouter au panier</button>
+                    </div>
+                    <div class="bg-slate-900 p-4 rounded-2xl border border-white/10 text-center space-y-2">
+                        <div class="h-28 bg-slate-950 rounded-xl flex items-center justify-center text-brand-400 text-3xl border border-white/5"><i class="fa-solid fa-ring"></i></div>
+                        <strong class="text-xs text-white block">Bague Saphir Sur-mesure</strong>
+                        <span class="text-brand-400 font-bold text-sm">89,00 €</span>
+                        <button class="w-full bg-brand-500/20 text-brand-400 text-[11px] font-bold py-1.5 rounded-lg border border-brand-500/30">Ajouter au panier</button>
+                    </div>
+                    <div class="bg-slate-900 p-4 rounded-2xl border border-white/10 text-center space-y-2">
+                        <div class="h-28 bg-slate-950 rounded-xl flex items-center justify-center text-brand-400 text-3xl border border-white/5"><i class="fa-solid fa-clock"></i></div>
+                        <strong class="text-xs text-white block">Bracelet Jonc Argent</strong>
+                        <span class="text-brand-400 font-bold text-sm">35,00 €</span>
+                        <button class="w-full bg-brand-500/20 text-brand-400 text-[11px] font-bold py-1.5 rounded-lg border border-brand-500/30">Ajouter au panier</button>
+                    </div>
+                `;
+            } else if (lower.includes('devis') || lower.includes('facture') || lower.includes('btp') || lower.includes('artisan')) {
+                container.innerHTML = `
+                    <div class="bg-slate-900 p-4 rounded-2xl border border-white/10 space-y-2 text-left">
+                        <div class="flex justify-between text-[10px] text-slate-400 font-mono">
+                            <span>Devis #001</span>
+                            <span class="text-emerald-400 font-bold">Validé</span>
+                        </div>
+                        <strong class="text-xs text-white block">Ravalement façade 120m² (Client Dupont)</strong>
+                        <div class="text-brand-400 font-black text-sm">3 450,00 € HT</div>
+                    </div>
+                    <div class="bg-slate-900 p-4 rounded-2xl border border-white/10 space-y-2 text-left">
+                        <div class="flex justify-between text-[10px] text-slate-400 font-mono">
+                            <span>Devis #002</span>
+                            <span class="text-amber-400 font-bold">En attente</span>
+                        </div>
+                        <strong class="text-xs text-white block">Isolation extérieure (Client Martin)</strong>
+                        <div class="text-brand-400 font-black text-sm">5 120,00 € HT</div>
+                    </div>
+                    <div class="bg-slate-900 p-4 rounded-2xl border border-white/10 space-y-2 text-left">
+                        <div class="flex justify-between text-[10px] text-slate-400 font-mono">
+                            <span>Facture #003</span>
+                            <span class="text-brand-400 font-bold">Payée</span>
+                        </div>
+                        <strong class="text-xs text-white block">Réparation toiture (Client Leroy)</strong>
+                        <div class="text-brand-400 font-black text-sm">1 280,00 € HT</div>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = `
+                    <div class="bg-slate-900 p-4 rounded-2xl border border-white/10 text-center space-y-2">
+                        <div class="h-28 bg-slate-950 rounded-xl flex items-center justify-center text-brand-400 text-3xl border border-white/5"><i class="fa-solid fa-users"></i></div>
+                        <strong class="text-xs text-white block">Gestion des Abonnés</strong>
+                        <span class="text-brand-400 font-bold text-sm">Module actif</span>
+                    </div>
+                    <div class="bg-slate-900 p-4 rounded-2xl border border-white/10 text-center space-y-2">
+                        <div class="h-28 bg-slate-950 rounded-xl flex items-center justify-center text-brand-400 text-3xl border border-white/5"><i class="fa-solid fa-file-invoice"></i></div>
+                        <strong class="text-xs text-white block">Facturation Automatisée</strong>
+                        <span class="text-brand-400 font-bold text-sm">Connecté Stripe</span>
+                    </div>
+                    <div class="bg-slate-900 p-4 rounded-2xl border border-white/10 text-center space-y-2">
+                        <div class="h-28 bg-slate-950 rounded-xl flex items-center justify-center text-brand-400 text-3xl border border-white/5"><i class="fa-solid fa-chart-line"></i></div>
+                        <strong class="text-xs text-white block">Tableau de Bord Live</strong>
+                        <span class="text-brand-400 font-bold text-sm">Temps Réel</span>
+                    </div>
+                `;
+            }
+
+            document.getElementById('visualAppContainer').classList.remove('hidden');
             calculateGoal();
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         function resetApp() {
-            document.getElementById('saasDashboard').classList.add('hidden');
+            document.getElementById('visualAppContainer').classList.add('hidden');
             document.getElementById('heroSection').classList.remove('hidden');
             document.getElementById('projectInput').value = "";
         }
