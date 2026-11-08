@@ -217,7 +217,7 @@
         &copy; 2026 NEXORA AI. Tous droits réservés.
     </footer>
 
-    <!-- Scripts -->
+ <!-- Scripts -->
     <script>
         let currentSaaSName = "";
 
@@ -236,12 +236,31 @@
             const input = inputField.value.trim();
             currentSaaSName = input;
 
-            const modalTitle = document.getElementById('modalSaaSTitle');
-            if (modalTitle) {
-                modalTitle.innerText = `"${input}"`;
-            }
+            // 1. Injecter dynamiquement le projet dans la modale d'Ébauche
+            const projectTitleDisplay = document.getElementById('projectTitleDisplay');
+            const dbStructureText = document.getElementById('dbStructureText');
+            const modulesText = document.getElementById('modulesText');
 
+            if (projectTitleDisplay) projectTitleDisplay.textContent = `"${input}"`;
+            if (dbStructureText) dbStructureText.textContent = `Tables SQL optimisées, sécurisation des accès et rôles configurés pour : ${input}.`;
+            if (modulesText) modulesText.textContent = `Génération des interfaces d'onboarding, tableaux de bord et tunnels de vente dédiés à ${input}.`;
+
+            // 2. Afficher la modale d'Ébauche (et cacher le simulateur)
+            const ebaucheModal = document.getElementById('ebaucheModal');
             const simulatorModal = document.getElementById('simulatorModal');
+            
+            if (simulatorModal) simulatorModal.classList.add('hidden');
+            if (ebaucheModal) ebaucheModal.classList.remove('hidden');
+        }
+
+        function passerAuSimulateur() {
+            // Passer de l'ébauche au simulateur financier
+            const ebaucheModal = document.getElementById('ebaucheModal');
+            const simulatorModal = document.getElementById('simulatorModal');
+            const modalTitle = document.getElementById('modalSaaSTitle');
+
+            if (modalTitle) modalTitle.innerText = `"${currentSaaSName}"`;
+            if (ebaucheModal) ebaucheModal.classList.add('hidden');
             if (simulatorModal) {
                 simulatorModal.classList.remove('hidden');
                 calculateGoal();
@@ -278,15 +297,11 @@
         }
 
         function closeModal() {
+            const ebaucheModal = document.getElementById('ebaucheModal');
             const simulatorModal = document.getElementById('simulatorModal');
-            if (simulatorModal) {
-                simulatorModal.classList.add('hidden');
-            }
-        }
-
-        function escapeHtml(text) {
-            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+            if (ebaucheModal) ebaucheModal.classList.add('hidden');
+            if (simulatorModal) simulatorModal.classList.add('hidden');
         }
     </script>
-</body>
-</html>   
+    </body>
+</html>
