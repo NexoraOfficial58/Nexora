@@ -35,14 +35,14 @@
 
         .floating-window {
             position: absolute;
-            background: rgba(15, 23, 42, 0.75);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(34, 197, 94, 0.3);
             border-radius: 1rem;
             padding: 1rem;
             z-index: 1;
             pointer-events: none;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
         }
         .window-header { display: flex; align-items: center; gap: 6px; margin-bottom: 0.75rem; }
         .dot { width: 8px; height: 8px; border-radius: 50%; }
@@ -53,44 +53,48 @@
 </head>
 <body class="text-slate-100 min-h-screen flex flex-col justify-between selection:bg-brand-500 selection:text-white relative">
 
-    <!-- FENÊTRES FLOTTANTES EN ARRIÈRE-PLAN -->
-    <div class="floating-window hidden lg:block left-12 top-40 w-72">
+    <!-- FENÊTRES FLOTTANTES ULTRA-EXPRESSIVES (EFFET "RESTAURANT BLINDÉ") -->
+    <div class="floating-window hidden lg:block left-8 top-36 w-72">
         <div class="window-header">
             <div class="dot dot-red"></div>
             <div class="dot dot-yellow"></div>
             <div class="dot dot-green"></div>
-            <span class="text-[10px] text-slate-400 font-mono ml-1">api_stripe_connect.js</span>
+            <span class="text-[10px] text-brand-400 font-mono ml-1 font-bold">⚡ activite_en_direct.json</span>
         </div>
-        <div class="space-y-1.5 font-mono text-[11px] text-slate-300">
-            <p class="text-brand-400">const stripe = require('stripe');</p>
-            <p class="text-slate-400">// Connexion abonnement 29€</p>
-            <p class="text-white">async function createSub() {</p>
-            <p class="pl-3 text-slate-300">return await stripe.subscriptions.create({</p>
-            <p class="pl-6 text-brand-400">amount: 2900,</p>
-            <p class="pl-6 text-brand-400">currency: 'eur'</p>
-            <p class="pl-3 text-slate-300">});</p>
-            <p class="text-white">}</p>
+        <div class="space-y-2 font-mono text-[11px]">
+            <div class="flex justify-between items-center text-slate-300">
+                <span>Créateurs en ligne :</span>
+                <span class="text-brand-400 font-bold animate-pulse">342 actifs</span>
+            </div>
+            <div class="flex justify-between items-center text-slate-300">
+                <span>SaaS générés ce mois :</span>
+                <span class="text-white font-bold">1 489 projets</span>
+            </div>
+            <div class="bg-emerald-500/10 p-2 rounded border border-emerald-500/30 flex justify-between items-center">
+                <span class="text-emerald-300">🔥 Dernier abonnement</span>
+                <span class="text-brand-400 font-bold">+29,00 € (Il y a 12s)</span>
+            </div>
         </div>
     </div>
 
-    <div class="floating-window hidden lg:block right-12 top-48 w-72">
+    <div class="floating-window hidden lg:block right-8 top-44 w-72">
         <div class="window-header">
             <div class="dot dot-red"></div>
             <div class="dot dot-yellow"></div>
             <div class="dot dot-green"></div>
-            <span class="text-[10px] text-slate-400 font-mono ml-1">revenue_live.json</span>
+            <span class="text-[10px] text-slate-400 font-mono ml-1 font-bold">stripe_flux_recettes.log</span>
         </div>
         <div class="space-y-2">
             <div class="flex justify-between text-xs">
-                <span class="text-slate-400">Abonnements actifs</span>
-                <span class="text-brand-400 font-bold">142 users</span>
+                <span class="text-slate-400">Volume encaissé global</span>
+                <span class="text-brand-400 font-bold">142 850 €</span>
             </div>
             <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
-                <div class="bg-brand-500 h-full w-[70%]"></div>
+                <div class="bg-brand-500 h-full w-[85%] animate-pulse"></div>
             </div>
-            <div class="bg-slate-900/90 p-2.5 rounded-lg border border-white/5 flex justify-between items-center text-xs">
-                <span class="text-slate-300">⚡ Paiement reçu</span>
-                <span class="text-brand-400 font-bold">+29,00 €</span>
+            <div class="bg-slate-900 p-2 rounded border border-white/10 flex items-center justify-between text-xs">
+                <span class="text-slate-300">Taux de réussite Stripe</span>
+                <span class="text-emerald-400 font-bold">99.8% 🚀</span>
             </div>
         </div>
     </div>
@@ -103,7 +107,10 @@
             </div>
             <span class="font-black text-xl tracking-wider text-white">NEXORA<span class="text-brand-500">.AI</span></span>
         </div>
-        <div>
+        <div class="flex items-center gap-4">
+            <span class="hidden sm:inline-flex items-center gap-1.5 text-xs text-brand-400 font-bold bg-brand-500/10 px-3 py-1.5 rounded-full border border-brand-500/20">
+                <span class="w-2 h-2 rounded-full bg-brand-400 animate-ping"></span> 342 créateurs connectés
+            </span>
             <a href="https://buy.stripe.com/aFa14f2UT9JQ2hSell9fW02" target="_blank" class="px-5 py-2.5 rounded-xl text-sm font-bold gradient-bg text-white shadow-lg shadow-brand-500/25 hover:opacity-95 hover:scale-105 transition duration-200 inline-flex items-center gap-2">
                 <i class="fa-solid fa-rocket"></i> Passer Pro (29€)
             </a>
@@ -116,7 +123,7 @@
         <!-- En-tête principal -->
         <div id="heroSection">
             <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold bg-brand-500/10 text-brand-400 border border-brand-500/30 mb-6 shadow-md">
-                ⚡ Le générateur de business automatisé
+                🔥 Déjà plus de 1 400 micro-SaaS lancés et monétisés ce mois-ci
             </span>
 
             <h1 class="text-4xl sm:text-6xl font-black text-white tracking-tight mb-6 leading-tight">
@@ -133,7 +140,7 @@
                 <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-3">Quel service ou logiciel voulez-vous commercialiser ?</label>
                 
                 <div class="flex flex-col sm:flex-row gap-3 mb-4">
-                    <input type="text" id="projectInput" placeholder="ex: Facturation IA pour Artisans, Devis BTP..." class="flex-1 bg-white/5 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500">
+                    <input type="text" id="projectInput" placeholder="ex: Facturation IA pour Artisans, Vente de Bijoux..." class="flex-1 bg-white/5 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500">
                     
                     <button onclick="startBuildProcess()" class="gradient-bg text-white px-8 py-4 rounded-xl font-bold flex items-center justify-center gap-2 hover:opacity-90 transition shadow-lg shadow-emerald-500/20 cursor-pointer">
                         <i class="fas fa-wand-magic-sparkles"></i>
@@ -142,9 +149,10 @@
                 </div>
 
                 <div class="flex flex-wrap gap-2 text-xs text-slate-300 items-center">
-                    <span class="text-slate-400">Idées :</span>
-                    <button onclick="fillPrompt('Logiciel de Devis & Factures pour Artisans BTP')" class="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg transition cursor-pointer">Logiciel de Devis & Factures BTP</button>
-                    <button onclick="fillPrompt('Gestionnaire de Planning et Chantiers')" class="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg transition cursor-pointer">Gestionnaire de Planning</button>
+                    <span class="text-slate-400">Idées populaires :</span>
+                    <button onclick="fillPrompt('Logiciel de Devis & Factures pour Artisans BTP')" class="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg transition cursor-pointer">Logiciel Devis BTP</button>
+                    <button onclick="fillPrompt('Boutique de Vente de Bijoux en Ligne')" class="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg transition cursor-pointer">Vente de Bijoux</button>
+                    <button onclick="fillPrompt('Gestionnaire de Planning et Chantiers')" class="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg transition cursor-pointer">Planning Chantiers</button>
                 </div>
             </div>
         </div>
@@ -154,7 +162,7 @@
             
             <div class="flex justify-between items-center bg-slate-900/90 p-4 rounded-2xl border border-white/10">
                 <div>
-                    <span class="text-[10px] uppercase tracking-wider font-bold text-brand-400">PROTOTYPE PRÊT À 100%</span>
+                    <span class="text-[10px] uppercase tracking-wider font-bold text-brand-400">PROTOTYPE PRÊT À 100% — VALIDÉ PAR STRIPE</span>
                     <h2 class="text-xl font-black text-white" id="generatedTitleDisplay">Mon Application SaaS</h2>
                 </div>
                 <button onclick="resetApp()" class="text-xs text-slate-400 hover:text-white bg-white/5 px-3 py-2 rounded-xl border border-white/10">
@@ -263,7 +271,7 @@
         </div>
     </main>
 
-    <!-- FENÈTRE DE FABRICATION EN DIRECT AVEC VRAI APERÇU VISUEL PROGRESSIF -->
+    <!-- FENÈTRE DE FABRICATION EN DIRECT (L'ATELIER VISUEL CONCRET TYPE "LEBONCOIN") -->
     <div id="buildModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-950/95 backdrop-blur-xl p-4">
         <div class="glass-card border border-brand-500/50 rounded-3xl p-6 sm:p-8 max-w-xl w-full relative text-left glow-box space-y-5">
             
@@ -272,13 +280,13 @@
                     <div class="dot dot-red"></div>
                     <div class="dot dot-yellow"></div>
                     <div class="dot dot-green"></div>
-                    <span class="text-xs text-slate-400 font-mono ml-2">Atelier de fabrication Nexora</span>
+                    <span class="text-xs text-slate-400 font-mono ml-2">Atelier de fabrication Nexora.ai</span>
                 </div>
                 <span class="text-xs font-mono text-brand-400 font-bold px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/30" id="stepIndicator">Étape 1 sur 3</span>
             </div>
 
-            <!-- ZONE VISUELLE CONCRÈTE (CHANGEMENT D'APERÇU À CHAQUE ÉTAPE) -->
-            <div id="livePreviewContainer" class="bg-slate-950 p-5 rounded-2xl border border-white/15 min-h-[200px] flex flex-col justify-center space-y-3">
+            <!-- ZONE VISUELLE CONCRÈTE (LA "PHOTO DE LA VOITURE" QUI SE MONTE) -->
+            <div id="livePreviewContainer" class="bg-slate-950 p-5 rounded-2xl border border-white/15 min-h-[220px] flex flex-col justify-center space-y-3">
                 <!-- Contenu injecté dynamiquement par JS -->
             </div>
 
@@ -287,7 +295,7 @@
                 <div id="liveProgressBar" class="bg-gradient-to-r from-emerald-500 to-brand-400 h-full rounded-full transition-all duration-700 w-[33%]"></div>
             </div>
 
-            <p class="text-[11px] text-center text-slate-400 font-mono" id="liveStatusLabel">Initialisation des serveurs de déploiement...</p>
+            <p class="text-[11px] text-center text-slate-400 font-mono" id="liveStatusLabel">Assemblage des composants en direct...</p>
         </div>
     </div>
 
@@ -327,75 +335,75 @@
             const liveProgressBar = document.getElementById('liveProgressBar');
             const liveStatusLabel = document.getElementById('liveStatusLabel');
 
-            // --- ÉTAPE 1 : Le Squelette & Nom de Projet ---
-            stepIndicator.textContent = "Étape 1 sur 3";
+            // --- ÉTAPE 1 : Les Fondations SQL & Nom ---
+            stepIndicator.textContent = "Étape 1 sur 3 — Fondations";
             liveProgressBar.style.width = "33%";
-            liveStatusLabel.textContent = `Structuration de la base de données pour : "${projectName}"`;
+            liveStatusLabel.textContent = `Création de l'infrastructure pour : "${projectName}"`;
             
             livePreviewContainer.innerHTML = `
                 <div class="flex items-center gap-3 bg-slate-900 p-3 rounded-xl border border-white/10">
-                    <div class="w-8 h-8 rounded-lg bg-brand-500/20 text-brand-400 flex items-center justify-center font-bold">SQL</div>
+                    <div class="w-9 h-9 rounded-lg bg-brand-500/20 text-brand-400 flex items-center justify-center font-bold text-xs">SQL</div>
                     <div>
-                        <span class="text-[10px] text-slate-400 block">Base de données active</span>
-                        <strong class="text-xs text-white font-mono">db_${escapeHtml(projectName).toLowerCase().replace(/[^a-z0-9]/g, '_')}_prod</strong>
+                        <span class="text-[10px] text-slate-400 block">Base de données sécurisée</span>
+                        <strong class="text-xs text-white font-mono">db_${escapeHtml(projectName).toLowerCase().replace(/[^a-z0-9]/g, '_').substring(0, 15)}_prod</strong>
                     </div>
                 </div>
-                <div class="space-y-1.5 pt-1">
-                    <div class="h-2 bg-slate-900 rounded-full w-3/4 animate-pulse"></div>
-                    <div class="h-2 bg-slate-900 rounded-full w-1/2 animate-pulse"></div>
+                <div class="bg-slate-900/60 p-3 rounded-xl border border-white/5 text-xs space-y-1 text-slate-300">
+                    <div class="flex justify-between"><span>Tables utilisateurs :</span> <span class="text-brand-400 font-bold">Configurées</span></div>
+                    <div class="flex justify-between"><span>Sécurité & Rôles JWT :</span> <span class="text-emerald-400 font-bold">Actifs</span></div>
                 </div>
-                <p class="text-xs text-brand-400 font-bold pt-1">✓ Tables clients et répertoires sécurisés créés.</p>
+                <p class="text-[11px] text-brand-400 font-bold">✓ Les fondations de votre projet sont coulées.</p>
             `;
 
-            // --- ÉTAPE 2 : Le Visuel Concret (On voit la maquette du logiciel s'esquisser) ---
+            // --- ÉTAPE 2 : La Maquette Visuelle Concrète (La "Photo de la voiture") ---
             setTimeout(() => {
-                stepIndicator.textContent = "Étape 2 sur 3";
+                stepIndicator.textContent = "Étape 2 sur 3 — Maquette Visuelle";
                 liveProgressBar.style.width = "66%";
-                liveStatusLabel.textContent = "Assemblage des modules graphiques et des tableaux de bord...";
+                liveStatusLabel.textContent = "Génération de l'interface et du catalogue en direct...";
                 
                 livePreviewContainer.innerHTML = `
-                    <div class="bg-slate-900 p-3.5 rounded-xl border border-brand-500/40 space-y-2">
+                    <div class="bg-slate-900 p-3.5 rounded-xl border border-brand-500/40 space-y-2.5">
                         <div class="flex justify-between items-center text-xs border-b border-white/10 pb-2">
-                            <span class="font-black text-white"><i class="fa-solid fa-chart-pie text-brand-400 mr-1.5"></i> Interface ${escapeHtml(projectName)}</span>
-                            <span class="text-[10px] bg-brand-500/20 text-brand-400 px-2 py-0.5 rounded font-bold">Généré en direct</span>
+                            <span class="font-black text-white truncate max-w-[200px]"><i class="fa-solid fa-store text-brand-400 mr-1.5"></i> ${escapeHtml(projectName)}</span>
+                            <span class="text-[10px] bg-brand-500/20 text-brand-400 px-2 py-0.5 rounded font-bold">UI Active</span>
                         </div>
-                        <div class="grid grid-cols-2 gap-2 pt-1">
-                            <div class="bg-slate-950 p-2 rounded border border-white/5 text-[11px]">
-                                <span class="text-slate-400 block text-[9px]">Module principal</span>
-                                <strong class="text-white">Actif & Configuré</strong>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div class="bg-slate-950 p-2.5 rounded border border-white/5 text-[11px]">
+                                <span class="text-slate-400 block text-[9px]">Catalogue / Modules</span>
+                                <strong class="text-white">Générés sur-mesure</strong>
                             </div>
-                            <div class="bg-slate-950 p-2 rounded border border-white/5 text-[11px]">
-                                <span class="text-slate-400 block text-[9px]">Tunnel de vente</span>
-                                <strong class="text-emerald-400">Opérationnel</strong>
+                            <div class="bg-slate-950 p-2.5 rounded border border-white/5 text-[11px]">
+                                <span class="text-slate-400 block text-[9px]">Design Dashboard</span>
+                                <strong class="text-emerald-400">Prêt à l'emploi</strong>
                             </div>
                         </div>
                     </div>
-                    <p class="text-xs text-brand-400 font-bold">✓ Vraie ébauche graphique assemblée avec succès.</p>
+                    <p class="text-[11px] text-brand-400 font-bold">✓ Aperçu visuel et structure de la vitrine prêts.</p>
                 `;
-            }, 2500);
+            }, 3000);
 
-            // --- ÉTAPE 3 : Connexion Stripe et finalisation ---
+            // --- ÉTAPE 3 : Connexion Stripe & Encaissable ---
             setTimeout(() => {
-                stepIndicator.textContent = "Étape 3 sur 3";
+                stepIndicator.textContent = "Étape 3 sur 3 — Tunnel de Vente";
                 liveProgressBar.style.width = "100%";
-                liveStatusLabel.textContent = "Connexion finale des abonnements et webhooks Stripe...";
+                liveStatusLabel.textContent = "Branchement de la passerelle de paiement Stripe...";
                 
                 livePreviewContainer.innerHTML = `
                     <div class="bg-slate-900 p-4 rounded-xl border border-emerald-500/40 text-center space-y-2">
                         <div class="w-10 h-10 mx-auto rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-lg">
                             <i class="fa-brands fa-stripe"></i>
                         </div>
-                        <h4 class="text-xs font-bold text-white">Passerelle de paiement prête à encaisser</h4>
-                        <p class="text-[11px] text-slate-300">Vos futurs abonnés à 29€ / 49€ pour <strong>${escapeHtml(projectName)}</strong> vont pouvoir régler immédiatement.</p>
+                        <h4 class="text-xs font-bold text-white">Tunnel de paiement configuré</h4>
+                        <p class="text-[11px] text-slate-300">Prêt à recevoir des abonnements clients récurrents pour <strong>${escapeHtml(projectName)}</strong>.</p>
                     </div>
                 `;
-            }, 5000);
+            }, 6000);
 
-            // --- FINAL : Ouverture du Dashboard complet ---
+            // --- FINAL : Affichage du Dashboard complet & Simulateur ---
             setTimeout(() => {
                 buildModal.classList.add('hidden');
                 showPrototype(projectName);
-            }, 7000);
+            }, 8500);
         }
 
         function showPrototype(projectName) {
