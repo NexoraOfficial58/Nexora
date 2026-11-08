@@ -146,7 +146,7 @@
         </div>
     </main>
 
-    <!-- POP-UP 1 : TERMINAL DE GÉNÉRATION EN DIRECT (EFFET MATRIX) -->
+    <!-- POP-UP 1 : TERMINAL DE GÉNÉRATION EN DIRECT -->
     <div id="buildModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-950/90 backdrop-blur-md p-4">
         <div class="glass-card border border-brand-500/40 rounded-3xl p-6 sm:p-8 max-w-xl w-full relative text-left glow-box space-y-4">
             <div class="flex justify-between items-center border-b border-white/10 pb-3">
@@ -156,150 +156,113 @@
                     <div class="dot dot-green"></div>
                     <span class="text-xs text-slate-400 font-mono ml-2">nexora-engine --build</span>
                 </div>
-                <span class="text-xs font-mono text-brand-400 animate-pulse">COMPILATION...</span>
+                <span class="text-xs font-mono text-brand-400 animate-pulse">COMPILATION EN COURS...</span>
             </div>
 
             <div class="bg-slate-950 p-4 rounded-2xl border border-white/10 font-mono text-xs space-y-2 h-56 overflow-y-auto text-slate-300" id="terminalLogs">
-                <!-- Les lignes de log s'insèrent ici dynamiquement -->
             </div>
         </div>
     </div>
 
-    <!-- POP-UP 2 : APERÇU CONCRET DE L'APPLICATION (DASHBOARD REAL + PAYWALL FLOUTÉ) -->
-    <div id="previewModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-950/90 backdrop-blur-md p-4 overflow-y-auto">
-        <div class="glass-card border border-brand-500/40 rounded-3xl p-6 sm:p-8 max-w-3xl w-full relative space-y-6 text-left my-8">
+    <!-- POP-UP 2 : APERÇU IMMERSIF (DASHBOARD + SIMULATEUR INTÉGRÉ + PAYWALL) -->
+    <div id="previewModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-950/95 backdrop-blur-md p-4 overflow-y-auto">
+        <div class="glass-card border border-brand-500/40 rounded-3xl p-6 sm:p-8 max-w-4xl w-full relative space-y-6 text-left my-8">
             
             <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-lg w-8 h-8 rounded-full bg-white/5 flex items-center justify-center border border-white/10 z-20">
                 <i class="fa-solid fa-xmark"></i>
             </button>
 
-            <!-- Header du Dashboard généré -->
+            <!-- Top Banner -->
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-white/10 pb-4">
                 <div>
                     <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-brand-500/20 text-brand-400 border border-brand-500/30">
-                        <i class="fa-solid fa-check-circle"></i> Application Compilée & Prête
+                        <i class="fa-solid fa-circle-check"></i> PROTOTYPE COMPILÉ & STRUCTURÉ
                     </span>
                     <h2 class="text-2xl font-black text-white mt-1" id="previewSaaSTitle">Mon Logiciel SaaS</h2>
-                    <p class="text-xs text-slate-400">Architecture SaaS multi-locataire + Tunnel de vente Stripe</p>
+                    <p class="text-xs text-slate-400">Plateforme multi-utilisateurs + Module d'encaissement récurrent prêt.</p>
                 </div>
-                <button onclick="ouvrirSimulateur()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 border border-white/15 px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2">
-                    <i class="fa-solid fa-calculator text-brand-400"></i> Simuler le Revenu
-                </button>
             </div>
 
-            <!-- APERÇU VISUEL CONCRET (Tableau de bord utilisateur) -->
+            <!-- APERÇU DU DASHBOARD (FAUX LOGICIEL) -->
             <div class="space-y-4">
-                <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Aperçu du Tableau de Bord Généré :</h3>
                 
-                <div class="grid grid-cols-3 gap-3">
-                    <div class="bg-slate-900/90 p-3.5 rounded-xl border border-white/10">
-                        <span class="text-[11px] text-slate-400 block">Abonnés Actifs</span>
-                        <span class="text-lg font-black text-white">0 <span class="text-xs text-brand-400 font-normal">(Prêt au lancement)</span></span>
+                <!-- Statistiques Clés -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <div class="bg-slate-900/90 p-4 rounded-xl border border-white/10">
+                        <span class="text-xs text-slate-400 block">Capacité d'Abonnés</span>
+                        <span class="text-xl font-black text-white">Illimitée <span class="text-xs text-brand-400 font-normal">(Scalable)</span></span>
                     </div>
-                    <div class="bg-slate-900/90 p-3.5 rounded-xl border border-white/10">
-                        <span class="text-[11px] text-slate-400 block">MRR Estimé</span>
-                        <span class="text-lg font-black text-brand-400">0,00 €</span>
-                    </div>
-                    <div class="bg-slate-900/90 p-3.5 rounded-xl border border-white/10">
-                        <span class="text-[11px] text-slate-400 block">Module Stripe</span>
+                    <div class="bg-slate-900/90 p-4 rounded-xl border border-white/10">
+                        <span class="text-xs text-slate-400 block">Sécurité & Accessibilité</span>
                         <span class="text-xs font-bold text-emerald-400 flex items-center gap-1 mt-1">
-                            <i class="fa-solid fa-link"></i> Webhook actif
+                            <i class="fa-solid fa-shield-halved"></i> Auth JWT & SQL Protect
+                        </span>
+                    </div>
+                    <div class="bg-slate-900/90 p-4 rounded-xl border border-white/10">
+                        <span class="text-xs text-slate-400 block">Passerelle de Paiement</span>
+                        <span class="text-xs font-bold text-brand-400 flex items-center gap-1 mt-1">
+                            <i class="fa-brands fa-stripe"></i> Stripe Connect OK
                         </span>
                     </div>
                 </div>
 
-                <!-- FONCTIONNALITÉS EXTRACT - CONCRÈTES -->
-                <div class="bg-slate-900/90 p-4 rounded-xl border border-white/10 space-y-2">
-                    <div class="text-xs font-bold text-slate-200 flex items-center gap-2">
-                        <i class="fa-solid fa-server text-brand-400"></i> Modules & APIs intégrés pour cette activité :
+                <!-- SIMULATEUR DE REVENUS DIRECTEMENT INTÉGRÉ DANS LE DASHBOARD -->
+                <div class="bg-slate-900/90 p-5 rounded-2xl border border-brand-500/30 space-y-4">
+                    <div class="flex items-center gap-2 text-brand-400 font-bold text-sm">
+                        <i class="fa-solid fa-calculator"></i> SIMULATEUR DE RENTABILITÉ IMMÉDIAT
                     </div>
-                    <ul class="text-xs text-slate-300 space-y-1.5 pl-4 list-disc" id="dynamicModulesList">
-                        <li>Interface client avec personnalisation dynamique</li>
-                        <li>Base de données SQL PostgreSQL pré-structurée</li>
-                        <li>Système d'authentification utilisateur (Auth & Roles)</li>
-                    </ul>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 items-center">
+                        <div>
+                            <label class="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1.5">Objectif Mensuel Visé (€)</label>
+                            <input type="number" id="targetIncomeInput" value="5000" step="500" oninput="calculateGoal()" class="w-full bg-slate-950 border border-white/20 rounded-xl px-4 py-2.5 text-lg font-bold text-brand-400 focus:outline-none focus:border-brand-500">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1.5">Prix de votre Abonnement Client</label>
+                            <select id="priceSelect" onchange="calculateGoal()" class="w-full bg-slate-950 text-white font-bold rounded-xl px-4 py-3 border border-white/20 text-sm">
+                                <option value="29">29 € / mois par client</option>
+                                <option value="49" selected>49 € / mois par client</option>
+                                <option value="79">79 € / mois par client</option>
+                                <option value="99">99 € / mois par client</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="analysisDetails" class="bg-slate-950/80 p-4 rounded-xl border border-white/10 text-sm text-slate-200">
+                    </div>
                 </div>
             </div>
 
-            <!-- ZONE FLOUTÉE / ZONE VERROUILLÉE (LE PAYWALL DE CONVERSION) -->
+            <!-- ZONE FLOUTÉE ET PAYWALL INTELLIGENT -->
             <div class="relative rounded-2xl overflow-hidden border border-brand-500/40 bg-slate-900/60 p-6 text-center">
                 
-                <!-- Faux code source derrière le flou -->
-                <div class="filter blur-[6px] select-none text-left font-mono text-[10px] text-slate-500 opacity-60 space-y-1">
-                    <p>// CONFIGURATION DU PROJET & CLÉS D'ACCÈS DU CODE SOURCE</p>
-                    <p>const saasConfig = { name: "APP", environment: "production", stripeKey: "sk_live_51Nx..." };</p>
-                    <p>export async function deployDatabase() { return await db.connect({ ssl: true }); }</p>
-                    <p>function generateClientInvoices() { return pdfEngine.createDocument({ autoSend: true }); }</p>
-                    <p>stripe.subscriptions.create({ items: [{ price: 'price_1N...' }], collection_method: 'charge_automatically' });</p>
+                <!-- Code et infrastructure en arrière-plan flouté -->
+                <div class="filter blur-[5px] select-none text-left font-mono text-[10px] text-slate-500 opacity-50 space-y-1">
+                    <p>// INFRASTRUCTURE DU LOGICIEL PRÊTE POUR DÉPLOIEMENT IMPLANTÉ</p>
+                    <p>const nexoraCore = { environment: "production", autoScale: true, database: "postgresql://..." };</p>
+                    <p>export async function handleStripeWebhook(event) { await fulfillSubscription(event.data.object); }</p>
+                    <p>function renderClientDashboard() { return reactEngine.buildUI({ theme: "dark", modules: ["invoicing", "planning"] }); }</p>
+                    <p>stripe.subscriptions.create({ customer: customerId, items: [{ price: 'price_live_99' }] });</p>
                 </div>
 
-                <!-- Overlay verrouillé par-dessus -->
-                <div class="absolute inset-0 bg-slate-950/80 backdrop-blur-sm flex flex-col items-center justify-center p-6 space-y-3 z-10">
+                <!-- Overlay Verrouillé -->
+                <div class="absolute inset-0 bg-slate-950/85 backdrop-blur-sm flex flex-col items-center justify-center p-6 space-y-3 z-10">
                     <div class="w-12 h-12 rounded-2xl bg-brand-500/20 border border-brand-500/40 flex items-center justify-center text-brand-400 text-xl shadow-lg shadow-brand-500/20">
                         <i class="fa-solid fa-lock"></i>
                     </div>
                     <div>
-                        <h4 class="text-lg font-black text-white">Votre SaaS est 100% prêt à être déployé</h4>
-                        <p class="text-xs text-slate-300 mt-0.5">Débloquez immédiatement le code source complet, les fichiers et l'accès à l'infrastructure.</p>
+                        <h4 class="text-xl font-black text-white">Le Code Source & l'Infrastructure sont Prêts</h4>
+                        <p class="text-xs text-slate-300 mt-1 max-w-md">Récupérez la totalité du code source, l'architecture de base de données et les clés de déploiement pour lancer votre activité.</p>
                     </div>
 
                     <a href="https://buy.stripe.com/aFa14f2UT9JQ2hSell9fW02" target="_blank" class="w-full sm:w-auto px-8 py-4 rounded-xl font-extrabold gradient-bg text-white shadow-xl shadow-brand-500/30 hover:scale-105 transition flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-bolt"></i> Obtenir le Code Source & Déployer (29€)
+                        <i class="fa-solid fa-bolt"></i> Obtenir le Code Source & Déployer (29€) →
                     </a>
-                    <p class="text-[10px] text-slate-400">Téléchargement immédiat des fichiers + Support complet inclus.</p>
+                    <p class="text-[10px] text-slate-400">Téléchargement immédiat + Support technique inclus.</p>
                 </div>
 
             </div>
 
-        </div>
-    </div>
-
-    <!-- POP-UP 3 : SIMULATEUR FINANCIER -->
-    <div id="simulatorModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 backdrop-blur-sm p-4">
-        <div class="glass-card border border-brand-500/40 rounded-3xl p-6 sm:p-8 max-w-lg w-full relative space-y-6 text-left">
-            <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-lg w-8 h-8 rounded-full bg-white/5 flex items-center justify-center border border-white/10">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-
-            <div class="text-center">
-                <span class="inline-block p-3 rounded-2xl bg-brand-500/20 text-brand-400 text-2xl mb-3 border border-brand-500/30">
-                    <i class="fa-solid fa-calculator"></i>
-                </span>
-                <h3 class="text-2xl font-black text-white">Simulateur d'Objectif Financier</h3>
-                <p class="text-xs text-slate-300 mt-1">Objectif de rentabilité pour <strong id="modalSaaSTitle" class="text-brand-400">votre projet</strong></p>
-            </div>
-
-            <div class="space-y-4">
-                <div>
-                    <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">Combien visez-vous de revenus par mois ? (€)</label>
-                    <div class="flex gap-2">
-                        <input type="number" id="targetIncomeInput" value="5000" step="500" class="flex-grow bg-slate-900 border border-white/20 rounded-xl px-4 py-3 text-xl font-bold text-brand-400 focus:outline-none focus:border-brand-500 transition">
-                        <button onclick="calculateGoal()" class="gradient-bg text-white px-5 py-3 rounded-xl text-sm font-bold shadow-lg shadow-brand-500/25 hover:opacity-95 transition">
-                            Simuler
-                        </button>
-                    </div>
-                </div>
-
-                <div class="bg-slate-900 p-5 rounded-2xl border border-brand-500/30 space-y-3">
-                    <div class="flex justify-between items-center text-xs text-slate-400 border-b border-white/10 pb-2">
-                        <span>Tarif abonnement mensuel :</span>
-                        <select id="priceSelect" onchange="calculateGoal()" class="bg-slate-800 text-white font-bold rounded px-2 py-1 border border-white/10">
-                            <option value="29">29 € / mois</option>
-                            <option value="49" selected>49 € / mois</option>
-                            <option value="79">79 € / mois</option>
-                            <option value="99">99 € / mois</option>
-                        </select>
-                    </div>
-
-                    <div id="analysisDetails" class="text-sm text-slate-200 leading-relaxed py-1"></div>
-                </div>
-            </div>
-
-            <div>
-                <a href="https://buy.stripe.com/aFa14f2UT9JQ2hSell9fW02" target="_blank" class="w-full inline-block text-center gradient-bg text-white py-4 rounded-xl text-base font-extrabold shadow-xl shadow-brand-500/30 hover:scale-105 transition">
-                    Activer et Déployer mon SaaS (29€) →
-                </a>
-            </div>
         </div>
     </div>
 
@@ -357,28 +320,14 @@
                     setTimeout(() => {
                         buildModal.classList.add('hidden');
                         showPreviewModal(input);
-                    }, 600);
+                    }, 500);
                 }
-            }, 350);
+            }, 300);
         }
 
         function showPreviewModal(projectName) {
             document.getElementById('previewSaaSTitle').textContent = projectName;
-            
-            const dynamicModulesList = document.getElementById('dynamicModulesList');
-            dynamicModulesList.innerHTML = `
-                <li>Module spécialisé : Gestion intelligente et formulaires dédiés à <strong>${escapeHtml(projectName)}</strong></li>
-                <li>Module de facturation automatique et gestion des abonnements récurrents</li>
-                <li>Tunnel de conversion optimisé avec intégration Stripe Direct</li>
-            `;
-
             document.getElementById('previewModal').classList.remove('hidden');
-        }
-
-        function ouvrirSimulateur() {
-            document.getElementById('previewModal').classList.add('hidden');
-            document.getElementById('modalSaaSTitle').innerText = `"${currentSaaSName}"`;
-            document.getElementById('simulatorModal').classList.remove('hidden');
             calculateGoal();
         }
 
@@ -401,20 +350,22 @@
             const exactRevenue = clientsNeeded * price;
 
             analysisDetails.innerHTML = `
-                Pour atteindre <strong class="text-white">${target.toLocaleString('fr-FR')} € / mois</strong> à <strong>${price} € / mois</strong> par abonné :<br>
-                <div class="my-2 p-3 bg-brand-500/10 rounded-xl border border-brand-500/20 text-center">
-                    <span class="text-xs text-slate-300 block">Clients abonnés nécessaires :</span>
-                    <strong class="text-2xl font-black text-brand-400">${clientsNeeded} clients</strong>
-                    <span class="text-[11px] text-slate-400 block mt-0.5">Revenu estimé : ${exactRevenue.toLocaleString('fr-FR')} € / mois</span>
+                <div class="flex flex-col sm:flex-row justify-between items-center gap-3">
+                    <div>
+                        <span class="text-xs text-slate-400 block">Objectif de <strong>${target.toLocaleString('fr-FR')} € / mois</strong> :</span>
+                        <span class="text-sm text-slate-200">Il vous faut exactement <strong class="text-brand-400 text-lg">${clientsNeeded} clients</strong> abonnés à ${price} € / mois.</span>
+                    </div>
+                    <div class="text-right">
+                        <span class="text-[11px] text-slate-400 block">Revenu mensuel estimé :</span>
+                        <strong class="text-xl font-black text-brand-400">${exactRevenue.toLocaleString('fr-FR')} € / mois</strong>
+                    </div>
                 </div>
-                <p class="text-xs text-slate-300 text-center">💡 <em>Faisabilité :</em> Atteindre <strong>${clientsNeeded} clients</strong> dans ce secteur est un objectif mesurable et réaliste.</p>
             `;
         }
 
         function closeModal() {
             document.getElementById('buildModal').classList.add('hidden');
             document.getElementById('previewModal').classList.add('hidden');
-            document.getElementById('simulatorModal').classList.add('hidden');
         }
 
         function escapeHtml(text) {
