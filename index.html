@@ -113,7 +113,7 @@
     <!-- Main Content -->
     <main class="flex-grow max-w-5xl mx-auto w-full px-4 sm:px-6 py-10 flex flex-col justify-center items-center text-center relative z-10">
         
-        <!-- En-tête principal (masqué quand le dashboard s'affiche pour un effet 100% immersif) -->
+        <!-- En-tête principal -->
         <div id="heroSection">
             <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold bg-brand-500/10 text-brand-400 border border-brand-500/30 mb-6 shadow-md">
                 ⚡ Le générateur de business automatisé
@@ -202,7 +202,7 @@
                         </div>
                     </div>
 
-                    <!-- SIMULATEUR AUTOMATIQUE DIRECTEMENT DANS LE LOGICIEL -->
+                    <!-- SIMULATEUR DE REVENUS DIRECTEMENT INTÉGRÉ -->
                     <div class="bg-slate-900 p-4 sm:p-5 rounded-2xl border border-brand-500/30 space-y-3">
                         <div class="flex items-center gap-2 text-brand-400 font-bold text-xs uppercase tracking-wider">
                             <i class="fa-solid fa-calculator"></i> Simulateur de Revenus en Temps Réel
@@ -230,10 +230,9 @@
                 </div>
             </div>
 
-            <!-- PAYWALL ULTRA-CONCRET (LE FLOUTAGE DU CODE SOURCE ET DÉPLOIEMENT) -->
+            <!-- PAYWALL ULTRA-CONCRET (CODE SOURCE FLOUTÉ ET CADENAS) -->
             <div class="relative rounded-3xl overflow-hidden border border-brand-500/50 bg-slate-950 p-6 text-center shadow-2xl">
                 
-                <!-- Faux code source très détaillé et flouté -->
                 <div class="filter blur-[6px] select-none text-left font-mono text-[10px] text-slate-500 opacity-40 space-y-1">
                     <p>// ARCHITECTURE BACKEND COMPLÈTE PRÊTE AU DÉPLOIEMENT</p>
                     <p>const nexoraEngine = require('@nexora/core');</p>
@@ -245,7 +244,6 @@
                     <p>}</p>
                 </div>
 
-                <!-- Masque de verrouillage au-dessus du flou -->
                 <div class="absolute inset-0 bg-slate-950/85 backdrop-blur-sm flex flex-col items-center justify-center p-6 space-y-3 z-10">
                     <div class="w-12 h-12 rounded-2xl bg-brand-500/20 border border-brand-500/40 flex items-center justify-center text-brand-400 text-xl shadow-lg shadow-brand-500/20">
                         <i class="fa-solid fa-lock"></i>
@@ -265,21 +263,48 @@
         </div>
     </main>
 
-    <!-- TERMINAL EN DIRECT DURANT LA GÉNÉRATION -->
-    <div id="buildModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-950/90 backdrop-blur-md p-4">
-        <div class="glass-card border border-brand-500/40 rounded-3xl p-6 sm:p-8 max-w-xl w-full relative text-left glow-box space-y-4">
-            <div class="flex justify-between items-center border-b border-white/10 pb-3">
-                <div class="flex items-center gap-2">
-                    <div class="dot dot-red"></div>
-                    <div class="dot dot-yellow"></div>
-                    <div class="dot dot-green"></div>
-                    <span class="text-xs text-slate-400 font-mono ml-2">nexora-engine --build</span>
+    <!-- ÉCRAN DE CONSTRUCTION IMMERSIF (EFFET MATRICE & CRÉATION DE BOUTIQUE EN DIRECT) -->
+    <div id="buildModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-950/95 backdrop-blur-xl p-4">
+        <div class="glass-card border border-brand-500/50 rounded-3xl p-8 max-w-2xl w-full relative text-left glow-box space-y-6">
+            
+            <div class="flex justify-between items-center border-b border-white/10 pb-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-4 h-4 rounded-full bg-brand-500 animate-ping"></div>
+                    <span class="text-sm font-black text-white uppercase tracking-wider">Moteur Nexora AI — Génération en Direct</span>
                 </div>
-                <span class="text-xs font-mono text-brand-400 animate-pulse">COMPILATION EN COURS...</span>
+                <span class="text-xs font-mono text-brand-400 font-bold px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/30" id="buildPercentage">0%</span>
             </div>
 
-            <div class="bg-slate-950 p-4 rounded-2xl border border-white/10 font-mono text-xs space-y-2 h-56 overflow-y-auto text-slate-300" id="terminalLogs">
+            <!-- Étapes de construction visuelles -->
+            <div class="space-y-3 font-mono text-xs" id="buildStepsList">
+                <div id="step-0" class="flex items-center gap-3 text-slate-500 transition-all duration-300">
+                    <i class="fa-solid fa-circle-notch fa-spin text-brand-400"></i>
+                    <span>Analyse sémantique et sectorielle du projet...</span>
+                </div>
+                <div id="step-1" class="flex items-center gap-3 text-slate-500 transition-all duration-300">
+                    <i class="fa-regular fa-circle text-slate-600"></i>
+                    <span>Création de la base de données SQL et tables sécurisées...</span>
+                </div>
+                <div id="step-2" class="flex items-center gap-3 text-slate-500 transition-all duration-300">
+                    <i class="fa-regular fa-circle text-slate-600"></i>
+                    <span>Génération de l'interface graphique (Dashboard & Sidebar)...</span>
+                </div>
+                <div id="step-3" class="flex items-center gap-3 text-slate-500 transition-all duration-300">
+                    <i class="fa-regular fa-circle text-slate-600"></i>
+                    <span>Intégration du module d'encaissement et webhooks Stripe...</span>
+                </div>
+                <div id="step-4" class="flex items-center gap-3 text-slate-500 transition-all duration-300">
+                    <i class="fa-regular fa-circle text-slate-600"></i>
+                    <span>Assemblage final de l'infrastructure cloud & déploiement...</span>
+                </div>
             </div>
+
+            <!-- Barre de progression visuelle -->
+            <div class="w-full bg-slate-900 h-3 rounded-full overflow-hidden p-0.5 border border-white/10">
+                <div id="progressBar" class="bg-gradient-to-r from-emerald-500 to-brand-400 h-full rounded-full transition-all duration-300 w-[5%] shadow-lg shadow-brand-500/50"></div>
+            </div>
+
+            <p class="text-[11px] text-center text-slate-400 font-mono">⚡ Votre application est en train d'être entièrement bâtie sur-mesure...</p>
         </div>
     </div>
 
@@ -308,38 +333,64 @@
             currentSaaSName = input;
 
             const buildModal = document.getElementById('buildModal');
-            const terminalLogs = document.getElementById('terminalLogs');
-            
             buildModal.classList.remove('hidden');
-            terminalLogs.innerHTML = "";
 
-            const logs = [
-                `> NEXORA AI v4.2 Initialisation...`,
-                `> Analyse du secteur d'activité : "${input}"`,
-                `> Génération des schémas de base de données PostgreSQL... OK`,
-                `> Création des tables 'users', 'subscriptions', 'invoices'... OK`,
-                `> Configuration des clés API Webhook Stripe... OK`,
-                `> Structuration de l'interface Dashboard Client... OK`,
-                `> Compilation finale des modules et sécurité... 100%`
-            ];
+            let progress = 5;
+            const progressBar = document.getElementById('progressBar');
+            const buildPercentage = document.getElementById('buildPercentage');
 
-            let index = 0;
+            // Réinitialiser les étapes
+            for (let i = 0; i < 5; i++) {
+                const el = document.getElementById(`step-${i}`);
+                el.className = "flex items-center gap-3 text-slate-500 transition-all duration-300";
+                el.querySelector('i').className = "fa-regular fa-circle text-slate-600";
+            }
+
+            let currentStep = 0;
             const interval = setInterval(() => {
-                if (index < logs.length) {
-                    const p = document.createElement('p');
-                    p.className = index === logs.length - 1 ? "text-brand-400 font-bold" : "text-slate-300";
-                    p.textContent = logs[index];
-                    terminalLogs.appendChild(p);
-                    terminalLogs.scrollTop = terminalLogs.scrollHeight;
-                    index++;
-                } else {
+                progress += Math.floor(Math.random() * 8) + 5;
+                if (progress > 100) progress = 100;
+
+                progressBar.style.width = progress + '%';
+                buildPercentage.textContent = progress + '%';
+
+                // Activer les étapes progressivement
+                if (progress > 20 && currentStep === 0) {
+                    activateStep(0);
+                    currentStep = 1;
+                } else if (progress > 45 && currentStep === 1) {
+                    activateStep(1);
+                    currentStep = 2;
+                } else if (progress > 70 && currentStep === 2) {
+                    activateStep(2);
+                    currentStep = 3;
+                } else if (progress > 90 && currentStep === 3) {
+                    activateStep(3);
+                    currentStep = 4;
+                }
+
+                if (progress === 100) {
                     clearInterval(interval);
+                    activateStep(4);
                     setTimeout(() => {
                         buildModal.classList.add('hidden');
                         showPrototype(input);
-                    }, 400);
+                    }, 500);
                 }
-            }, 300);
+            }, 180);
+        }
+
+        function activateStep(index) {
+            // Valider les précédentes
+            for(let i=0; i<index; i++) {
+                const prev = document.getElementById(`step-${i}`);
+                prev.className = "flex items-center gap-3 text-slate-300 transition-all duration-300";
+                prev.querySelector('i').className = "fa-solid fa-check text-brand-400";
+            }
+            // Mettre en cours la présente
+            const curr = document.getElementById(`step-${index}`);
+            curr.className = "flex items-center gap-3 text-white font-bold transition-all duration-300";
+            curr.querySelector('i').className = "fa-solid fa-circle-notch fa-spin text-brand-400";
         }
 
         function showPrototype(projectName) {
