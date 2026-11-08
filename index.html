@@ -212,7 +212,7 @@
         </div>
     </div>
 
-    <!-- Footer -->
+<!-- Footer -->
     <footer class="text-center py-6 text-xs text-slate-500 border-t border-white/5 relative z-10">
         &copy; 2026 NEXORA AI. Tous droits réservés.
     </footer>
@@ -223,62 +223,40 @@
 
         function fillPrompt(text) {
             document.getElementById('projectInput').value = text;
-            generateSaaSBlueprint();
+            generateBlueprint();
         }
 
-        function generateSaaSBlueprint() {
-            const input = document.getElementById('projectInput').value.trim();
-            const output = document.getElementById('blueprintOutput');
-
-            if (!input) {
+        function generateBlueprint() {
+            const inputField = document.getElementById('projectInput');
+            if (!inputField || !inputField.value.trim()) {
                 alert("Veuillez saisir une idée de service ou de logiciel.");
                 return;
             }
 
+            const input = inputField.value.trim();
             currentSaaSName = input;
-            output.classList.remove('hidden');
-            output.innerHTML = `
-                <div class="flex items-center gap-3 text-brand-400 py-3">
-                    <i class="fa-solid fa-circle-notch animate-spin text-xl"></i>
-                    <span class="font-bold text-sm">Génération de la structure du SaaS en cours...</span>
-                </div>
-            `;
 
-            setTimeout(() => {
-                output.innerHTML = `
-                    <div class="space-y-4">
-                        <div class="flex justify-between items-start border-b border-white/10 pb-3">
-                            <div>
-                                <span class="text-xs text-brand-400 font-bold uppercase tracking-wider">Ébauche d'application prête</span>
-                                <h4 class="text-xl font-extrabold text-white">${escapeHtml(input)}</h4>
-                            </div>
-                            <span class="bg-brand-500/20 text-brand-400 border border-brand-500/30 text-xs px-3 py-1 rounded-full font-bold">100% Configuré</span>
-                        </div>
-                        
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-                            <div class="bg-slate-800 p-3.5 rounded-xl border border-white/5">
-                                <span class="text-brand-400 font-bold block mb-1">💻 Dashboard Utilisateur :</span>
-                                <p class="text-slate-300">Formulaires intuitifs, exports PDF et gestion d'abonnements.</p>
-                            </div>
-                            <div class="bg-slate-800 p-3.5 rounded-xl border border-white/5">
-                                <span class="text-brand-400 font-bold block mb-1">💳 Monétisation Stripe :</span>
-                                <p class="text-slate-300">Paiements récurrents pré-configurés.</p>
-                            </div>
-                        </div>
-                    </div>
-                `;
+            const modalTitle = document.getElementById('modalSaaSTitle');
+            if (modalTitle) {
+                modalTitle.innerText = `"${input}"`;
+            }
 
-                // Ouvrir la pop-up par-dessus
-                document.getElementById('modalSaaSTitle').innerText = `"${input}"`;
-                document.getElementById('simulatorModal').classList.remove('hidden');
+            const simulatorModal = document.getElementById('simulatorModal');
+            if (simulatorModal) {
+                simulatorModal.classList.remove('hidden');
                 calculateGoal();
-            }, 700);
+            }
         }
 
         function calculateGoal() {
-            const target = parseInt(document.getElementById('targetIncomeInput').value);
-            const price = parseInt(document.getElementById('priceSelect').value);
+            const targetInput = document.getElementById('targetIncomeInput');
+            const priceSelect = document.getElementById('priceSelect');
             const analysisDetails = document.getElementById('analysisDetails');
+
+            if (!targetInput || !priceSelect || !analysisDetails) return;
+
+            const target = parseInt(targetInput.value);
+            const price = parseInt(priceSelect.value);
 
             if (!target || target <= 0) {
                 analysisDetails.innerHTML = `<span class="text-amber-400">Veuillez indiquer un objectif supérieur à 0 €.</span>`;
@@ -300,127 +278,15 @@
         }
 
         function closeModal() {
-            document.getElementById('simulatorModal').classList.add('hidden');
+            const simulatorModal = document.getElementById('simulatorModal');
+            if (simulatorModal) {
+                simulatorModal.classList.add('hidden');
+            }
         }
 
         function escapeHtml(text) {
             return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
         }
-        function ouvrirEbauche(event) {
-  if (event) event.preventDefault();
-  
-  const inputIdea = document.querySelector('input[type="text"]').value.trim();
-  const titleElement = document.getElementById('ebaucheTitle');
-  
-  if (inputIdea !== "") {
-    titleElement.innerText = "Ébauche : " + inputIdea;
-  } else {
-    titleElement.innerText = "Ébauche de votre projet SaaS";
-  }
-
-  document.getElementById('ebaucheModal').classList.remove('hidden');
-}
-
-function passerAuSimulateur() {
-  document.getElementById('ebaucheModal').classList.add('hidden');
-  
-  const simuModal = document.getElementById('simulateurModal');
-  if (simuModal) {
-    simuModal.classList.remove('hidden');
-  }
-}
-
-
-function ouvrirEbauche(event) {
-  if (event) event.preventDefault();
-  const inputIdea = document.querySelector('input[type="text"]').value.trim();
-  const titleElement = document.getElementById('ebaucheTitle');
-  if (inputIdea !== "") {
-    titleElement.innerText = "Ébauche : " + inputIdea;
-  } else {
-    titleElement.innerText = "Ébauche de votre projet SaaS";
-  }
-  document.getElementById('ebaucheModal').classList.remove('hidden');
-}
-
-function passerAuSimulateur() {
-  document.getElementById('ebaucheModal').classList.add('hidden');
-  const simuModal = document.getElementById('simulateurModal');
-  if (simuModal) {
-    simuModal.classList.remove('hidden');
-  }
-}
-<script>
-  function generateBlueprint() {
-      // Récupérer la valeur tapée par l'utilisateur dans l'input
-      const inputField = document.getElementById('projectInput');
-      const projectTitleDisplay = document.getElementById('projectTitleDisplay');
-      const dbStructureText = document.getElementById('dbStructureText');
-      const modulesText = document.getElementById('modulesText');
-
-      if (inputField && inputField.value.trim() !== "") {
-          const userProject = inputField.value.trim();
-          // Injection dynamique ultra-personnalisée pour le client
-          projectTitleDisplay.textContent = `"${userProject}"`;
-          dbStructureText.textContent = `Tables SQL optimisées, sécurisation des accès et rôles configurés pour : ${userProject}.`;
-          modulesText.textContent = `Génération des interfaces d'onboarding, tableaux de bord et tunnels de vente dédiés à ${userProject}.`;
-      } else {
-          projectTitleDisplay.textContent = "Votre Application SaaS";
-      }
-
-      // Afficher la modale d'ébauche
-      const modal = document.getElementById('ebaucheModal');
-      if (modal) {
-          modal.classList.remove('hidden');
-      }
-  }
-
-  function passerAuSimulateur() {
-      document.getElementById('ebaucheModal').classList.add('hidden');
-      document.getElementById('simulatorModal').classList.remove('hidden');
-  }
-
-  function closeModal() {
-      document.getElementById('ebaucheModal').classList.add('hidden');
-      document.getElementById('simulatorModal').classList.add('hidden');
-  }
-</script>
-
-
-<script>
-  function generateBlueprint() {
-      // Récupérer la valeur tapée par l'utilisateur dans l'input
-      const inputField = document.getElementById('projectInput');
-      const projectTitleDisplay = document.getElementById('projectTitleDisplay');
-      const dbStructureText = document.getElementById('dbStructureText');
-      const modulesText = document.getElementById('modulesText');
-
-      if (inputField && inputField.value.trim() !== "") {
-          const userProject = inputField.value.trim();
-          // Injection dynamique ultra-personnalisée pour le client
-          projectTitleDisplay.textContent = `"${userProject}"`;
-          dbStructureText.textContent = `Tables SQL optimisées, sécurisation des accès et rôles configurés pour : ${userProject}.`;
-          modulesText.textContent = `Génération des interfaces d'onboarding, tableaux de bord et tunnels de vente dédiés à ${userProject}.`;
-      } else {
-          projectTitleDisplay.textContent = "Votre Application SaaS";
-      }
-
-      // Afficher la modale d'ébauche
-      const modal = document.getElementById('ebaucheModal');
-      if (modal) {
-          modal.classList.remove('hidden');
-      }
-  }
-
-  function passerAuSimulateur() {
-      document.getElementById('ebaucheModal').classList.add('hidden');
-      document.getElementById('simulatorModal').classList.remove('hidden');
-  }
-
-  function closeModal() {
-      document.getElementById('ebaucheModal').classList.add('hidden');
-      document.getElementById('simulatorModal').classList.add('hidden');
-  }
-</script>
+    </script>
 </body>
-</html>    
+</html>   
