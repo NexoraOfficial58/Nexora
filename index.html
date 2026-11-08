@@ -135,28 +135,26 @@
             Entrez un domaine d'activité. Nexora structure l'application, configure le module client et prépare votre tunnel de vente en quelques secondes.
         </p>
 
-        <!-- Search / Generation Box -->
-        <div class="glass w-full p-6 sm:p-8 rounded-3xl border border-white/15 shadow-2xl mb-8 text-left glow-box">
-            <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-3">Quel service ou logiciel voulez-vous commercialiser ?</label>
-            
-            <div class="flex flex-col sm:flex-row gap-3 mb-4">
-                <input type="text" id="projectInput" placeholder="ex: Facturation IA pour Artisans, Devis BTP..." class="flex-grow bg-slate-900 border border-white/20 rounded-xl px-5 py-4 text-base text-white focus:outline-none focus:border-brand-500 transition shadow-inner">
-                <button onclick="generateBlueprint()" class="gradient-bg text-white px-8 py-4 rounded-xl text-base font-bold shadow-lg shadow-brand-500/25 hover:opacity-95 transition flex items-center justify-center gap-2 shrink-0">
-                    <i class="fa-solid fa-wand-magic-sparkles"></i> Créer le SaaS
-                </button>
-            </div>
+      <!-- Search / Generation Box -->
+<div class="glass w-full p-6 sm:p-8 rounded-3xl border border-white/15 shadow-2xl text-left glow-box mb-8">
+    <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-3">Quel service ou logiciel voulez-vous commercialiser ?</label>
+    
+    <div class="flex flex-col sm:flex-row gap-3 mb-4">
+        <input type="text" id="projectInput" placeholder="ex: Facturation IA pour Artisans, Devis BTP..." class="flex-1 bg-white/5 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500">
+        
+        <button onclick="generateBlueprint()" class="gradient-bg text-white px-8 py-4 rounded-xl font-bold flex items-center justify-center gap-2 hover:opacity-90 transition shadow-lg shadow-emerald-500/20 cursor-pointer">
+            <i class="fas fa-wand-magic-sparkles"></i>
+            <span>Créer le SaaS</span>
+        </button>
+    </div>
 
-            <!-- Suggestions rapides -->
-            <div class="flex flex-wrap gap-2 text-xs text-slate-300 items-center">
-                <span class="text-slate-400">Idées :</span>
-                <button onclick="fillPrompt('Logiciel de Devis & Factures pour Artisans BTP')" class="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg text-white border border-white/10 transition font-medium">Facturation Artisans</button>
-                <button onclick="fillPrompt('Gestionnaire de Planning et Chantiers')" class="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg text-white border border-white/10 transition font-medium">Planning BTP</button>
-            </div>
-
-            <!-- Ébauche de l'application -->
-            <div id="blueprintOutput" class="hidden mt-6 p-6 bg-slate-900 rounded-2xl border border-brand-500/30"></div>
-        </div>
-
+    <!-- Suggestions rapides -->
+    <div class="flex flex-wrap gap-2 text-xs text-slate-300 items-center">
+        <span class="text-slate-400">Idées :</span>
+        <button onclick="document.getElementById('projectInput').value='Logiciel de Devis & Factures pour Artisans BTP'" class="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg transition cursor-pointer">Logiciel de Devis & Factures BTP</button>
+        <button onclick="document.getElementById('projectInput').value='Gestionnaire de Planning et Chantiers'" class="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg transition cursor-pointer">Gestionnaire de Planning</button>
+    </div>
+</div>
     </main>
 
     <!-- FENÊTRE SURGISSANTE (POP-UP / MODAL DU SIMULATEUR) -->
