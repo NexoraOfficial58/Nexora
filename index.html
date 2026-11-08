@@ -352,54 +352,62 @@ function passerAuSimulateur() {
     simuModal.classList.remove('hidden');
   }
 }
-</script>
-
-<div id="ebaucheModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 backdrop-blur-sm p-4">
-  <div class="glass-card glow-box border border-brand-500/40 rounded-3xl p-6 sm:p-8 max-w-xl w-full relative space-y-6">
-    <button type="button" onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white">
-      <i class="fas fa-xmark"></i>
-    </button>
-    
-    <div class="space-y-2">
-      <span class="text-xs uppercase tracking-wider text-brand-400 font-semibold">Diagnostic initial validé</span>
-      <h3 class="text-2xl font-bold text-white">Cahier des charges & Structure SaaS</h3>
-      <p class="text-sm text-slate-300">Voici la base de travail personnalisée générée pour votre projet.</p>
-    </div>
-
-    <!-- Aperçu des livrables professionnels -->
-    <div class="space-y-3 bg-slate-900/60 p-4 rounded-2xl border border-slate-800">
-      <div class="flex items-start gap-3">
-        <i class="fas fa-check-circle text-emerald-400 mt-1"></i>
-        <div>
-          <h4 class="text-sm font-semibold text-white">Architecture technique et modules</h4>
-          <p class="text-xs text-slate-400">Structure des bases de données et flux utilisateurs pré-configurés.</p>
-        </div>
-      </div>
-      <div class="flex items-start gap-3">
-        <i class="fas fa-check-circle text-emerald-400 mt-1"></i>
-        <div>
-          <h4 class="text-sm font-semibold text-white">Parcours client & Tunnel de conversion</h4>
-          <p class="text-xs text-slate-400">Optimisation des étapes d'onboarding et des points de friction.</p>
-        </div>
-      </div>
-      <div class="flex items-start gap-3">
-        <i class="fas fa-check-circle text-emerald-400 mt-1"></i>
-        <div>
-          <h4 class="text-sm font-semibold text-white">Estimations financières prévisionnelles</h4>
-          <p class="text-xs text-slate-400">Modèle de rentabilité et projections sur 12 mois.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Bouton d'action vers le simulateur -->
-    <button type="button" onclick="passerAuSimulateur()" class="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-medium py-3 px-4 rounded-xl transition flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20">
-      <span>Accéder aux projections financières détaillées</span>
-      <i class="fas fa-arrow-right"></i>
-    </button>
-  </div>
-</div>
 <script>
   function generateBlueprint() {
+      // Récupérer la valeur tapée par l'utilisateur dans l'input
+      const inputField = document.getElementById('projectInput');
+      const projectTitleDisplay = document.getElementById('projectTitleDisplay');
+      const dbStructureText = document.getElementById('dbStructureText');
+      const modulesText = document.getElementById('modulesText');
+
+      if (inputField && inputField.value.trim() !== "") {
+          const userProject = inputField.value.trim();
+          // Injection dynamique ultra-personnalisée pour le client
+          projectTitleDisplay.textContent = `"${userProject}"`;
+          dbStructureText.textContent = `Tables SQL optimisées, sécurisation des accès et rôles configurés pour : ${userProject}.`;
+          modulesText.textContent = `Génération des interfaces d'onboarding, tableaux de bord et tunnels de vente dédiés à ${userProject}.`;
+      } else {
+          projectTitleDisplay.textContent = "Votre Application SaaS";
+      }
+
+      // Afficher la modale d'ébauche
+      const modal = document.getElementById('ebaucheModal');
+      if (modal) {
+          modal.classList.remove('hidden');
+      }
+  }
+
+  function passerAuSimulateur() {
+      document.getElementById('ebaucheModal').classList.add('hidden');
+      document.getElementById('simulatorModal').classList.remove('hidden');
+  }
+
+  function closeModal() {
+      document.getElementById('ebaucheModal').classList.add('hidden');
+      document.getElementById('simulatorModal').classList.add('hidden');
+  }
+</script>
+
+
+<script>
+  function generateBlueprint() {
+      // Récupérer la valeur tapée par l'utilisateur dans l'input
+      const inputField = document.getElementById('projectInput');
+      const projectTitleDisplay = document.getElementById('projectTitleDisplay');
+      const dbStructureText = document.getElementById('dbStructureText');
+      const modulesText = document.getElementById('modulesText');
+
+      if (inputField && inputField.value.trim() !== "") {
+          const userProject = inputField.value.trim();
+          // Injection dynamique ultra-personnalisée pour le client
+          projectTitleDisplay.textContent = `"${userProject}"`;
+          dbStructureText.textContent = `Tables SQL optimisées, sécurisation des accès et rôles configurés pour : ${userProject}.`;
+          modulesText.textContent = `Génération des interfaces d'onboarding, tableaux de bord et tunnels de vente dédiés à ${userProject}.`;
+      } else {
+          projectTitleDisplay.textContent = "Votre Application SaaS";
+      }
+
+      // Afficher la modale d'ébauche
       const modal = document.getElementById('ebaucheModal');
       if (modal) {
           modal.classList.remove('hidden');
