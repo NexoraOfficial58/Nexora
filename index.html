@@ -53,7 +53,7 @@
 </head>
 <body class="text-slate-100 min-h-screen flex flex-col justify-between selection:bg-brand-500 selection:text-white relative">
 
-    <!-- FENÊTRES FLOTTANTES (AVEC CHIFFRES QUI ÉVOLUENT EN DIRECT) -->
+    <!-- FENÊTRES FLOTTANTES (CHIFFRES CRÉDIBLES ET DYNAMIQUES) -->
     <div class="floating-window hidden lg:block left-8 top-36 w-72">
         <div class="window-header">
             <div class="dot dot-red"></div>
@@ -87,7 +87,7 @@
         <div class="space-y-2">
             <div class="flex justify-between text-xs">
                 <span class="text-slate-400">Volume encaissé global</span>
-                <span id="liveVolume" class="text-brand-400 font-bold">34 250 €</span>
+                <span class="text-brand-400 font-bold">34 250 €</span>
             </div>
             <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
                 <div class="bg-brand-500 h-full w-[65%]"></div>
@@ -120,10 +120,10 @@
     <!-- Main Content -->
     <main class="flex-grow max-w-6xl mx-auto w-full px-4 sm:px-6 py-10 flex flex-col justify-center items-center text-center relative z-10">
         
-        <!-- En-tête principal -->
+        <!-- Hero Section -->
         <div id="heroSection">
             <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold bg-brand-500/10 text-brand-400 border border-brand-500/30 mb-6 shadow-md">
-                🔥 Rejoignez les entrepreneurs qui lancent leur logiciel rentable
+                🔥 Générateur de Business & Logiciels IA
             </span>
 
             <h1 class="text-4xl sm:text-6xl font-black text-white tracking-tight mb-6 leading-tight">
@@ -132,7 +132,7 @@
             </h1>
 
             <p class="text-slate-300 text-base sm:text-lg max-w-xl mx-auto mb-8 leading-relaxed">
-                Entrez un domaine d'activité. Nexora génère instantanément l'ébauche concrète de votre application sous vos yeux.
+                Entrez un domaine d'activité. Nexora génère instantanément l'interface complète et concrète de votre projet sous vos yeux.
             </p>
 
             <!-- Champ de saisie -->
@@ -140,7 +140,7 @@
                 <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-3">Quel service ou logiciel voulez-vous commercialiser ?</label>
                 
                 <div class="flex flex-col sm:flex-row gap-3 mb-4">
-                    <input type="text" id="projectInput" placeholder="ex: Facturation BTP, Vente de Bijoux, Réservation..." class="flex-1 bg-white/5 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500">
+                    <input type="text" id="projectInput" placeholder="ex: Vente de vêtements, Devis BTP, Vente de bijoux..." class="flex-1 bg-white/5 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500">
                     
                     <button onclick="generateVisualApp()" class="gradient-bg text-white px-8 py-4 rounded-xl font-bold flex items-center justify-center gap-2 hover:opacity-90 transition shadow-lg shadow-emerald-500/20 cursor-pointer">
                         <i class="fas fa-wand-magic-sparkles"></i>
@@ -150,53 +150,45 @@
 
                 <div class="flex flex-wrap gap-2 text-xs text-slate-300 items-center">
                     <span class="text-slate-400">Idées populaires :</span>
-                    <button onclick="fillPrompt('Logiciel de Devis & Factures pour Artisans BTP')" class="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg transition cursor-pointer">Logiciel Devis BTP</button>
-                    <button onclick="fillPrompt('Boutique de Vente de Bijoux en Ligne')" class="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg transition cursor-pointer">Vente de Bijoux</button>
-                    <button onclick="fillPrompt('Gestionnaire de Planning et Chantiers')" class="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg transition cursor-pointer">Planning Chantiers</button>
+                    <button onclick="fillPrompt('Vente de vêtements en ligne')" class="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg transition cursor-pointer">Vente de vêtements</button>
+                    <button onclick="fillPrompt('Logiciel de Devis & Factures BTP')" class="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg transition cursor-pointer">Devis & Factures BTP</button>
+                    <button onclick="fillPrompt('Boutique de bijoux artisanaux')" class="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg transition cursor-pointer">Boutique de Bijoux</button>
                 </div>
             </div>
         </div>
 
-        <!-- ZONE DE L'ÉBAUCHE VISUELLE CONCRÈTE (L'APERÇU TYPE "TÉLÉ / LEBONCOIN") -->
+        <!-- ZONE DU RENDU VISUEL SUR-MESURE (VOITURE / TÉLÉ / VITRINE DENSE) -->
         <div id="visualAppContainer" class="hidden w-full text-left space-y-6">
             
             <div class="flex justify-between items-center bg-slate-900/90 p-4 rounded-2xl border border-white/10">
-                <div>
-                    <span class="text-[10px] uppercase tracking-wider font-bold text-brand-400">✨ ÉBAUCHE VISUELLE GÉNÉRÉE SUR-MESURE</span>
-                    <h2 class="text-xl font-black text-white" id="appTitleDisplay">Nom du Projet</h2>
+                <div class="flex items-center gap-3">
+                    <div class="w-3 h-3 rounded-full bg-brand-400 animate-ping"></div>
+                    <div>
+                        <span class="text-[10px] uppercase tracking-wider font-bold text-brand-400">INTERFACE PROTOTYPE EN DIRECT</span>
+                        <h2 class="text-xl font-black text-white" id="appTitleDisplay">Titre du projet</h2>
+                    </div>
                 </div>
                 <button onclick="resetApp()" class="text-xs text-slate-400 hover:text-white bg-white/5 px-3 py-2 rounded-xl border border-white/10">
                     <i class="fa-solid fa-rotate-left"></i> Tester une autre idée
                 </button>
             </div>
 
-            <!-- LE VRAI APERÇU VISUEL DE L'APPLICATION (VITRINE / PRODUITS / INTERFACE) -->
+            <!-- APPARENCE CONCRÈTE D'UNE APPLICATION COMPLETE -->
             <div class="glass-card p-6 rounded-3xl border border-brand-500/40 glow-box space-y-6">
                 
-                <div class="flex items-center justify-between border-b border-white/10 pb-4">
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-xl bg-brand-500/20 text-brand-400 flex items-center justify-center font-bold">
-                            <i class="fa-solid fa-window-maximize"></i>
-                        </div>
-                        <div>
-                            <span class="text-[10px] text-slate-400 block font-mono">Aperçu direct de votre future interface</span>
-                            <strong class="text-sm text-white font-bold" id="appSubtitle">Interface active</strong>
-                        </div>
-                    </div>
-                    <span class="text-xs font-bold text-emerald-400 bg-emerald-500/10 px-3 py-1.5 rounded-full border border-emerald-500/30">
-                        <i class="fa-solid fa-circle-check mr-1"></i> Généré par l'IA
-                    </span>
+                <div id="dynamicAppHeader" class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 border-b border-white/10 pb-4">
+                    <!-- Injecté selon le secteur -->
                 </div>
 
-                <!-- CONTENU VISUEL DYNAMIQUE SELON L'ACTIVITÉ -->
-                <div id="dynamicAppVisuals" class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    <!-- Injecté par JavaScript -->
+                <!-- GRILLE VISUELLE COMPLÈTE & ADAPTÉE AU THÈME -->
+                <div id="dynamicAppVisuals">
+                    <!-- Injecté dynamiquement en JS -->
                 </div>
 
-                <!-- LE SIMULATEUR DE REVENUS -->
-                <div class="bg-slate-900 p-5 rounded-2xl border border-brand-500/30 space-y-3">
+                <!-- SIMULATEUR INTÉGRÉ AU BAS DE L'APPLICATION -->
+                <div class="bg-slate-900/90 p-5 rounded-2xl border border-brand-500/30 space-y-3">
                     <div class="flex items-center gap-2 text-brand-400 font-bold text-xs uppercase tracking-wider">
-                        <i class="fa-solid fa-calculator"></i> Simulateur de Revenus en Temps Réel
+                        <i class="fa-solid fa-calculator"></i> Simulateur de Monétisation
                     </div>
                     
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 items-center">
@@ -220,7 +212,7 @@
                 </div>
             </div>
 
-            <!-- PAYWALL ULTRA-CONCRET (CODE SOURCE ET DÉPLOIEMENT FLOUTÉS) -->
+            <!-- PAYWALL ULTRA-CONCRET (CODE SOURCE FLOUTÉ ET CADENAS) -->
             <div class="relative rounded-3xl overflow-hidden border border-brand-500/50 bg-slate-950 p-6 text-center shadow-2xl">
                 
                 <div class="filter blur-[6px] select-none text-left font-mono text-[10px] text-slate-500 opacity-40 space-y-1">
@@ -228,7 +220,7 @@
                     <p>const nexoraEngine = require('@nexora/core');</p>
                     <p>const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);</p>
                     <p>export async function initSaaSInstance(userRequest) {</p>
-                    <p class="pl-4">const db = await nexoraEngine.createDatabaseSchema({ tables: ['users', 'invoices', 'subscriptions'] });</p>
+                    <p class="pl-4">const db = await nexoraEngine.createDatabaseSchema({ tables: ['users', 'orders', 'products', 'subscriptions'] });</p>
                     <p class="pl-4">const stripeWebhook = await stripe.webhooks.constructEvent(payload, header, endpointSecret);</p>
                     <p class="pl-4">return { status: 200, deployUrl: `https://${userRequest.slug}.nexora.app` };</p>
                     <p>}</p>
@@ -260,10 +252,10 @@
 
     <!-- Scripts -->
     <script>
-        // Animation subtile pour faire bouger les chiffres sur les côtés (effet vivant)
+        // Animation des chiffres sur les côtés (effet vivant)
         setInterval(() => {
-            const creators = Math.floor(Math.random() * 6) + 39; // entre 39 et 44
-            const projects = Math.floor(Math.random() * 4) + 182; // entre 182 et 185
+            const creators = Math.floor(Math.random() * 5) + 40;
+            const projects = Math.floor(Math.random() * 4) + 183;
             document.getElementById('liveCreators').textContent = creators + ' actifs';
             document.getElementById('headerCreators').textContent = creators;
             document.getElementById('liveProjects').textContent = projects + ' projets';
@@ -282,79 +274,153 @@
             }
 
             const input = inputField.value.trim();
+            const lower = input.toLowerCase();
             
             document.getElementById('heroSection').classList.add('hidden');
             document.getElementById('appTitleDisplay').textContent = input;
-            document.getElementById('appSubtitle').textContent = `Vitrine interactive pour : "${input}"`;
 
-            const container = document.getElementById('dynamicAppVisuals');
-            const lower = input.toLowerCase();
+            const headerContainer = document.getElementById('dynamicAppHeader');
+            const visualContainer = document.getElementById('dynamicAppVisuals');
 
-            // Génération de visuels concrets selon le domaine (La "photo de la voiture")
-            if (lower.includes('bijoux') || lower.includes('vente') || lower.includes('boutique')) {
-                container.innerHTML = `
-                    <div class="bg-slate-900 p-4 rounded-2xl border border-white/10 text-center space-y-2">
-                        <div class="h-28 bg-slate-950 rounded-xl flex items-center justify-center text-brand-400 text-3xl border border-white/5"><i class="fa-solid fa-gem"></i></div>
-                        <strong class="text-xs text-white block">Collier Or Diamant</strong>
-                        <span class="text-brand-400 font-bold text-sm">49,00 €</span>
-                        <button class="w-full bg-brand-500/20 text-brand-400 text-[11px] font-bold py-1.5 rounded-lg border border-brand-500/30">Ajouter au panier</button>
+            // --- CAS 1 : VÊTEMENTS / MODE / E-COMMERCE ---
+            if (lower.includes('vêtement') || lower.includes('vetement') || lower.includes('habits') || lower.includes('mode') || lower.includes('fringues')) {
+                headerContainer.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-brand-500/20 text-brand-400 flex items-center justify-center text-lg font-bold"><i class="fa-solid fa-shirt"></i></div>
+                        <div>
+                            <span class="text-[10px] text-brand-400 font-mono font-bold uppercase">Boutique Mode & Vêtements Prête</span>
+                            <h3 class="text-sm font-bold text-white">Catalogue & Gestion des Tailles / Stocks</h3>
+                        </div>
                     </div>
-                    <div class="bg-slate-900 p-4 rounded-2xl border border-white/10 text-center space-y-2">
-                        <div class="h-28 bg-slate-950 rounded-xl flex items-center justify-center text-brand-400 text-3xl border border-white/5"><i class="fa-solid fa-ring"></i></div>
-                        <strong class="text-xs text-white block">Bague Saphir Sur-mesure</strong>
-                        <span class="text-brand-400 font-bold text-sm">89,00 €</span>
-                        <button class="w-full bg-brand-500/20 text-brand-400 text-[11px] font-bold py-1.5 rounded-lg border border-brand-500/30">Ajouter au panier</button>
-                    </div>
-                    <div class="bg-slate-900 p-4 rounded-2xl border border-white/10 text-center space-y-2">
-                        <div class="h-28 bg-slate-950 rounded-xl flex items-center justify-center text-brand-400 text-3xl border border-white/5"><i class="fa-solid fa-clock"></i></div>
-                        <strong class="text-xs text-white block">Bracelet Jonc Argent</strong>
-                        <span class="text-brand-400 font-bold text-sm">35,00 €</span>
-                        <button class="w-full bg-brand-500/20 text-brand-400 text-[11px] font-bold py-1.5 rounded-lg border border-brand-500/30">Ajouter au panier</button>
+                    <span class="text-xs font-bold text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/30"><i class="fa-solid fa-check mr-1"></i> Panier & Stripe Actifs</span>
+                `;
+
+                visualContainer.innerHTML = `
+                    <div class="grid grid-cols-1 sm:grid-cols-4 gap-4 mb-4">
+                        <div class="bg-slate-900 p-3.5 rounded-2xl border border-white/10 text-left space-y-2">
+                            <div class="h-32 bg-slate-950 rounded-xl flex items-center justify-center text-slate-400 text-3xl border border-white/5"><i class="fa-solid fa-shirt text-emerald-400"></i></div>
+                            <span class="text-[10px] text-slate-400 uppercase tracking-wider block">T-Shirt Premium Oversize</span>
+                            <div class="flex justify-between items-center"><strong class="text-white text-sm">39,90 €</strong><span class="text-[10px] bg-slate-800 text-slate-300 px-2 py-0.5 rounded">Tailles S-XL</span></div>
+                        </div>
+                        <div class="bg-slate-900 p-3.5 rounded-2xl border border-white/10 text-left space-y-2">
+                            <div class="h-32 bg-slate-950 rounded-xl flex items-center justify-center text-slate-400 text-3xl border border-white/5"><i class="fa-solid fa-vest text-emerald-400"></i></div>
+                            <span class="text-[10px] text-slate-400 uppercase tracking-wider block">Veste Capuche Heavyweight</span>
+                            <div class="flex justify-between items-center"><strong class="text-white text-sm">79,90 €</strong><span class="text-[10px] bg-slate-800 text-slate-300 px-2 py-0.5 rounded">Stock : 45</span></div>
+                        </div>
+                        <div class="bg-slate-900 p-3.5 rounded-2xl border border-white/10 text-left space-y-2">
+                            <div class="h-32 bg-slate-950 rounded-xl flex items-center justify-center text-slate-400 text-3xl border border-white/5"><i class="fa-solid fa-user-ninja text-emerald-400"></i></div>
+                            <span class="text-[10px] text-slate-400 uppercase tracking-wider block">Pantalon Cargo Urban</span>
+                            <div class="flex justify-between items-center"><strong class="text-white text-sm">64,90 €</strong><span class="text-[10px] bg-slate-800 text-slate-300 px-2 py-0.5 rounded">Stock : 18</span></div>
+                        </div>
+                        <div class="bg-slate-900 p-3.5 rounded-2xl border border-white/10 text-left space-y-2">
+                            <div class="h-32 bg-slate-950 rounded-xl flex items-center justify-center text-slate-400 text-3xl border border-white/5"><i class="fa-solid fa-hat-cowboy text-emerald-400"></i></div>
+                            <span class="text-[10px] text-slate-400 uppercase tracking-wider block">Casquette Broderie HD</span>
+                            <div class="flex justify-between items-center"><strong class="text-white text-sm">29,90 €</strong><span class="text-[10px] bg-slate-800 text-slate-300 px-2 py-0.5 rounded">Stock : 80</span></div>
+                        </div>
                     </div>
                 `;
-            } else if (lower.includes('devis') || lower.includes('facture') || lower.includes('btp') || lower.includes('artisan')) {
-                container.innerHTML = `
-                    <div class="bg-slate-900 p-4 rounded-2xl border border-white/10 space-y-2 text-left">
-                        <div class="flex justify-between text-[10px] text-slate-400 font-mono">
-                            <span>Devis #001</span>
-                            <span class="text-emerald-400 font-bold">Validé</span>
+            } 
+            // --- CAS 2 : DEVIS & FACTURATION BTP ---
+            else if (lower.includes('devis') || lower.includes('facture') || lower.includes('btp') || lower.includes('artisan') || lower.includes('chantier')) {
+                headerContainer.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-brand-500/20 text-brand-400 flex items-center justify-center text-lg font-bold"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+                        <div>
+                            <span class="text-[10px] text-brand-400 font-mono font-bold uppercase">Logiciel de Devis BTP Prêt</span>
+                            <h3 class="text-sm font-bold text-white">Suivi des Chantiers & Envois Clients</h3>
                         </div>
-                        <strong class="text-xs text-white block">Ravalement façade 120m² (Client Dupont)</strong>
-                        <div class="text-brand-400 font-black text-sm">3 450,00 € HT</div>
                     </div>
-                    <div class="bg-slate-900 p-4 rounded-2xl border border-white/10 space-y-2 text-left">
-                        <div class="flex justify-between text-[10px] text-slate-400 font-mono">
-                            <span>Devis #002</span>
-                            <span class="text-amber-400 font-bold">En attente</span>
+                    <span class="text-xs font-bold text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/30"><i class="fa-solid fa-check mr-1"></i> Signature PDF & Stripe Connectés</span>
+                `;
+
+                visualContainer.innerHTML = `
+                    <div class="bg-slate-900 p-4 rounded-2xl border border-white/10 space-y-3 mb-4">
+                        <div class="flex justify-between items-center border-b border-white/10 pb-2 text-xs font-bold text-slate-400">
+                            <span>Client / Chantier</span>
+                            <span>Montant HT</span>
+                            <span>Statut</span>
                         </div>
-                        <strong class="text-xs text-white block">Isolation extérieure (Client Martin)</strong>
-                        <div class="text-brand-400 font-black text-sm">5 120,00 € HT</div>
-                    </div>
-                    <div class="bg-slate-900 p-4 rounded-2xl border border-white/10 space-y-2 text-left">
-                        <div class="flex justify-between text-[10px] text-slate-400 font-mono">
-                            <span>Facture #003</span>
-                            <span class="text-brand-400 font-bold">Payée</span>
+                        <div class="bg-slate-950 p-3 rounded-xl border border-white/5 flex justify-between items-center text-xs">
+                            <div><strong class="text-white block">Ravalement façade 120m²</strong><span class="text-[10px] text-slate-500">M. Dupont — Preserville</span></div>
+                            <span class="text-brand-400 font-bold">3 450,00 €</span>
+                            <span class="text-[10px] bg-emerald-500/20 text-emerald-400 px-2 py-1 rounded font-bold">Devis Validé</span>
                         </div>
-                        <strong class="text-xs text-white block">Réparation toiture (Client Leroy)</strong>
-                        <div class="text-brand-400 font-black text-sm">1 280,00 € HT</div>
+                        <div class="bg-slate-950 p-3 rounded-xl border border-white/5 flex justify-between items-center text-xs">
+                            <div><strong class="text-white block">Isolation extérieure & Enduit</strong><span class="text-[10px] text-slate-500">Mme. Martin — Caraman</span></div>
+                            <span class="text-brand-400 font-bold">5 120,00 €</span>
+                            <span class="text-[10px] bg-amber-500/20 text-amber-400 px-2 py-1 rounded font-bold">En attente</span>
+                        </div>
+                        <div class="bg-slate-950 p-3 rounded-xl border border-white/5 flex justify-between items-center text-xs">
+                            <div><strong class="text-white block">Réparation toiture zinc</strong><span class="text-[10px] text-slate-500">M. Leroy — Toulouse</span></div>
+                            <span class="text-brand-400 font-bold">1 280,00 €</span>
+                            <span class="text-[10px] bg-emerald-500/20 text-emerald-400 px-2 py-1 rounded font-bold">Facture Payée</span>
+                        </div>
                     </div>
                 `;
-            } else {
-                container.innerHTML = `
-                    <div class="bg-slate-900 p-4 rounded-2xl border border-white/10 text-center space-y-2">
-                        <div class="h-28 bg-slate-950 rounded-xl flex items-center justify-center text-brand-400 text-3xl border border-white/5"><i class="fa-solid fa-users"></i></div>
-                        <strong class="text-xs text-white block">Gestion des Abonnés</strong>
-                        <span class="text-brand-400 font-bold text-sm">Module actif</span>
+            }
+            // --- CAS 3 : BIJOUX ---
+            else if (lower.includes('bijoux') || lower.includes('bague') || lower.includes('collier')) {
+                headerContainer.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-brand-500/20 text-brand-400 flex items-center justify-center text-lg font-bold"><i class="fa-solid fa-gem"></i></div>
+                        <div>
+                            <span class="text-[10px] text-brand-400 font-mono font-bold uppercase">Boutique de Bijouterie Prête</span>
+                            <h3 class="text-sm font-bold text-white">Créations Artisanales & Commandes</h3>
+                        </div>
                     </div>
-                    <div class="bg-slate-900 p-4 rounded-2xl border border-white/10 text-center space-y-2">
-                        <div class="h-28 bg-slate-950 rounded-xl flex items-center justify-center text-brand-400 text-3xl border border-white/5"><i class="fa-solid fa-file-invoice"></i></div>
-                        <strong class="text-xs text-white block">Facturation Automatisée</strong>
-                        <span class="text-brand-400 font-bold text-sm">Connecté Stripe</span>
+                    <span class="text-xs font-bold text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/30"><i class="fa-solid fa-check mr-1"></i> Module de Paiement Actif</span>
+                `;
+
+                visualContainer.innerHTML = `
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
+                        <div class="bg-slate-900 p-3.5 rounded-2xl border border-white/10 text-center space-y-2">
+                            <div class="h-28 bg-slate-950 rounded-xl flex items-center justify-center text-brand-400 text-3xl border border-white/5"><i class="fa-solid fa-gem"></i></div>
+                            <strong class="text-xs text-white block">Collier Or & Pendentif</strong>
+                            <span class="text-brand-400 font-bold text-sm">89,00 €</span>
+                        </div>
+                        <div class="bg-slate-900 p-3.5 rounded-2xl border border-white/10 text-center space-y-2">
+                            <div class="h-28 bg-slate-950 rounded-xl flex items-center justify-center text-brand-400 text-3xl border border-white/5"><i class="fa-solid fa-ring"></i></div>
+                            <strong class="text-xs text-white block">Bague Solitaire Argent</strong>
+                            <span class="text-brand-400 font-bold text-sm">49,00 €</span>
+                        </div>
+                        <div class="bg-slate-900 p-3.5 rounded-2xl border border-white/10 text-center space-y-2">
+                            <div class="h-28 bg-slate-950 rounded-xl flex items-center justify-center text-brand-400 text-3xl border border-white/5"><i class="fa-solid fa-clock"></i></div>
+                            <strong class="text-xs text-white block">Bracelet Mailles fines</strong>
+                            <span class="text-brand-400 font-bold text-sm">35,00 €</span>
+                        </div>
                     </div>
-                    <div class="bg-slate-900 p-4 rounded-2xl border border-white/10 text-center space-y-2">
-                        <div class="h-28 bg-slate-950 rounded-xl flex items-center justify-center text-brand-400 text-3xl border border-white/5"><i class="fa-solid fa-chart-line"></i></div>
-                        <strong class="text-xs text-white block">Tableau de Bord Live</strong>
-                        <span class="text-brand-400 font-bold text-sm">Temps Réel</span>
+                `;
+            }
+            // --- CAS GÉNÉRIQUE POUR TOUT AUTRE MOT-CLÉ ---
+            else {
+                headerContainer.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-brand-500/20 text-brand-400 flex items-center justify-center text-lg font-bold"><i class="fa-solid fa-cube"></i></div>
+                        <div>
+                            <span class="text-[10px] text-brand-400 font-mono font-bold uppercase">Application Sur-Mesure Générée</span>
+                            <h3 class="text-sm font-bold text-white">Plateforme de Gestion : ${escapeHtml(input)}</h3>
+                        </div>
+                    </div>
+                    <span class="text-xs font-bold text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/30"><i class="fa-solid fa-check mr-1"></i> Structure & API Prêtes</span>
+                `;
+
+                visualContainer.innerHTML = `
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
+                        <div class="bg-slate-900 p-4 rounded-2xl border border-white/10 space-y-2">
+                            <span class="text-[10px] text-slate-400 font-mono block">Module Utilisateurs</span>
+                            <strong class="text-xs text-white block">Gestion des Abonnés & Rôles</strong>
+                            <span class="text-brand-400 text-xs font-bold">Inclus & Actif</span>
+                        </div>
+                        <div class="bg-slate-900 p-4 rounded-2xl border border-white/10 space-y-2">
+                            <span class="text-[10px] text-slate-400 font-mono block">Passerelle de Paiement</span>
+                            <strong class="text-xs text-white block">Abonnements Stripe Récurrents</strong>
+                            <span class="text-brand-400 text-xs font-bold">29€ / 49€ paramétrés</span>
+                        </div>
+                        <div class="bg-slate-900 p-4 rounded-2xl border border-white/10 space-y-2">
+                            <span class="text-[10px] text-slate-400 font-mono block">Base de données SQL</span>
+                            <strong class="text-xs text-white block">Infrastructure Cloud PostgreSQL</strong>
+                            <span class="text-emerald-400 text-xs font-bold">Prête à déployer</span>
+                        </div>
                     </div>
                 `;
             }
@@ -400,6 +466,10 @@
                     </div>
                 </div>
             `;
+        }
+
+        function escapeHtml(text) {
+            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
         }
     </script>
 </body>
