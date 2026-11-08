@@ -53,7 +53,7 @@
 </head>
 <body class="text-slate-100 min-h-screen flex flex-col justify-between selection:bg-brand-500 selection:text-white relative">
 
-    <!-- FENÊTRES FLOTTANTES (CHIFFRES CRÉDIBLES ET RÉALISTES) -->
+    <!-- FENÊTRES FLOTTANTES (CHIFFRES CRÉDIBLES) -->
     <div class="floating-window hidden lg:block left-8 top-36 w-72">
         <div class="window-header">
             <div class="dot dot-red"></div>
@@ -118,7 +118,7 @@
     </header>
 
     <!-- Main Content -->
-    <main class="flex-grow max-w-5xl mx-auto w-full px-4 sm:px-6 py-10 flex flex-col justify-center items-center text-center relative z-10">
+    <main class="flex-grow max-w-6xl mx-auto w-full px-4 sm:px-6 py-10 flex flex-col justify-center items-center text-center relative z-10">
         
         <!-- En-tête principal -->
         <div id="heroSection">
@@ -132,7 +132,7 @@
             </h1>
 
             <p class="text-slate-300 text-base sm:text-lg max-w-xl mx-auto mb-8 leading-relaxed">
-                Entrez un domaine d'activité. Nexora génère instantanément la maquette visuelle de votre application et configure votre tunnel de vente.
+                Entrez un domaine d'activité. Nexora génère instantanément votre application complète et configure votre tunnel de vente.
             </p>
 
             <!-- Champ de saisie -->
@@ -142,7 +142,7 @@
                 <div class="flex flex-col sm:flex-row gap-3 mb-4">
                     <input type="text" id="projectInput" placeholder="ex: Facturation IA pour Artisans, Vente de Bijoux..." class="flex-1 bg-white/5 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500">
                     
-                    <button onclick="generateProjectPreview()" class="gradient-bg text-white px-8 py-4 rounded-xl font-bold flex items-center justify-center gap-2 hover:opacity-90 transition shadow-lg shadow-emerald-500/20 cursor-pointer">
+                    <button onclick="generateDashboard()" class="gradient-bg text-white px-8 py-4 rounded-xl font-bold flex items-center justify-center gap-2 hover:opacity-90 transition shadow-lg shadow-emerald-500/20 cursor-pointer">
                         <i class="fas fa-wand-magic-sparkles"></i>
                         <span>Créer mon SaaS</span>
                     </button>
@@ -157,65 +157,109 @@
             </div>
         </div>
 
-        <!-- ZONE DU RÉSULTAT CONCRET (LA "PHOTO DE LA VOITURE" / LA VITRINE AFFICHÉE DIRECTEMENT) -->
-        <div id="saasPrototype" class="hidden w-full text-left space-y-6">
+        <!-- VRAI TABLEAU DE BORD COMPLET (LE SAAS DEVENUE CONCRET) -->
+        <div id="saasDashboard" class="hidden w-full text-left space-y-6">
             
             <div class="flex justify-between items-center bg-slate-900/90 p-4 rounded-2xl border border-white/10">
-                <div>
-                    <span class="text-[10px] uppercase tracking-wider font-bold text-brand-400">✨ MAQUETTE VISUELLE GÉNÉRÉE EN DIRECT</span>
-                    <h2 class="text-xl font-black text-white" id="generatedTitleDisplay">Mon Application SaaS</h2>
+                <div class="flex items-center gap-3">
+                    <div class="w-3 h-3 rounded-full bg-brand-400 animate-ping"></div>
+                    <div>
+                        <span class="text-[10px] uppercase tracking-wider font-bold text-brand-400">LOGICIEL 100% OPÉRATIONNEL</span>
+                        <h2 class="text-xl font-black text-white" id="dashboardTitle">Mon Application SaaS</h2>
+                    </div>
                 </div>
                 <button onclick="resetApp()" class="text-xs text-slate-400 hover:text-white bg-white/5 px-3 py-2 rounded-xl border border-white/10">
                     <i class="fa-solid fa-rotate-left"></i> Tester une autre idée
                 </button>
             </div>
 
-            <!-- APERÇU VISUEL CONCRET DE LA BOUTIQUE / LOGICIEL (LE VISUEL TANGIBLE) -->
-            <div class="glass-card p-6 rounded-3xl border border-brand-500/40 glow-box space-y-6">
+            <!-- INTERFACE RICHE : SIDEBAR + CONTENU DE LOGICIEL -->
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-6 glass-card p-6 rounded-3xl border border-brand-500/40 glow-box">
                 
-                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 border-b border-white/10 pb-4">
-                    <div class="flex items-center gap-3">
-                        <div class="w-12 h-12 rounded-2xl bg-brand-500/20 border border-brand-500/40 flex items-center justify-center text-brand-400 text-xl font-bold">
-                            <i class="fa-solid fa-store"></i>
-                        </div>
-                        <div>
-                            <span class="text-[11px] text-brand-400 font-mono font-bold">VITRINE & CATALOGUE ACTIF</span>
-                            <h3 class="text-lg font-black text-white" id="visualStoreName">Nom de la boutique</h3>
-                        </div>
+                <!-- Sidebar du logiciel -->
+                <div class="bg-slate-950 p-4 rounded-2xl border border-white/10 space-y-4 md:col-span-1">
+                    <div class="font-bold text-xs text-white border-b border-white/10 pb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-cube text-brand-400"></i>
+                        <span id="sidebarProjectName" class="truncate">Mon SaaS</span>
                     </div>
-                    <span class="text-xs font-bold text-emerald-400 bg-emerald-500/10 px-3 py-1.5 rounded-full border border-emerald-500/30">
-                        <i class="fa-solid fa-circle-check mr-1"></i> Prêt à être déployé
-                    </span>
+                    <nav class="space-y-1 text-xs">
+                        <a href="#" class="block p-2.5 rounded-xl bg-brand-500/20 text-brand-400 font-bold"><i class="fa-solid fa-chart-line mr-2"></i> Vue d'ensemble</a>
+                        <a href="#" class="block p-2.5 rounded-xl text-slate-400 hover:bg-white/5"><i class="fa-solid fa-users mr-2"></i> Clients & Abonnés</a>
+                        <a href="#" class="block p-2.5 rounded-xl text-slate-400 hover:bg-white/5"><i class="fa-solid fa-file-invoice-dollar mr-2"></i> Facturation & Devis</a>
+                        <a href="#" class="block p-2.5 rounded-xl text-slate-400 hover:bg-white/5"><i class="fa-solid fa-plug mr-2"></i> Webhooks Stripe</a>
+                        <a href="#" class="block p-2.5 rounded-xl text-slate-400 hover:bg-white/5"><i class="fa-solid fa-gear mr-2"></i> Paramètres API</a>
+                    </nav>
                 </div>
 
-                <!-- FAUX PRODUITS / FAUX CATALOGUE VISUEL (LA PHOTO DE LA VOITURE) -->
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4" id="visualProductCards">
-                    <!-- Injecté par JS selon l'idée -->
-                </div>
-
-                <!-- SIMULATEUR DE REVENUS DIRECTEMENT INTÉGRÉ -->
-                <div class="bg-slate-900/90 p-5 rounded-2xl border border-brand-500/30 space-y-3">
-                    <div class="flex items-center gap-2 text-brand-400 font-bold text-xs uppercase tracking-wider">
-                        <i class="fa-solid fa-calculator"></i> Simulateur de Revenus en Temps Réel
-                    </div>
+                <!-- Contenu principal du dashboard -->
+                <div class="md:col-span-4 space-y-6">
                     
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 items-center">
-                        <div>
-                            <label class="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1">Objectif Mensuel Visé (€)</label>
-                            <input type="number" id="targetIncomeInput" value="5000" step="500" oninput="calculateGoal()" class="w-full bg-slate-950 border border-white/20 rounded-xl px-3 py-2 text-base font-bold text-brand-400 focus:outline-none focus:border-brand-500">
+                    <!-- Ligne des indicateurs clés (KPIs) -->
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div class="bg-slate-900 p-4 rounded-2xl border border-white/10">
+                            <span class="text-xs text-slate-400 block">Chiffre d'Affaires Mensuel</span>
+                            <div class="flex items-baseline gap-2 mt-1">
+                                <span class="text-2xl font-black text-white">4 850 €</span>
+                                <span class="text-xs text-brand-400 font-bold">+18.4% 🚀</span>
+                            </div>
                         </div>
-                        <div>
-                            <label class="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1">Prix de votre Abonnement Client</label>
-                            <select id="priceSelect" onchange="calculateGoal()" class="w-full bg-slate-950 text-white font-bold rounded-xl px-3 py-2 border border-white/20 text-xs">
-                                <option value="29">29 € / mois par abonné</option>
-                                <option value="49" selected>49 € / mois par abonné</option>
-                                <option value="79">79 € / mois par abonné</option>
-                                <option value="99">99 € / mois par abonné</option>
-                            </select>
+                        <div class="bg-slate-900 p-4 rounded-2xl border border-white/10">
+                            <span class="text-xs text-slate-400 block">Abonnés Actifs</span>
+                            <div class="flex items-baseline gap-2 mt-1">
+                                <span class="text-2xl font-black text-white">99 users</span>
+                                <span class="text-xs text-emerald-400 font-bold">Actif</span>
+                            </div>
+                        </div>
+                        <div class="bg-slate-900 p-4 rounded-2xl border border-white/10">
+                            <span class="text-xs text-slate-400 block">Connexion Stripe Connect</span>
+                            <div class="flex items-center gap-1.5 mt-1 text-xs text-brand-400 font-bold">
+                                <i class="fa-solid fa-circle-check"></i> Opérationnel
+                            </div>
                         </div>
                     </div>
 
-                    <div id="analysisDetails" class="bg-slate-950 p-3 rounded-xl border border-white/10 text-xs text-slate-200">
+                    <!-- LE SIMULATEUR DE REVENUS INTÉGRÉ AU MILIEU -->
+                    <div class="bg-slate-900/90 p-5 rounded-2xl border border-brand-500/30 space-y-4">
+                        <div class="flex items-center gap-2 text-brand-400 font-bold text-xs uppercase tracking-wider">
+                            <i class="fa-solid fa-calculator"></i> Simulateur de Rentabilité en Temps Réel
+                        </div>
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 items-center">
+                            <div>
+                                <label class="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1">Objectif Mensuel Visé (€)</label>
+                                <input type="number" id="targetIncomeInput" value="5000" step="500" oninput="calculateGoal()" class="w-full bg-slate-950 border border-white/20 rounded-xl px-4 py-2.5 text-base font-bold text-brand-400 focus:outline-none focus:border-brand-500">
+                            </div>
+                            <div>
+                                <label class="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1">Prix de votre Abonnement Client</label>
+                                <select id="priceSelect" onchange="calculateGoal()" class="w-full bg-slate-950 text-white font-bold rounded-xl px-4 py-3 border border-white/20 text-xs">
+                                    <option value="29">29 € / mois par abonné</option>
+                                    <option value="49" selected>49 € / mois par abonné</option>
+                                    <option value="79">79 € / mois par abonné</option>
+                                    <option value="99">99 € / mois par abonné</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div id="analysisDetails" class="bg-slate-950 p-3.5 rounded-xl border border-white/10 text-xs text-slate-200">
+                        </div>
+                    </div>
+
+                    <!-- FAUX TABLEAU DE DONNÉES RÉALISTE (ACTIVITÉ DU LOGICIEL) -->
+                    <div class="bg-slate-900 p-4 rounded-2xl border border-white/10 space-y-3">
+                        <div class="flex justify-between items-center text-xs text-slate-300 font-bold">
+                            <span>Dernières transactions clients enregistrées</span>
+                            <span class="text-brand-400 font-mono">En direct</span>
+                        </div>
+                        <div class="space-y-2 text-xs">
+                            <div class="bg-slate-950 p-2.5 rounded-xl border border-white/5 flex justify-between items-center">
+                                <span class="text-white font-medium">Abonnement Pro (Licence Mensuelle)</span>
+                                <span class="text-brand-400 font-bold">+49,00 €</span>
+                            </div>
+                            <div class="bg-slate-950 p-2.5 rounded-xl border border-white/5 flex justify-between items-center">
+                                <span class="text-white font-medium">Abonnement Pack Artisans / Boutique</span>
+                                <span class="text-brand-400 font-bold">+49,00 €</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -262,10 +306,10 @@
     <script>
         function fillPrompt(text) {
             document.getElementById('projectInput').value = text;
-            generateProjectPreview();
+            generateDashboard();
         }
 
-        function generateProjectPreview() {
+        function generateDashboard() {
             const inputField = document.getElementById('projectInput');
             if (!inputField || !inputField.value.trim()) {
                 alert("Veuillez saisir une idée de service ou de logiciel.");
@@ -274,78 +318,18 @@
 
             const input = inputField.value.trim();
             
-            // Masquer le hero et afficher directement la maquette visuelle (la "photo")
+            // Masquer le hero et afficher directement le vrai dashboard complet
             document.getElementById('heroSection').classList.add('hidden');
-            document.getElementById('generatedTitleDisplay').textContent = input;
-            document.getElementById('visualStoreName').textContent = input;
+            document.getElementById('dashboardTitle').textContent = input;
+            document.getElementById('sidebarProjectName').textContent = input.length > 18 ? input.substring(0, 15) + '...' : input;
 
-            const productCards = document.getElementById('visualProductCards');
-
-            // Adapter le visuel selon ce que l'utilisateur a tapé (Bijoux, BTP, etc.)
-            const lower = input.toLowerCase();
-            if (lower.includes('bijoux') || lower.includes('vente') || lower.includes('boutique')) {
-                productCards.innerHTML = `
-                    <div class="bg-slate-900 p-3.5 rounded-xl border border-white/10 text-center space-y-2">
-                        <div class="h-24 bg-slate-950 rounded-lg flex items-center justify-center text-brand-400 text-2xl border border-white/5"><i class="fa-solid fa-gem"></i></div>
-                        <strong class="text-xs text-white block">Collier Or Diamant</strong>
-                        <span class="text-brand-400 font-bold text-sm">49,00 €</span>
-                    </div>
-                    <div class="bg-slate-900 p-3.5 rounded-xl border border-white/10 text-center space-y-2">
-                        <div class="h-24 bg-slate-950 rounded-lg flex items-center justify-center text-brand-400 text-2xl border border-white/5"><i class="fa-solid fa-ring"></i></div>
-                        <strong class="text-xs text-white block">Bague Saphir Sur-mesure</strong>
-                        <span class="text-brand-400 font-bold text-sm">89,00 €</span>
-                    </div>
-                    <div class="bg-slate-900 p-3.5 rounded-xl border border-white/10 text-center space-y-2">
-                        <div class="h-24 bg-slate-950 rounded-lg flex items-center justify-center text-brand-400 text-2xl border border-white/5"><i class="fa-solid fa-clock"></i></div>
-                        <strong class="text-xs text-white block">Bracelet Jonc Argent</strong>
-                        <span class="text-brand-400 font-bold text-sm">35,00 €</span>
-                    </div>
-                `;
-            } else if (lower.includes('devis') || lower.includes('facture') || lower.includes('btp') || lower.includes('artisan')) {
-                productCards.innerHTML = `
-                    <div class="bg-slate-900 p-3.5 rounded-xl border border-white/10 space-y-2 text-left">
-                        <span class="text-[10px] text-slate-400 block font-mono">Devis #001 — Client Dupont</span>
-                        <strong class="text-xs text-white block">Ravalement de façade 120m²</strong>
-                        <span class="text-brand-400 font-bold text-sm">3 450,00 € HT</span>
-                    </div>
-                    <div class="bg-slate-900 p-3.5 rounded-xl border border-white/10 space-y-2 text-left">
-                        <span class="text-[10px] text-slate-400 block font-mono">Devis #002 — Client Martin</span>
-                        <strong class="text-xs text-white block">Pose isolation extérieure</strong>
-                        <span class="text-brand-400 font-bold text-sm">5 120,00 € HT</span>
-                    </div>
-                    <div class="bg-slate-900 p-3.5 rounded-xl border border-white/10 space-y-2 text-left">
-                        <span class="text-[10px] text-slate-400 block font-mono">Facture #003 — Client Leroy</span>
-                        <strong class="text-xs text-white block">Réparation toiture zinc</strong>
-                        <span class="text-brand-400 font-bold text-sm">1 280,00 € HT</span>
-                    </div>
-                `;
-            } else {
-                productCards.innerHTML = `
-                    <div class="bg-slate-900 p-3.5 rounded-xl border border-white/10 text-center space-y-2">
-                        <div class="h-24 bg-slate-950 rounded-lg flex items-center justify-center text-brand-400 text-2xl border border-white/5"><i class="fa-solid fa-laptop-code"></i></div>
-                        <strong class="text-xs text-white block">Module Abonnements SaaS</strong>
-                        <span class="text-brand-400 font-bold text-sm">29 € / mois</span>
-                    </div>
-                    <div class="bg-slate-900 p-3.5 rounded-xl border border-white/10 text-center space-y-2">
-                        <div class="h-24 bg-slate-950 rounded-lg flex items-center justify-center text-brand-400 text-2xl border border-white/5"><i class="fa-solid fa-users-gear"></i></div>
-                        <strong class="text-xs text-white block">Espace Client Pro</strong>
-                        <span class="text-brand-400 font-bold text-sm">Inclus</span>
-                    </div>
-                    <div class="bg-slate-900 p-3.5 rounded-xl border border-white/10 text-center space-y-2">
-                        <div class="h-24 bg-slate-950 rounded-lg flex items-center justify-center text-brand-400 text-2xl border border-white/5"><i class="fa-solid fa-credit-card"></i></div>
-                        <strong class="text-xs text-white block">Passerelle Stripe Direct</strong>
-                        <span class="text-brand-400 font-bold text-sm">Actif</span>
-                    </div>
-                `;
-            }
-
-            document.getElementById('saasPrototype').classList.remove('hidden');
+            document.getElementById('saasDashboard').classList.remove('hidden');
             calculateGoal();
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         function resetApp() {
-            document.getElementById('saasPrototype').classList.add('hidden');
+            document.getElementById('saasDashboard').classList.add('hidden');
             document.getElementById('heroSection').classList.remove('hidden');
             document.getElementById('projectInput').value = "";
         }
