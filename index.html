@@ -33,13 +33,15 @@
             <span class="font-bold text-xl tracking-wider text-white">NEXORA</span>
             <span class="text-xs px-2.5 py-1 rounded-full bg-brand-500/10 text-brand-400 font-medium border border-brand-500/20">AI</span>
         </div>
-        <a href="https://buy.stripe.com/aFa14f2UT9JQ2hSeI19fW02" target="_blank" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold bg-brand-500 text-white hover:bg-brand-600 transition shadow-lg shadow-brand-500/25">
-            <i class="fa-solid fa-rocket"></i> Activer et Déployer mon SaaS (29€)
-        </a>
+        <div class="flex items-center gap-4">
+            <a href="https://buy.stripe.com/aFa14f2UT9JQ2hSeI19fW02" target="_blank" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold bg-brand-500 text-white hover:bg-brand-600 transition shadow-lg shadow-brand-500/25">
+                <i class="fa-solid fa-rocket"></i> Activer et Déployer mon SaaS (29€)
+            </a>
+        </div>
     </header>
 
     <!-- Main Content -->
-    <main class="flex-grow max-w-4xl mx-auto w-full px-6 py-12 flex flex-col justify-center items-center text-center relative">
+    <main class="flex-grow max-w-5xl mx-auto w-full px-6 py-12 flex flex-col justify-center items-center text-center relative">
         <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold bg-brand-500/10 text-brand-400 border border-brand-500/20 mb-8 shadow-inner">
             <i class="fa-solid fa-bolt"></i> Le générateur de business automatisé
         </div>
@@ -49,13 +51,38 @@
         </h1>
         
         <p class="text-lg md:text-xl text-slate-400 max-w-2xl mb-10 leading-relaxed">
-            Générez vos simulateurs de revenus, configurez vos tunnels de conversion et commencez à encaisser vos clients dès aujourd'hui.
+            Générez vos simulateurs de revenus, configurez vos tunnels de conversion et commencez à encaisser vos clients dès aujourd'hui sans savoir coder.
         </p>
 
-        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center w-full">
+        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center w-full mb-12">
             <a href="https://buy.stripe.com/aFa14f2UT9JQ2hSeI19fW02" target="_blank" class="w-full sm:w-auto inline-flex justify-center items-center gap-3 px-8 py-4 rounded-xl text-base font-bold bg-brand-500 text-white hover:bg-brand-600 transition shadow-xl shadow-brand-500/30 transform hover:-translate-y-0.5">
-                <i class="fa-solid fa-rocket text-lg"></i> Activer et Déployer mon SaaS (29€)
+                <i class="fa-solid fa-rocket text-lg"></i> Créer le SaaS
             </a>
+        </div>
+
+        <!-- Preview Card -->
+        <div class="w-full max-w-xl bg-slate-900/80 border border-white/10 rounded-2xl p-6 shadow-2xl backdrop-blur-xl relative overflow-hidden text-left">
+            <div class="flex items-center justify-between mb-4 border-b border-white/10 pb-4">
+                <div class="flex items-center gap-2">
+                    <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                    <span class="text-xs text-slate-400 ml-2 font-mono">revenue_live.json</span>
+                </div>
+                <span class="text-xs px-2 py-1 rounded bg-brand-500/20 text-brand-300 font-mono">142 users</span>
+            </div>
+            <div class="space-y-3 font-mono text-sm">
+                <div class="flex justify-between text-slate-300">
+                    <span>Abonnements actifs</span>
+                    <span class="text-emerald-400 font-bold">+29,00 €</span>
+                </div>
+                <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                    <div class="bg-gradient-to-r from-brand-500 to-emerald-400 h-full w-3/4"></div>
+                </div>
+                <div class="text-xs text-slate-500 flex items-center gap-2 pt-2">
+                    <i class="fa-solid fa-bolt text-brand-400"></i> Paiement reçu instantanément via Stripe
+                </div>
+            </div>
         </div>
     </main>
 
