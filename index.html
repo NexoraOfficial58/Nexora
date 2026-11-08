@@ -149,7 +149,7 @@
             </div>
         </div>
 
-        <!-- ZONE D'AFFICHAGE DE L'ÉBAUCHE CONCRÈTE (PROTOTYPE DASHBOARD) -->
+        <!-- ZONE D'AFFICHAGE DE L'ÉBAUCHE CONCRÈTE (PROTOTYPE DASHBOARD + SIMULATEUR) -->
         <div id="saasPrototype" class="hidden w-full text-left space-y-6">
             
             <div class="flex justify-between items-center bg-slate-900/90 p-4 rounded-2xl border border-white/10">
@@ -263,48 +263,34 @@
         </div>
     </main>
 
-    <!-- ÉCRAN DE CONSTRUCTION IMMERSIF (EFFET MATRICE & CRÉATION DE BOUTIQUE EN DIRECT) -->
+    <!-- FENÈTRE DE CONSTRUCTION EN 3 ÉTAPES VISUELLES IMMERSIVES -->
     <div id="buildModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-950/95 backdrop-blur-xl p-4">
-        <div class="glass-card border border-brand-500/50 rounded-3xl p-8 max-w-2xl w-full relative text-left glow-box space-y-6">
+        <div class="glass-card border border-brand-500/50 rounded-3xl p-6 sm:p-8 max-w-xl w-full relative text-left glow-box space-y-6">
             
-            <div class="flex justify-between items-center border-b border-white/10 pb-4">
-                <div class="flex items-center gap-3">
-                    <div class="w-4 h-4 rounded-full bg-brand-500 animate-ping"></div>
-                    <span class="text-sm font-black text-white uppercase tracking-wider">Moteur Nexora AI — Génération en Direct</span>
+            <div class="flex justify-between items-center border-b border-white/10 pb-3">
+                <div class="flex items-center gap-2">
+                    <div class="dot dot-red"></div>
+                    <div class="dot dot-yellow"></div>
+                    <div class="dot dot-green"></div>
+                    <span class="text-xs text-slate-400 font-mono ml-2">Construction du projet en direct</span>
                 </div>
-                <span class="text-xs font-mono text-brand-400 font-bold px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/30" id="buildPercentage">0%</span>
+                <span class="text-xs font-mono text-brand-400 font-bold px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/30" id="stepCounter">Étape 1 sur 3</span>
             </div>
 
-            <!-- Étapes de construction visuelles -->
-            <div class="space-y-3 font-mono text-xs" id="buildStepsList">
-                <div id="step-0" class="flex items-center gap-3 text-slate-500 transition-all duration-300">
-                    <i class="fa-solid fa-circle-notch fa-spin text-brand-400"></i>
-                    <span>Analyse sémantique et sectorielle du projet...</span>
-                </div>
-                <div id="step-1" class="flex items-center gap-3 text-slate-500 transition-all duration-300">
-                    <i class="fa-regular fa-circle text-slate-600"></i>
-                    <span>Création de la base de données SQL et tables sécurisées...</span>
-                </div>
-                <div id="step-2" class="flex items-center gap-3 text-slate-500 transition-all duration-300">
-                    <i class="fa-regular fa-circle text-slate-600"></i>
-                    <span>Génération de l'interface graphique (Dashboard & Sidebar)...</span>
-                </div>
-                <div id="step-3" class="flex items-center gap-3 text-slate-500 transition-all duration-300">
-                    <i class="fa-regular fa-circle text-slate-600"></i>
-                    <span>Intégration du module d'encaissement et webhooks Stripe...</span>
-                </div>
-                <div id="step-4" class="flex items-center gap-3 text-slate-500 transition-all duration-300">
-                    <i class="fa-regular fa-circle text-slate-600"></i>
-                    <span>Assemblage final de l'infrastructure cloud & déploiement...</span>
-                </div>
+            <!-- CONTENU VISUEL DE L'ÉTAPE EN COURS -->
+            <div id="stepContentBox" class="bg-slate-950 p-6 rounded-2xl border border-white/15 text-center min-h-[180px] flex flex-col items-center justify-center space-y-3 transition-all duration-300">
+                <!-- Injecté dynamiquement par JS -->
             </div>
 
-            <!-- Barre de progression visuelle -->
-            <div class="w-full bg-slate-900 h-3 rounded-full overflow-hidden p-0.5 border border-white/10">
-                <div id="progressBar" class="bg-gradient-to-r from-emerald-500 to-brand-400 h-full rounded-full transition-all duration-300 w-[5%] shadow-lg shadow-brand-500/50"></div>
+            <!-- Barre de progression globale -->
+            <div class="w-full bg-slate-900 h-2.5 rounded-full overflow-hidden border border-white/10">
+                <div id="progressBar" class="bg-gradient-to-r from-emerald-500 to-brand-400 h-full rounded-full transition-all duration-500 w-[33%]"></div>
             </div>
 
-            <p class="text-[11px] text-center text-slate-400 font-mono">⚡ Votre application est en train d'être entièrement bâtie sur-mesure...</p>
+            <div class="flex justify-between items-center text-[11px] text-slate-400 font-mono">
+                <span id="stepDescription">Analyse sémantique de l'activité...</span>
+                <span class="text-brand-400 font-bold" id="percentText">33%</span>
+            </div>
         </div>
     </div>
 
@@ -335,62 +321,70 @@
             const buildModal = document.getElementById('buildModal');
             buildModal.classList.remove('hidden');
 
-            let progress = 5;
-            const progressBar = document.getElementById('progressBar');
-            const buildPercentage = document.getElementById('buildPercentage');
-
-            // Réinitialiser les étapes
-            for (let i = 0; i < 5; i++) {
-                const el = document.getElementById(`step-${i}`);
-                el.className = "flex items-center gap-3 text-slate-500 transition-all duration-300";
-                el.querySelector('i').className = "fa-regular fa-circle text-slate-600";
-            }
-
-            let currentStep = 0;
-            const interval = setInterval(() => {
-                progress += Math.floor(Math.random() * 8) + 5;
-                if (progress > 100) progress = 100;
-
-                progressBar.style.width = progress + '%';
-                buildPercentage.textContent = progress + '%';
-
-                // Activer les étapes progressivement
-                if (progress > 20 && currentStep === 0) {
-                    activateStep(0);
-                    currentStep = 1;
-                } else if (progress > 45 && currentStep === 1) {
-                    activateStep(1);
-                    currentStep = 2;
-                } else if (progress > 70 && currentStep === 2) {
-                    activateStep(2);
-                    currentStep = 3;
-                } else if (progress > 90 && currentStep === 3) {
-                    activateStep(3);
-                    currentStep = 4;
-                }
-
-                if (progress === 100) {
-                    clearInterval(interval);
-                    activateStep(4);
-                    setTimeout(() => {
-                        buildModal.classList.add('hidden');
-                        showPrototype(input);
-                    }, 500);
-                }
-            }, 180);
+            runBuildSteps(input);
         }
 
-        function activateStep(index) {
-            // Valider les précédentes
-            for(let i=0; i<index; i++) {
-                const prev = document.getElementById(`step-${i}`);
-                prev.className = "flex items-center gap-3 text-slate-300 transition-all duration-300";
-                prev.querySelector('i').className = "fa-solid fa-check text-brand-400";
-            }
-            // Mettre en cours la présente
-            const curr = document.getElementById(`step-${index}`);
-            curr.className = "flex items-center gap-3 text-white font-bold transition-all duration-300";
-            curr.querySelector('i').className = "fa-solid fa-circle-notch fa-spin text-brand-400";
+        function runBuildSteps(projectName) {
+            const stepCounter = document.getElementById('stepCounter');
+            const stepContentBox = document.getElementById('stepContentBox');
+            const progressBar = document.getElementById('progressBar');
+            const stepDescription = document.getElementById('stepDescription');
+            const percentText = document.getElementById('percentText');
+
+            // --- ÉTAPE 1 : Base de données & Structure ---
+            stepCounter.textContent = "Étape 1 sur 3";
+            progressBar.style.width = "33%";
+            percentText.textContent = "33%";
+            stepDescription.textContent = "Génération de la base SQL et des tables sécurisées...";
+            stepContentBox.innerHTML = `
+                <div class="w-12 h-12 rounded-2xl bg-brand-500/20 border border-brand-500/40 flex items-center justify-center text-brand-400 text-xl animate-pulse">
+                    <i class="fa-solid fa-database"></i>
+                </div>
+                <h4 class="text-base font-black text-white">Création de la structure pour :</h4>
+                <span class="text-brand-400 font-mono text-sm font-bold bg-brand-500/10 px-3 py-1 rounded-lg border border-brand-500/20">"${escapeHtml(projectName)}"</span>
+                <p class="text-xs text-slate-400">Génération automatique des tables clients, catalogues et historiques...</p>
+            `;
+
+            // --- ÉTAPE 2 : Interface graphique & Modules ---
+            setTimeout(() => {
+                stepCounter.textContent = "Étape 2 sur 3";
+                progressBar.style.width = "66%";
+                percentText.textContent = "66%";
+                stepDescription.textContent = "Assemblage du tableau de bord et des modules clients...";
+                stepContentBox.innerHTML = `
+                    <div class="w-12 h-12 rounded-2xl bg-brand-500/20 border border-brand-500/40 flex items-center justify-center text-brand-400 text-xl animate-bounce">
+                        <i class="fa-solid fa-window-maximize"></i>
+                    </div>
+                    <h4 class="text-base font-black text-white">Design et Interface de l'application</h4>
+                    <div class="w-full bg-slate-900 p-2.5 rounded-xl border border-white/10 flex items-center justify-between text-xs text-left">
+                        <span class="text-slate-300 font-bold truncate max-w-[200px]">⚡ Dashboard ${escapeHtml(projectName)}</span>
+                        <span class="text-emerald-400 font-mono">Prêt</span>
+                    </div>
+                    <p class="text-xs text-slate-400">Mise en place des graphiques et des tunnels de devis/facturation.</p>
+                `;
+            }, 2000);
+
+            // --- ÉTAPE 3 : Connexion Stripe & Finalisation ---
+            setTimeout(() => {
+                stepCounter.textContent = "Étape 3 sur 3";
+                progressBar.style.width = "100%";
+                percentText.textContent = "100%";
+                stepDescription.textContent = "Câblage de la passerelle de paiement et webhooks...";
+                stepContentBox.innerHTML = `
+                    <div class="w-12 h-12 rounded-2xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 text-xl">
+                        <i class="fa-brands fa-stripe"></i>
+                    </div>
+                    <h4 class="text-base font-black text-white">Passerelle Stripe & Abonnements Connectés</h4>
+                    <p class="text-xs text-slate-300">Le système d'encaissement récurrent à 29€ / 49€ est lié au projet.</p>
+                    <span class="text-xs font-bold text-brand-400 font-mono animate-pulse">Ouverture de votre prototype...</span>
+                `;
+            }, 4000);
+
+            // --- FINAL : Fermeture et affichage du Dashboard ---
+            setTimeout(() => {
+                buildModal.classList.add('hidden');
+                showPrototype(projectName);
+            }, 5500);
         }
 
         function showPrototype(projectName) {
@@ -439,6 +433,10 @@
                     </div>
                 </div>
             `;
+        }
+
+        function escapeHtml(text) {
+            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
         }
     </script>
 </body>
