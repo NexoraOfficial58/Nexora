@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEXORA - Lancez votre Micro-SaaS Rentable et encaisse tes premiers euro </title>
+    <title>NEXORA - Générateur de Business Automatisé</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -14,299 +13,56 @@
                 extend: {
                     colors: {
                         brand: {
-                            400: '#4ade80',
-                            500: '#22c55e',
-                            600: '#16a34a',
-                            950: '#052e16',
+                            500: '#6366f1',
+                            600: '#4f46e5',
                         }
                     }
                 }
             }
         }
     </script>
-    <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #030712; overflow-x: hidden; }
-        .glass { background: rgba(15, 23, 42, 0.88); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.12); }
-        .glass-card { background: rgba(30, 41, 59, 0.9); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.15); }
-        .gradient-bg { background: linear-gradient(135deg, #22c55e 0%, #15803d 100%); }
-        .gradient-text { background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .glow-box { box-shadow: 0 0 50px rgba(34, 197, 94, 0.15); }
-
-        /* FENÊTRES FLOTTANTES EN ARRIÈRE-PLAN (STYLE CODE / DASHBOARD) */
-        .floating-window {
-            position: absolute;
-            background: rgba(15, 23, 42, 0.75);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 1rem;
-            padding: 1rem;
-            z-index: 1;
-            pointer-events: none;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-        }
-        .window-header {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            margin-bottom: 0.75rem;
-        }
-        .dot { width: 8px; height: 8px; border-radius: 50%; }
-        .dot-red { background: #ef4444; }
-        .dot-yellow { background: #f59e0b; }
-        .dot-green { background: #22c55e; }
-    </style>
 </head>
-<body class="text-slate-100 min-h-screen flex flex-col justify-between selection:bg-brand-500 selection:text-white relative">
-
-    <!-- FENÊTRES FLOTTANTES D'ORDINATEUR EN ARRIÈRE-PLAN -->
-    <!-- Fenêtre gauche : Faux code source / API -->
-    <div class="floating-window hidden lg:block left-12 top-40 w-72">
-        <div class="window-header">
-            <div class="dot dot-red"></div>
-            <div class="dot dot-yellow"></div>
-            <div class="dot dot-green"></div>
-            <span class="text-[10px] text-slate-400 font-mono ml-1">api_stripe_connect.js</span>
-        </div>
-        <div class="space-y-1.5 font-mono text-[11px] text-slate-300">
-            <p class="text-brand-400">const stripe = require('stripe');</p>
-            <p class="text-slate-400">// Connexion abonnement 29€</p>
-            <p class="text-white">async function createSub() {</p>
-            <p class="pl-3 text-slate-300">return await stripe.subscriptions.create({</p>
-            <p class="pl-6 text-brand-400">amount: 2900,</p>
-            <p class="pl-6 text-brand-400">currency: 'eur'</p>
-            <p class="pl-3 text-slate-300">});</p>
-            <p class="text-white">}</p>
-        </div>
-    </div>
-
-    <!-- Fenêtre droite : Faux tableau de bord de ventes -->
-    <div class="floating-window hidden lg:block right-12 top-48 w-72">
-        <div class="window-header">
-            <div class="dot dot-red"></div>
-            <div class="dot dot-yellow"></div>
-            <div class="dot dot-green"></div>
-            <span class="text-[10px] text-slate-400 font-mono ml-1">revenue_live.json</span>
-        </div>
-        <div class="space-y-2">
-            <div class="flex justify-between text-xs">
-                <span class="text-slate-400">Abonnements actifs</span>
-                <span class="text-brand-400 font-bold">142 users</span>
-            </div>
-            <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
-                <div class="bg-brand-500 h-full w-[70%]"></div>
-            </div>
-            <div class="bg-slate-900/90 p-2.5 rounded-lg border border-white/5 flex justify-between items-center text-xs">
-                <span class="text-slate-300">⚡ Paiement reçu</span>
-                <span class="text-brand-400 font-bold">+29,00 €</span>
-            </div>
-        </div>
-    </div>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col selection:bg-brand-500 selection:text-white">
 
     <!-- Header -->
     <header class="glass sticky top-0 z-40 px-8 py-4 flex justify-between items-center border-b border-white/10 shadow-xl">
         <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl gradient-bg flex items-center justify-center text-white font-black text-xl shadow-lg shadow-brand-500/30">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500 to-purple-600 flex items-center justify-center text-white font-black text-xl tracking-wider shadow-lg shadow-brand-500/25">
                 N
             </div>
-            <span class="font-black text-xl tracking-wider text-white">NEXORA<span class="text-brand-500">.AI</span></span>
+            <span class="font-bold text-xl tracking-wider text-white">NEXORA</span>
+            <span class="text-xs px-2.5 py-1 rounded-full bg-brand-500/10 text-brand-400 font-medium border border-brand-500/20">AI</span>
         </div>
-        <div>
-<script async src="https://js.stripe.com/v3/buy-button.js"></script>
-<stripe-buy-button buy-button-id="buy_btn_1UZ0LStQkfXKwWlBt1KO" publishable-key="pk_live_51UY0sWt1Uk28AnmBE6mdKscCP4L8GsVZxVdynofcy3UtseUT9sam9g4Kcc7A4v8h1uR1MGWb8FRafwUoBh76SOON7"></stripe-buy-button>
-
-
+        <a href="https://buy.stripe.com/aFa14f2UT9JQ2hSeI19fW02" target="_blank" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold bg-brand-500 text-white hover:bg-brand-600 transition shadow-lg shadow-brand-500/25">
+            <i class="fa-solid fa-rocket"></i> Activer et Déployer mon SaaS (29€)
+        </a>
     </header>
 
-    <!-- Main Content (Au premier plan) -->
-    <main class="flex-grow max-w-3xl mx-auto w-full px-6 py-12 flex flex-col justify-center items-center text-center relative z-10">
-        
-        <!-- Hero Tag -->
-        <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold bg-brand-500/10 text-brand-400 border border-brand-500/30 mb-6 shadow-md">
-            ⚡ Le générateur de business automatisé
-        </span>
-
-       <!-- Hero Title -->
-<h1 class="text-4xl sm:text-6xl font-black text-white tracking-tight mb-6 leading-tight">
-  CRÉE TON PROPRE LOGICIEL PAYANT EN 5 MINUTES ET ENCAISSE TES PREMIERS EUROS
-</h1>
-
-<p class="text-slate-300 text-base sm:text-lg max-w-xl mx-auto mb-10 leading-relaxed">
-  <strong>C'est quoi un micro-SaaS ?</strong> Tout simplement un petit logiciel en ligne que tu vends par abonnement (par exemple 29€/mois) et qui te rapporte de l'argent de façon récurrente, sans avoir à coder.
-</p>
-
-        <!-- Search / Generation Box -->
-        <div class="glass w-full p-6 sm:p-8 rounded-3xl border border-white/15 shadow-2xl mb-8 text-left glow-box">
-            <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-3">Quel service ou logiciel voulez-vous commercialiser ?</label>
-            
-            <div class="flex flex-col sm:flex-row gap-3 mb-4">
-                <input type="text" id="projectInput" placeholder="ex: Facturation IA pour Artisans, Devis BTP..." class="flex-grow bg-slate-900 border border-white/20 rounded-xl px-5 py-4 text-base text-white focus:outline-none focus:border-brand-500 transition shadow-inner">
-                <button onclick="generateSaaSBlueprint()" class="gradient-bg text-white px-8 py-4 rounded-xl text-base font-bold shadow-lg shadow-brand-500/25 hover:opacity-95 transition flex items-center justify-center gap-2 shrink-0">
-                    <i class="fa-solid fa-wand-magic-sparkles"></i> Créer le SaaS
-                </button>
-            </div>
-
-            <!-- Suggestions rapides -->
-            <div class="flex flex-wrap gap-2 text-xs text-slate-300 items-center">
-                <span class="text-slate-400">Idées :</span>
-                <button onclick="fillPrompt('Logiciel de Devis & Factures pour Artisans BTP')" class="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg text-white border border-white/10 transition font-medium">Facturation Artisans</button>
-                <button onclick="fillPrompt('Gestionnaire de Planning et Chantiers')" class="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg text-white border border-white/10 transition font-medium">Planning BTP</button>
-            </div>
-
-            <!-- Ébauche de l'application -->
-            <div id="blueprintOutput" class="hidden mt-6 p-6 bg-slate-900 rounded-2xl border border-brand-500/30"></div>
+    <!-- Main Content -->
+    <main class="flex-grow max-w-4xl mx-auto w-full px-6 py-12 flex flex-col justify-center items-center text-center relative">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold bg-brand-500/10 text-brand-400 border border-brand-500/20 mb-8 shadow-inner">
+            <i class="fa-solid fa-bolt"></i> Le générateur de business automatisé
         </div>
+        
+        <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 leading-tight">
+            Lancez votre micro-SaaS <br>en <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-purple-400">quelques clics</span>
+        </h1>
+        
+        <p class="text-lg md:text-xl text-slate-400 max-w-2xl mb-10 leading-relaxed">
+            Générez vos simulateurs de revenus, configurez vos tunnels de conversion et commencez à encaisser vos clients dès aujourd'hui.
+        </p>
 
+        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center w-full">
+            <a href="https://buy.stripe.com/aFa14f2UT9JQ2hSeI19fW02" target="_blank" class="w-full sm:w-auto inline-flex justify-center items-center gap-3 px-8 py-4 rounded-xl text-base font-bold bg-brand-500 text-white hover:bg-brand-600 transition shadow-xl shadow-brand-500/30 transform hover:-translate-y-0.5">
+                <i class="fa-solid fa-rocket text-lg"></i> Activer et Déployer mon SaaS (29€)
+            </a>
+        </div>
     </main>
 
-    <!-- FENÊTRE SURGISSANTE (POP-UP / MODAL DU SIMULATEUR) -->
-    <div id="simulatorModal" class="fixed inset-0 bg-slate-950/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
-        <div class="glass-card glow-box border border-brand-500/40 rounded-3xl p-6 sm:p-8 max-w-lg w-full relative space-y-6 text-left">
-            
-            <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-lg w-8 h-8 rounded-full bg-white/5 flex items-center justify-center border border-white/10">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-
-            <div class="text-center">
-                <span class="inline-block p-3 rounded-2xl bg-brand-500/20 text-brand-400 text-2xl mb-3 border border-brand-500/30">
-                    <i class="fa-solid fa-calculator"></i>
-                </span>
-                <h3 class="text-2xl font-black text-white">Simulateur d'Objectif Financier</h3>
-                <p class="text-xs text-slate-300 mt-1">L'ébauche de votre SaaS <strong id="modalSaaSTitle" class="text-brand-400"></strong> est prête.</p>
-            </div>
-
-            <!-- Formulaire de saisie -->
-            <div class="space-y-4">
-                <div>
-                    <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">Combien visez-vous de revenus par mois ? (€)</label>
-                    <div class="flex gap-2">
-                        <input type="number" id="targetIncomeInput" value="5000" step="500" class="flex-grow bg-slate-900 border border-white/20 rounded-xl px-4 py-3 text-xl font-bold text-brand-400 focus:outline-none focus:border-brand-500 transition">
-                        <button onclick="calculateGoal()" class="gradient-bg text-white px-5 py-3 rounded-xl text-sm font-bold shadow-lg shadow-brand-500/25 hover:opacity-95 transition">
-                            Simuler
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Zone de calcul -->
-                <div class="bg-slate-900 p-5 rounded-2xl border border-brand-500/30 space-y-3">
-                    <div class="flex justify-between items-center text-xs text-slate-400 border-b border-white/10 pb-2">
-                        <span>Tarif abonnement mensuel :</span>
-                        <select id="priceSelect" onchange="calculateGoal()" class="bg-slate-800 text-white font-bold rounded px-2 py-1 border border-white/10">
-                            <option value="29">29 € / mois</option>
-                            <option value="49" selected>49 € / mois</option>
-                            <option value="79">79 € / mois</option>
-                            <option value="99">99 € / mois</option>
-                        </select>
-                    </div>
-
-                    <div id="analysisDetails" class="text-sm text-slate-200 leading-relaxed py-1"></div>
-                </div>
-            </div>
-
-            <!-- Bouton Stripe -->
-            <div>
-                <a href="https://buy.stripe.com/aFa14f2UT9JQ2hSell9fW02" target="_blank" class="w-full inline-block text-center gradient-bg text-white py-4 rounded-xl text-base font-extrabold shadow-xl shadow-brand-500/30 hover:scale-105 transition">
-                    Activer et Déployer mon SaaS (29€) →
-                </a>
-                <p class="text-[11px] text-center text-slate-400 mt-2">Accès immédiat à l'infrastructure & au code source complet.</p>
-            </div>
-
-        </div>
-    </div>
-
     <!-- Footer -->
-    <footer class="text-center py-6 text-xs text-slate-500 border-t border-white/5 relative z-10">
-        &copy; 2026 NEXORA AI. Tous droits réservés.
+    <footer class="py-8 text-center text-xs text-slate-500 border-t border-white/5">
+        <p>&copy; 2026 NEXORA. Tous droits réservés.</p>
     </footer>
 
-    <!-- Scripts -->
-    <script>
-        let currentSaaSName = "";
-
-        function fillPrompt(text) {
-            document.getElementById('projectInput').value = text;
-            generateSaaSBlueprint();
-        }
-
-        function generateSaaSBlueprint() {
-            const input = document.getElementById('projectInput').value.trim();
-            const output = document.getElementById('blueprintOutput');
-
-            if (!input) {
-                alert("Veuillez saisir une idée de service ou de logiciel.");
-                return;
-            }
-
-            currentSaaSName = input;
-            output.classList.remove('hidden');
-            output.innerHTML = `
-                <div class="flex items-center gap-3 text-brand-400 py-3">
-                    <i class="fa-solid fa-circle-notch animate-spin text-xl"></i>
-                    <span class="font-bold text-sm">Génération de la structure du SaaS en cours...</span>
-                </div>
-            `;
-
-            setTimeout(() => {
-                output.innerHTML = `
-                    <div class="space-y-4">
-                        <div class="flex justify-between items-start border-b border-white/10 pb-3">
-                            <div>
-                                <span class="text-xs text-brand-400 font-bold uppercase tracking-wider">Ébauche d'application prête</span>
-                                <h4 class="text-xl font-extrabold text-white">${escapeHtml(input)}</h4>
-                            </div>
-                            <span class="bg-brand-500/20 text-brand-400 border border-brand-500/30 text-xs px-3 py-1 rounded-full font-bold">100% Configuré</span>
-                        </div>
-                        
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-                            <div class="bg-slate-800 p-3.5 rounded-xl border border-white/5">
-                                <span class="text-brand-400 font-bold block mb-1">💻 Dashboard Utilisateur :</span>
-                                <p class="text-slate-300">Formulaires intuitifs, exports PDF et gestion d'abonnements.</p>
-                            </div>
-                            <div class="bg-slate-800 p-3.5 rounded-xl border border-white/5">
-                                <span class="text-brand-400 font-bold block mb-1">💳 Monétisation Stripe :</span>
-                                <p class="text-slate-300">Paiements récurrents pré-configurés.</p>
-                            </div>
-                        </div>
-                    </div>
-                `;
-
-                // Ouvrir la pop-up par-dessus
-                document.getElementById('modalSaaSTitle').innerText = `"${input}"`;
-                document.getElementById('simulatorModal').classList.remove('hidden');
-                calculateGoal();
-            }, 700);
-        }
-
-        function calculateGoal() {
-            const target = parseInt(document.getElementById('targetIncomeInput').value);
-            const price = parseInt(document.getElementById('priceSelect').value);
-            const analysisDetails = document.getElementById('analysisDetails');
-
-            if (!target || target <= 0) {
-                analysisDetails.innerHTML = `<span class="text-amber-400">Veuillez indiquer un objectif supérieur à 0 €.</span>`;
-                return;
-            }
-
-            const clientsNeeded = Math.ceil(target / price);
-            const exactRevenue = clientsNeeded * price;
-
-            analysisDetails.innerHTML = `
-                Pour atteindre <strong class="text-white">${target.toLocaleString('fr-FR')} € / mois</strong> à <strong>${price} € / mois</strong> par abonné :<br>
-                <div class="my-2 p-3 bg-brand-500/10 rounded-xl border border-brand-500/20 text-center">
-                    <span class="text-xs text-slate-300 block">Clients abonnés nécessaires :</span>
-                    <strong class="text-2xl font-black text-brand-400">${clientsNeeded} clients</strong>
-                    <span class="text-[11px] text-slate-400 block mt-0.5">Revenu estimé : ${exactRevenue.toLocaleString('fr-FR')} € / mois</span>
-                </div>
-                <p class="text-xs text-slate-300 text-center">💡 <em>Faisabilité :</em> Atteindre <strong>${clientsNeeded} clients</strong> dans ce secteur est un objectif mesurable et réaliste.</p>
-            `;
-        }
-
-        function closeModal() {
-            document.getElementById('simulatorModal').classList.add('hidden');
-        }
-
-        function escapeHtml(text) {
-            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
-        }
-    </script>
 </body>
 </html>
