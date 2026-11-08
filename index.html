@@ -399,7 +399,6 @@ function passerAuSimulateur() {
   </div>
 </div>
 <script>
-  // Fonction pour ouvrir l'ébauche (lancée par le bouton "Créer le SaaS")
   function generateBlueprint() {
       const modal = document.getElementById('ebaucheModal');
       if (modal) {
@@ -407,13 +406,11 @@ function passerAuSimulateur() {
       }
   }
 
-  // Fonction pour basculer de l'ébauche vers le simulateur
   function passerAuSimulateur() {
       document.getElementById('ebaucheModal').classList.add('hidden');
       document.getElementById('simulatorModal').classList.remove('hidden');
   }
 
-  // Fonction pour fermer les modales si besoin
   function closeModal() {
       document.getElementById('ebaucheModal').classList.add('hidden');
       document.getElementById('simulatorModal').classList.add('hidden');
