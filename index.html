@@ -6,7 +6,7 @@
     <title>NEXORA - Lancez votre Micro-SaaS Rentable</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&family=Fira+Code:wght@400;500;700&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -27,10 +27,11 @@
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #030712; overflow-x: hidden; }
         .glass { background: rgba(15, 23, 42, 0.88); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.12); }
-        .glass-card { background: rgba(30, 41, 59, 0.9); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.15); }
+        .glass-card { background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.15); }
         .gradient-bg { background: linear-gradient(135deg, #22c55e 0%, #15803d 100%); }
         .gradient-text { background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .glow-box { box-shadow: 0 0 50px rgba(34, 197, 94, 0.15); }
+        .font-mono { font-family: 'Fira Code', monospace; }
 
         .floating-window {
             position: absolute;
@@ -43,12 +44,7 @@
             pointer-events: none;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
         }
-        .window-header {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            margin-bottom: 0.75rem;
-        }
+        .window-header { display: flex; align-items: center; gap: 6px; margin-bottom: 0.75rem; }
         .dot { width: 8px; height: 8px; border-radius: 50%; }
         .dot-red { background: #ef4444; }
         .dot-yellow { background: #f59e0b; }
@@ -136,7 +132,7 @@
             <div class="flex flex-col sm:flex-row gap-3 mb-4">
                 <input type="text" id="projectInput" placeholder="ex: Facturation IA pour Artisans, Devis BTP..." class="flex-1 bg-white/5 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500">
                 
-                <button onclick="generateBlueprint()" class="gradient-bg text-white px-8 py-4 rounded-xl font-bold flex items-center justify-center gap-2 hover:opacity-90 transition shadow-lg shadow-emerald-500/20 cursor-pointer">
+                <button onclick="startBuildProcess()" class="gradient-bg text-white px-8 py-4 rounded-xl font-bold flex items-center justify-center gap-2 hover:opacity-90 transition shadow-lg shadow-emerald-500/20 cursor-pointer">
                     <i class="fas fa-wand-magic-sparkles"></i>
                     <span>Créer le SaaS</span>
                 </button>
@@ -150,46 +146,117 @@
         </div>
     </main>
 
-    <!-- MODALE 1 : ÉBAUCHE DU SAAS (WOW FACTOR) -->
-    <div id="ebaucheModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 backdrop-blur-sm p-4">
-        <div class="glass-card glow-box border border-brand-500/40 rounded-3xl p-6 sm:p-8 max-w-lg w-full relative space-y-6 text-left">
-            <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-lg w-8 h-8 rounded-full bg-white/5 flex items-center justify-center border border-white/10">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-
-            <div class="text-center">
-                <span class="inline-block p-3 rounded-2xl bg-brand-500/20 text-brand-400 text-2xl mb-3 border border-brand-500/30">
-                    <i class="fa-solid fa-cubes"></i>
-                </span>
-                <h3 class="text-2xl font-black text-white">Ébauche générée avec succès !</h3>
-                <p class="text-xs text-slate-300 mt-1">Structure prête pour <strong id="projectTitleDisplay" class="text-brand-400">Votre Application SaaS</strong></p>
+    <!-- POP-UP 1 : TERMINAL DE GÉNÉRATION EN DIRECT (EFFET MATRIX) -->
+    <div id="buildModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-950/90 backdrop-blur-md p-4">
+        <div class="glass-card border border-brand-500/40 rounded-3xl p-6 sm:p-8 max-w-xl w-full relative text-left glow-box space-y-4">
+            <div class="flex justify-between items-center border-b border-white/10 pb-3">
+                <div class="flex items-center gap-2">
+                    <div class="dot dot-red"></div>
+                    <div class="dot dot-yellow"></div>
+                    <div class="dot dot-green"></div>
+                    <span class="text-xs text-slate-400 font-mono ml-2">nexora-engine --build</span>
+                </div>
+                <span class="text-xs font-mono text-brand-400 animate-pulse">COMPILATION...</span>
             </div>
 
-            <div class="space-y-3">
-                <div class="bg-slate-900/90 p-4 rounded-xl border border-white/10 space-y-1">
-                    <div class="flex items-center gap-2 text-brand-400 text-xs font-bold">
-                        <i class="fa-solid fa-database"></i> Architecture & Base de données
-                    </div>
-                    <p id="dbStructureText" class="text-xs text-slate-300">Tables SQL optimisées et rôles configurés.</p>
-                </div>
-
-                <div class="bg-slate-900/90 p-4 rounded-xl border border-white/10 space-y-1">
-                    <div class="flex items-center gap-2 text-brand-400 text-xs font-bold">
-                        <i class="fa-solid fa-layer-group"></i> Modules Clients & Interface
-                    </div>
-                    <p id="modulesText" class="text-xs text-slate-300">Tableaux de bord et tunnels de vente pré-configurés.</p>
-                </div>
+            <div class="bg-slate-950 p-4 rounded-2xl border border-white/10 font-mono text-xs space-y-2 h-56 overflow-y-auto text-slate-300" id="terminalLogs">
+                <!-- Les lignes de log s'insèrent ici dynamiquement -->
             </div>
-
-            <button onclick="passerAuSimulateur()" class="w-full gradient-bg text-white py-4 rounded-xl text-base font-extrabold shadow-xl shadow-brand-500/30 hover:scale-105 transition">
-                Simuler le Potentiel Financier →
-            </button>
         </div>
     </div>
 
-    <!-- MODALE 2 : SIMULATEUR D'OBJECTIF FINANCIER -->
+    <!-- POP-UP 2 : APERÇU CONCRET DE L'APPLICATION (DASHBOARD REAL + PAYWALL FLOUTÉ) -->
+    <div id="previewModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-950/90 backdrop-blur-md p-4 overflow-y-auto">
+        <div class="glass-card border border-brand-500/40 rounded-3xl p-6 sm:p-8 max-w-3xl w-full relative space-y-6 text-left my-8">
+            
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-lg w-8 h-8 rounded-full bg-white/5 flex items-center justify-center border border-white/10 z-20">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <!-- Header du Dashboard généré -->
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-white/10 pb-4">
+                <div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-brand-500/20 text-brand-400 border border-brand-500/30">
+                        <i class="fa-solid fa-check-circle"></i> Application Compilée & Prête
+                    </span>
+                    <h2 class="text-2xl font-black text-white mt-1" id="previewSaaSTitle">Mon Logiciel SaaS</h2>
+                    <p class="text-xs text-slate-400">Architecture SaaS multi-locataire + Tunnel de vente Stripe</p>
+                </div>
+                <button onclick="ouvrirSimulateur()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 border border-white/15 px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2">
+                    <i class="fa-solid fa-calculator text-brand-400"></i> Simuler le Revenu
+                </button>
+            </div>
+
+            <!-- APERÇU VISUEL CONCRET (Tableau de bord utilisateur) -->
+            <div class="space-y-4">
+                <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Aperçu du Tableau de Bord Généré :</h3>
+                
+                <div class="grid grid-cols-3 gap-3">
+                    <div class="bg-slate-900/90 p-3.5 rounded-xl border border-white/10">
+                        <span class="text-[11px] text-slate-400 block">Abonnés Actifs</span>
+                        <span class="text-lg font-black text-white">0 <span class="text-xs text-brand-400 font-normal">(Prêt au lancement)</span></span>
+                    </div>
+                    <div class="bg-slate-900/90 p-3.5 rounded-xl border border-white/10">
+                        <span class="text-[11px] text-slate-400 block">MRR Estimé</span>
+                        <span class="text-lg font-black text-brand-400">0,00 €</span>
+                    </div>
+                    <div class="bg-slate-900/90 p-3.5 rounded-xl border border-white/10">
+                        <span class="text-[11px] text-slate-400 block">Module Stripe</span>
+                        <span class="text-xs font-bold text-emerald-400 flex items-center gap-1 mt-1">
+                            <i class="fa-solid fa-link"></i> Webhook actif
+                        </span>
+                    </div>
+                </div>
+
+                <!-- FONCTIONNALITÉS EXTRACT - CONCRÈTES -->
+                <div class="bg-slate-900/90 p-4 rounded-xl border border-white/10 space-y-2">
+                    <div class="text-xs font-bold text-slate-200 flex items-center gap-2">
+                        <i class="fa-solid fa-server text-brand-400"></i> Modules & APIs intégrés pour cette activité :
+                    </div>
+                    <ul class="text-xs text-slate-300 space-y-1.5 pl-4 list-disc" id="dynamicModulesList">
+                        <li>Interface client avec personnalisation dynamique</li>
+                        <li>Base de données SQL PostgreSQL pré-structurée</li>
+                        <li>Système d'authentification utilisateur (Auth & Roles)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- ZONE FLOUTÉE / ZONE VERROUILLÉE (LE PAYWALL DE CONVERSION) -->
+            <div class="relative rounded-2xl overflow-hidden border border-brand-500/40 bg-slate-900/60 p-6 text-center">
+                
+                <!-- Faux code source derrière le flou -->
+                <div class="filter blur-[6px] select-none text-left font-mono text-[10px] text-slate-500 opacity-60 space-y-1">
+                    <p>// CONFIGURATION DU PROJET & CLÉS D'ACCÈS DU CODE SOURCE</p>
+                    <p>const saasConfig = { name: "APP", environment: "production", stripeKey: "sk_live_51Nx..." };</p>
+                    <p>export async function deployDatabase() { return await db.connect({ ssl: true }); }</p>
+                    <p>function generateClientInvoices() { return pdfEngine.createDocument({ autoSend: true }); }</p>
+                    <p>stripe.subscriptions.create({ items: [{ price: 'price_1N...' }], collection_method: 'charge_automatically' });</p>
+                </div>
+
+                <!-- Overlay verrouillé par-dessus -->
+                <div class="absolute inset-0 bg-slate-950/80 backdrop-blur-sm flex flex-col items-center justify-center p-6 space-y-3 z-10">
+                    <div class="w-12 h-12 rounded-2xl bg-brand-500/20 border border-brand-500/40 flex items-center justify-center text-brand-400 text-xl shadow-lg shadow-brand-500/20">
+                        <i class="fa-solid fa-lock"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-black text-white">Votre SaaS est 100% prêt à être déployé</h4>
+                        <p class="text-xs text-slate-300 mt-0.5">Débloquez immédiatement le code source complet, les fichiers et l'accès à l'infrastructure.</p>
+                    </div>
+
+                    <a href="https://buy.stripe.com/aFa14f2UT9JQ2hSell9fW02" target="_blank" class="w-full sm:w-auto px-8 py-4 rounded-xl font-extrabold gradient-bg text-white shadow-xl shadow-brand-500/30 hover:scale-105 transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-bolt"></i> Obtenir le Code Source & Déployer (29€)
+                    </a>
+                    <p class="text-[10px] text-slate-400">Téléchargement immédiat des fichiers + Support complet inclus.</p>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- POP-UP 3 : SIMULATEUR FINANCIER -->
     <div id="simulatorModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 backdrop-blur-sm p-4">
-        <div class="glass-card glow-box border border-brand-500/40 rounded-3xl p-6 sm:p-8 max-w-lg w-full relative space-y-6 text-left">
+        <div class="glass-card border border-brand-500/40 rounded-3xl p-6 sm:p-8 max-w-lg w-full relative space-y-6 text-left">
             <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-lg w-8 h-8 rounded-full bg-white/5 flex items-center justify-center border border-white/10">
                 <i class="fa-solid fa-xmark"></i>
             </button>
@@ -199,7 +266,7 @@
                     <i class="fa-solid fa-calculator"></i>
                 </span>
                 <h3 class="text-2xl font-black text-white">Simulateur d'Objectif Financier</h3>
-                <p class="text-xs text-slate-300 mt-1">L'ébauche de votre SaaS <strong id="modalSaaSTitle" class="text-brand-400"></strong> est prête.</p>
+                <p class="text-xs text-slate-300 mt-1">Objectif de rentabilité pour <strong id="modalSaaSTitle" class="text-brand-400">votre projet</strong></p>
             </div>
 
             <div class="space-y-4">
@@ -232,7 +299,6 @@
                 <a href="https://buy.stripe.com/aFa14f2UT9JQ2hSell9fW02" target="_blank" class="w-full inline-block text-center gradient-bg text-white py-4 rounded-xl text-base font-extrabold shadow-xl shadow-brand-500/30 hover:scale-105 transition">
                     Activer et Déployer mon SaaS (29€) →
                 </a>
-                <p class="text-[11px] text-center text-slate-400 mt-2">Accès immédiat à l'infrastructure & au code source complet.</p>
             </div>
         </div>
     </div>
@@ -248,10 +314,10 @@
 
         function fillPrompt(text) {
             document.getElementById('projectInput').value = text;
-            generateBlueprint();
+            startBuildProcess();
         }
 
-        function generateBlueprint() {
+        function startBuildProcess() {
             const inputField = document.getElementById('projectInput');
             if (!inputField || !inputField.value.trim()) {
                 alert("Veuillez saisir une idée de service ou de logiciel.");
@@ -261,32 +327,59 @@
             const input = inputField.value.trim();
             currentSaaSName = input;
 
-            const projectTitleDisplay = document.getElementById('projectTitleDisplay');
-            const dbStructureText = document.getElementById('dbStructureText');
-            const modulesText = document.getElementById('modulesText');
-
-            if (projectTitleDisplay) projectTitleDisplay.textContent = `"${input}"`;
-            if (dbStructureText) dbStructureText.textContent = `Tables SQL optimisées, sécurisation des accès et rôles configurés pour : ${input}.`;
-            if (modulesText) modulesText.textContent = `Génération des interfaces d'onboarding, tableaux de bord et tunnels de vente dédiés à ${input}.`;
-
-            const ebaucheModal = document.getElementById('ebaucheModal');
-            const simulatorModal = document.getElementById('simulatorModal');
+            const buildModal = document.getElementById('buildModal');
+            const terminalLogs = document.getElementById('terminalLogs');
             
-            if (simulatorModal) simulatorModal.classList.add('hidden');
-            if (ebaucheModal) ebaucheModal.classList.remove('hidden');
+            buildModal.classList.remove('hidden');
+            terminalLogs.innerHTML = "";
+
+            const logs = [
+                `> NEXORA AI v4.2 Initialisation...`,
+                `> Analyse du secteur d'activité : "${input}"`,
+                `> Génération des schémas de base de données PostgreSQL... OK`,
+                `> Création des tables 'users', 'subscriptions', 'invoices'... OK`,
+                `> Configuration des clés API Webhook Stripe... OK`,
+                `> Structuration de l'interface Dashboard Client... OK`,
+                `> Compilation finale des modules et sécurité... 100%`
+            ];
+
+            let index = 0;
+            const interval = setInterval(() => {
+                if (index < logs.length) {
+                    const p = document.createElement('p');
+                    p.className = index === logs.length - 1 ? "text-brand-400 font-bold" : "text-slate-300";
+                    p.textContent = logs[index];
+                    terminalLogs.appendChild(p);
+                    terminalLogs.scrollTop = terminalLogs.scrollHeight;
+                    index++;
+                } else {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        buildModal.classList.add('hidden');
+                        showPreviewModal(input);
+                    }, 600);
+                }
+            }, 350);
         }
 
-        function passerAuSimulateur() {
-            const ebaucheModal = document.getElementById('ebaucheModal');
-            const simulatorModal = document.getElementById('simulatorModal');
-            const modalTitle = document.getElementById('modalSaaSTitle');
+        function showPreviewModal(projectName) {
+            document.getElementById('previewSaaSTitle').textContent = projectName;
+            
+            const dynamicModulesList = document.getElementById('dynamicModulesList');
+            dynamicModulesList.innerHTML = `
+                <li>Module spécialisé : Gestion intelligente et formulaires dédiés à <strong>${escapeHtml(projectName)}</strong></li>
+                <li>Module de facturation automatique et gestion des abonnements récurrents</li>
+                <li>Tunnel de conversion optimisé avec intégration Stripe Direct</li>
+            `;
 
-            if (modalTitle) modalTitle.innerText = `"${currentSaaSName}"`;
-            if (ebaucheModal) ebaucheModal.classList.add('hidden');
-            if (simulatorModal) {
-                simulatorModal.classList.remove('hidden');
-                calculateGoal();
-            }
+            document.getElementById('previewModal').classList.remove('hidden');
+        }
+
+        function ouvrirSimulateur() {
+            document.getElementById('previewModal').classList.add('hidden');
+            document.getElementById('modalSaaSTitle').innerText = `"${currentSaaSName}"`;
+            document.getElementById('simulatorModal').classList.remove('hidden');
+            calculateGoal();
         }
 
         function calculateGoal() {
@@ -314,15 +407,18 @@
                     <strong class="text-2xl font-black text-brand-400">${clientsNeeded} clients</strong>
                     <span class="text-[11px] text-slate-400 block mt-0.5">Revenu estimé : ${exactRevenue.toLocaleString('fr-FR')} € / mois</span>
                 </div>
-                <p class="text-xs text-slate-300 text-center">💡 <em>Faisabilité :</em> Atteindre <strong>${clientsNeeded} clients</strong> dans ce secteur est un objectif mesurable et realistic.</p>
+                <p class="text-xs text-slate-300 text-center">💡 <em>Faisabilité :</em> Atteindre <strong>${clientsNeeded} clients</strong> dans ce secteur est un objectif mesurable et réaliste.</p>
             `;
         }
 
         function closeModal() {
-            const ebaucheModal = document.getElementById('ebaucheModal');
-            const simulatorModal = document.getElementById('simulatorModal');
-            if (ebaucheModal) ebaucheModal.classList.add('hidden');
-            if (simulatorModal) simulatorModal.classList.add('hidden');
+            document.getElementById('buildModal').classList.add('hidden');
+            document.getElementById('previewModal').classList.add('hidden');
+            document.getElementById('simulatorModal').classList.add('hidden');
+        }
+
+        function escapeHtml(text) {
+            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
         }
     </script>
 </body>
