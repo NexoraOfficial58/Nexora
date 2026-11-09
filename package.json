@@ -1,0 +1,16 @@
+{
+  "name": "nexora-saas",
+  "version": "1.0.0",
+  "description": "Serveur de génération SaaS Nexora",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.2.1",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "nodemailer": "^6.9.8",
+    "stripe": "^14.14.0"
+  }
+}
