@@ -5,7 +5,7 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const { GoogleGenerativeAI } = require('@google/generative-ai');
 const nodemailer = require('nodemailer');
 
-const app = express();
+const app = express(); 
 
 app.use(cors());
 app.use(express.static('public'));
