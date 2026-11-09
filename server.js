@@ -133,7 +133,7 @@ async function sendProjectEmail(email, idea, code) {
     });
 }
 app.get('/', (req, res) => {
-  res.send('Bienvenue sur Nexora ! Le serveur est opérationnel.');
+  res.sendFile(__dirname + '/index.html');
 });
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
