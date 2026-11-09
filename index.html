@@ -50,63 +50,14 @@
         .dot-yellow { background: #f59e0b; }
         .dot-green { background: #22c55e; }
 
-        /* Animation fluide d'ouverture des fenêtres */
-        @keyframes windowOpen {
-            0% { opacity: 0; transform: scale(0.90) translateY(40px); }
-            100% { opacity: 1; transform: scale(1) translateY(0); }
+        @keyframes popIn {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
-        .anim-window-1 { animation: windowOpen 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-        .anim-window-2 { opacity: 0; animation: windowOpen 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards; }
-        .anim-window-3 { opacity: 0; animation: windowOpen 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards; }
+        .animate-pop { animation: popIn 0.4s ease-out forwards; }
     </style>
 </head>
 <body class="text-slate-100 min-h-screen flex flex-col justify-between selection:bg-brand-500 selection:text-white relative">
-
-    <!-- FENÊTRES FLOTTANTES (INDICATEURS VIVANTS) -->
-    <div class="floating-window hidden xl:block left-6 top-32 w-64">
-        <div class="window-header">
-            <div class="dot dot-red"></div>
-            <div class="dot dot-yellow"></div>
-            <div class="dot dot-green"></div>
-            <span class="text-[10px] text-brand-400 font-mono ml-1 font-bold">⚡ activite_en_direct.json</span>
-        </div>
-        <div class="space-y-2 font-mono text-[11px]">
-            <div class="flex justify-between items-center text-slate-300">
-                <span>Créateurs en ligne :</span>
-                <span id="liveCreators" class="text-brand-400 font-bold">42 actifs</span>
-            </div>
-            <div class="flex justify-between items-center text-slate-300">
-                <span>Logiciels générés :</span>
-                <span id="liveProjects" class="text-white font-bold">186 SaaS</span>
-            </div>
-            <div class="bg-emerald-500/10 p-2 rounded border border-emerald-500/30 flex justify-between items-center">
-                <span class="text-emerald-300">🔥 Déploiement</span>
-                <span class="text-brand-400 font-bold">+29,00 €</span>
-            </div>
-        </div>
-    </div>
-
-    <div class="floating-window hidden xl:block right-6 top-40 w-64">
-        <div class="window-header">
-            <div class="dot dot-red"></div>
-            <div class="dot dot-yellow"></div>
-            <div class="dot dot-green"></div>
-            <span class="text-[10px] text-brand-400 font-mono ml-1 font-bold">stripe_flux_recettes.log</span>
-        </div>
-        <div class="space-y-2">
-            <div class="flex justify-between text-xs">
-                <span class="text-slate-400">Volume global</span>
-                <span class="text-brand-400 font-bold">34 250 €</span>
-            </div>
-            <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
-                <div class="bg-brand-500 h-full w-[65%]"></div>
-            </div>
-            <div class="bg-slate-900 p-2 rounded border border-white/10 flex items-center justify-between text-xs">
-                <span class="text-slate-300">Succès Stripe</span>
-                <span class="text-emerald-400 font-bold">91.8% 🚀</span>
-            </div>
-        </div>
-    </div>
 
     <!-- Header -->
     <header class="glass sticky top-0 z-50 px-6 sm:px-8 py-4 flex justify-between items-center border-b border-white/10 shadow-xl">
@@ -118,9 +69,9 @@
         </div>
         <div class="flex items-center gap-4">
             <span class="hidden sm:inline-flex items-center gap-1.5 text-xs text-brand-400 font-bold bg-brand-500/10 px-3 py-1.5 rounded-full border border-brand-500/20">
-                <span class="w-2 h-2 rounded-full bg-brand-400 animate-ping"></span> <span id="headerCreators">42</span> créateurs connectés
+                <span class="w-2 h-2 rounded-full bg-brand-400 animate-ping"></span> 42 créateurs connectés
             </span>
-            <a href="https://buy.stripe.com/aFa14f2UT9JQ2hSell9fW02" target="_blank" class="px-5 py-2.5 rounded-xl text-sm font-bold gradient-bg text-white shadow-lg shadow-brand-500/25 hover:opacity-95 hover:scale-105 transition duration-200 inline-flex items-center gap-2">
+            <a href="https://buy.stripe.com/aFa14f2UT9JQ2hSell9fW02" target="_blank" class="px-5 py-2.5 rounded-xl text-sm font-bold gradient-bg text-white shadow-lg shadow-brand-500/25 hover:opacity-95 transition">
                 <i class="fa-solid fa-rocket"></i> Passer Pro (29€)
             </a>
         </div>
@@ -132,42 +83,58 @@
         <!-- Hero Section -->
         <div id="heroSection" class="w-full space-y-6">
             <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold bg-brand-500/10 text-brand-400 border border-brand-500/30 shadow-md">
-                ✨ Voyez concrètement le produit que vous achetez
+                ✨ Générateur de Micro-SaaS automatisé
             </span>
 
             <h1 class="text-4xl sm:text-6xl font-black text-white tracking-tight leading-tight">
-                Tapez votre idée, ouvrez votre logiciel, <br/>
+                Tapez votre idée, générez votre SaaS, <br/>
                 <span class="gradient-text">Encaissez vos abonnements.</span>
             </h1>
 
             <p class="text-slate-300 text-base sm:text-lg max-w-xl mx-auto leading-relaxed">
-                Entrez votre projet. Regardez les fenêtres de votre plateforme s'ouvrir en direct avec de vraies photos et aperçus visuels du produit.
+                Entrez le nom de votre logiciel. Notre intelligence artificielle assemble instantanément le code source, la base de données et l'interface prête à vendre.
             </p>
 
             <!-- Champ de saisie -->
             <div class="glass max-w-2xl mx-auto w-full p-6 sm:p-8 rounded-3xl border border-white/15 shadow-2xl text-left glow-box mt-4">
-                <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-3">Quel logiciel ou programme voulez-vous générer ?</label>
+                <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-3">Quel logiciel SaaS voulez-vous créer ?</label>
                 
                 <div class="flex flex-col sm:flex-row gap-3 mb-4">
-                    <input type="text" id="projectInput" placeholder="ex: Facturation BTP, Voiture, E-Commerce..." class="flex-1 bg-white/5 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 text-sm">
+                    <input type="text" id="projectInput" placeholder="ex: Facturation BTP, Gestion de stock, CRM Immobilier..." class="flex-1 bg-white/5 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 text-sm font-mono">
                     
-                    <button onclick="openPlatformDirectly()" class="gradient-bg text-white px-8 py-3.5 rounded-xl font-bold flex items-center justify-center gap-2 hover:opacity-90 transition shadow-lg shadow-emerald-500/20 cursor-pointer text-sm whitespace-nowrap">
-                        <i class="fas fa-window-maximize"></i>
-                        <span>Ouvrir les Fenêtres</span>
+                    <button onclick="generateSaaSApp()" class="gradient-bg text-white px-8 py-3.5 rounded-xl font-bold flex items-center justify-center gap-2 hover:opacity-90 transition shadow-lg shadow-emerald-500/20 cursor-pointer text-sm whitespace-nowrap">
+                        <i class="fas fa-microchip"></i>
+                        <span>Générer le SaaS</span>
                     </button>
                 </div>
 
                 <div class="flex flex-wrap gap-2 text-xs text-slate-300 items-center pt-1">
                     <span class="text-slate-400">Exemples :</span>
                     <button onclick="fillPrompt('Logiciel de Devis & Facturation BTP')" class="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg transition cursor-pointer">Facturation BTP</button>
-                    <button onclick="fillPrompt('Vente de Voitures')" class="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg transition cursor-pointer">Vente de Voitures</button>
-                    <button onclick="fillPrompt('Plateforme E-Commerce')" class="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg transition cursor-pointer">E-Commerce</button>
+                    <button onclick="fillPrompt('SaaS de Gestion de Bijouterie')" class="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg transition cursor-pointer">Gestion Bijouterie</button>
+                    <button onclick="fillPrompt('Plateforme E-Commerce de Mode')" class="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg transition cursor-pointer">E-Commerce</button>
                 </div>
             </div>
         </div>
 
-        <!-- ZONE DU "AVANT" (LES VRAIES FENÊTRES AVEC PHOTOS QUI S'OUVRENT) + "APRÈS" (TON SIMULATEUR) -->
-        <div id="liveCreationContainer" class="hidden w-full text-left space-y-8 mt-2">
+        <!-- ZONE DE TRANSITION / CHARGEMENT ANIMÉ (CE QUI SE PASSE QUAND ON CLIQUE) -->
+        <div id="loadingSection" class="hidden w-full max-w-xl mx-auto py-12 space-y-6 text-center">
+            <div class="glass-card p-8 rounded-3xl border border-brand-500/40 glow-box space-y-6">
+                <div class="w-16 h-16 rounded-2xl bg-brand-500/20 border border-brand-500/40 flex items-center justify-center text-brand-400 text-2xl mx-auto animate-spin">
+                    <i class="fa-solid fa-gear"></i>
+                </div>
+                <div class="space-y-2">
+                    <span class="text-[10px] font-mono font-bold text-brand-400 uppercase tracking-widest">GÉNÉRATION DU CODE SOURCE EN COURS</span>
+                    <h3 class="text-lg font-black text-white" id="loadingStatusText">Création de la base de données PostgreSQL...</h3>
+                </div>
+                <div class="w-full bg-slate-950 h-2 rounded-full overflow-hidden border border-white/10">
+                    <div id="progressBar" class="gradient-bg h-full w-[20%] transition-all duration-300"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ZONE DU RÉSULTAT : APERÇU DU SAAS + SIMULATEUR DE FIN -->
+        <div id="resultSection" class="hidden w-full text-left space-y-8 animate-pop mt-2">
             
             <div class="flex justify-between items-center bg-slate-900/90 p-4 rounded-2xl border border-white/10 shadow-lg">
                 <div class="flex items-center gap-3">
@@ -177,8 +144,8 @@
                         <div class="dot dot-green"></div>
                     </div>
                     <div>
-                        <span class="text-[9px] uppercase tracking-wider font-mono font-bold text-brand-400 block">OUVERTURE DES FENÊTRES DE LA PLATEFORME</span>
-                        <h2 class="text-lg font-black text-white" id="appTitleDisplay">Logiciel en direct</h2>
+                        <span class="text-[9px] uppercase tracking-wider font-mono font-bold text-brand-400 block">SAAS GÉNÉRÉ AVEC SUCCÈS</span>
+                        <h2 class="text-lg font-black text-white" id="appTitleDisplay">Nom du SaaS</h2>
                     </div>
                 </div>
                 <button onclick="resetApp()" class="text-xs text-slate-400 hover:text-white bg-white/5 px-3 py-2 rounded-xl border border-white/10 cursor-pointer">
@@ -186,27 +153,54 @@
                 </button>
             </div>
 
-            <!-- FENÊTRE VISUELLE PRINCIPALE : LES 3 FENÊTRES CONCRÈTES QUI S'OUVRENT EN CASCADE AVEC PHOTOS -->
+            <!-- APERÇU VISUEL DE L'APPLICATION (LES MODULES SaaS CONCRETS) -->
             <div class="glass-card p-6 rounded-3xl border border-brand-500/50 glow-box space-y-6">
                 
                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 border-b border-white/10 pb-4">
                     <div class="flex items-center gap-3">
                         <div class="w-12 h-12 rounded-2xl bg-brand-500/20 border border-brand-500/40 flex items-center justify-center text-brand-400 text-xl font-bold">
-                            <i class="fa-solid fa-desktop"></i>
+                            <i class="fa-solid fa-code"></i>
                         </div>
                         <div>
-                            <span class="text-[10px] text-brand-400 font-mono font-bold uppercase">VOICI LE PRODUIT QUE VOUS ALLEZ COMMERCIALISER</span>
-                            <h3 class="text-base font-black text-white" id="softwareSubtitle">Aperçu visuel des fenêtres de votre logiciel</h3>
+                            <span class="text-[10px] text-brand-400 font-mono font-bold uppercase">ARCHITECTURES ET INTERFACES DU LOGICIEL</span>
+                            <h3 class="text-base font-black text-white" id="softwareSubtitle">Modules inclus dans votre SaaS</h3>
                         </div>
                     </div>
                     <span class="text-xs font-bold text-emerald-400 bg-emerald-500/10 px-3 py-1.5 rounded-full border border-emerald-500/30 whitespace-nowrap">
-                        <i class="fa-solid fa-circle-check mr-1"></i> Prêt à l'emploi
+                        <i class="fa-solid fa-circle-check mr-1"></i> Prêt à commercialiser
                     </span>
                 </div>
 
-                <!-- LES 3 FENÊTRES AVEC VRAIES PHOTOS / VISUELS CONCRETS ET ANIMATION EN CASCADE -->
-                <div id="softwareMockupGrid" class="grid grid-cols-1 sm:grid-cols-3 gap-5">
-                    <!-- Injecté dynamiquement -->
+                <!-- LES 3 MODULES DU SAAS (STYLE CODE / TABLEAU DE BORD NUMÉRIQUE PROPRE) -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+                    
+                    <div class="bg-slate-900 rounded-2xl border border-white/10 overflow-hidden text-left space-y-3 shadow-xl p-5">
+                        <div class="flex justify-between items-center text-brand-400 font-mono text-xs border-b border-white/10 pb-3">
+                            <span><i class="fa-solid fa-chart-line mr-1"></i> Module 01</span>
+                            <span class="text-[10px] bg-emerald-500/10 px-2 py-0.5 rounded text-emerald-400">Actif</span>
+                        </div>
+                        <h4 class="text-sm font-bold text-white">Tableau de Bord & Stats</h4>
+                        <p class="text-xs text-slate-400">Interface de pilotage en temps réel, graphiques de croissance et métriques clés pour l'utilisateur final.</p>
+                    </div>
+
+                    <div class="bg-slate-900 rounded-2xl border border-white/10 overflow-hidden text-left space-y-3 shadow-xl p-5">
+                        <div class="flex justify-between items-center text-brand-400 font-mono text-xs border-b border-white/10 pb-3">
+                            <span><i class="fa-solid fa-database mr-1"></i> Module 02</span>
+                            <span class="text-[10px] bg-emerald-500/10 px-2 py-0.5 rounded text-emerald-400">Configuré</span>
+                        </div>
+                        <h4 class="text-sm font-bold text-white" id="dynamicModuleTitle">Moteur Métier SaaS</h4>
+                        <p class="text-xs text-slate-400" id="dynamicModuleDesc">Algorithmes et bases de données dédiés au traitement spécifique de votre thématique.</p>
+                    </div>
+
+                    <div class="bg-slate-900 rounded-2xl border border-white/10 overflow-hidden text-left space-y-3 shadow-xl p-5">
+                        <div class="flex justify-between items-center text-brand-400 font-mono text-xs border-b border-white/10 pb-3">
+                            <span><i class="fa-solid fa-credit-card mr-1"></i> Module 03</span>
+                            <span class="text-[10px] bg-emerald-500/10 px-2 py-0.5 rounded text-emerald-400">Intégré</span>
+                        </div>
+                        <h4 class="text-sm font-bold text-white">Facturation & Abonnements Stripe</h4>
+                        <p class="text-xs text-slate-400">Portail client automatisé pour encaisser les paiements récurrents de vos abonnés chaque mois.</p>
+                    </div>
+
                 </div>
             </div>
 
@@ -252,15 +246,15 @@
 
                 <div class="absolute inset-0 bg-slate-950/85 backdrop-blur-sm flex flex-col items-center justify-center p-6 space-y-3 z-10">
                     <div class="w-12 h-12 rounded-2xl bg-brand-500/20 border border-brand-500/40 flex items-center justify-center text-brand-400 text-xl shadow-lg shadow-brand-500/20">
-                        <i class="fa-solid fa-code"></i>
+                        <i class="fa-solid fa-bolt"></i>
                     </div>
                     <div>
-                        <h4 class="text-xl font-black text-white">Téléchargez le Programme & Déployez l'Infrastructure</h4>
+                        <h4 class="text-xl font-black text-white">Téléchargez le Code Source & Déployez l'Infrastructure</h4>
                         <p class="text-xs text-slate-300 mt-1 max-w-md">Récupérez le code source complet, la base de données PostgreSQL et les clés d'installation immédiatement.</p>
                     </div>
 
                     <a href="https://buy.stripe.com/aFa14f2UT9JQ2hSell9fW02" target="_blank" class="w-full sm:w-auto px-8 py-4 rounded-xl font-extrabold gradient-bg text-white shadow-xl shadow-brand-500/30 hover:scale-105 transition flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-bolt"></i> Obtenir le Code Source & Déployer (29€) →
+                        <i class="fa-solid fa-rocket"></i> Obtenir le Code Source & Déployer (29€) →
                     </a>
                     <p class="text-[10px] text-slate-400">Téléchargement immédiat + Clés de déploiement incluses.</p>
                 </div>
@@ -276,201 +270,61 @@
 
     <!-- Scripts -->
     <script>
-        let currentProjectsCount = 186;
-        let currentCreatorsCount = 42;
-
-        setInterval(() => {
-            const creatorDelta = Math.floor(Math.random() * 5) - 2;
-            currentCreatorsCount = Math.max(35, Math.min(55, currentCreatorsCount + creatorDelta));
-
-            if (Math.random() > 0.4) {
-                currentProjectsCount += Math.floor(Math.random() * 2);
-            }
-
-            document.getElementById('liveCreators').textContent = currentCreatorsCount + ' actifs';
-            document.getElementById('headerCreators').textContent = currentCreatorsCount;
-            document.getElementById('liveProjects').textContent = currentProjectsCount + ' SaaS';
-        }, 4500);
-
         function fillPrompt(text) {
             document.getElementById('projectInput').value = text;
-            openPlatformDirectly();
+            generateSaaSApp();
         }
 
-        function openPlatformDirectly() {
+        function generateSaaSApp() {
             const inputField = document.getElementById('projectInput');
             if (!inputField || !inputField.value.trim()) {
-                alert("Veuillez saisir une idée de programme ou de logiciel.");
+                alert("Veuillez saisir une idée de logiciel SaaS.");
                 return;
             }
 
             const input = inputField.value.trim();
-            const lower = input.toLowerCase();
             
+            // Masquer le hero et afficher la transition de chargement
             document.getElementById('heroSection').classList.add('hidden');
-            document.getElementById('liveCreationContainer').classList.remove('hidden');
-            document.getElementById('appTitleDisplay').textContent = "Logiciel : " + input;
-            document.getElementById('softwareSubtitle').textContent = `Fenêtres actives pour la gestion de : "${input}"`;
+            document.getElementById('loadingSection').classList.remove('hidden');
+            document.getElementById('resultSection').classList.add('hidden');
 
-            const mockupGrid = document.getElementById('softwareMockupGrid');
+            const progressBar = document.getElementById('progressBar');
+            const statusText = document.getElementById('loadingStatusText');
 
-            // --- CAS 1 : VOITURE / VÉHICULE (AVEC PHOTOS / VISUELS CONCRETS DE CARROSSERIE ET HABITACLE) ---
-            if (lower.includes('voiture') || lower.includes('auto') || lower.includes('vehicule') || lower.includes('véhicule')) {
-                mockupGrid.innerHTML = `
-                    <div class="anim-window-1 bg-slate-900 rounded-2xl border border-white/10 overflow-hidden text-left space-y-3 shadow-xl">
-                        <div class="bg-slate-950 px-3 py-2 border-b border-white/10 flex items-center justify-between">
-                            <div class="flex gap-1.5"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div>
-                            <span class="text-[9px] font-mono text-slate-400">catalogue_exterieur.app</span>
-                        </div>
-                        <div class="h-36 bg-slate-950 relative overflow-hidden flex items-center justify-center border-b border-white/10">
-                            <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=600&q=80" alt="Carrosserie" class="absolute inset-0 w-full h-full object-cover opacity-75 hover:opacity-100 transition duration-300">
-                            <span class="relative z-10 bg-slate-950/80 px-3 py-1 rounded text-[10px] text-emerald-400 font-mono font-bold border border-emerald-500/30">📸 Photo : Carrosserie & Peinture</span>
-                        </div>
-                        <div class="p-4 space-y-1">
-                            <span class="text-[10px] font-mono text-brand-400 uppercase font-bold">Fenêtre 1 : Extérieur Véhicule</span>
-                            <strong class="text-xs text-white block">Design & Finitions</strong>
-                            <p class="text-[11px] text-slate-400">Visuel réel des jantes, optiques et lignes de caisse de la voiture.</p>
-                        </div>
-                    </div>
-                    <div class="anim-window-2 bg-slate-900 rounded-2xl border border-white/10 overflow-hidden text-left space-y-3 shadow-xl">
-                        <div class="bg-slate-950 px-3 py-2 border-b border-white/10 flex items-center justify-between">
-                            <div class="flex gap-1.5"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div>
-                            <span class="text-[9px] font-mono text-slate-400">habitacle_interieur.app</span>
-                        </div>
-                        <div class="h-36 bg-slate-950 relative overflow-hidden flex items-center justify-center border-b border-white/10">
-                            <img src="https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=600&q=80" alt="Habitacle" class="absolute inset-0 w-full h-full object-cover opacity-75 hover:opacity-100 transition duration-300">
-                            <span class="relative z-10 bg-slate-950/80 px-3 py-1 rounded text-[10px] text-emerald-400 font-mono font-bold border border-emerald-500/30">📸 Photo : Intérieur & Tableau de bord</span>
-                        </div>
-                        <div class="p-4 space-y-1">
-                            <span class="text-[10px] font-mono text-brand-400 uppercase font-bold">Fenêtre 2 : Habitacle & Confort</span>
-                            <strong class="text-xs text-white block">Sellerie cuir & Multimédia</strong>
-                            <p class="text-[11px] text-slate-400">Aperçu direct du poste de conduite et des équipements à bord.</p>
-                        </div>
-                    </div>
-                    <div class="anim-window-3 bg-slate-900 rounded-2xl border border-white/10 overflow-hidden text-left space-y-3 shadow-xl">
-                        <div class="bg-slate-950 px-3 py-2 border-b border-white/10 flex items-center justify-between">
-                            <div class="flex gap-1.5"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div>
-                            <span class="text-[9px] font-mono text-slate-400">tunnel_commande.sys</span>
-                        </div>
-                        <div class="h-36 bg-slate-950 relative overflow-hidden flex items-center justify-center border-b border-white/10">
-                            <img src="https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=600&q=80" alt="Clés et Paiement" class="absolute inset-0 w-full h-full object-cover opacity-75 hover:opacity-100 transition duration-300">
-                            <span class="relative z-10 bg-slate-950/80 px-3 py-1 rounded text-[10px] text-emerald-400 font-mono font-bold border border-emerald-500/30">📸 Photo : Livraison & Clés</span>
-                        </div>
-                        <div class="p-4 space-y-1">
-                            <span class="text-[10px] font-mono text-brand-400 uppercase font-bold">Fenêtre 3 : Vente & Paiement</span>
-                            <strong class="text-xs text-white block">Acompte et bon de commande</strong>
-                            <p class="text-[11px] text-slate-400">Interface sécurisée pour finaliser l'acquisition du véhicule.</p>
-                        </div>
-                    </div>
-                `;
-            } 
-            // --- CAS 2 : DEVIS & FACTURATION BTP ---
-            else if (lower.includes('devis') || lower.includes('factur') || lower.includes('btp') || lower.includes('artisan')) {
-                mockupGrid.innerHTML = `
-                    <div class="anim-window-1 bg-slate-900 rounded-2xl border border-white/10 overflow-hidden text-left space-y-3 shadow-xl">
-                        <div class="bg-slate-950 px-3 py-2 border-b border-white/10 flex items-center justify-between">
-                            <div class="flex gap-1.5"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div>
-                            <span class="text-[9px] font-mono text-slate-400">editeur_devis.app</span>
-                        </div>
-                        <div class="h-36 bg-slate-950 relative overflow-hidden flex items-center justify-center border-b border-white/10">
-                            <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80" alt="Devis" class="absolute inset-0 w-full h-full object-cover opacity-75 hover:opacity-100 transition duration-300">
-                            <span class="relative z-10 bg-slate-950/80 px-3 py-1 rounded text-[10px] text-brand-400 font-mono font-bold border border-brand-500/30">💻 Interface : Chiffrage & TVA</span>
-                        </div>
-                        <div class="p-4 space-y-1">
-                            <span class="text-[10px] font-mono text-brand-400 uppercase font-bold">Fenêtre 1 : Devis & TVA</span>
-                            <strong class="text-xs text-white block">Éditeur de Factures Pro</strong>
-                            <p class="text-[11px] text-slate-400">Génération automatique des lignes de travaux et calcul des marges.</p>
-                        </div>
-                    </div>
-                    <div class="anim-window-2 bg-slate-900 rounded-2xl border border-white/10 overflow-hidden text-left space-y-3 shadow-xl">
-                        <div class="bg-slate-950 px-3 py-2 border-b border-white/10 flex items-center justify-between">
-                            <div class="flex gap-1.5"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div>
-                            <span class="text-[9px] font-mono text-slate-400">planning_chantiers.app</span>
-                        </div>
-                        <div class="h-36 bg-slate-950 relative overflow-hidden flex items-center justify-center border-b border-white/10">
-                            <img src="https://images.unsplash.com/photo-1581094288338-2314dddb7ece?auto=format&fit=crop&w=600&q=80" alt="Chantier" class="absolute inset-0 w-full h-full object-cover opacity-75 hover:opacity-100 transition duration-300">
-                            <span class="relative z-10 bg-slate-950/80 px-3 py-1 rounded text-[10px] text-brand-400 font-mono font-bold border border-brand-500/30">💻 Interface : Suivi Chantier</span>
-                        </div>
-                        <div class="p-4 space-y-1">
-                            <span class="text-[10px] font-mono text-brand-400 uppercase font-bold">Fenêtre 2 : Suivi Chantiers</span>
-                            <strong class="text-xs text-white block">Planning & Interventions</strong>
-                            <p class="text-[11px] text-slate-400">Centralisation de tous les chantiers en cours sur le terrain.</p>
-                        </div>
-                    </div>
-                    <div class="anim-window-3 bg-slate-900 rounded-2xl border border-white/10 overflow-hidden text-left space-y-3 shadow-xl">
-                        <div class="bg-slate-950 px-3 py-2 border-b border-white/10 flex items-center justify-between">
-                            <div class="flex gap-1.5"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div>
-                            <span class="text-[9px] font-mono text-slate-400">signature_client.sys</span>
-                        </div>
-                        <div class="h-36 bg-slate-950 relative overflow-hidden flex items-center justify-center border-b border-white/10">
-                            <img src="https://images.unsplash.com/photo-1556742049-0a67d553c2ec?auto=format&fit=crop&w=600&q=80" alt="Paiement" class="absolute inset-0 w-full h-full object-cover opacity-75 hover:opacity-100 transition duration-300">
-                            <span class="relative z-10 bg-slate-950/80 px-3 py-1 rounded text-[10px] text-brand-400 font-mono font-bold border border-brand-500/30">💻 Interface : Acomptes & CB</span>
-                        </div>
-                        <div class="p-4 space-y-1">
-                            <span class="text-[10px] font-mono text-brand-400 uppercase font-bold">Fenêtre 3 : Signature & Acomptes</span>
-                            <strong class="text-xs text-white block">Validation Client Sécurisée</strong>
-                            <p class="text-[11px] text-slate-400">Signature sur smartphone et versement de l'acompte par CB.</p>
-                        </div>
-                    </div>
-                `;
-            } 
-            // --- CAS 3 : TOUT AUTRE LOGICIEL / PROJET ---
-            else {
-                mockupGrid.innerHTML = `
-                    <div class="anim-window-1 bg-slate-900 rounded-2xl border border-white/10 overflow-hidden text-left space-y-3 shadow-xl">
-                        <div class="bg-slate-950 px-3 py-2 border-b border-white/10 flex items-center justify-between">
-                            <div class="flex gap-1.5"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div>
-                            <span class="text-[9px] font-mono text-slate-400">dashboard_pro.app</span>
-                        </div>
-                        <div class="h-36 bg-slate-950 relative overflow-hidden flex items-center justify-center border-b border-white/10">
-                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80" alt="Dashboard" class="absolute inset-0 w-full h-full object-cover opacity-75 hover:opacity-100 transition duration-300">
-                            <span class="relative z-10 bg-slate-950/80 px-3 py-1 rounded text-[10px] text-brand-400 font-mono font-bold border border-brand-500/30">💻 Interface : Graphiques & Stats</span>
-                        </div>
-                        <div class="p-4 space-y-1">
-                            <span class="text-[10px] font-mono text-brand-400 uppercase font-bold">Fenêtre 1 : Dashboard Principal</span>
-                            <strong class="text-xs text-white block">Vue d'ensemble de l'activité</strong>
-                            <p class="text-[11px] text-slate-400">Suivi en direct des actions, des ventes et des utilisateurs.</p>
-                        </div>
-                    </div>
-                    <div class="anim-window-2 bg-slate-900 rounded-2xl border border-white/10 overflow-hidden text-left space-y-3 shadow-xl">
-                        <div class="bg-slate-950 px-3 py-2 border-b border-white/10 flex items-center justify-between">
-                            <div class="flex gap-1.5"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div>
-                            <span class="text-[9px] font-mono text-slate-400">moteur_metier.sys</span>
-                        </div>
-                        <div class="h-36 bg-slate-950 relative overflow-hidden flex items-center justify-center border-b border-white/10">
-                            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80" alt="Outils" class="absolute inset-0 w-full h-full object-cover opacity-75 hover:opacity-100 transition duration-300">
-                            <span class="relative z-10 bg-slate-950/80 px-3 py-1 rounded text-[10px] text-brand-400 font-mono font-bold border border-brand-500/30">💻 Interface : Outils Métier</span>
-                        </div>
-                        <div class="p-4 space-y-1">
-                            <span class="text-[10px] font-mono text-brand-400 uppercase font-bold">Fenêtre 2 : Moteur Métier</span>
-                            <strong class="text-xs text-white block">Espace "${escapeHtml(input)}"</strong>
-                            <p class="text-[11px] text-slate-400">Outils de gestion et automatismes configurés pour ce secteur.</p>
-                        </div>
-                    </div>
-                    <div class="anim-window-3 bg-slate-900 rounded-2xl border border-white/10 overflow-hidden text-left space-y-3 shadow-xl">
-                        <div class="bg-slate-950 px-3 py-2 border-b border-white/10 flex items-center justify-between">
-                            <div class="flex gap-1.5"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div>
-                            <span class="text-[9px] font-mono text-slate-400">espace_abonnes.net</span>
-                        </div>
-                        <div class="h-36 bg-slate-950 relative overflow-hidden flex items-center justify-center border-b border-white/10">
-                            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=600&q=80" alt="Clients" class="absolute inset-0 w-full h-full object-cover opacity-75 hover:opacity-100 transition duration-300">
-                            <span class="relative z-10 bg-slate-950/80 px-3 py-1 rounded text-[10px] text-brand-400 font-mono font-bold border border-brand-500/30">💻 Interface : Gestion Abonnés</span>
-                        </div>
-                        <div class="p-4 space-y-1">
-                            <span class="text-[10px] font-mono text-brand-400 uppercase font-bold">Fenêtre 3 : Espace Abonnés</span>
-                            <strong class="text-xs text-white block">Gestion des clients finaux</strong>
-                            <p class="text-[11px] text-slate-400">Portail sécurisé pour encaisser vos abonnés chaque mois.</p>
-                        </div>
-                    </div>
-                `;
-            }
+            // Séquence de transition fluide de 1.5 seconde pour voir la machine tourner
+            setTimeout(() => {
+                progressBar.style.width = "50%";
+                statusText.textContent = `Compilation des modules logiques pour "${input}"...`;
+            }, 500);
 
-            calculateGoal();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            setTimeout(() => {
+                progressBar.style.width = "90%";
+                statusText.textContent = "Branchement du système de facturation Stripe...";
+            }, 1000);
+
+            setTimeout(() => {
+                progressBar.style.width = "100%";
+                statusText.textContent = "SaaS généré avec succès !";
+            }, 1400);
+
+            setTimeout(() => {
+                document.getElementById('loadingSection').classList.add('hidden');
+                document.getElementById('resultSection').classList.remove('hidden');
+                
+                document.getElementById('appTitleDisplay').textContent = "SaaS : " + input;
+                document.getElementById('softwareSubtitle').textContent = `Modules logiques générés pour : "${input}"`;
+                document.getElementById('dynamicModuleTitle').textContent = "Moteur : " + input;
+                document.getElementById('dynamicModuleDesc').textContent = `Fonctions automatisées, requêtes et structure de données sur-mesure pour votre projet "${input}".`;
+
+                calculateGoal();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }, 1700);
         }
 
         function resetApp() {
-            document.getElementById('liveCreationContainer').classList.add('hidden');
+            document.getElementById('resultSection').classList.add('hidden');
+            document.getElementById('loadingSection').classList.add('hidden');
             document.getElementById('heroSection').classList.remove('hidden');
             document.getElementById('projectInput').value = "";
         }
@@ -505,10 +359,6 @@
                     </div>
                 </div>
             `;
-        }
-
-        function escapeHtml(text) {
-            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
         }
     </script>
 </body>
