@@ -49,6 +49,12 @@
         .dot-red { background: #ef4444; }
         .dot-yellow { background: #f59e0b; }
         .dot-green { background: #22c55e; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-build { animation: fadeIn 0.5s ease-out forwards; }
     </style>
 </head>
 <body class="text-slate-100 min-h-screen flex flex-col justify-between selection:bg-brand-500 selection:text-white relative">
@@ -123,7 +129,7 @@
         <!-- Hero Section -->
         <div id="heroSection">
             <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold bg-brand-500/10 text-brand-400 border border-brand-500/30 mb-6 shadow-md">
-                ⚡ Studio de Génération Logicielle & SaaS
+                ⚡ Studio de Création Logicielle en Direct
             </span>
 
             <h1 class="text-4xl sm:text-6xl font-black text-white tracking-tight mb-6 leading-tight">
@@ -132,7 +138,7 @@
             </h1>
 
             <p class="text-slate-300 text-base sm:text-lg max-w-xl mx-auto mb-8 leading-relaxed">
-                Entrez n'importe quel projet de logiciel. Nexora assemble l'architecture technique, la base de données et l'environnement de votre programme en direct.
+                Entrez n'importe quel projet. Regardez les fenêtres s'ouvrir et votre programme s'assembler en temps réel sous vos yeux.
             </p>
 
             <!-- Champ de saisie -->
@@ -140,136 +146,97 @@
                 <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-3">Quel logiciel ou programme voulez-vous générer ?</label>
                 
                 <div class="flex flex-col sm:flex-row gap-3 mb-4">
-                    <input type="text" id="projectInput" placeholder="ex: Logiciel de Facturation BTP, Plateforme E-Commerce, SaaS de Gestion..." class="flex-1 bg-white/5 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500">
+                    <input type="text" id="projectInput" placeholder="ex: Logiciel de Facturation BTP, E-Commerce, SaaS de gestion..." class="flex-1 bg-white/5 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500">
                     
-                    <button onclick="startSoftwareEngine()" class="gradient-bg text-white px-8 py-4 rounded-xl font-bold flex items-center justify-center gap-2 hover:opacity-90 transition shadow-lg shadow-emerald-500/20 cursor-pointer">
-                        <i class="fas fa-microchip"></i>
-                        <span>Bâtir le Programme</span>
+                    <button onclick="startLiveCreation()" class="gradient-bg text-white px-8 py-4 rounded-xl font-bold flex items-center justify-center gap-2 hover:opacity-90 transition shadow-lg shadow-emerald-500/20 cursor-pointer">
+                        <i class="fas fa-wand-magic-sparkles"></i>
+                        <span>Créer mon Logiciel</span>
                     </button>
                 </div>
 
                 <div class="flex flex-wrap gap-2 text-xs text-slate-300 items-center">
                     <span class="text-slate-400">Exemples :</span>
                     <button onclick="fillPrompt('Logiciel de Devis & Facturation BTP')" class="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg transition cursor-pointer">Logiciel BTP</button>
-                    <button onclick="fillPrompt('Plateforme E-Commerce Multi-boutiques')" class="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg transition cursor-pointer">Plateforme E-Commerce</button>
-                    <button onclick="fillPrompt('Logiciel SaaS de Gestion de Planning')" class="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg transition cursor-pointer">Gestionnaire de Planning</button>
+                    <button onclick="fillPrompt('Plateforme E-Commerce')" class="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg transition cursor-pointer">Plateforme E-Commerce</button>
+                    <button onclick="fillPrompt('Logiciel de Réservation')" class="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg transition cursor-pointer">Logiciel de Réservation</button>
                 </div>
             </div>
         </div>
 
-        <!-- LE "AVANT" REVISÉ : L'ATELIER D'ASSEMBLAGE DU LOGICIEL (LE PROGRAMME EN CONSTRUCTION) -->
-        <div id="visualAppContainer" class="hidden w-full text-left space-y-6">
+        <!-- ZONE DU "AVANT" : LA CRÉATION EN DIRECT (FENÊTRES QUI S'OUVRENT ET S'ASSEMBLENT) -->
+        <div id="liveCreationContainer" class="hidden w-full text-left space-y-6">
             
             <div class="flex justify-between items-center bg-slate-900/90 p-4 rounded-2xl border border-white/10">
                 <div class="flex items-center gap-3">
                     <div class="w-3 h-3 rounded-full bg-brand-400 animate-ping"></div>
                     <div>
-                        <span class="text-[10px] uppercase tracking-wider font-mono font-bold text-brand-400">ATELIER LOGICIEL EN DIRECT</span>
-                        <h2 class="text-xl font-black text-white" id="appTitleDisplay">Nom du Software</h2>
+                        <span class="text-[10px] uppercase tracking-wider font-mono font-bold text-brand-400" id="buildStatusText">Initialisation de l'atelier de code...</span>
+                        <h2 class="text-xl font-black text-white" id="appTitleDisplay">Génération en cours...</h2>
                     </div>
                 </div>
                 <button onclick="resetApp()" class="text-xs text-slate-400 hover:text-white bg-white/5 px-3 py-2 rounded-xl border border-white/10">
-                    <i class="fa-solid fa-rotate-left"></i> Autre projet
+                    <i class="fa-solid fa-rotate-left"></i> Recommencer
                 </button>
             </div>
 
-            <!-- STRUCTURE TECHNIQUE DU LOGICIEL (LE CŒUR AVANT LE SIMULATEUR) -->
-            <div class="space-y-6">
+            <!-- ÉTAPE 1 : LES FENÊTRES DE CODE QUI S'OUVRENT EN DIRECT -->
+            <div id="step1Window" class="hidden glass-card p-5 rounded-3xl border border-brand-500/40 glow-box space-y-3 animate-build">
+                <div class="window-header border-b border-white/10 pb-2 mb-2">
+                    <div class="dot dot-red"></div>
+                    <div class="dot dot-yellow"></div>
+                    <div class="dot dot-green"></div>
+                    <span class="text-xs text-brand-400 font-mono font-bold ml-2">terminal_core_builder.sh — Assemblage de la base SQL</span>
+                </div>
+                <div class="font-mono text-xs text-slate-300 space-y-1 bg-slate-950 p-3 rounded-xl border border-white/5">
+                    <p class="text-emerald-400">> Initialisation du cluster PostgreSQL pour le projet...</p>
+                    <p>> Création des tables : <span class="text-white">users, permissions, app_transactions</span> [OK]</p>
+                    <p class="text-emerald-400">> Injection de la logique métier sur-mesure... [Terminé]</p>
+                </div>
+            </div>
+
+            <!-- ÉTAPE 2 : LA FENÊTRE DU PROGRAMME QUI PREND FORME -->
+            <div id="step2Window" class="hidden glass-card p-6 rounded-3xl border border-brand-500/50 glow-box space-y-4 animate-build">
+                <div class="flex justify-between items-center border-b border-white/10 pb-3">
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-window-maximize text-brand-400"></i>
+                        <span class="text-xs font-bold text-white uppercase font-mono">Interface & Modules Opérationnels du Logiciel</span>
+                    </div>
+                    <span class="text-[10px] bg-emerald-500/20 text-emerald-400 px-2.5 py-1 rounded-full font-mono font-bold">Compilé & Prêt</span>
+                </div>
+
+                <div id="dynamicSoftwarePreview" class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <!-- Injecté dynamiquement selon l'idée -->
+                </div>
+            </div>
+
+            <!-- LE "APRÈS" (TON SIMULATEUR FINANCIER VALIDÉ QUI ARRIVE ENSUITE) -->
+            <div id="step3Simulator" class="hidden glass-card p-6 rounded-3xl border border-brand-500/30 space-y-4 animate-build">
+                <div class="flex items-center gap-2 text-brand-400 font-bold text-xs uppercase tracking-wider font-mono">
+                    <i class="fa-solid fa-calculator"></i> Simulation des Gains & Rentabilité du Logiciel
+                </div>
                 
-                <!-- Bloc 1 : Le Squelette Base de Données SQL -->
-                <div class="glass-card p-6 rounded-3xl border border-brand-500/40 glow-box space-y-4">
-                    <div class="flex justify-between items-center border-b border-white/10 pb-3">
-                        <div class="flex items-center gap-2">
-                            <i class="fa-solid fa-database text-brand-400"></i>
-                            <span class="text-xs font-bold text-white uppercase font-mono">1. Architecture PostgreSQL & Tables Métier</span>
-                        </div>
-                        <span class="text-[10px] bg-brand-500/20 text-brand-400 px-2.5 py-1 rounded-full font-mono font-bold">Synchronisé</span>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 items-center">
+                    <div>
+                        <label class="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1">Objectif Mensuel Visé (€)</label>
+                        <input type="number" id="targetIncomeInput" value="5000" step="500" oninput="calculateGoal()" class="w-full bg-slate-950 border border-white/20 rounded-xl px-4 py-2.5 text-base font-bold text-brand-400 focus:outline-none focus:border-brand-500">
                     </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 font-mono text-xs">
-                        <div class="bg-slate-950 p-4 rounded-2xl border border-white/10 space-y-2">
-                            <div class="text-brand-400 font-bold flex justify-between">
-                                <span>[Table: Users]</span>
-                                <i class="fa-solid fa-lock text-[10px]"></i>
-                            </div>
-                            <p class="text-slate-400 text-[11px] leading-relaxed">
-                                • id (UUID)<br>
-                                • email (VARCHAR)<br>
-                                • role (ADMIN / CLIENT)<br>
-                                • token_auth (JWT)
-                            </p>
-                        </div>
-                        <div class="bg-slate-950 p-4 rounded-2xl border border-white/10 space-y-2">
-                            <div class="text-brand-400 font-bold flex justify-between">
-                                <span>[Table: Engine_Core]</span>
-                                <i class="fa-solid fa-gears text-[10px]"></i>
-                            </div>
-                            <p class="text-slate-400 text-[11px] leading-relaxed">
-                                • module_name (TEXT)<br>
-                                • core_logic (BUILD)<br>
-                                • status (ONLINE)<br>
-                                • api_sync (ACTIVE)
-                            </p>
-                        </div>
-                        <div class="bg-slate-950 p-4 rounded-2xl border border-white/10 space-y-2">
-                            <div class="text-brand-400 font-bold flex justify-between">
-                                <span>[Table: Stripe_Billing]</span>
-                                <i class="fa-brands fa-stripe text-[10px]"></i>
-                            </div>
-                            <p class="text-slate-400 text-[11px] leading-relaxed">
-                                • customer_id (STRIPE)<br>
-                                • plan_price (29€/49€)<br>
-                                • webhook_status (200)<br>
-                                • renew_date (AUTO)
-                            </p>
-                        </div>
+                    <div>
+                        <label class="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1">Prix de l'Abonnement à votre Software</label>
+                        <select id="priceSelect" onchange="calculateGoal()" class="w-full bg-slate-950 text-white font-bold rounded-xl px-4 py-3 border border-white/20 text-xs">
+                            <option value="29">29 € / mois par utilisateur</option>
+                            <option value="49" selected>49 € / mois par utilisateur</option>
+                            <option value="79">79 € / mois par utilisateur</option>
+                            <option value="99">99 € / mois par utilisateur</option>
+                        </select>
                     </div>
                 </div>
 
-                <!-- Bloc 2 : Les Modules Métier Générés -->
-                <div class="glass-card p-6 rounded-3xl border border-white/15 space-y-4">
-                    <div class="flex justify-between items-center border-b border-white/10 pb-3">
-                        <div class="flex items-center gap-2">
-                            <i class="fa-solid fa-microchip text-brand-400"></i>
-                            <span class="text-xs font-bold text-white uppercase font-mono">2. Assemblage des Modules du Programme</span>
-                        </div>
-                        <span class="text-[10px] bg-emerald-500/20 text-emerald-400 px-2.5 py-1 rounded-full font-mono font-bold">Compilé avec succès</span>
-                    </div>
-
-                    <div id="dynamicSoftwareModules" class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                        <!-- Injecté dynamiquement -->
-                    </div>
-                </div>
-
-                <!-- LE "APRÈS" : LE SIMULATEUR DE REVENUS (QUE TU AS VALIDÉ) -->
-                <div class="glass-card p-6 rounded-3xl border border-brand-500/30 space-y-4">
-                    <div class="flex items-center gap-2 text-brand-400 font-bold text-xs uppercase tracking-wider font-mono">
-                        <i class="fa-solid fa-calculator"></i> 3. Simulation des Gains & Rentabilité du Logiciel
-                    </div>
-                    
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 items-center">
-                        <div>
-                            <label class="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1">Objectif Mensuel Visé (€)</label>
-                            <input type="number" id="targetIncomeInput" value="5000" step="500" oninput="calculateGoal()" class="w-full bg-slate-950 border border-white/20 rounded-xl px-4 py-2.5 text-base font-bold text-brand-400 focus:outline-none focus:border-brand-500">
-                        </div>
-                        <div>
-                            <label class="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1">Prix de l'Abonnement à votre Software</label>
-                            <select id="priceSelect" onchange="calculateGoal()" class="w-full bg-slate-950 text-white font-bold rounded-xl px-4 py-3 border border-white/20 text-xs">
-                                <option value="29">29 € / mois par utilisateur</option>
-                                <option value="49" selected>49 € / mois par utilisateur</option>
-                                <option value="79">79 € / mois par utilisateur</option>
-                                <option value="99">99 € / mois par utilisateur</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div id="analysisDetails" class="bg-slate-950 p-3.5 rounded-xl border border-white/10 text-xs text-slate-200">
-                    </div>
+                <div id="analysisDetails" class="bg-slate-950 p-3.5 rounded-xl border border-white/10 text-xs text-slate-200">
                 </div>
             </div>
 
             <!-- PAYWALL (CODE SOURCE & DÉPLOIEMENT) -->
-            <div class="relative rounded-3xl overflow-hidden border border-brand-500/50 bg-slate-950 p-6 text-center shadow-2xl">
+            <div id="step4Paywall" class="hidden relative rounded-3xl overflow-hidden border border-brand-500/50 bg-slate-950 p-6 text-center shadow-2xl animate-build">
                 
                 <div class="filter blur-[6px] select-none text-left font-mono text-[10px] text-slate-500 opacity-40 space-y-1">
                     <p>// ARCHITECTURE BACKEND COMPLÈTE PRÊTE AU DÉPLOIEMENT</p>
@@ -318,10 +285,10 @@
 
         function fillPrompt(text) {
             document.getElementById('projectInput').value = text;
-            startSoftwareEngine();
+            startLiveCreation();
         }
 
-        function startSoftwareEngine() {
+        function startLiveCreation() {
             const inputField = document.getElementById('projectInput');
             if (!inputField || !inputField.value.trim()) {
                 alert("Veuillez saisir une idée de programme ou de logiciel.");
@@ -331,44 +298,63 @@
             const input = inputField.value.trim();
             
             document.getElementById('heroSection').classList.add('hidden');
+            document.getElementById('liveCreationContainer').classList.remove('hidden');
             document.getElementById('appTitleDisplay').textContent = "Logiciel : " + input;
 
-            const modulesContainer = document.getElementById('dynamicSoftwareModules');
+            // Réinitialiser les fenêtres avant l'animation
+            document.getElementById('step1Window').classList.add('hidden');
+            document.getElementById('step2Window').classList.add('hidden');
+            document.getElementById('step3Simulator').classList.add('hidden');
+            document.getElementById('step4Paywall').classList.add('hidden');
 
-            modulesContainer.innerHTML = `
-                <div class="bg-slate-950 p-4 rounded-2xl border border-white/10 space-y-2 text-left">
-                    <div class="flex items-center gap-2 text-brand-400 font-bold text-xs font-mono">
-                        <i class="fa-solid fa-server"></i> Moteur Métier
-                    </div>
-                    <strong class="text-xs text-white block">Logique de traitement</strong>
-                    <p class="text-[11px] text-slate-400">Automatisation des flux pour "${escapeHtml(input)}".</p>
-                    <span class="text-[10px] bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded font-mono font-bold inline-block">Compilé OK</span>
-                </div>
-                <div class="bg-slate-950 p-4 rounded-2xl border border-white/10 space-y-2 text-left">
-                    <div class="flex items-center gap-2 text-brand-400 font-bold text-xs font-mono">
-                        <i class="fa-solid fa-key"></i> Sécurité & Sessions
-                    </div>
-                    <strong class="text-xs text-white block">Authentification JWT</strong>
-                    <p class="text-[11px] text-slate-400">Gestion des rôles, profils et accès utilisateurs.</p>
-                    <span class="text-[10px] bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded font-mono font-bold inline-block">Sécurisé AES</span>
-                </div>
-                <div class="bg-slate-950 p-4 rounded-2xl border border-white/10 space-y-2 text-left">
-                    <div class="flex items-center gap-2 text-brand-400 font-bold text-xs font-mono">
-                        <i class="fa-brands fa-stripe"></i> Facturation Abonnés
-                    </div>
-                    <strong class="text-xs text-white block">Passerelle Stripe Direct</strong>
-                    <p class="text-[11px] text-slate-400">Paiements récurrents et webhooks connectés.</p>
-                    <span class="text-[10px] bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded font-mono font-bold inline-block">API Active</span>
-                </div>
-            `;
+            const statusText = document.getElementById('buildStatusText');
+            const previewContainer = document.getElementById('dynamicSoftwarePreview');
 
-            document.getElementById('visualAppContainer').classList.remove('hidden');
-            calculateGoal();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            // Séquence d'ouverture des fenêtres en direct (Le "avant" vivant)
+            statusText.textContent = "Étape 1/3 — Écriture du code et des tables SQL...";
+            
+            setTimeout(() => {
+                document.getElementById('step1Window').classList.remove('hidden');
+            }, 400);
+
+            setTimeout(() => {
+                statusText.textContent = "Étape 2/3 — Assemblage des modules du programme...";
+                
+                // Adapter les modules selon l'idée
+                previewContainer.innerHTML = `
+                    <div class="bg-slate-950 p-4 rounded-2xl border border-white/10 space-y-2 text-left">
+                        <div class="text-brand-400 font-bold text-xs font-mono"><i class="fa-solid fa-cube mr-1"></i> Moteur Métier</div>
+                        <strong class="text-xs text-white block">Logique : ${escapeHtml(input)}</strong>
+                        <p class="text-[11px] text-slate-400">Automatisation des flux et traitements actifs.</p>
+                        <span class="text-[10px] bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded font-mono font-bold inline-block">Compilé 100% OK</span>
+                    </div>
+                    <div class="bg-slate-950 p-4 rounded-2xl border border-white/10 space-y-2 text-left">
+                        <div class="text-brand-400 font-bold text-xs font-mono"><i class="fa-solid fa-key mr-1"></i> Sécurité JWT</div>
+                        <strong class="text-xs text-white block">Gestion des rôles & profils</strong>
+                        <p class="text-[11px] text-slate-400">Chiffrement AES et sessions sécurisées.</p>
+                        <span class="text-[10px] bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded font-mono font-bold inline-block">Sécurisé</span>
+                    </div>
+                    <div class="bg-slate-950 p-4 rounded-2xl border border-white/10 space-y-2 text-left">
+                        <div class="text-brand-400 font-bold text-xs font-mono"><i class="fa-brands fa-stripe mr-1"></i> Facturation</div>
+                        <strong class="text-xs text-white block">Passerelle Stripe Direct</strong>
+                        <p class="text-[11px] text-slate-400">Abonnements récurrents et webhooks.</p>
+                        <span class="text-[10px] bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded font-mono font-bold inline-block">API Active</span>
+                    </div>
+                `;
+                document.getElementById('step2Window').classList.remove('hidden');
+            }, 1800);
+
+            setTimeout(() => {
+                statusText.textContent = "Logiciel généré avec succès ! Découvrez votre potentiel de gains ci-dessous.";
+                document.getElementById('step3Simulator').classList.remove('hidden');
+                document.getElementById('step4Paywall').classList.remove('hidden');
+                calculateGoal();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }, 3200);
         }
 
         function resetApp() {
-            document.getElementById('visualAppContainer').classList.add('hidden');
+            document.getElementById('liveCreationContainer').classList.add('hidden');
             document.getElementById('heroSection').classList.remove('hidden');
             document.getElementById('projectInput').value = "";
         }
