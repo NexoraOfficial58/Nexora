@@ -50,16 +50,19 @@
         .dot-yellow { background: #f59e0b; }
         .dot-green { background: #22c55e; }
 
-        @keyframes popIn {
-            0% { opacity: 0; transform: translateY(15px); }
-            100% { opacity: 1; transform: translateY(0); }
+        /* Animation de pop-up publicitaire / fenêtre de logiciel qui jaillit */
+        @keyframes popupOpen {
+            0% { opacity: 0; transform: scale(0.85) translateY(40px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
         }
-        .animate-pop { animation: popIn 0.3s ease-out forwards; }
+        .popup-window-1 { animation: popupOpen 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .popup-window-2 { opacity: 0; animation: popupOpen 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards; }
+        .popup-window-3 { opacity: 0; animation: popupOpen 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards; }
     </style>
 </head>
 <body class="text-slate-100 min-h-screen flex flex-col justify-between selection:bg-brand-500 selection:text-white relative">
 
-    <!-- FENÊTRES FLOTTANTES (INDICATEURS VIVANTS) -->
+    <!-- FENÊTRES FLOTTANTES (GAUCHE ET DROITE) -->
     <div class="floating-window hidden xl:block left-6 top-32 w-64">
         <div class="window-header">
             <div class="dot dot-red"></div>
@@ -79,6 +82,28 @@
             <div class="bg-emerald-500/10 p-2 rounded border border-emerald-500/30 flex justify-between items-center">
                 <span class="text-emerald-300">🔥 Déploiement</span>
                 <span class="text-brand-400 font-bold">+29,00 €</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="floating-window hidden xl:block right-6 top-40 w-64">
+        <div class="window-header">
+            <div class="dot dot-red"></div>
+            <div class="dot dot-yellow"></div>
+            <div class="dot dot-green"></div>
+            <span class="text-[10px] text-brand-400 font-mono ml-1 font-bold">stripe_flux_recettes.log</span>
+        </div>
+        <div class="space-y-2">
+            <div class="flex justify-between text-xs">
+                <span class="text-slate-400">Volume global</span>
+                <span class="text-brand-400 font-bold">34 250 €</span>
+            </div>
+            <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                <div class="bg-brand-500 h-full w-[65%]"></div>
+            </div>
+            <div class="bg-slate-900 p-2 rounded border border-white/10 flex items-center justify-between text-xs">
+                <span class="text-slate-300">Succès Stripe</span>
+                <span class="text-emerald-400 font-bold">91.8% 🚀</span>
             </div>
         </div>
     </div>
@@ -107,28 +132,28 @@
         <!-- Hero Section -->
         <div id="heroSection" class="w-full space-y-6">
             <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold bg-brand-500/10 text-brand-400 border border-brand-500/30 shadow-md">
-                ✨ Voyez directement le logiciel que vous achetez
+                ✨ Ouvrez les fenêtres de votre future plateforme
             </span>
 
             <h1 class="text-4xl sm:text-6xl font-black text-white tracking-tight leading-tight">
-                Tapez votre idée, découvrez votre plateforme, <br/>
+                Tapez votre idée, ouvrez votre logiciel, <br/>
                 <span class="gradient-text">Encaissez vos abonnements.</span>
             </h1>
 
             <p class="text-slate-300 text-base sm:text-lg max-w-xl mx-auto leading-relaxed">
-                Entrez votre projet. Voyez s'afficher immédiatement les écrans réels de la plateforme logicielle que vous allez commercialiser.
+                Entrez votre projet. Voyez de vraies fenêtres pop-up s'ouvrir instantanément avec les écrans et aperçus visuels de votre application.
             </p>
 
             <!-- Champ de saisie -->
             <div class="glass max-w-2xl mx-auto w-full p-6 sm:p-8 rounded-3xl border border-white/15 shadow-2xl text-left glow-box mt-4">
-                <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-3">Quel logiciel ou plateforme voulez-vous voir ?</label>
+                <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-3">Quel logiciel ou programme voulez-vous générer ?</label>
                 
                 <div class="flex flex-col sm:flex-row gap-3 mb-4">
                     <input type="text" id="projectInput" placeholder="ex: Facturation BTP, Gestion de stock, CRM..." class="flex-1 bg-white/5 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 text-sm">
                     
-                    <button onclick="showPlatformScreens()" class="gradient-bg text-white px-8 py-3.5 rounded-xl font-bold flex items-center justify-center gap-2 hover:opacity-90 transition shadow-lg shadow-emerald-500/20 cursor-pointer text-sm whitespace-nowrap">
-                        <i class="fas fa-eye"></i>
-                        <span>Voir la Plateforme</span>
+                    <button onclick="openPopupWindows()" class="gradient-bg text-white px-8 py-3.5 rounded-xl font-bold flex items-center justify-center gap-2 hover:opacity-90 transition shadow-lg shadow-emerald-500/20 cursor-pointer text-sm whitespace-nowrap">
+                        <i class="fas fa-window-restore"></i>
+                        <span>Ouvrir les Fenêtres</span>
                     </button>
                 </div>
 
@@ -141,8 +166,8 @@
             </div>
         </div>
 
-        <!-- ZONE DU RÉSULTAT : LA VRAIE PLATEFORME VISIBLE + SIMULATEUR + PAYWALL -->
-        <div id="resultSection" class="hidden w-full text-left space-y-8 animate-pop mt-2">
+        <!-- ZONE DU RÉSULTAT : LES VRAIES FENÊTRES POP-UP QUI S'OUVRENT + TON SIMULATEUR VALIDÉ -->
+        <div id="resultSection" class="hidden w-full text-left space-y-8 mt-2">
             
             <div class="flex justify-between items-center bg-slate-900/90 p-4 rounded-2xl border border-white/10 shadow-lg">
                 <div class="flex items-center gap-3">
@@ -152,7 +177,7 @@
                         <div class="w-2.5 h-2.5 rounded-full bg-green-500"></div>
                     </div>
                     <div>
-                        <span class="text-[9px] uppercase tracking-wider font-mono font-bold text-brand-400 block">INTERFACE DE LA PLATEFORME EN DIRECT</span>
+                        <span class="text-[9px] uppercase tracking-wider font-mono font-bold text-brand-400 block">FENÊTRES ACTIVES DE LA PLATEFORME</span>
                         <h2 class="text-lg font-black text-white" id="appTitleDisplay">Logiciel SaaS</h2>
                     </div>
                 </div>
@@ -161,27 +186,14 @@
                 </button>
             </div>
 
-            <!-- APERÇU CONCRET DE LA PLATEFORME (CE QUE LE CLIENT VOIT) -->
-            <div class="glass-card p-6 rounded-3xl border border-brand-500/50 glow-box space-y-6">
-                
-                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 border-b border-white/10 pb-4">
-                    <div class="flex items-center gap-3">
-                        <div class="w-12 h-12 rounded-2xl bg-brand-500/20 border border-brand-500/40 flex items-center justify-center text-brand-400 text-xl font-bold">
-                            <i class="fa-solid fa-desktop"></i>
-                        </div>
-                        <div>
-                            <span class="text-[10px] text-brand-400 font-mono font-bold uppercase">APERÇU VISUEL DE CE QUE VOUS VENDEZ</span>
-                            <h3 class="text-base font-black text-white" id="softwareSubtitle">Écrans de travail du logiciel</h3>
-                        </div>
-                    </div>
-                    <span class="text-xs font-bold text-emerald-400 bg-emerald-500/10 px-3 py-1.5 rounded-full border border-emerald-500/30 whitespace-nowrap">
-                        <i class="fa-solid fa-circle-check mr-1"></i> Prêt à commercialiser
-                    </span>
+            <!-- LES FENÊTRES POP-UP DU LOGICIEL QUI JAILLISSENT AVEC LEURS BARRES DE TITRE -->
+            <div class="space-y-4">
+                <div class="text-xs font-mono font-bold text-brand-400 uppercase tracking-wider px-2">
+                    <i class="fa-solid fa-arrow-up-right-dots mr-1"></i> Aperçu visuel des fenêtres générées pour votre projet :
                 </div>
 
-                <!-- LES 3 ÉCRANS CONCRETS DE LA PLATEFORME -->
-                <div id="platformScreensGrid" class="grid grid-cols-1 sm:grid-cols-3 gap-5">
-                    <!-- Injecté par script -->
+                <div id="popupWindowsContainer" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Injecté par script avec effet pop-up -->
                 </div>
             </div>
 
@@ -269,10 +281,10 @@
 
         function fillPrompt(text) {
             document.getElementById('projectInput').value = text;
-            showPlatformScreens();
+            openPopupWindows();
         }
 
-        function showPlatformScreens() {
+        function openPopupWindows() {
             const inputField = document.getElementById('projectInput');
             if (!inputField || !inputField.value.trim()) {
                 alert("Veuillez saisir une idée de logiciel ou de plateforme.");
@@ -286,95 +298,130 @@
             document.getElementById('resultSection').classList.remove('hidden');
             
             document.getElementById('appTitleDisplay').textContent = "Plateforme : " + input;
-            document.getElementById('softwareSubtitle').textContent = `Écrans et interfaces concrets pour : "${input}"`;
 
-            const grid = document.getElementById('platformScreensGrid');
+            const container = document.getElementById('popupWindowsContainer');
 
             if (lower.includes('btp') || lower.includes('factur') || lower.includes('devis')) {
-                grid.innerHTML = `
-                    <div class="bg-slate-900 rounded-2xl border border-white/10 overflow-hidden text-left space-y-3 shadow-xl p-4">
-                        <div class="bg-slate-950 p-3 rounded-xl border border-white/10 font-mono text-[11px] space-y-1">
-                            <div class="text-emerald-400 font-bold">📄 DEVIS #2026-842</div>
-                            <div class="text-slate-300">Client : M. Dupont (Preserville)</div>
-                            <div class="text-slate-400">Ravalement façade + Enduit : 4 500 €</div>
-                            <div class="text-brand-400 font-bold">TVA (10%) : 450 €</div>
+                container.innerHTML = `
+                    <div class="popup-window-1 glass-card rounded-2xl border border-brand-500/40 overflow-hidden shadow-2xl flex flex-col">
+                        <div class="bg-slate-950 px-4 py-2.5 border-b border-white/10 flex items-center justify-between">
+                            <div class="flex items-center gap-1.5"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div>
+                            <span class="text-[10px] font-mono text-emerald-400 font-bold">fenetre_devis.app</span>
                         </div>
-                        <div>
-                            <span class="text-[10px] font-mono text-brand-400 font-bold uppercase">Écran 1 : Éditeur de Devis</span>
-                            <strong class="text-xs text-white block">Chiffrage rapide des chantiers</strong>
-                            <p class="text-[11px] text-slate-400">Génération des lignes de travaux et calcul automatique de la TVA.</p>
-                        </div>
-                    </div>
-
-                    <div class="bg-slate-900 rounded-2xl border border-white/10 overflow-hidden text-left space-y-3 shadow-xl p-4">
-                        <div class="bg-slate-950 p-3 rounded-xl border border-white/10 font-mono text-[11px] space-y-1">
-                            <div class="text-emerald-400 font-bold">👷 SUIVI CHANTIERS EN COURS</div>
-                            <div class="text-slate-300">Preserville - Maison principale</div>
-                            <div class="text-amber-400">Statut : En cours (Enduit extérieur)</div>
-                            <div class="text-slate-400">Prochaine intervention : Jeudi 8h00</div>
-                        </div>
-                        <div>
-                            <span class="text-[10px] font-mono text-brand-400 font-bold uppercase">Écran 2 : Planning & Terrain</span>
-                            <strong class="text-xs text-white block">Gestion des chantiers</strong>
-                            <p class="text-[11px] text-slate-400">Centralisation des adresses, des clients et des états d'avancement.</p>
+                        <div class="p-5 space-y-4 flex-grow flex flex-col justify-between">
+                            <div class="bg-slate-950 p-3.5 rounded-xl border border-white/10 font-mono text-xs space-y-1">
+                                <div class="text-emerald-400 font-bold">📄 DEVIS CHANTIER #842</div>
+                                <div class="text-slate-300">Client : M. Dupont</div>
+                                <div class="text-slate-400">Travaux : Façade & Isolation</div>
+                                <div class="text-brand-400 font-bold">Total : 4 500,00 €</div>
+                            </div>
+                            <div>
+                                <span class="text-[10px] font-mono text-brand-400 font-bold uppercase">Fenêtre 1 : Éditeur de Devis</span>
+                                <strong class="text-xs text-white block">Chiffrage et TVA automatiques</strong>
+                                <p class="text-[11px] text-slate-400">Le client génère et envoie ses devis professionnels en 1 clic.</p>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="bg-slate-900 rounded-2xl border border-white/10 overflow-hidden text-left space-y-3 shadow-xl p-4">
-                        <div class="bg-slate-950 p-3 rounded-xl border border-white/10 font-mono text-[11px] space-y-1">
-                            <div class="text-emerald-400 font-bold">💳 ACOMPTE ENCAISSÉ (Stripe)</div>
-                            <div class="text-slate-300">Montant : 1 350,00 € (30%)</div>
-                            <div class="text-emerald-400">Statut : Payé par Carte Bancaire 🟢</div>
-                            <div class="text-slate-400">Facture acquittée envoyée au client.</div>
+                    <div class="popup-window-2 glass-card rounded-2xl border border-brand-500/40 overflow-hidden shadow-2xl flex flex-col">
+                        <div class="bg-slate-950 px-4 py-2.5 border-b border-white/10 flex items-center justify-between">
+                            <div class="flex items-center gap-1.5"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div>
+                            <span class="text-[10px] font-mono text-emerald-400 font-bold">suivi_chantiers.exe</span>
                         </div>
-                        <div>
-                            <span class="text-[10px] font-mono text-brand-400 font-bold uppercase">Écran 3 : Encaissement Acompte</span>
-                            <strong class="text-xs text-white block">Paiement sécurisé par CB</strong>
-                            <p class="text-[11px] text-slate-400">Validation client en un clic pour sécuriser l'acompte du chantier.</p>
+                        <div class="p-5 space-y-4 flex-grow flex flex-col justify-between">
+                            <div class="bg-slate-950 p-3.5 rounded-xl border border-white/10 font-mono text-xs space-y-1">
+                                <div class="text-emerald-400 font-bold">👷 PLANNING TERRAIN</div>
+                                <div class="text-slate-300">Chantier : Preserville</div>
+                                <div class="text-amber-400">Statut : En cours</div>
+                                <div class="text-slate-400">Équipe : Assignée</div>
+                            </div>
+                            <div>
+                                <span class="text-[10px] font-mono text-brand-400 font-bold uppercase">Fenêtre 2 : Suivi de Chantier</span>
+                                <strong class="text-xs text-white block">Planning et interventions</strong>
+                                <p class="text-[11px] text-slate-400">Interface de gestion centralisée pour les artisans sur le terrain.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="popup-window-3 glass-card rounded-2xl border border-brand-500/40 overflow-hidden shadow-2xl flex flex-col">
+                        <div class="bg-slate-950 px-4 py-2.5 border-b border-white/10 flex items-center justify-between">
+                            <div class="flex items-center gap-1.5"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div>
+                            <span class="text-[10px] font-mono text-emerald-400 font-bold">paiement_stripe.sys</span>
+                        </div>
+                        <div class="p-5 space-y-4 flex-grow flex flex-col justify-between">
+                            <div class="bg-slate-950 p-3.5 rounded-xl border border-white/10 font-mono text-xs space-y-1">
+                                <div class="text-emerald-400 font-bold">💳 ACOMPTE 30% REÇU</div>
+                                <div class="text-slate-300">Montant : 1 350,00 €</div>
+                                <div class="text-emerald-400">Statut : Payé par CB 🟢</div>
+                                <div class="text-slate-400">Sécurisé par Stripe</div>
+                            </div>
+                            <div>
+                                <span class="text-[10px] font-mono text-brand-400 font-bold uppercase">Fenêtre 3 : Encaissement</span>
+                                <strong class="text-xs text-white block">Acomptes sécurisés par SMS</strong>
+                                <p class="text-[11px] text-slate-400">Validation et paiement direct par le client final sur smartphone.</p>
+                            </div>
                         </div>
                     </div>
                 `;
             } else {
-                grid.innerHTML = `
-                    <div class="bg-slate-900 rounded-2xl border border-white/10 overflow-hidden text-left space-y-3 shadow-xl p-4">
-                        <div class="bg-slate-950 p-3 rounded-xl border border-white/10 font-mono text-[11px] space-y-1">
-                            <div class="text-emerald-400 font-bold">📊 TABLEAU DE BORD ACTIF</div>
-                            <div class="text-slate-300">Chiffre d'affaires : 12 450 €</div>
-                            <div class="text-brand-400">Clients actifs : 142 abonnés</div>
-                            <div class="text-slate-400">Croissance : +18.4% ce mois</div>
+                container.innerHTML = `
+                    <div class="popup-window-1 glass-card rounded-2xl border border-brand-500/40 overflow-hidden shadow-2xl flex flex-col">
+                        <div class="bg-slate-950 px-4 py-2.5 border-b border-white/10 flex items-center justify-between">
+                            <div class="flex items-center gap-1.5"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div>
+                            <span class="text-[10px] font-mono text-emerald-400 font-bold">dashboard_principal.app</span>
                         </div>
-                        <div>
-                            <span class="text-[10px] font-mono text-brand-400 font-bold uppercase">Écran 1 : Dashboard Principal</span>
-                            <strong class="text-xs text-white block">Pilotage de l'activité en direct</strong>
-                            <p class="text-[11px] text-slate-400">Visualisation immédiate des indicateurs clés et des performances.</p>
-                        </div>
-                    </div>
-
-                    <div class="bg-slate-900 rounded-2xl border border-white/10 overflow-hidden text-left space-y-3 shadow-xl p-4">
-                        <div class="bg-slate-950 p-3 rounded-xl border border-white/10 font-mono text-[11px] space-y-1">
-                            <div class="text-emerald-400 font-bold">⚙️ MODULE : ${escapeHtml(input.toUpperCase())}</div>
-                            <div class="text-slate-300">Catalogue & Gestion des flux</div>
-                            <div class="text-brand-400">Stock / Données : Synchronisé</div>
-                            <div class="text-slate-400">Automatismes : Activés</div>
-                        </div>
-                        <div>
-                            <span class="text-[10px] font-mono text-brand-400 font-bold uppercase">Écran 2 : Espace Métier</span>
-                            <strong class="text-xs text-white block">Outils et fonctions dédiés</strong>
-                            <p class="text-[11px] text-slate-400">L'interface sur-mesure configurée spécifiquement pour ce secteur.</p>
+                        <div class="p-5 space-y-4 flex-grow flex flex-col justify-between">
+                            <div class="bg-slate-950 p-3.5 rounded-xl border border-white/10 font-mono text-xs space-y-1">
+                                <div class="text-emerald-400 font-bold">📊 ANALYTICS EN DIRECT</div>
+                                <div class="text-slate-300">Chiffre d'affaires : 12 450 €</div>
+                                <div class="text-brand-400">Abonnés actifs : 142</div>
+                                <div class="text-slate-400">Croissance : +18.4%</div>
+                            </div>
+                            <div>
+                                <span class="text-[10px] font-mono text-brand-400 font-bold uppercase">Fenêtre 1 : Tableau de Bord</span>
+                                <strong class="text-xs text-white block">Pilotage et performances</strong>
+                                <p class="text-[11px] text-slate-400">Vue d'ensemble instantanée des métriques clés de l'activité.</p>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="bg-slate-900 rounded-2xl border border-white/10 overflow-hidden text-left space-y-3 shadow-xl p-4">
-                        <div class="bg-slate-950 p-3 rounded-xl border border-white/10 font-mono text-[11px] space-y-1">
-                            <div class="text-emerald-400 font-bold">👥 PORTAIL CLIENTS & STRIPE</div>
-                            <div class="text-slate-300">Abonnements récurrents : Actifs</div>
-                            <div class="text-emerald-400">Renouvellement automatique : OK</div>
-                            <div class="text-slate-400">Factures générées : 100%</div>
+                    <div class="popup-window-2 glass-card rounded-2xl border border-brand-500/40 overflow-hidden shadow-2xl flex flex-col">
+                        <div class="bg-slate-950 px-4 py-2.5 border-b border-white/10 flex items-center justify-between">
+                            <div class="flex items-center gap-1.5"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div>
+                            <span class="text-[10px] font-mono text-emerald-400 font-bold">moteur_metier.sys</span>
                         </div>
-                        <div>
-                            <span class="text-[10px] font-mono text-brand-400 font-bold uppercase">Écran 3 : Gestion Abonnés</span>
-                            <strong class="text-xs text-white block">Espace de facturation récurrente</strong>
-                            <p class="text-[11px] text-slate-400">Plateforme sécurisée pour encaisser vos abonnés chaque mois.</p>
+                        <div class="p-5 space-y-4 flex-grow flex flex-col justify-between">
+                            <div class="bg-slate-950 p-3.5 rounded-xl border border-white/10 font-mono text-xs space-y-1">
+                                <div class="text-emerald-400 font-bold">⚙️ MODULE : ${escapeHtml(input.toUpperCase())}</div>
+                                <div class="text-slate-300">Gestion des flux : Actif</div>
+                                <div class="text-brand-400">Automatismes : OK</div>
+                                <div class="text-slate-400">Base de données : Connectée</div>
+                            </div>
+                            <div>
+                                <span class="text-[10px] font-mono text-brand-400 font-bold uppercase">Fenêtre 2 : Espace Métier</span>
+                                <strong class="text-xs text-white block">Outils et fonctions dédiés</strong>
+                                <p class="text-[11px] text-slate-400">L'interface sur-mesure configurée spécifiquement pour ce secteur.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="popup-window-3 glass-card rounded-2xl border border-brand-500/40 overflow-hidden shadow-2xl flex flex-col">
+                        <div class="bg-slate-950 px-4 py-2.5 border-b border-white/10 flex items-center justify-between">
+                            <div class="flex items-center gap-1.5"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div>
+                            <span class="text-[10px] font-mono text-emerald-400 font-bold">espace_abonnes.net</span>
+                        </div>
+                        <div class="p-5 space-y-4 flex-grow flex flex-col justify-between">
+                            <div class="bg-slate-950 p-3.5 rounded-xl border border-white/10 font-mono text-xs space-y-1">
+                                <div class="text-emerald-400 font-bold">👥 PAIEMENTS RÉCURRENTS</div>
+                                <div class="text-slate-300">Passerelle : Stripe Connect</div>
+                                <div class="text-emerald-400">Abonnement : 29€ / mois</div>
+                                <div class="text-slate-400">Facturation automatique</div>
+                            </div>
+                            <div>
+                                <span class="text-[10px] font-mono text-brand-400 font-bold uppercase">Fenêtre 3 : Gestion Clients</span>
+                                <strong class="text-xs text-white block">Portail abonnés Stripe</strong>
+                                <p class="text-[11px] text-slate-400">Espace sécurisé pour encaisser les abonnements chaque mois.</p>
+                            </div>
                         </div>
                     </div>
                 `;
