@@ -28,11 +28,70 @@ header {position:sticky;top:0;z-index:100;background:rgba(7,11,24,.92);backdrop-
 .hero {padding:80px 0 50px;text-align:center;}
 h1 {font-size:clamp(36px,6vw,60px);font-weight:900;line-height:1.1;margin-bottom:20px;}
 .gradient {background:linear-gradient(90deg,#4ca5ff,#9d72ff);-webkit-background-clip:text;color:transparent;}
-.builder {background:linear-gradient(145deg,#111c35,#0c1225);border:1px solid rgba(87,133,255,.28);padding:35px;border-radius:24px;box-shadow:0 25px 80px rgba(0,0,0,.4);margin-top:40px;text-align:left;}
+.builder {background:linear-gradient(145deg,#111c35,#0c1225);border:1px solid rgba(87,133,255,.28);padding:35px;border-radius:24px;box-shadow:0 25px 80px rgba(0,0,0,.4);margin-top:40px;text-align:left;position:relative;}
 .builder input[type="text"] {width:100%;padding:18px;border-radius:12px;border:1px solid var(--border);background:#080e1d;color:white;outline:none;margin-bottom:15px;font-size:16px;}
 .examples {display:flex;flex-wrap:wrap;gap:8px;margin-bottom:25px;}
 .example {padding:8px 14px;border-radius:8px;background:#1c2945;color:#b9caff;border:1px solid var(--border);cursor:pointer;font-size:13px;}
 
+/* SYSTEME DE FENETRES POP-UP EN TROMPE L'OEIL (L'EFFET DE CONSTRUCTEUR EN DIRECT) */
+.popup-stage {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  background: rgba(4, 7, 16, 0.85);
+  backdrop-filter: blur(10px);
+  z-index: 999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.popup-window {
+  width: min(600px, 90%);
+  background: #0d162d;
+  border: 1px solid rgba(74, 165, 255, 0.4);
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+  overflow: hidden;
+  animation: popIn 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes popIn {
+  from { opacity:0; transform: scale(0.8) translateY(30px); }
+  to { opacity:1; transform: scale(1) translateY(0); }
+}
+
+.popup-header {
+  background: #070c1b;
+  padding: 12px 18px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.popup-dots { display: flex; gap: 6px; }
+.popup-dot { width: 10px; height: 10px; border-radius: 50%; }
+.dot-red { background: #ff5f56; }
+.dot-yellow { background: #ffbd2e; }
+.dot-green { background: #27c93f; }
+
+.popup-body {
+  padding: 25px;
+  font-family: monospace;
+  font-size: 13px;
+  color: #c4d3f5;
+  line-height: 1.6;
+}
+
+.popup-code {
+  background: #050814;
+  padding: 15px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.05);
+  margin-top: 15px;
+  color: #4ade80;
+}
+
+/* Zone d'affichage du résultat et du simulateur */
 #preview {
   display:none;
   margin-top:25px;
@@ -41,45 +100,34 @@ h1 {font-size:clamp(36px,6vw,60px);font-weight:900;line-height:1.1;margin-bottom
   border:1px solid rgba(92,143,255,.4);
   border-radius:18px;
 }
-
-/* Style des fenêtres de démonstration (les aperçus du logiciel) */
-.showcase-window {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.5s ease;
-  background: #0b1329;
-  border: 1px solid rgba(255,255,255,0.15);
-  border-radius: 14px;
-  overflow: hidden;
-  margin-bottom: 15px;
-  text-align: left;
-}
-.showcase-window.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.simulator-box {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.5s ease;
-  background:#0d162d;
-  border:1px solid rgba(86,135,255,0.3);
-  border-radius:16px;
-  padding:25px;
-  margin-top:25px;
-}
-.simulator-box.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
+.simulator-box {background:#0d162d;border:1px solid rgba(86,135,255,0.3);border-radius:16px;padding:25px;margin-top:25px;}
 .revenue-display {background:linear-gradient(135deg, rgba(74,165,255,0.15), rgba(157,114,255,0.15));border:1px solid rgba(74,165,255,0.4);padding:20px;border-radius:14px;text-align:center;margin-top:20px;}
 .revenue-amount {font-size:26px;font-weight:900;color:#4ade80;margin-top:5px;}
 footer {border-top:1px solid var(--border);padding:35px 0;text-align:center;color:#8290aa;font-size:13px;margin-top:80px;}
 </style>
 </head>
 <body>
+
+<!-- LES FENETRES POP-UP SYSTEME QUI S'AFFICHENT EN DIRECT AU CLIC -->
+<div class="popup-stage" id="popupOverlay">
+  <div class="popup-window">
+    <div class="popup-header">
+      <div class="popup-dots">
+        <div class="popup-dot dot-red"></div>
+        <div class="popup-dot dot-yellow"></div>
+        <div class="popup-dot dot-green"></div>
+      </div>
+      <div style="font-size:12px; color:#4ca5ff; font-weight:bold;" id="popStepTitle">NEXORA ENGINE v4.2</div>
+    </div>
+    <div class="popup-body">
+      <div id="popMessage" style="font-size:15px; font-weight:bold; color:white;">Initialisation du générateur SaaS...</div>
+      <div class="popup-code" id="popCode">
+        > Initializing modules...<br>
+        > Building user database scheme...
+      </div>
+    </div>
+  </div>
+</div>
 
 <header>
   <div class="container nav">
@@ -90,8 +138,8 @@ footer {border-top:1px solid var(--border);padding:35px 0;text-align:center;colo
 
 <main class="container">
   <section class="hero">
-    <h1>Votre idée mérite de devenir<br><span class="gradient">un logiciel puissant.</span></h1>
-    <p style="color:var(--muted);max-width:600px;margin:0 auto;font-size:16px;">Saisissez votre projet et visualisez en direct les interfaces et écrans de votre futur logiciel.</p>
+    <h1>Votre idée mérite de devenir<br><span class="gradient">un logiciel rentable.</span></h1>
+    <p style="color:var(--muted);max-width:600px;margin:0 auto;font-size:16px;">Saisissez votre projet et lancez le constructeur IA pour voir votre logiciel se fabriquer en direct.</p>
 
     <div class="builder">
       <label style="display:block;font-weight:800;margin-bottom:10px;">Quel logiciel souhaitez-vous créer ?</label>
@@ -103,65 +151,51 @@ footer {border-top:1px solid var(--border);padding:35px 0;text-align:center;colo
         <button class="example" onclick="fill('Plateforme de gestion de rendez-vous')">📅 Agenda & RDV</button>
       </div>
 
-      <button class="btn" style="width:100%;" onclick="startShowcase()">✦ Lancer la démonstration des écrans</button>
+      <button class="btn" style="width:100%;" onclick="runLiveGenerator()">✦ Générer mon logiciel en direct</button>
 
-      <!-- ZONE DES APERÇUS ET DU SIMULATEUR -->
+      <!-- RESULTAT ET SIMULATEUR FINAL -->
       <div id="preview" aria-live="polite">
-        <div id="loadingStatus" style="font-size:14px; color:#4ca5ff; font-weight:bold; margin-bottom:15px; text-align:center;">
-          🔍 Analyse de votre projet et génération des écrans...
+        <div style="font-size:14px; color:#4ade80; font-weight:bold; margin-bottom:15px; text-align:center;">
+          ✅ Maquette SaaS générée avec succès !
         </div>
 
-        <h3 style="margin-bottom:20px;font-size:20px;">🖥️ Écrans générés pour : <span id="previewTitle" style="color:#4ca5ff;"></span></h3>
+        <h3 style="margin-bottom:15px;font-size:20px;">🚀 Application créée : <span id="previewTitle" style="color:#4ca5ff;"></span></h3>
         
-        <!-- FENÊTRE 1 : APERÇU DE L'INTERFACE PRINCIPALE -->
-        <div class="showcase-window" id="win1">
+        <!-- MODULES MAQUETTE -->
+        <div style="background:#0b1329; border:1px solid rgba(255,255,255,0.15); border-radius:14px; overflow:hidden; text-align:left;">
           <div style="background:#070c1b; padding:10px 16px; border-bottom:1px solid rgba(255,255,255,0.08); display:flex; align-items:center; justify-content:space-between;">
-            <span style="font-size:11px; color:#4ca5ff; font-weight:bold;">✨ Écran 1/3 : Tableau de bord & Gestion des clients</span>
-            <span style="font-size:10px; background:rgba(39,201,63,0.15); color:#4ade80; padding:2px 8px; border-radius:10px;">Interface active</span>
+            <div style="display:flex; gap:6px;">
+              <span style="width:10px;height:10px;border-radius:50%;background:#ff5f56;display:inline-block;"></span>
+              <span style="width:10px;height:10px;border-radius:50%;background:#ffbd2e;display:inline-block;"></span>
+              <span style="width:10px;height:10px;border-radius:50%;background:#27c93f;display:inline-block;"></span>
+            </div>
+            <span style="font-size:11px; color:#687b9e; font-family:monospace;">app.nexora.ai/workspace/dashboard</span>
+            <span style="font-size:10px; background:rgba(39,201,63,0.15); color:#4ade80; padding:2px 8px; border-radius:10px; border:1px solid rgba(39,201,63,0.3);">En direct</span>
           </div>
-          <div style="padding:20px;">
-            <div style="font-size:14px; font-weight:bold; color:white; margin-bottom:8px;">Liste des dossiers récents & Statut des clients</div>
-            <div style="font-size:12px; color:var(--muted); background:#080e1d; padding:12px; border-radius:8px; border:1px solid rgba(255,255,255,0.05);">
-              📄 <b>Client #104</b> — Devis validé (Montant : 2 450 €) <span style="color:#4ade80; float:right;">[Prêt à facturer]</span><br>
-              📄 <b>Client #105</b> — Intervention en cours (Chantier principal) <span style="color:#3987ff; float:right;">[En cours]</span>
+          
+          <div style="padding:20px; display:grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap:15px;">
+            <div style="background:#131f3b; padding:15px; border-radius:10px; border:1px solid rgba(255,255,255,0.05);">
+              <div style="font-size:11px; color:#8657ff; font-weight:bold; text-transform:uppercase;">MODULE 01 — MÉTRIQUES</div>
+              <div style="font-size:20px; font-weight:bold; color:white; margin:8px 0 4px;">12 450 €</div>
+              <div style="font-size:11px; color:#4ade80;">↑ +14.2% ce mois</div>
+            </div>
+            <div style="background:#131f3b; padding:15px; border-radius:10px; border:1px solid rgba(255,255,255,0.05);">
+              <div style="font-size:11px; color:#3987ff; font-weight:bold; text-transform:uppercase;">MODULE 02 — PROJET</div>
+              <div id="moduleProjectName" style="font-size:13px; font-weight:bold; color:white; margin:8px 0 4px; word-break:break-all;">-</div>
+              <div style="font-size:11px; color:#a5b1ca;">Base de données active</div>
+            </div>
+            <div style="background:#131f3b; padding:15px; border-radius:10px; border:1px solid rgba(255,255,255,0.05);">
+              <div style="font-size:11px; color:#4ade80; font-weight:bold; text-transform:uppercase;">MODULE 03 — PAIEMENT</div>
+              <div style="font-size:14px; font-weight:bold; color:white; margin:8px 0 4px;">Stripe Connecté</div>
+              <div style="font-size:11px; color:#4ade80;">Prêt à encaisser</div>
             </div>
           </div>
         </div>
 
-        <!-- FENÊTRE 2 : APERÇU DU MODULE MÉTIER (FACTURATION / CATALOGUE) -->
-        <div class="showcase-window" id="win2">
-          <div style="background:#070c1b; padding:10px 16px; border-bottom:1px solid rgba(255,255,255,0.08); display:flex; align-items:center; justify-content:space-between;">
-            <span style="font-size:11px; color:#8657ff; font-weight:bold;">✨ Écran 2/3 : Moteur de Facturation & Devis Automatisés</span>
-            <span style="font-size:10px; background:rgba(134,87,255,0.15); color:#a77aff; padding:2px 8px; border-radius:10px;">Module métier</span>
-          </div>
-          <div style="padding:20px;">
-            <div style="font-size:14px; font-weight:bold; color:white; margin-bottom:8px;">Génération instantanée de documents légaux</div>
-            <div style="font-size:12px; color:var(--muted); background:#080e1d; padding:12px; border-radius:8px; border:1px solid rgba(255,255,255,0.05);">
-              🧾 TVA automatique (20%) • Mentions légales BTP intégrées • Export PDF en un clic.<br>
-              <span style="color:#4ade80;">✓ Votre logiciel rédige et envoie les factures à votre place.</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- FENÊTRE 3 : MODULE DE PAIEMENT STRIPE INTÉGRÉ -->
-        <div class="showcase-window" id="win3">
-          <div style="background:#070c1b; padding:10px 16px; border-bottom:1px solid rgba(255,255,255,0.08); display:flex; align-items:center; justify-content:space-between;">
-            <span style="font-size:11px; color:#27c93f; font-weight:bold;">✨ Écran 3/3 : Encaissement des clients par Carte Bancaire</span>
-            <span style="font-size:10px; background:rgba(39,201,63,0.15); color:#4ade80; padding:2px 8px; border-radius:10px;">Paiement en ligne</span>
-          </div>
-          <div style="padding:20px;">
-            <div style="font-size:14px; font-weight:bold; color:white; margin-bottom:8px;">Passerelle de paiement sécurisée intégrée</div>
-            <div style="font-size:12px; color:var(--muted); background:#080e1d; padding:12px; border-radius:8px; border:1px solid rgba(255,255,255,0.05);">
-              💳 Vos clients règlent directement depuis l'application via Stripe.<br>
-              <span style="color:#4ade80;">✓ Les fonds arrivent directement sur votre compte bancaire.</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- LE SIMULATEUR DE RENTABILITÉ -->
-        <div class="simulator-box" id="simBox">
-          <h4 style="color:#fff;margin-bottom:10px;font-size:16px;">💰 Simulateur de Business Plan & Rentabilité</h4>
-          <p style="font-size:13px;color:var(--muted);margin-bottom:20px;">Ajustez vos objectifs pour calculer le nombre de clients nécessaires :</p>
+        <!-- SIMULATEUR -->
+        <div class="simulator-box">
+          <h4 style="color:#fff;margin-bottom:10px;font-size:16px;">💰 Simulateur d'objectif de chiffre d'affaires</h4>
+          <p style="font-size:13px;color:var(--muted);margin-bottom:20px;">Ajustez votre objectif pour voir le nombre de clients à aller chercher :</p>
 
           <div style="margin-bottom:15px;">
             <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:5px;">
@@ -173,7 +207,7 @@ footer {border-top:1px solid var(--border);padding:35px 0;text-align:center;colo
 
           <div style="margin-bottom:15px;">
             <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:5px;">
-              <span>Prix de vente de votre abonnement client :</span>
+              <span>Prix de votre abonnement client :</span>
               <b id="priceVal" style="color:#3987ff;font-size:15px;">49 € / mois</b>
             </div>
             <input type="range" id="simPrice" min="10" max="150" step="1" value="49" style="width:100%;accent-color:#8657ff;cursor:pointer;" oninput="updateSimulation()">
@@ -186,9 +220,9 @@ footer {border-top:1px solid var(--border);padding:35px 0;text-align:center;colo
           </div>
         </div>
 
-        <!-- BOUTON FINAL STRIPE -->
-        <a id="stripeBtn" href="https://buy.stripe.com/afA14f2UT9J3Q2hSe119fW02" target="_blank" class="btn" style="display:none; margin-top:25px; width:100%; background:linear-gradient(110deg,#27c93f,#10b981);">
-          ✦ Recevoir tout le code source complet de cette application (29 €) →
+        <!-- BOUTON STRIPE -->
+        <a href="https://buy.stripe.com/afA14f2UT9J3Q2hSe119fW02" target="_blank" class="btn" style="margin-top:25px; width:100%; background:linear-gradient(110deg,#27c93f,#10b981);">
+          ✦ Obtenir et télécharger mon code complet (29 €) →
         </a>
       </div>
 
@@ -203,7 +237,7 @@ footer {border-top:1px solid var(--border);padding:35px 0;text-align:center;colo
 <script>
 function fill(val) {
   document.getElementById("project").value = val;
-  startShowcase();
+  runLiveGenerator();
 }
 
 function updateSimulation() {
@@ -219,59 +253,50 @@ function updateSimulation() {
   document.getElementById("calcSub").textContent = "✓ Pour générer " + goal.toLocaleString("fr-FR") + " € de chiffre d'affaires récurrent mensuel";
 }
 
-function startShowcase() {
+function runLiveGenerator() {
   const input = document.getElementById("project");
+  const overlay = document.getElementById("popupOverlay");
+  const stepTitle = document.getElementById("popStepTitle");
+  const message = document.getElementById("popMessage");
+  const code = document.getElementById("popCode");
   const preview = document.getElementById("preview");
-  const status = document.getElementById("loadingStatus");
-  
-  const win1 = document.getElementById("win1");
-  const win2 = document.getElementById("win2");
-  const win3 = document.getElementById("win3");
-  const simBox = document.getElementById("simBox");
-  const stripeBtn = document.getElementById("stripeBtn");
 
-  if (!input.value.trim()) {
+  const val = input.value.trim();
+  if (!val) {
     alert("Veuillez saisir ou choisir un projet !");
     input.focus();
     return;
   }
 
-  // Reset
-  preview.style.display = "block";
-  win1.classList.remove("visible");
-  win2.classList.remove("visible");
-  win3.classList.remove("visible");
-  simBox.classList.remove("visible");
-  stripeBtn.style.display = "none";
+  // 1. AFFICHER LA PREMIÈRE POP-UP (CONSTRUCTION SERVEUR / IA)
+  overlay.style.display = "flex";
+  stepTitle.textContent = "CONSTRUCTEUR IA — PHASE 1/3";
+  message.textContent = "🖥️ Génération du Code Source pour : " + val;
+  code.innerHTML = "> npm install nexora-core-ai<br>> Compiling components for " + val + "...<br>> Creating PostgreSQL tables & schema... [OK]";
 
-  document.getElementById("previewTitle").textContent = input.value;
-  preview.scrollIntoView({ behavior: "smooth", block: "center" });
-
-  // Étape 1 : Ouverture de la fenêtre 1 (0.4s)
-  status.textContent = "⚙️ Chargement de l'interface principale...";
+  // 2. POP-UP D'INTERFACE METIER (APRES 1.2s)
   setTimeout(() => {
-    win1.classList.add("visible");
-  }, 400);
+    stepTitle.textContent = "CONSTRUCTEUR IA — PHASE 2/3";
+    message.textContent = "🎨 Assemblage des Interfaces & Formulaires...";
+    code.innerHTML = "> Generating Dashboard Views...<br>> Injecting PDF Billing Engine & Client CRM... [OK]<br>> Setting up User Auth & Security Protocols... [OK]";
+  }, 1200);
 
-  // Étape 2 : Ouverture de la fenêtre 2 (1.0s)
+  // 3. POP-UP CONNECTEUR STRIPE (APRES 2.4s)
   setTimeout(() => {
-    status.textContent = "⚡ Génération du module métier (Facturation/Gestion)...";
-    win2.classList.add("visible");
-  }, 1000);
+    stepTitle.textContent = "CONSTRUCTEUR IA — PHASE 3/3";
+    message.textContent = "💳 Intégration de la Passerelle Stripe & Webhooks...";
+    code.innerHTML = "> Connecting Stripe API v3 keys...<br>> Securing Webhook Endpoints... [OK]<br>> Production build created successfully!";
+  }, 2400);
 
-  // Étape 3 : Ouverture de la fenêtre 3 (1.6s)
+  // 4. FERMUTATION DE LA POP-UP ET REVELATION DU PROJET (APRES 3.5s)
   setTimeout(() => {
-    status.textContent = "💳 Connexion de la passerelle de paiement Stripe...";
-    win3.classList.add("visible");
-  }, 1600);
-
-  // Étape 4 : Apparition du simulateur & du bouton d'achat (2.2s)
-  setTimeout(() => {
-    status.textContent = "✅ Écrans et modules générés avec succès ! Découvrez votre potentiel ci-dessous :";
-    simBox.classList.add("visible");
-    stripeBtn.style.display = "inline-flex";
+    overlay.style.display = "none";
+    document.getElementById("previewTitle").textContent = val;
+    document.getElementById("moduleProjectName").textContent = val;
+    preview.style.display = "block";
     updateSimulation();
-  }, 2200);
+    preview.scrollIntoView({ behavior: "smooth", block: "center" });
+  }, 3500);
 }
 </script>
 
