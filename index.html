@@ -106,7 +106,7 @@ h1 {font-size:clamp(36px,6vw,60px);font-weight:900;line-height:1.1;margin-bottom
   transition: width 0.1s linear;
 }
 
-/* ZONE APERÇU ET SIMULATEUR D'ORIGINE */
+/* ZONE APERÇU ET SIMULATEUR */
 #preview {
   display:none;
   margin-top:25px;
@@ -162,7 +162,7 @@ h1 {font-size:clamp(36px,6vw,60px);font-weight:900;line-height:1.1;margin-bottom
   color: #fff;
 }
 
-/* LA MODALE DE RÉVÉLATION MOTIVANTE (FAIRE RÊVER) */
+/* LA MODALE DE RÉVÉLATION ULTRA PROPRE ET CENTRÉE */
 .reveal-modal-overlay {
   position: absolute;
   top: 0; left: 0; width: 100%; height: 100%;
@@ -174,12 +174,17 @@ h1 {font-size:clamp(36px,6vw,60px);font-weight:900;line-height:1.1;margin-bottom
   align-items: center;
   justify-content: center;
   border-radius: 18px;
-  padding: 30px;
+  padding: 40px;
   text-align: center;
+  animation: fadeIn 0.3s ease-out forwards;
 }
-.reveal-title { font-size: 24px; font-weight: 900; margin-bottom: 10px; color: #fff; }
-.reveal-desc { color: var(--muted); font-size: 15px; margin-bottom: 20px; max-width: 500px; line-height: 1.5; }
-.price-tag { font-size: 32px; font-weight: 900; color: #4ade80; margin-bottom: 20px; }
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+.reveal-title { font-size: 26px; font-weight: 900; margin-bottom: 15px; color: #fff; }
+.reveal-desc { color: var(--muted); font-size: 15px; margin-bottom: 25px; max-width: 520px; line-height: 1.6; }
+.price-tag { font-size: 34px; font-weight: 900; color: #4ade80; margin-bottom: 20px; text-shadow: 0 0 20px rgba(74,222,128,0.3); }
 </style>
 </head>
 <body>
@@ -214,12 +219,12 @@ h1 {font-size:clamp(36px,6vw,60px);font-weight:900;line-height:1.1;margin-bottom
           <!-- Critère 1 -->
           <div>
             <div class="sim-section-title">1. Combien tu veux générer ?</div>
-            <div class="options-grid">
-              <div class="option-card" onclick="selectOpt(this)">5 000 €</div>
-              <div class="option-card active" onclick="selectOpt(this)">10 000 €</div>
-              <div class="option-card" onclick="selectOpt(this)">20 000 €</div>
-              <div class="option-card" onclick="selectOpt(this)">30 000 €</div>
-              <div class="option-card" onclick="selectOpt(this)">50 000 €</div>
+            <div class="options-grid" id="gridRevenue">
+              <div class="option-card" onclick="selectCard(this, 'rev')">5 000 €</div>
+              <div class="option-card active" onclick="selectCard(this, 'rev')">10 000 €</div>
+              <div class="option-card" onclick="selectCard(this, 'rev')">20 000 €</div>
+              <div class="option-card" onclick="selectCard(this, 'rev')">30 000 €</div>
+              <div class="option-card" onclick="selectCard(this, 'rev')">50 000 €</div>
             </div>
           </div>
 
@@ -227,10 +232,10 @@ h1 {font-size:clamp(36px,6vw,60px);font-weight:900;line-height:1.1;margin-bottom
           <div>
             <div class="sim-section-title">2. En combien de temps ?</div>
             <div class="options-grid">
-              <div class="option-card" onclick="selectOpt(this)">1 jour</div>
-              <div class="option-card active" onclick="selectOpt(this)">1 semaine</div>
-              <div class="option-card" onclick="selectOpt(this)">15 jours</div>
-              <div class="option-card" onclick="selectOpt(this)">1 mois</div>
+              <div class="option-card" onclick="selectCard(this, 'time')">1 jour</div>
+              <div class="option-card active" onclick="selectCard(this, 'time')">1 semaine</div>
+              <div class="option-card" onclick="selectCard(this, 'time')">15 jours</div>
+              <div class="option-card" onclick="selectCard(this, 'time')">1 mois</div>
             </div>
           </div>
 
@@ -238,34 +243,34 @@ h1 {font-size:clamp(36px,6vw,60px);font-weight:900;line-height:1.1;margin-bottom
           <div>
             <div class="sim-section-title">3. Temps à y consacrer par jour</div>
             <div class="options-grid">
-              <div class="option-card" onclick="selectOpt(this)">1h / jour</div>
-              <div class="option-card active" onclick="selectOpt(this)">2h / jour</div>
-              <div class="option-card" onclick="selectOpt(this)">5h / jour</div>
-              <div class="option-card" onclick="selectOpt(this)">1 journée</div>
+              <div class="option-card" onclick="selectCard(this, 'day')">1h / jour</div>
+              <div class="option-card active" onclick="selectCard(this, 'day')">2h / jour</div>
+              <div class="option-card" onclick="selectCard(this, 'day')">5h / jour</div>
+              <div class="option-card" onclick="selectCard(this, 'day')">1 journée</div>
             </div>
           </div>
 
           <!-- Critère 4 -->
           <div>
             <div class="sim-section-title">4. Prix de vente par client (€)</div>
-            <div class="options-grid">
-              <div class="option-card" onclick="selectOpt(this)">29 €</div>
-              <div class="option-card active" onclick="selectOpt(this)">49 €</div>
-              <div class="option-card" onclick="selectOpt(this)">69 €</div>
-              <div class="option-card" onclick="selectOpt(this)">99 €</div>
-              <div class="option-card" onclick="selectOpt(this)">199 €</div>
+            <div class="options-grid" id="gridPrice">
+              <div class="option-card" onclick="selectCard(this, 'price')">29 €</div>
+              <div class="option-card active" onclick="selectCard(this, 'price')">49 €</div>
+              <div class="option-card" onclick="selectCard(this, 'price')">69 €</div>
+              <div class="option-card" onclick="selectCard(this, 'price')">99 €</div>
+              <div class="option-card" onclick="selectCard(this, 'price')">199 €</div>
             </div>
           </div>
 
-          <button class="btn" style="margin-top:10px;width:100%;" onclick="showCheckout()">⚡ Valider les critères &amp; Lancer le Projet</button>
+          <button class="btn" style="margin-top:10px;width:100%;" onclick="showCheckout()">⚡ Valider les critères &amp; Calculer le Plan IA</button>
         </div>
 
         <div class="reveal-modal-overlay" id="revealModal">
           <div class="reveal-title">Analyse IA : Objectif 100% Faisable ! 🚀</div>
           <div class="reveal-desc" id="revealText">
-            L'ordinateur a analysé votre projet et vos critères. Avec le moteur Nexora AI, générer ce logiciel et atteindre vos objectifs de chiffre d'affaires est totalement réalisable. Tout est automatisé pour vous mener au succès dès aujourd'hui.
+            L'ordinateur a analysé vos critères. Pour atteindre votre objectif, il vous faut très peu de clients, ce qui est estimé entièrement réalisable et automatisé par l'IA.
           </div>
-          <div class="price-tag" id="dynamicPrice">29.00 €</div>
+          <div class="price-tag">29.00 €</div>
           <button class="btn" onclick="triggerStripeCheckout()">💳 Payer &amp; Télécharger le Code Source</button>
         </div>
       </div>
@@ -298,7 +303,7 @@ function setIdea(val) {
   document.getElementById('projectIdea').value = val;
 }
 
-function selectOpt(el) {
+function selectCard(el, group) {
   const parent = el.parentElement;
   parent.querySelectorAll('.option-card').forEach(c => c.classList.remove('active'));
   el.classList.add('active');
@@ -346,6 +351,17 @@ function startBuilding() {
 }
 
 function showCheckout() {
+  // Récupérer les valeurs sélectionnées pour faire rêver l'utilisateur
+  const activeRev = document.querySelector('#gridRevenue .option-card.active').innerText;
+  const activePrice = document.querySelector('#gridPrice .option-card.active').innerText;
+  
+  const revNum = parseInt(activeRev.replace(/[^0-9]/g, '')) || 10000;
+  const priceNum = parseInt(activePrice.replace(/[^0-9]/g, '')) || 49;
+  const clientsNeeded = Math.ceil(revNum / priceNum);
+
+  const descElem = document.getElementById('revealText');
+  descElem.innerHTML = `L'ordinateur a analysé votre projet. Pour générer <strong>${activeRev}</strong> en vendant votre logiciel à <strong>${activePrice}</strong> par client, il vous faut seulement <strong>${clientsNeeded} clients</strong>. L'IA certifie que cet objectif est <strong>100% réalisable</strong> et entièrement automatisable dès aujourd'hui !`;
+
   document.getElementById('revealModal').style.display = 'flex';
 }
 
