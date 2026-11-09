@@ -132,7 +132,9 @@ async function sendProjectEmail(email, idea, code) {
         ]
     });
 }
-
+app.get('/', (req, res) => {
+  res.send('Bienvenue sur Nexora ! Le serveur est opérationnel.');
+});
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`🚀 Serveur NEXORA prêt sur le port ${PORT}`);
