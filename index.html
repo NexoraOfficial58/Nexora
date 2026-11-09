@@ -129,7 +129,7 @@
         <!-- Hero Section -->
         <div id="heroSection" class="w-full space-y-6">
             <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold bg-brand-500/10 text-brand-400 border border-brand-500/30 shadow-md">
-                ✨ Ouvrez les fenêtres et vendez du rêve à vos clients
+                ✨ Générez de vraies plateformes logicielles et SaaS
             </span>
 
             <h1 class="text-4xl sm:text-6xl font-black text-white tracking-tight leading-tight">
@@ -138,7 +138,7 @@
             </h1>
 
             <p class="text-slate-300 text-base sm:text-lg max-w-xl mx-auto leading-relaxed">
-                Entrez votre projet. Regardez s'ouvrir de vraies fenêtres remplies de photos réelles et de visuels concrets de la plateforme.
+                Entrez votre projet. Regardez s'ouvrir de vraies fenêtres de code, d'interfaces et de dashboards de la plateforme logicielle.
             </p>
 
             <!-- Champ de saisie -->
@@ -146,39 +146,39 @@
                 <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-3">Quel logiciel SaaS voulez-vous créer ?</label>
                 
                 <div class="flex flex-col sm:flex-row gap-3 mb-4">
-                    <input type="text" id="projectInput" placeholder="ex: Vente de Bijoux, Facturation BTP, E-Commerce..." class="flex-1 bg-white/5 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 text-sm">
+                    <input type="text" id="projectInput" placeholder="ex: Facturation BTP, CRM, Gestion de stock..." class="flex-1 bg-white/5 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 text-sm">
                     
-                    <button onclick="startPhotoWindowSequence()" class="gradient-bg text-white px-8 py-3.5 rounded-xl font-bold flex items-center justify-center gap-2 hover:opacity-90 transition shadow-lg shadow-emerald-500/20 cursor-pointer text-sm whitespace-nowrap">
-                        <i class="fas fa-images"></i>
+                    <button onclick="startSaaSWindowSequence()" class="gradient-bg text-white px-8 py-3.5 rounded-xl font-bold flex items-center justify-center gap-2 hover:opacity-90 transition shadow-lg shadow-emerald-500/20 cursor-pointer text-sm whitespace-nowrap">
+                        <i class="fas fa-code"></i>
                         <span>Générer mon SaaS</span>
                     </button>
                 </div>
 
                 <div class="flex flex-wrap gap-2 text-xs text-slate-300 items-center pt-1">
                     <span class="text-slate-400">Exemples :</span>
-                    <button onclick="fillPrompt('Vente de Bijoux')" class="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg transition cursor-pointer">Vente de Bijoux</button>
                     <button onclick="fillPrompt('Facturation BTP')" class="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg transition cursor-pointer">Facturation BTP</button>
+                    <button onclick="fillPrompt('Gestion de Bijouterie')" class="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg transition cursor-pointer">Gestion Bijouterie</button>
                     <button onclick="fillPrompt('Plateforme E-Commerce')" class="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg transition cursor-pointer">E-Commerce</button>
                 </div>
             </div>
         </div>
 
-        <!-- SCÈNE D'OUVERTURE DE VRAIES FENÊTRES PHOTO (ENTRE LES DEUX) -->
-        <div id="interactivePhotoStage" class="hidden w-full max-w-3xl mx-auto py-6 space-y-4 text-left">
+        <!-- SCÈNE D'OUVERTURE DE VRAIES FENÊTRES LOGICIELLES (ENTRE LES DEUX) -->
+        <div id="interactiveSaaSStage" class="hidden w-full max-w-3xl mx-auto py-6 space-y-4 text-left">
             <div class="glass-card rounded-3xl border border-brand-500/60 glow-box overflow-hidden shadow-2xl animate-window">
-                <!-- Barre de titre de la fenêtre -->
+                <!-- Barre de titre de la fenêtre logicielle -->
                 <div class="bg-slate-950 px-4 py-3 border-b border-white/10 flex items-center justify-between">
                     <div class="flex items-center gap-2">
                         <div class="w-3 h-3 rounded-full bg-red-500"></div>
                         <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
                         <div class="w-3 h-3 rounded-full bg-green-500"></div>
-                        <span id="photoWindowTitle" class="text-xs font-mono text-brand-400 font-bold ml-2">apercu_visuel_en_cours.app</span>
+                        <span id="saasWindowTitle" class="text-xs font-mono text-brand-400 font-bold ml-2">plateforme_saas.app</span>
                     </div>
-                    <span id="photoWindowStep" class="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-full border border-emerald-500/30">Visuel 1/3 📸</span>
+                    <span id="saasWindowStep" class="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-full border border-emerald-500/30">Interface 1/3 💻</span>
                 </div>
 
-                <!-- Contenu visuel riche avec de vraies photos et mises en situation -->
-                <div id="photoWindowBody" class="p-6 bg-slate-900/95 space-y-4 transition-all duration-300">
+                <!-- Contenu technique et visuel du SaaS (code, interface, dashboard, abonnements) -->
+                <div id="saasWindowBody" class="p-6 bg-slate-950 font-mono text-xs space-y-4 transition-all duration-300">
                     <!-- Injecté par script -->
                 </div>
             </div>
@@ -300,11 +300,11 @@
 
         function fillPrompt(text) {
             document.getElementById('projectInput').value = text;
-            startPhotoWindowSequence();
+            startSaaSWindowSequence();
         }
 
-        // --- LA SÉQUENCE INTERACTIVE ENTRE LES DEUX QUI AFFICHE DE VRAIES PHOTOS DU PRODUIT/PROJET ---
-        function startPhotoWindowSequence() {
+        // --- LA SÉQUENCE INTERACTIVE ENTRE LES DEUX : DE VRAIES FENÊTRES DE LOGICIEL ET DE CODE SAAS ---
+        function startSaaSWindowSequence() {
             const inputField = document.getElementById('projectInput');
             if (!inputField || !inputField.value.trim()) {
                 alert("Veuillez saisir une idée de logiciel SaaS.");
@@ -314,77 +314,68 @@
             const input = inputField.value.trim();
             const lower = input.toLowerCase();
 
-            // Masquer le hero et afficher la scène photo interactive
+            // Masquer le hero et afficher la scène interactive du SaaS
             document.getElementById('heroSection').classList.add('hidden');
             document.getElementById('resultSection').classList.add('hidden');
-            document.getElementById('interactivePhotoStage').classList.remove('hidden');
+            document.getElementById('interactiveSaaSStage').classList.remove('hidden');
 
-            const titleBar = document.getElementById('photoWindowTitle');
-            const stepBadge = document.getElementById('photoWindowStep');
-            const windowBody = document.getElementById('photoWindowBody');
+            const titleBar = document.getElementById('saasWindowTitle');
+            const stepBadge = document.getElementById('saasWindowStep');
+            const windowBody = document.getElementById('saasWindowBody');
 
-            let photos = [];
-            if (lower.includes('bijou') || lower.includes('ecommerce') || lower.includes('e-commerce') || lower.includes('mode')) {
-                photos = [
-                    { title: "Vitrine Boutique & Catalogue", img: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=800&q=80", desc: "Mise en valeur élégante des bijoux et des collections de mode." },
-                    { title: "Gestion des Stocks en Direct", img: "https://images.unsplash.com/photo-1526738549149-8e07eca6c147?auto=format&fit=crop&w=800&q=80", desc: "Suivi des quantités et alertes automatiques sur les articles précieux." },
-                    { title: "Tunnel de Paiement Client", img: "https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&w=800&q=80", desc: "Encaissement sécurisé par carte bancaire pour chaque acheteur." }
-                ];
-            } else if (lower.includes('btp') || lower.includes('factur') || lower.includes('devis')) {
-                photos = [
-                    { title: "Éditeur de Devis & Chiffrage", img: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80", desc: "Création rapide des factures et application des taux de TVA." },
-                    { title: "Suivi des Chantiers sur le Terrain", img: "https://images.unsplash.com/photo-1541888946425-d0fbb18fdb9e?auto=format&fit=crop&w=800&q=80", desc: "Centralisation des plannings et des adresses d'intervention." },
-                    { title: "Encaissement d'Acompte par SMS", img: "https://images.unsplash.com/photo-1556742049-0a67d553c2ec?auto=format&fit=crop&w=800&q=80", desc: "Validation client instantanée pour sécuriser le début des travaux." }
-                ];
-            } else {
-                photos = [
-                    { title: "Tableau de Bord & Croissance", img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80", desc: "Pilotage visuel de l'activité et des abonnés en direct." },
-                    { title: "Moteur Métier & Automatismes", img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80", desc: "Gestion sur-mesure des flux spécifiques à votre secteur." },
-                    { title: "Portail Abonnés & Paiements", img: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80", desc: "Encaissement récurrent sécurisé via la passerelle Stripe." }
-                ];
-            }
+            let appName = input.replace(/\s+/g, '_').toLowerCase();
 
-            // FENÊTRE 1 (0s)
-            titleBar.textContent = "apercu_visuel_1.app";
-            stepBadge.textContent = "Visuel 1/3 📸";
+            // FENÊTRE 1 : Interface de l'éditeur / dashboard du SaaS (0s)
+            titleBar.textContent = `${appName}_interface.app`;
+            stepBadge.textContent = "Interface 1/3 💻";
             windowBody.innerHTML = `
-                <div class="rounded-2xl overflow-hidden border border-white/10 relative h-56 bg-slate-950 shadow-xl">
-                    <img src="${photos[0].img}" alt="Aperçu 1" class="w-full h-full object-cover">
-                    <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-slate-950 p-4">
-                        <span class="text-[10px] font-mono text-brand-400 font-bold uppercase tracking-wider">Étape 1 : Le Produit en Action</span>
-                        <h3 class="text-sm font-black text-white">${photos[0].title}</h3>
-                        <p class="text-xs text-slate-300">${photos[0].desc}</p>
+                <div class="text-emerald-400 font-bold mb-2">// 1. INITIALISATION DE L'INTERFACE SAAS : ${escapeHtml(input.toUpperCase())}</div>
+                <div class="bg-slate-900 p-4 rounded-xl border border-white/10 space-y-2">
+                    <div class="flex justify-between text-slate-400 text-[11px] border-b border-white/10 pb-2">
+                        <span>Module : Dashboard & Espace Principal</span>
+                        <span class="text-brand-400">Statut : Actif 🟢</span>
+                    </div>
+                    <div class="text-slate-200 text-xs">
+                        <p class="text-brand-400 font-bold">→ Chargement des composants graphiques de la plateforme...</p>
+                        <p class="text-slate-400 mt-1">Génération des tableaux de bord, des menus de navigation et des formulaires clients.</p>
                     </div>
                 </div>
             `;
 
-            // FENÊTRE 2 (1s)
+            // FENÊTRE 2 : Base de données et moteur métier du SaaS (1s)
             setTimeout(() => {
-                titleBar.textContent = "apercu_visuel_2.net";
-                stepBadge.textContent = "Visuel 2/3 📸";
+                titleBar.textContent = `${appName}_backend.sys`;
+                stepBadge.textContent = "Interface 2/3 ⚙️";
                 windowBody.innerHTML = `
-                    <div class="rounded-2xl overflow-hidden border border-white/10 relative h-56 bg-slate-950 shadow-xl">
-                        <img src="${photos[1].img}" alt="Aperçu 2" class="w-full h-full object-cover">
-                        <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-slate-950 p-4">
-                            <span class="text-[10px] font-mono text-emerald-400 font-bold uppercase tracking-wider">Étape 2 : Gestion & Outils</span>
-                            <h3 class="text-sm font-black text-white">${photos[1].title}</h3>
-                            <p class="text-xs text-slate-300">${photos[1].desc}</p>
+                    <div class="text-brand-400 font-bold mb-2">// 2. CONFIGURATION DU MOTEUR MÉTIER & BASE DE DONNÉES</div>
+                    <div class="bg-slate-900 p-4 rounded-xl border border-white/10 space-y-2">
+                        <div class="flex justify-between text-slate-400 text-[11px] border-b border-white/10 pb-2">
+                            <span>Base de données PostgreSQL & Flux</span>
+                            <span class="text-emerald-400">Connecté 🚀</span>
+                        </div>
+                        <div class="text-slate-200 text-xs space-y-1 font-mono">
+                            <p class="text-emerald-300">const db = new NexoraDB('${appName}');</p>
+                            <p class="text-slate-300">db.schema.createTable('utilisateurs', (t) => { t.increments(); t.string('email'); });</p>
+                            <p class="text-brand-400">→ Automatismes spécifiques au secteur configurés avec succès.</p>
                         </div>
                     </div>
                 `;
             }, 1000);
 
-            // FENÊTRE 3 (2s)
+            // FENÊTRE 3 : Tunnel de paiement et abonnements Stripe (2s)
             setTimeout(() => {
-                titleBar.textContent = "apercu_visuel_3.sys";
-                stepBadge.textContent = "Visuel 3/3 🚀";
+                titleBar.textContent = `${appName}_abonnements_stripe.net`;
+                stepBadge.textContent = "Interface 3/3 💳";
                 windowBody.innerHTML = `
-                    <div class="rounded-2xl overflow-hidden border border-white/10 relative h-56 bg-slate-950 shadow-xl">
-                        <img src="${photos[2].img}" alt="Aperçu 3" class="w-full h-full object-cover">
-                        <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-slate-950 p-4">
-                            <span class="text-[10px] font-mono text-brand-400 font-bold uppercase tracking-wider">Étape 3 : Tunnel de Vente & Paiement</span>
-                            <h3 class="text-sm font-black text-white">${photos[2].title}</h3>
-                            <p class="text-xs text-slate-300">${photos[2].desc}</p>
+                    <div class="text-brand-400 font-bold mb-2">// 3. INTÉGRATION DU TUNNEL DE PAIEMENT RECURRENT</div>
+                    <div class="bg-slate-900 p-4 rounded-xl border border-white/10 space-y-2">
+                        <div class="flex justify-between text-slate-400 text-[11px] border-b border-white/10 pb-2">
+                            <span>Passerelle Stripe Connect</span>
+                            <span class="text-emerald-400">Prêt à encaisser 💰</span>
+                        </div>
+                        <div class="text-slate-200 text-xs space-y-1 font-mono">
+                            <p class="text-emerald-300">stripe.subscriptions.create({ price: 'price_saas_pro', quantity: 1 });</p>
+                            <p class="text-brand-400 font-bold">→ Votre logiciel SaaS est entièrement assemblé et prêt à être commercialisé !</p>
                         </div>
                     </div>
                 `;
@@ -392,7 +383,7 @@
 
             // BASCULE FINALE SUR LE RÉSULTAT (3s)
             setTimeout(() => {
-                document.getElementById('interactivePhotoStage').classList.add('hidden');
+                document.getElementById('interactiveSaaSStage').classList.add('hidden');
                 document.getElementById('resultSection').classList.remove('hidden');
                 
                 document.getElementById('appTitleDisplay').textContent = "SaaS : " + input;
@@ -500,7 +491,7 @@
 
         function resetApp() {
             document.getElementById('resultSection').classList.add('hidden');
-            document.getElementById('interactivePhotoStage').classList.add('hidden');
+            document.getElementById('interactiveSaaSStage').classList.add('hidden');
             document.getElementById('heroSection').classList.remove('hidden');
             document.getElementById('projectInput').value = "";
         }
