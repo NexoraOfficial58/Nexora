@@ -33,7 +33,7 @@ h1 {font-size:clamp(36px,6vw,60px);font-weight:900;line-height:1.1;margin-bottom
 .examples {display:flex;flex-wrap:wrap;gap:8px;margin-bottom:25px;}
 .example {padding:8px 14px;border-radius:8px;background:#1c2945;color:#b9caff;border:1px solid var(--border);cursor:pointer;font-size:13px;}
 
-/* SYSTEME DE SPECTACLE POP-UP HAUTE DENSITE */
+/* POP-UPS DE SPECTACLE DE CODE */
 .popup-overlay {
   position: fixed;
   top: 0; left: 0; width: 100vw; height: 100vh;
@@ -44,7 +44,6 @@ h1 {font-size:clamp(36px,6vw,60px);font-weight:900;line-height:1.1;margin-bottom
   align-items: center;
   justify-content: center;
 }
-
 .popup-card {
   position: absolute;
   width: min(650px, 92%);
@@ -56,12 +55,10 @@ h1 {font-size:clamp(36px,6vw,60px);font-weight:900;line-height:1.1;margin-bottom
   display: none;
   animation: popIn 0.4s ease-out forwards;
 }
-
 @keyframes popIn {
   from { opacity:0; transform: scale(0.85) translateY(40px); }
   to { opacity:1; transform: scale(1) translateY(0); }
 }
-
 .popup-topbar {
   background: #050a16;
   padding: 12px 18px;
@@ -75,7 +72,6 @@ h1 {font-size:clamp(36px,6vw,60px);font-weight:900;line-height:1.1;margin-bottom
 .dot-r { background: #ff5f56; }
 .dot-y { background: #ffbd2e; }
 .dot-g { background: #27c93f; }
-
 .popup-content {
   padding: 22px;
   font-family: 'Courier New', Courier, monospace;
@@ -83,7 +79,6 @@ h1 {font-size:clamp(36px,6vw,60px);font-weight:900;line-height:1.1;margin-bottom
   color: #7dd3fc;
   line-height: 1.6;
 }
-
 .code-stream {
   background: #030712;
   border: 1px solid rgba(255,255,255,0.08);
@@ -96,7 +91,6 @@ h1 {font-size:clamp(36px,6vw,60px);font-weight:900;line-height:1.1;margin-bottom
   font-size: 12px;
   white-space: pre-wrap;
 }
-
 .progress-bar-bg {
   width: 100%;
   height: 8px;
@@ -112,7 +106,7 @@ h1 {font-size:clamp(36px,6vw,60px);font-weight:900;line-height:1.1;margin-bottom
   transition: width 0.1s linear;
 }
 
-/* Zone d'affichage du bilan et du simulateur */
+/* ZONE APERÇU ET SUPER SIMULATEUR */
 #preview {
   display:none;
   margin-top:25px;
@@ -121,18 +115,48 @@ h1 {font-size:clamp(36px,6vw,60px);font-weight:900;line-height:1.1;margin-bottom
   border:1px solid rgba(92,143,255,.4);
   border-radius:18px;
 }
-.simulator-box {background:#0d162d;border:1px solid rgba(86,135,255,0.3);border-radius:16px;padding:25px;margin-top:25px;}
-.revenue-display {background:linear-gradient(135deg, rgba(74,165,255,0.15), rgba(157,114,255,0.15));border:1px solid rgba(74,165,255,0.4);padding:20px;border-radius:14px;text-align:center;margin-top:20px;}
-.revenue-amount {font-size:26px;font-weight:900;color:#4ade80;margin-top:5px;}
+.simulator-box {
+  background:#0d162d;
+  border:1px solid rgba(86,135,255,0.3);
+  border-radius:16px;
+  padding:25px;
+  margin-top:25px;
+}
+.sim-group {
+  margin-bottom: 20px;
+}
+.sim-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+.sim-label b {
+  color: #fff;
+  font-size: 15px;
+}
+.revenue-display {
+  background: linear-gradient(135deg, rgba(74,165,255,0.15), rgba(157,114,255,0.15));
+  border: 1px solid rgba(74,165,255,0.4);
+  padding: 22px;
+  border-radius: 14px;
+  text-align: center;
+  margin-top: 20px;
+}
+.revenue-amount {
+  font-size: 22px;
+  font-weight: 900;
+  color: #4ade80;
+  margin: 8px 0;
+}
 footer {border-top:1px solid var(--border);padding:35px 0;text-align:center;color:#8290aa;font-size:13px;margin-top:80px;}
 </style>
 </head>
 <body>
 
-<!-- LE OVERLAY QUI CONTIENT LES 3 POP-UPS SYSTEME DE CODE -->
+<!-- POP-UPS DE CODING EN DIRECT -->
 <div class="popup-overlay" id="popOverlay">
-  
-  <!-- POP-UP 1 : ENCODAGE DU PROGRAMME & FRONTEND -->
   <div class="popup-card" id="pop1">
     <div class="popup-topbar">
       <div class="popup-dots"><div class="popup-dot dot-r"></div><div class="popup-dot dot-y"></div><div class="popup-dot dot-g"></div></div>
@@ -145,7 +169,6 @@ footer {border-top:1px solid var(--border);padding:35px 0;text-align:center;colo
     </div>
   </div>
 
-  <!-- POP-UP 2 : BASE DE DONNEES & BACKEND -->
   <div class="popup-card" id="pop2">
     <div class="popup-topbar">
       <div class="popup-dots"><div class="popup-dot dot-r"></div><div class="popup-dot dot-y"></div><div class="popup-dot dot-g"></div></div>
@@ -158,7 +181,6 @@ footer {border-top:1px solid var(--border);padding:35px 0;text-align:center;colo
     </div>
   </div>
 
-  <!-- POP-UP 3 : MODULE DE PAIEMENT STRIPE & LIVRAISON -->
   <div class="popup-card" id="pop3">
     <div class="popup-topbar">
       <div class="popup-dots"><div class="popup-dot dot-r"></div><div class="popup-dot dot-y"></div><div class="popup-dot dot-g"></div></div>
@@ -170,7 +192,6 @@ footer {border-top:1px solid var(--border);padding:35px 0;text-align:center;colo
       <div class="progress-bar-bg"><div class="progress-bar-fill" id="pbar3"></div></div>
     </div>
   </div>
-
 </div>
 
 <header>
@@ -197,7 +218,7 @@ footer {border-top:1px solid var(--border);padding:35px 0;text-align:center;colo
 
       <button class="btn" style="width:100%;" onclick="startMegaShow()">✦ Générer mon logiciel en direct</button>
 
-      <!-- RESULTAT ET SIMULATEUR FINAL -->
+      <!-- RESULTAT ET SUPER SIMULATEUR STRATEGIQUE -->
       <div id="preview" aria-live="polite">
         <div style="font-size:14px; color:#4ade80; font-weight:bold; margin-bottom:15px; text-align:center;">
           ✅ Logiciel et Code Source entièrement générés avec succès !
@@ -236,35 +257,57 @@ footer {border-top:1px solid var(--border);padding:35px 0;text-align:center;colo
           </div>
         </div>
 
-        <!-- SIMULATEUR -->
+        <!-- SUPER SIMULATEUR STRATÉGIQUE INTERACTIF -->
         <div class="simulator-box">
-          <h4 style="color:#fff;margin-bottom:10px;font-size:16px;">💰 Simulateur d'objectif de chiffre d'affaires</h4>
-          <p style="font-size:13px;color:var(--muted);margin-bottom:20px;">Ajustez votre objectif pour voir le nombre de clients à aller chercher :</p>
+          <h4 style="color:#fff;margin-bottom:8px;font-size:17px;">🎯 Simulateur de Stratégie & Plan d'Action SaaS</h4>
+          <p style="font-size:13px;color:var(--muted);margin-bottom:20px;">Personnalisez vos paramètres pour calculer votre plan d'attaque exact :</p>
 
-          <div style="margin-bottom:15px;">
-            <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:5px;">
-              <span>Objectif de revenu mensuel visé :</span>
-              <b id="targetGoal" style="color:#4ade80;font-size:15px;">20 000 € / mois</b>
+          <!-- 1. Objectif de CA -->
+          <div class="sim-group">
+            <div class="sim-label">
+              <span>Objectif de chiffre d'affaires visé :</span>
+              <b id="lblGoal">10 000 € / mois</b>
             </div>
-            <input type="range" id="simGoal" min="3000" max="50000" step="1000" value="20000" style="width:100%;accent-color:#3987ff;cursor:pointer;" oninput="updateSimulation()">
+            <input type="range" id="simGoal" min="2000" max="50000" step="1000" value="10000" style="width:100%;accent-color:#3987ff;cursor:pointer;" oninput="updateSimulation()">
           </div>
 
-          <div style="margin-bottom:15px;">
-            <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:5px;">
+          <!-- 2. Délai souhaité -->
+          <div class="sim-group">
+            <div class="sim-label">
+              <span>Délai pour atteindre l'objectif :</span>
+              <b id="lblDays">30 jours</b>
+            </div>
+            <input type="range" id="simDays" min="7" max="90" step="1" value="30" style="width:100%;accent-color:#8657ff;cursor:pointer;" oninput="updateSimulation()">
+          </div>
+
+          <!-- 3. Temps passé par jour -->
+          <div class="sim-group">
+            <div class="sim-label">
+              <span>Temps consacré par jour :</span>
+              <b id="lblHours">2 heures / jour</b>
+            </div>
+            <input type="range" id="simHours" min="1" max="8" step="1" value="2" style="width:100%;accent-color:#27c93f;cursor:pointer;" oninput="updateSimulation()">
+          </div>
+
+          <!-- 4. Prix de vente abonnement -->
+          <div class="sim-group">
+            <div class="sim-label">
               <span>Prix de votre abonnement client :</span>
-              <b id="priceVal" style="color:#3987ff;font-size:15px;">49 € / mois</b>
+              <b id="lblPrice">39 € / mois</b>
             </div>
-            <input type="range" id="simPrice" min="10" max="150" step="1" value="49" style="width:100%;accent-color:#8657ff;cursor:pointer;" oninput="updateSimulation()">
+            <input type="range" id="simPrice" min="10" max="150" step="1" value="39" style="width:100%;accent-color:#ffbd2e;cursor:pointer;" oninput="updateSimulation()">
           </div>
 
+          <!-- RÉSULTAT DU CALCUL STRATÉGIQUE -->
           <div class="revenue-display">
-            <div style="font-size:12px;color:#a5b1ca;text-transform:uppercase;font-weight:bold;">Objectif de Ventes Calculé</div>
-            <div class="revenue-amount" id="calcDetails">Il vous faut 409 clients à 49 €/mois</div>
-            <div style="font-size:12px;color:#4ade80;margin-top:6px;" id="calcSub">✓ Pour générer 20 000 € de chiffre d'affaires récurrent mensuel</div>
+            <div style="font-size:11px;color:#a5b1ca;text-transform:uppercase;font-weight:bold;letter-spacing:1px;">Plan d'Action Calculé par l'IA</div>
+            <div class="revenue-amount" id="calcClients">Il vous faut 257 clients actifs</div>
+            <div style="font-size:13px;color:#f5f7ff;margin-top:6px;" id="calcAction">🎯 Soit environ <b>9 clients à convaincre par jour</b> pendant 30 jours.</div>
+            <div style="font-size:12px;color:#4ade80;margin-top:4px;" id="calcWork">⚡ Rythme de travail : ~4.3 clients par heure de travail.</div>
           </div>
         </div>
 
-        <!-- BOUTON STRIPE DE 29 € DIRECT -->
+        <!-- BOUTON STRIPE DE 29 € -->
         <a href="https://buy.stripe.com/afA14f2UT9J3Q2hSe119fW02" target="_blank" class="btn" style="margin-top:25px; width:100%; background:linear-gradient(110deg,#27c93f,#10b981);">
           ✦ Obtenir et télécharger mon code complet (29 €) →
         </a>
@@ -285,19 +328,30 @@ function fill(val) {
 }
 
 function updateSimulation() {
-  const goal = parseInt(document.getElementById("simGoal").value) || 20000;
-  const price = parseInt(document.getElementById("simPrice").value) || 49;
+  const goal = parseInt(document.getElementById("simGoal").value) || 10000;
+  const days = parseInt(document.getElementById("simDays").value) || 30;
+  const hoursPerDay = parseInt(document.getElementById("simHours").value) || 2;
+  const price = parseInt(document.getElementById("simPrice").value) || 39;
   
-  document.getElementById("targetGoal").textContent = goal.toLocaleString("fr-FR") + " € / mois";
-  document.getElementById("priceVal").textContent = price + " € / mois";
+  // Mise à jour des libellés affichés
+  document.getElementById("lblGoal").textContent = goal.toLocaleString("fr-FR") + " € / mois";
+  document.getElementById("lblDays").textContent = days + " jours";
+  document.getElementById("lblHours").textContent = hoursPerDay + " heure" + (hoursPerDay > 1 ? "s" : "") + " / jour";
+  document.getElementById("lblPrice").textContent = price + " € / mois";
   
+  // Calculs stratégiques
   const clientsNeeded = Math.ceil(goal / price);
+  const clientsPerDay = (clientsNeeded / days).toFixed(1);
+  const totalHours = days * hoursPerDay;
+  const clientsPerHour = (clientsNeeded / totalHours).toFixed(2);
   
-  document.getElementById("calcDetails").textContent = "Il vous faut " + clientsNeeded.toLocaleString("fr-FR") + " clients à " + price + " €/mois";
-  document.getElementById("calcSub").textContent = "✓ Pour générer " + goal.toLocaleString("fr-FR") + " € de chiffre d'affaires récurrent mensuel";
+  // Affichage dynamique du résultat
+  document.getElementById("calcClients").textContent = "Il vous faut " + clientsNeeded.toLocaleString("fr-FR") + " clients actifs";
+  document.getElementById("calcAction").innerHTML = "🎯 Objectif : <b>" + clientsPerDay + " nouveau" + (clientsPerDay > 1 ? "s" : "") + " client" + (clientsPerDay > 1 ? "s" : "") + " par jour</b> pendant " + days + " jours.";
+  document.getElementById("calcWork").innerHTML = "⚡ Rendement estimé : ~<b>" + clientsPerHour + " client" + (clientsPerHour > 1 ? "s" : "") + "</b> par heure investie (" + hoursPerDay + "h/jour).";
 }
 
-// SCRIPTS DES TROIS POP-UPS D'ENCODAGE EN DIRECT
+// SCRIPTS DES POP-UPS
 function typeCode(elementId, textLines, barId, duration, onComplete) {
   const el = document.getElementById(elementId);
   const bar = document.getElementById(barId);
@@ -340,7 +394,6 @@ function startMegaShow() {
   pop2.style.display = "none";
   pop3.style.display = "none";
 
-  // PHASES DE CODE TEXTUEL QUI S'ANIMENT LIGNE PAR LIGNE (3,5 SECONDES PAR FENÊTRE POP-UP)
   const codeStep1 = [
     "import { NexoraCore } from '@nexora/ai-engine';",
     "const app = new NexoraCore({ name: '" + val + "' });",
@@ -369,22 +422,18 @@ function startMegaShow() {
     "SUCCESS: SaaS application ready for production!"
   ];
 
-  // POP-UP 1 (3.5 SECONDES)
   typeCode("code1", codeStep1, "pbar1", 3200, () => {
     pop1.style.display = "none";
     pop2.style.display = "block";
 
-    // POP-UP 2 (3.5 SECONDES)
     typeCode("code2", codeStep2, "pbar2", 3200, () => {
       pop2.style.display = "none";
       pop3.style.display = "block";
 
-      // POP-UP 3 (3.5 SECONDES)
       typeCode("code3", codeStep3, "pbar3", 3200, () => {
         pop3.style.display = "none";
         overlay.style.display = "none";
 
-        // REVELATION DU BILAN ET DU SIMULATEUR APRES LES POP-UPS
         document.getElementById("previewTitle").textContent = val;
         document.getElementById("moduleProjectName").textContent = val;
         preview.style.display = "block";
