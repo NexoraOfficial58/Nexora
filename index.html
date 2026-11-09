@@ -162,14 +162,14 @@ h1 {font-size:clamp(36px,6vw,60px);font-weight:900;line-height:1.1;margin-bottom
   color: #fff;
 }
 
-/* LE GROS BLOC MODAL DE RÉVÉLATION QUI VIENT PAR-DESSUS */
+/* LA MODALE DE RÉVÉLATION (CACHÉE PAR DÉFAUT) */
 .reveal-modal-overlay {
   position: absolute;
   top: 0; left: 0; width: 100%; height: 100%;
-  background: rgba(7, 11, 24, 0.94);
+  background: rgba(7, 11, 24, 0.95);
   backdrop-filter: blur(10px);
   z-index: 50;
-  display: flex;
+  display: none; /* Masquée au départ ! */
   align-items: center;
   justify-content: center;
   padding: 20px;
@@ -271,7 +271,7 @@ footer {border-top:1px solid var(--border);padding:35px 0;text-align:center;colo
       <!-- RESULTAT ET SUPER SIMULATEUR -->
       <div id="preview" aria-live="polite">
         
-        <!-- MODALE DE RÉVÉLATION QUI VIENT SE METTRE PAR-DESSUS -->
+        <!-- MODALE DE RÉVÉLATION (S'affiche uniquement après clic sur le bouton) -->
         <div class="reveal-modal-overlay" id="revealModal">
           <div class="reveal-card">
             <div style="font-size:12px; color:#4ade80; text-transform:uppercase; font-weight:bold; letter-spacing:1px;">⚡ Plan d'Action Stratégique Calculé</div>
@@ -376,8 +376,8 @@ footer {border-top:1px solid var(--border);padding:35px 0;text-align:center;colo
             </div>
           </div>
 
-          <!-- BOUTON POUR AFFICHER LA MODALE MANUELLEMENT SI BESOIN -->
-          <button class="btn" style="width:100%; margin-top:15px; background:linear-gradient(110deg,#27c93f,#10b981);" onclick="showRevealModal()">
+          <!-- BOUTON DE CALCUL QUI DÉCLENCHE LA POP-UP -->
+          <button class="btn" style="width:100%; margin-top:15px; background:linear-gradient(110deg,#27c93f,#10b981); font-size:16px; padding:18px;" onclick="showRevealModal()">
             ✦ Afficher mon plan d'action personnalisé →
           </button>
         </div>
@@ -406,25 +406,21 @@ function fill(val) {
 function setGoal(val, el) {
   currentGoal = val;
   updateActiveCard('gridGoal', el);
-  updateSimulation();
 }
 
 function setDays(val, el) {
   currentDays = val;
   updateActiveCard('gridDays', el);
-  updateSimulation();
 }
 
 function setHours(val, el) {
   currentHours = val;
   updateActiveCard('gridHours', el);
-  updateSimulation();
 }
 
 function setPrice(val, el) {
   currentPrice = val;
   updateActiveCard('gridPrice', el);
-  updateSimulation();
 }
 
 function updateActiveCard(gridId, selectedEl) {
@@ -547,9 +543,7 @@ function startMegaShow() {
         document.getElementById("previewTitle").textContent = val;
         document.getElementById("moduleProjectName").textContent = val;
         preview.style.display = "block";
-        updateSimulation();
-        // Ouvre automatiquement la modale de révélation en grand par-dessus pour un effet waouh immédiat !
-        showRevealModal();
+        // La modale reste cachée ici : le visiteur choisit ses critères tranquillement !
         preview.scrollIntoView({ behavior: "smooth", block: "center" });
       });
     });
