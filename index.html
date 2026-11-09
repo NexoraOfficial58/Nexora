@@ -106,7 +106,7 @@ h1 {font-size:clamp(36px,6vw,60px);font-weight:900;line-height:1.1;margin-bottom
   transition: width 0.1s linear;
 }
 
-/* ZONE APERÇU ET SIMULATEUR AVANCÉ */
+/* ZONE APERÇU ET SIMULATEUR D'ORIGINE */
 #preview {
   display:none;
   margin-top:25px;
@@ -136,14 +136,14 @@ h1 {font-size:clamp(36px,6vw,60px);font-weight:900;line-height:1.1;margin-bottom
 }
 .options-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
   gap: 10px;
 }
 .option-card {
   background: #131f3b;
   border: 1px solid rgba(255,255,255,0.08);
   border-radius: 10px;
-  padding: 12px 10px;
+  padding: 12px 8px;
   text-align: center;
   cursor: pointer;
   font-size: 13px;
@@ -162,7 +162,7 @@ h1 {font-size:clamp(36px,6vw,60px);font-weight:900;line-height:1.1;margin-bottom
   color: #fff;
 }
 
-/* LA MODALE DE RÉVÉLATION DU PAIEMENT */
+/* LA MODALE DE RÉVÉLATION MOTIVANTE (FAIRE RÊVER) */
 .reveal-modal-overlay {
   position: absolute;
   top: 0; left: 0; width: 100%; height: 100%;
@@ -178,7 +178,7 @@ h1 {font-size:clamp(36px,6vw,60px);font-weight:900;line-height:1.1;margin-bottom
   text-align: center;
 }
 .reveal-title { font-size: 24px; font-weight: 900; margin-bottom: 10px; color: #fff; }
-.reveal-desc { color: var(--muted); font-size: 15px; margin-bottom: 25px; max-width: 500px; }
+.reveal-desc { color: var(--muted); font-size: 15px; margin-bottom: 20px; max-width: 500px; line-height: 1.5; }
 .price-tag { font-size: 32px; font-weight: 900; color: #4ade80; margin-bottom: 20px; }
 </style>
 </head>
@@ -208,56 +208,65 @@ h1 {font-size:clamp(36px,6vw,60px);font-weight:900;line-height:1.1;margin-bottom
       <button class="btn" style="width:100%;font-size:18px;" onclick="startBuilding()">🚀 Générer mon SaaS avec l'IA</button>
 
       <div id="preview">
-        <div class="sim-section-title">Aperçu en temps réel de votre architecture SaaS</div>
+        <div class="sim-section-title">Simulateur de rentabilité et de génération IA</div>
         <div class="simulator-box">
           
-          <!-- Critère 1 : Thème visuel -->
+          <!-- Critère 1 -->
           <div>
-            <div class="sim-section-title">1. Thème Visuel &amp; Design</div>
+            <div class="sim-section-title">1. Combien tu veux générer ?</div>
             <div class="options-grid">
-              <div class="option-card active" onclick="selectOpt(this)">Sombre Pro</div>
-              <div class="option-card" onclick="selectOpt(this)">Cyber Neon</div>
-              <div class="option-card" onclick="selectOpt(this)">Minimaliste</div>
+              <div class="option-card" onclick="selectOpt(this)">5 000 €</div>
+              <div class="option-card active" onclick="selectOpt(this)">10 000 €</div>
+              <div class="option-card" onclick="selectOpt(this)">20 000 €</div>
+              <div class="option-card" onclick="selectOpt(this)">30 000 €</div>
+              <div class="option-card" onclick="selectOpt(this)">50 000 €</div>
             </div>
           </div>
 
-          <!-- Critère 2 : Module Intégré -->
+          <!-- Critère 2 -->
           <div>
-            <div class="sim-section-title">2. Module Clé en Main</div>
+            <div class="sim-section-title">2. En combien de temps ?</div>
             <div class="options-grid">
-              <div class="option-card active" onclick="selectOpt(this)">Stripe Paiement</div>
-              <div class="option-card" onclick="selectOpt(this)">Base Supabase</div>
-              <div class="option-card" onclick="selectOpt(this)">Auth Client</div>
+              <div class="option-card" onclick="selectOpt(this)">1 jour</div>
+              <div class="option-card active" onclick="selectOpt(this)">1 semaine</div>
+              <div class="option-card" onclick="selectOpt(this)">15 jours</div>
+              <div class="option-card" onclick="selectOpt(this)">1 mois</div>
             </div>
           </div>
 
-          <!-- Critère 3 : Format de Livraison -->
+          <!-- Critère 3 -->
           <div>
-            <div class="sim-section-title">3. Structure de Code</div>
+            <div class="sim-section-title">3. Temps à y consacrer par jour</div>
             <div class="options-grid">
-              <div class="option-card active" onclick="selectOpt(this)">Standard SaaS</div>
-              <div class="option-card" onclick="selectOpt(this)">Dashboard Pro</div>
-              <div class="option-card" onclick="selectOpt(this)">Full Application</div>
+              <div class="option-card" onclick="selectOpt(this)">1h / jour</div>
+              <div class="option-card active" onclick="selectOpt(this)">2h / jour</div>
+              <div class="option-card" onclick="selectOpt(this)">5h / jour</div>
+              <div class="option-card" onclick="selectOpt(this)">1 journée</div>
             </div>
           </div>
 
-          <!-- Critère 4 : Vitesse / Délai estimé -->
+          <!-- Critère 4 -->
           <div>
-            <div class="sim-section-title">4. Complexité &amp; Profondeur</div>
+            <div class="sim-section-title">4. Prix de vente par client (€)</div>
             <div class="options-grid">
-              <div class="option-card active" onclick="selectOpt(this)">Standard (1 Min)</div>
-              <div class="option-card" onclick="selectOpt(this)">Avancé (Complet)</div>
+              <div class="option-card" onclick="selectOpt(this)">29 €</div>
+              <div class="option-card active" onclick="selectOpt(this)">49 €</div>
+              <div class="option-card" onclick="selectOpt(this)">69 €</div>
+              <div class="option-card" onclick="selectOpt(this)">99 €</div>
+              <div class="option-card" onclick="selectOpt(this)">199 €</div>
             </div>
           </div>
 
-          <button class="btn" style="margin-top:10px;width:100%;" onclick="showCheckout()">⚡ Finaliser et Obtenir le Code Source</button>
+          <button class="btn" style="margin-top:10px;width:100%;" onclick="showCheckout()">⚡ Valider les critères &amp; Lancer le Projet</button>
         </div>
 
         <div class="reveal-modal-overlay" id="revealModal">
-          <div class="reveal-title">Votre SaaS est Prêt à être Déployé ! 🚀</div>
-          <div class="reveal-desc">L'IA a généré avec succès l'ensemble du code frontend, du backend Node.js et l'intégration Stripe personnalisée selon vos critères. Obtenez votre archive complète et lancez votre business dès aujourd'hui.</div>
-          <div class="price-tag">29.00 €</div>
-          <button class="btn" onclick="triggerStripeCheckout()">💳 Payer &amp; Télécharger le Projet</button>
+          <div class="reveal-title">Analyse IA : Objectif 100% Faisable ! 🚀</div>
+          <div class="reveal-desc" id="revealText">
+            L'ordinateur a analysé votre projet et vos critères. Avec le moteur Nexora AI, générer ce logiciel et atteindre vos objectifs de chiffre d'affaires est totalement réalisable. Tout est automatisé pour vous mener au succès dès aujourd'hui.
+          </div>
+          <div class="price-tag" id="dynamicPrice">29.00 €</div>
+          <button class="btn" onclick="triggerStripeCheckout()">💳 Payer &amp; Télécharger le Code Source</button>
         </div>
       </div>
     </div>
