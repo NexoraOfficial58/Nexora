@@ -106,7 +106,7 @@ h1 {font-size:clamp(36px,6vw,60px);font-weight:900;line-height:1.1;margin-bottom
   transition: width 0.1s linear;
 }
 
-/* ZONE APERÇU ET SUPER SIMULATEUR AVEC GRILLES DE CARRÉS */
+/* ZONE APERÇU ET SUPER SIMULATEUR */
 #preview {
   display:none;
   margin-top:25px;
@@ -121,11 +121,14 @@ h1 {font-size:clamp(36px,6vw,60px);font-weight:900;line-height:1.1;margin-bottom
   border-radius:16px;
   padding:25px;
   margin-top:25px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 .sim-section-title {
   font-size: 13px;
   color: var(--muted);
-  margin-bottom: 8px;
+  margin-bottom: 6px;
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -134,7 +137,6 @@ h1 {font-size:clamp(36px,6vw,60px);font-weight:900;line-height:1.1;margin-bottom
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
   gap: 10px;
-  margin-bottom: 20px;
 }
 .option-card {
   background: #131f3b;
@@ -158,16 +160,27 @@ h1 {font-size:clamp(36px,6vw,60px);font-weight:900;line-height:1.1;margin-bottom
   box-shadow: 0 4px 15px rgba(57,135,255,0.3);
   color: #fff;
 }
+
+/* LE BLOC DE RÉSULTAT ULTRA PERCUTANT QUI APPARAÎT EN FIN */
 .revenue-display {
-  background: linear-gradient(135deg, rgba(74,165,255,0.15), rgba(157,114,255,0.15));
-  border: 1px solid rgba(74,165,255,0.4);
-  padding: 22px;
+  background: linear-gradient(135deg, rgba(39,201,63,0.18), rgba(57,135,255,0.18));
+  border: 2px solid #27c93f;
+  padding: 25px;
   border-radius: 14px;
   text-align: center;
-  margin-top: 25px;
+  width: 100%;
+  margin-top: 10px;
+  box-shadow: 0 0 30px rgba(39,201,63,0.25);
+  animation: popInResult 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
+
+@keyframes popInResult {
+  from { opacity: 0; transform: scale(0.9) translateY(15px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
 .revenue-amount {
-  font-size: 22px;
+  font-size: 26px;
   font-weight: 900;
   color: #4ade80;
   margin: 8px 0;
@@ -240,7 +253,7 @@ footer {border-top:1px solid var(--border);padding:35px 0;text-align:center;colo
 
       <button class="btn" style="width:100%;" onclick="startMegaShow()">✦ Générer mon logiciel en direct</button>
 
-      <!-- RESULTAT ET SUPER SIMULATEUR AVEC BOUTONS CARRÉS -->
+      <!-- RESULTAT ET SUPER SIMULATEUR -->
       <div id="preview" aria-live="polite">
         <div style="font-size:14px; color:#4ade80; font-weight:bold; margin-bottom:15px; text-align:center;">
           ✅ Logiciel et Code Source entièrement générés avec succès !
@@ -279,62 +292,71 @@ footer {border-top:1px solid var(--border);padding:35px 0;text-align:center;colo
           </div>
         </div>
 
-        <!-- SUPER SIMULATEUR AVEC SÉLECTION PAR CARRÉS -->
+        <!-- SUPER SIMULATEUR AVEC DÉLAI 1 JOUR & APPARITION DU RÉSULTAT -->
         <div class="simulator-box">
-          <h4 style="color:#fff;margin-bottom:8px;font-size:17px;">🎯 Simulateur de Stratégie & Plan d'Action SaaS</h4>
-          <p style="font-size:13px;color:var(--muted);margin-bottom:20px;">Cliquez sur vos critères pour générer votre plan d'attaque exact :</p>
+          <h4 style="color:#fff;margin-bottom:4px;font-size:17px;">🎯 Simulateur de Stratégie & Plan d'Action SaaS</h4>
+          <p style="font-size:13px;color:var(--muted);margin-bottom:10px;">Sélectionnez vos 4 critères pour générer votre plan d'attaque exact :</p>
 
           <!-- 1. Objectif de CA -->
-          <div class="sim-section-title">1. Objectif de chiffre d'affaires visé / mois :</div>
-          <div class="options-grid" id="gridGoal">
-            <div class="option-card" onclick="setGoal(5000, this)">5 000 €</div>
-            <div class="option-card active" onclick="setGoal(10000, this)">10 000 €</div>
-            <div class="option-card" onclick="setGoal(20000, this)">20 000 €</div>
-            <div class="option-card" onclick="setGoal(30000, this)">30 000 €</div>
-            <div class="option-card" onclick="setGoal(40000, this)">40 000 €</div>
-            <div class="option-card" onclick="setGoal(50000, this)">50 000 €</div>
+          <div>
+            <div class="sim-section-title">1. Objectif de chiffre d'affaires visé / mois :</div>
+            <div class="options-grid" id="gridGoal">
+              <div class="option-card" onclick="setGoal(5000, this)">5 000 €</div>
+              <div class="option-card active" onclick="setGoal(10000, this)">10 000 €</div>
+              <div class="option-card" onclick="setGoal(20000, this)">20 000 €</div>
+              <div class="option-card" onclick="setGoal(30000, this)">30 000 €</div>
+              <div class="option-card" onclick="setGoal(40000, this)">40 000 €</div>
+              <div class="option-card" onclick="setGoal(50000, this)">50 000 €</div>
+            </div>
           </div>
 
-          <!-- 2. Délai -->
-          <div class="sim-section-title">2. Délai pour atteindre l'objectif :</div>
-          <div class="options-grid" id="gridDays">
-            <div class="option-card" onclick="setDays(7, this)">7 Jours</div>
-            <div class="option-card active" onclick="setDays(30, this)">30 Jours</div>
-            <div class="option-card" onclick="setDays(60, this)">60 Jours</div>
-            <div class="option-card" onclick="setDays(90, this)">90 Jours</div>
+          <!-- 2. Délai (Ajout de 1 Jour) -->
+          <div>
+            <div class="sim-section-title">2. Délai pour atteindre l'objectif :</div>
+            <div class="options-grid" id="gridDays">
+              <div class="option-card" onclick="setDays(1, this)">1 Jour</div>
+              <div class="option-card" onclick="setDays(7, this)">7 Jours</div>
+              <div class="option-card active" onclick="setDays(30, this)">30 Jours</div>
+              <div class="option-card" onclick="setDays(60, this)">60 Jours</div>
+              <div class="option-card" onclick="setDays(90, this)">90 Jours</div>
+            </div>
           </div>
 
           <!-- 3. Temps par jour -->
-          <div class="sim-section-title">3. Temps consacré par jour :</div>
-          <div class="options-grid" id="gridHours">
-            <div class="option-card" onclick="setHours(1, this)">1 h / jour</div>
-            <div class="option-card active" onclick="setHours(2, this)">2 h / jour</div>
-            <div class="option-card" onclick="setHours(4, this)">4 h / jour</div>
-            <div class="option-card" onclick="setHours(8, this)">8 h / jour</div>
+          <div>
+            <div class="sim-section-title">3. Temps consacré par jour :</div>
+            <div class="options-grid" id="gridHours">
+              <div class="option-card" onclick="setHours(1, this)">1 h / jour</div>
+              <div class="option-card active" onclick="setHours(2, this)">2 h / jour</div>
+              <div class="option-card" onclick="setHours(4, this)">4 h / jour</div>
+              <div class="option-card" onclick="setHours(8, this)">8 h / jour</div>
+            </div>
           </div>
 
           <!-- 4. Prix de vente abonnement -->
-          <div class="sim-section-title">4. Prix de votre abonnement client :</div>
-          <div class="options-grid" id="gridPrice">
-            <div class="option-card" onclick="setPrice(29, this)">29 €</div>
-            <div class="option-card active" onclick="setPrice(39, this)">39 €</div>
-            <div class="option-card" onclick="setPrice(49, this)">49 €</div>
-            <div class="option-card" onclick="setPrice(59, this)">59 €</div>
-            <div class="option-card" onclick="setPrice(79, this)">79 €</div>
-            <div class="option-card" onclick="setPrice(199, this)">199 €</div>
+          <div>
+            <div class="sim-section-title">4. Prix de votre abonnement client :</div>
+            <div class="options-grid" id="gridPrice">
+              <div class="option-card" onclick="setPrice(29, this)">29 €</div>
+              <div class="option-card active" onclick="setPrice(39, this)">39 €</div>
+              <div class="option-card" onclick="setPrice(49, this)">49 €</div>
+              <div class="option-card" onclick="setPrice(59, this)">59 €</div>
+              <div class="option-card" onclick="setPrice(79, this)">79 €</div>
+              <div class="option-card" onclick="setPrice(199, this)">199 €</div>
+            </div>
           </div>
 
-          <!-- RÉSULTAT DU CALCUL STRATÉGIQUE -->
-          <div class="revenue-display">
-            <div style="font-size:11px;color:#a5b1ca;text-transform:uppercase;font-weight:bold;letter-spacing:1px;">Plan d'Action Calculé par l'IA</div>
+          <!-- RÉSULTAT DU CALCUL STRATÉGIQUE (QUI S'AFFICHE EN GRAND) -->
+          <div class="revenue-display" id="resultBox">
+            <div style="font-size:12px;color:#a5b1ca;text-transform:uppercase;font-weight:bold;letter-spacing:1px;">⚡ Plan d'Action Calculé par l'IA</div>
             <div class="revenue-amount" id="calcClients">Il vous faut 257 clients actifs</div>
-            <div style="font-size:13px;color:#f5f7ff;margin-top:6px;" id="calcAction">🎯 Soit environ <b>9 clients à convaincre par jour</b> pendant 30 jours.</div>
-            <div style="font-size:12px;color:#4ade80;margin-top:4px;" id="calcWork">⚡ Rythme de travail : ~4.3 clients par heure de travail.</div>
+            <div style="font-size:14px;color:#f5f7ff;margin-top:6px;" id="calcAction">🎯 Objectif : <b>8.6 nouveaux clients par jour</b> pendant 30 jours.</div>
+            <div style="font-size:13px;color:#4ade80;margin-top:4px;" id="calcWork">⚡ Rendement estimé : ~4.3 clients par heure investie (2h/jour).</div>
           </div>
         </div>
 
         <!-- BOUTON STRIPE DE 29 € -->
-        <a href="https://buy.stripe.com/afA14f2UT9J3Q2hSe119fW02" target="_blank" class="btn" style="margin-top:25px; width:100%; background:linear-gradient(110deg,#27c93f,#10b981);">
+        <a href="https://buy.stripe.com/afA14f2UT9J3Q2hSe119fW02" target="_blank" class="btn" style="margin-top:25px; width:100%; background:linear-gradient(110deg,#27c93f,#10b981); font-size:16px; padding:18px;">
           ✦ Obtenir et télécharger mon code complet (29 €) →
         </a>
       </div>
@@ -348,7 +370,6 @@ footer {border-top:1px solid var(--border);padding:35px 0;text-align:center;colo
 </footer>
 
 <script>
-// Variables d'état du simulateur par carrés
 let currentGoal = 10000;
 let currentDays = 30;
 let currentHours = 2;
@@ -399,11 +420,21 @@ function updateSimulation() {
   const clientsPerHour = (clientsNeeded / totalHours).toFixed(2);
   
   document.getElementById("calcClients").textContent = "Il vous faut " + clientsNeeded.toLocaleString("fr-FR") + " clients actifs";
-  document.getElementById("calcAction").innerHTML = "🎯 Objectif : <b>" + clientsPerDay + " nouveau" + (clientsPerDay > 1 ? "s" : "") + " client" + (clientsPerDay > 1 ? "s" : "") + " par jour</b> pendant " + currentDays + " jours.";
+  
+  if (currentDays === 1) {
+    document.getElementById("calcAction").innerHTML = "🎯 Objectif Flash : <b>" + clientsNeeded.toLocaleString("fr-FR") + " clients</b> à convaincre en 1 seul jour (" + currentHours + "h de travail).";
+  } else {
+    document.getElementById("calcAction").innerHTML = "🎯 Objectif : <b>" + clientsPerDay + " nouveau" + (clientsPerDay > 1 ? "s" : "") + " client" + (clientsPerDay > 1 ? "s" : "") + " par jour</b> pendant " + currentDays + " jours.";
+  }
+  
   document.getElementById("calcWork").innerHTML = "⚡ Rendement estimé : ~<b>" + clientsPerHour + " client" + (clientsPerHour > 1 ? "s" : "") + "</b> par heure investie (" + currentHours + "h/jour).";
+
+  // Petit effet visuel d'impulsion à chaque changement de choix
+  const box = document.getElementById("resultBox");
+  box.style.transform = "scale(1.02)";
+  setTimeout(() => { box.style.transform = "scale(1)"; }, 150);
 }
 
-// SCRIPTS DES POP-UPS
 function typeCode(elementId, textLines, barId, duration, onComplete) {
   const el = document.getElementById(elementId);
   const bar = document.getElementById(barId);
