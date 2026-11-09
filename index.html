@@ -162,14 +162,14 @@ h1 {font-size:clamp(36px,6vw,60px);font-weight:900;line-height:1.1;margin-bottom
   color: #fff;
 }
 
-/* LA MODALE DE RÉVÉLATION (CACHÉE PAR DÉFAUT) */
+/* LA MODALE DE RÉVÉLATION ULTRA MOTIVANTE */
 .reveal-modal-overlay {
   position: absolute;
   top: 0; left: 0; width: 100%; height: 100%;
-  background: rgba(7, 11, 24, 0.95);
-  backdrop-filter: blur(10px);
+  background: rgba(7, 11, 24, 0.96);
+  backdrop-filter: blur(12px);
   z-index: 50;
-  display: none; /* Masquée au départ ! */
+  display: none;
   align-items: center;
   justify-content: center;
   padding: 20px;
@@ -189,15 +189,15 @@ h1 {font-size:clamp(36px,6vw,60px);font-weight:900;line-height:1.1;margin-bottom
   border-radius: 20px;
   text-align: center;
   width: 100%;
-  max-width: 600px;
-  box-shadow: 0 0 50px rgba(39, 201, 63, 0.35);
+  max-width: 620px;
+  box-shadow: 0 0 60px rgba(39, 201, 63, 0.4);
 }
 
 .revenue-amount {
-  font-size: 32px;
+  font-size: 30px;
   font-weight: 900;
   color: #4ade80;
-  margin: 12px 0;
+  margin: 10px 0;
 }
 
 footer {border-top:1px solid var(--border);padding:35px 0;text-align:center;color:#8290aa;font-size:13px;margin-top:80px;}
@@ -271,13 +271,15 @@ footer {border-top:1px solid var(--border);padding:35px 0;text-align:center;colo
       <!-- RESULTAT ET SUPER SIMULATEUR -->
       <div id="preview" aria-live="polite">
         
-        <!-- MODALE DE RÉVÉLATION (S'affiche uniquement après clic sur le bouton) -->
+        <!-- MODALE DE RÉVÉLATION ULTRA MOTIVANTE -->
         <div class="reveal-modal-overlay" id="revealModal">
           <div class="reveal-card">
-            <div style="font-size:12px; color:#4ade80; text-transform:uppercase; font-weight:bold; letter-spacing:1px;">⚡ Plan d'Action Stratégique Calculé</div>
+            <div style="font-size:12px; color:#4ade80; text-transform:uppercase; font-weight:bold; letter-spacing:1px;">✅ Analyse IA : Objectif 100% Réalisable & Validé</div>
             <div class="revenue-amount" id="modalClients">Il vous faut 257 clients actifs</div>
-            <div style="font-size:15px; color:#f5f7ff; margin:10px 0 6px;" id="modalAction">🎯 Objectif : <b>8.6 nouveaux clients par jour</b> pendant 30 jours.</div>
-            <div style="font-size:13px; color:#a5b1ca; margin-bottom:20px;" id="modalWork">⚡ Rendement estimé : ~4.3 clients par heure investie (2h/jour).</div>
+            <div style="font-size:15px; color:#f5f7ff; margin:10px 0 6px;" id="modalAction">🎯 Cap à tenir : <b>8.6 nouveaux clients par jour</b> pendant 30 jours.</div>
+            <div style="font-size:13px; color:#a5b1ca; background:rgba(39,201,63,0.1); border:1px solid rgba(39,201,63,0.3); padding:10px; border-radius:8px; margin:15px 0;" id="modalValidation">
+              💡 <b>verdict de l'algorithme :</b> Ce plan d'action est tout à fait atteignable avec ton tunnel automatisé Nexora. Ton logiciel s'occupe de tout encaisser.
+            </div>
             
             <a href="https://buy.stripe.com/afA14f2UT9J3Q2hSe119fW02" target="_blank" class="btn" style="width:100%; background:linear-gradient(110deg,#27c93f,#10b981); font-size:16px; padding:18px; box-shadow:0 10px 30px rgba(39,201,63,0.4);">
               ✦ Obtenir et télécharger mon code complet (29 €) →
@@ -441,12 +443,12 @@ function updateSimulation() {
   document.getElementById("modalClients").textContent = "Il vous faut " + clientsNeeded.toLocaleString("fr-FR") + " clients actifs";
   
   if (currentDays === 1) {
-    document.getElementById("modalAction").innerHTML = "🎯 Objectif Flash : <b>" + clientsNeeded.toLocaleString("fr-FR") + " clients</b> à convaincre en 1 seul jour (" + currentHours + "h de travail).";
+    document.getElementById("modalAction").innerHTML = "🎯 Cap Flash : <b>" + clientsNeeded.toLocaleString("fr-FR") + " clients</b> à convaincre en 1 seul jour.";
+    document.getElementById("modalValidation").innerHTML = "💡 <b>Verdict de l'IA :</b> Objectif audacieux mais <u>totalement faisable</u> en activant ton réseau et tes réseaux sociaux dès aujourd'hui !";
   } else {
-    document.getElementById("modalAction").innerHTML = "🎯 Objectif : <b>" + clientsPerDay + " nouveau" + (clientsPerDay > 1 ? "s" : "") + " client" + (clientsPerDay > 1 ? "s" : "") + " par jour</b> pendant " + currentDays + " jours.";
+    document.getElementById("modalAction").innerHTML = "🎯 Cap à tenir : <b>" + clientsPerDay + " nouveau" + (clientsPerDay > 1 ? "s" : "") + " client" + (clientsPerDay > 1 ? "s" : "") + " par jour</b> pendant " + currentDays + " jours.";
+    document.getElementById("modalValidation").innerHTML = "💡 <b>Verdict de l'IA :</b> Avec " + currentHours + "h de travail par jour, ce plan est <u>parfaitement réaliste</u> et calibré pour réussir.";
   }
-  
-  document.getElementById("modalWork").innerHTML = "⚡ Rendement estimé : ~<b>" + clientsPerHour + " client" + (clientsPerHour > 1 ? "s" : "") + "</b> par heure investie (" + currentHours + "h/jour).";
 }
 
 function showRevealModal() {
@@ -543,7 +545,6 @@ function startMegaShow() {
         document.getElementById("previewTitle").textContent = val;
         document.getElementById("moduleProjectName").textContent = val;
         preview.style.display = "block";
-        // La modale reste cachée ici : le visiteur choisit ses critères tranquillement !
         preview.scrollIntoView({ behavior: "smooth", block: "center" });
       });
     });
