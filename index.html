@@ -33,24 +33,7 @@ h1 {font-size:clamp(36px,6vw,60px);font-weight:900;line-height:1.1;margin-bottom
 .examples {display:flex;flex-wrap:wrap;gap:8px;margin-bottom:25px;}
 .example {padding:8px 14px;border-radius:8px;background:#1c2945;color:#b9caff;border:1px solid var(--border);cursor:pointer;font-size:13px;}
 
-/* Écran d'animation de fabrication IA */
-#loadingState {
-  display:none;
-  background:#080e1d;
-  border:1px solid rgba(74,165,255,0.3);
-  border-radius:18px;
-  padding:30px;
-  margin-top:25px;
-  text-align:center;
-}
-.loader-spinner {
-  width:40px; height:40px; border:4px solid rgba(255,255,255,0.1);
-  border-top-color:#3987ff; border-radius:50%;
-  animation: spin 1s linear infinite; margin:0 auto 15px;
-}
-@keyframes spin { to { transform: rotate(360deg); } }
-
-/* Zone de résultat (Aperçu + Simulateur) */
+/* Étape de construction visuelle immersive */
 #preview {
   display:none;
   margin-top:25px;
@@ -58,7 +41,7 @@ h1 {font-size:clamp(36px,6vw,60px);font-weight:900;line-height:1.1;margin-bottom
   padding:25px;
   border:1px solid rgba(92,143,255,.4);
   border-radius:18px;
-  animation: fadeIn 0.5s ease;
+  animation: fadeIn 0.6s ease;
 }
 @keyframes fadeIn { from { opacity:0; transform:translateY(15px); } to { opacity:1; transform:translateY(0); } }
 
@@ -80,7 +63,7 @@ footer {border-top:1px solid var(--border);padding:35px 0;text-align:center;colo
 <main class="container">
   <section class="hero">
     <h1>Votre idée mérite de devenir<br><span class="gradient">un logiciel rentable.</span></h1>
-    <p style="color:var(--muted);max-width:600px;margin:0 auto;font-size:16px;">Saisissez votre projet et laissez l'IA concevoir l'ébauche de votre futur logiciel.</p>
+    <p style="color:var(--muted);max-width:600px;margin:0 auto;font-size:16px;">Saisissez votre projet et visualisez l'ébauche concrète de votre application en direct.</p>
 
     <div class="builder">
       <label style="display:block;font-weight:800;margin-bottom:10px;">Quel logiciel souhaitez-vous créer ?</label>
@@ -92,20 +75,13 @@ footer {border-top:1px solid var(--border);padding:35px 0;text-align:center;colo
         <button class="example" onclick="fill('Plateforme de gestion de rendez-vous')">📅 Agenda & RDV</button>
       </div>
 
-      <button class="btn" style="width:100%;" onclick="startGeneration()">✦ Générer l'aperçu dynamique</button>
+      <button class="btn" style="width:100%;" onclick="generatePreview()">✦ Générer l'aperçu concret</button>
 
-      <!-- 1. ÉTAPE DE FABRICATION ANIMÉE DE L'IA -->
-      <div id="loadingState">
-        <div class="loader-spinner"></div>
-        <div id="loadingStep" style="font-size:16px;font-weight:bold;color:#4ca5ff;margin-bottom:6px;">Analyse de votre projet...</div>
-        <div style="font-size:13px;color:var(--muted);">L'IA configure l'architecture globale et les modules de votre logiciel.</div>
-      </div>
-
-      <!-- 2. ÉBAUCHE DU DASHBOARD + SIMULATEUR CALCULÉ + STRIPE -->
+      <!-- APERÇU CONCRET : Les fenêtres du dashboard + le simulateur + le paiement Stripe -->
       <div id="preview" aria-live="polite">
-        <h3 style="margin-bottom:15px;font-size:20px;">🚀 Aperçu généré pour : <span id="previewTitle" style="color:#4ca5ff;"></span></h3>
+        <h3 style="margin-bottom:15px;font-size:20px;">🚀 Aperçu validé pour : <span id="previewTitle" style="color:#4ca5ff;"></span></h3>
         
-        <!-- Ébauche visuelle (les 3 fenêtres du dashboard) -->
+        <!-- Les 3 fenêtres du tableau de bord (Le concret recherché) -->
         <div style="background:#0b1329; border:1px solid rgba(255,255,255,0.15); border-radius:14px; overflow:hidden; text-align:left;">
           <div style="background:#070c1b; padding:10px 16px; border-bottom:1px solid rgba(255,255,255,0.08); display:flex; align-items:center; justify-content:space-between;">
             <div style="display:flex; gap:6px;">
@@ -136,12 +112,11 @@ footer {border-top:1px solid var(--border);padding:35px 0;text-align:center;colo
           </div>
         </div>
 
-        <!-- SIMULATEUR INTELLIGENT DE RENTABILITÉ ET NOMBRE DE CLIENTS -->
+        <!-- SIMULATEUR DE RENTABILITÉ (Juste en dessous de l'ébauche) -->
         <div class="simulator-box">
           <h4 style="color:#fff;margin-bottom:10px;font-size:16px;">💰 Simulateur de Business Plan & Rentabilité</h4>
           <p style="font-size:13px;color:var(--muted);margin-bottom:20px;">Ajustez vos objectifs et vos prix pour calculer le nombre de clients nécessaires :</p>
 
-          <!-- Glissière 1 : Objectif de CA mensuel -->
           <div style="margin-bottom:15px;">
             <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:5px;">
               <span>Objectif de revenu mensuel visé :</span>
@@ -150,7 +125,6 @@ footer {border-top:1px solid var(--border);padding:35px 0;text-align:center;colo
             <input type="range" id="simGoal" min="3000" max="50000" step="1000" value="20000" style="width:100%;accent-color:#3987ff;cursor:pointer;" oninput="updateSimulation()">
           </div>
 
-          <!-- Glissière 2 : Prix de l'abonnement -->
           <div style="margin-bottom:15px;">
             <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:5px;">
               <span>Prix de vente de votre abonnement client :</span>
@@ -159,11 +133,10 @@ footer {border-top:1px solid var(--border);padding:35px 0;text-align:center;colo
             <input type="range" id="simPrice" min="10" max="150" step="1" value="49" style="width:100%;accent-color:#8657ff;cursor:pointer;" oninput="updateSimulation()">
           </div>
 
-          <!-- Résultat du calcul de clients nécessaires -->
           <div class="revenue-display">
             <div style="font-size:12px;color:#a5b1ca;text-transform:uppercase;font-weight:bold;">Objectif de Ventes Calculé</div>
             <div class="revenue-amount" id="calcDetails">Il vous faut 409 clients à 49 €/mois</div>
-            <div style="font-size:12px;color:#4ade80;margin-top:6px;" id="calcSub">✓ Pour générer 20 000 € de revenu récurrent chaque mois</div>
+            <div style="font-size:12px;color:#4ade80;margin-top:6px;" id="calcSub">✓ Pour générer 20 000 € de chiffre d'affaires récurrent mensuel</div>
           </div>
         </div>
 
@@ -184,7 +157,7 @@ footer {border-top:1px solid var(--border);padding:35px 0;text-align:center;colo
 <script>
 function fill(val) {
   document.getElementById("project").value = val;
-  startGeneration();
+  generatePreview();
 }
 
 function updateSimulation() {
@@ -200,11 +173,9 @@ function updateSimulation() {
   document.getElementById("calcSub").textContent = "✓ Pour générer " + goal.toLocaleString("fr-FR") + " € de chiffre d'affaires récurrent mensuel";
 }
 
-function startGeneration() {
+function generatePreview() {
   const input = document.getElementById("project");
-  const loading = document.getElementById("loadingState");
   const preview = document.getElementById("preview");
-  const stepText = document.getElementById("loadingStep");
 
   if (!input.value.trim()) {
     alert("Veuillez indiquer ou choisir un projet !");
@@ -212,27 +183,11 @@ function startGeneration() {
     return;
   }
 
-  preview.style.display = "none";
-  loading.style.display = "block";
-  loading.scrollIntoView({ behavior: "smooth", block: "center" });
-
-  // Étape 1 : Analyse
-  stepText.textContent = "⚙️ Analyse des fonctionnalités pour " + input.value + "...";
-
-  // Étape 2 : Assemblage (après 1 seconde)
-  setTimeout(() => {
-    stepText.textContent = "⚡ Génération des modules et de la base de données...";
-  }, 1000);
-
-  // Étape 3 : Affichage du projet complet (après 2.2 secondes)
-  setTimeout(() => {
-    loading.style.display = "none";
-    document.getElementById("previewTitle").textContent = input.value;
-    document.getElementById("moduleProjectName").textContent = input.value;
-    preview.style.display = "block";
-    updateSimulation();
-    preview.scrollIntoView({ behavior: "smooth", block: "center" });
-  }, 2200);
+  document.getElementById("previewTitle").textContent = input.value;
+  document.getElementById("moduleProjectName").textContent = input.value;
+  preview.style.display = "block";
+  updateSimulation();
+  preview.scrollIntoView({ behavior: "smooth", block: "center" });
 }
 </script>
 
