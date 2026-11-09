@@ -50,11 +50,14 @@
         .dot-yellow { background: #f59e0b; }
         .dot-green { background: #22c55e; }
 
-        @keyframes popIn {
-            0% { opacity: 0; transform: translateY(15px); }
-            100% { opacity: 1; transform: translateY(0); }
+        /* Animation d'ouverture progressive de fenêtre */
+        @keyframes windowOpen {
+            0% { opacity: 0; transform: scale(0.92) translateY(30px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
         }
-        .animate-pop { animation: popIn 0.3s ease-out forwards; }
+        .anim-window-1 { animation: windowOpen 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .anim-window-2 { opacity: 0; animation: windowOpen 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards; }
+        .anim-window-3 { opacity: 0; animation: windowOpen 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards; }
     </style>
 </head>
 <body class="text-slate-100 min-h-screen flex flex-col justify-between selection:bg-brand-500 selection:text-white relative">
@@ -129,7 +132,7 @@
         <!-- Hero Section -->
         <div id="heroSection" class="w-full space-y-6">
             <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold bg-brand-500/10 text-brand-400 border border-brand-500/30 shadow-md">
-                ✨ Voyez précisément ce que vous achetez
+                ✨ Ouvrez les fenêtres de votre futur logiciel
             </span>
 
             <h1 class="text-4xl sm:text-6xl font-black text-white tracking-tight leading-tight">
@@ -138,7 +141,7 @@
             </h1>
 
             <p class="text-slate-300 text-base sm:text-lg max-w-xl mx-auto leading-relaxed">
-                Entrez votre projet. Voyez s'ouvrir instantanément les fenêtres de votre plateforme avec de vrais écrans de travail concrets.
+                Entrez votre projet. Voyez s'ouvrir les fenêtres de votre plateforme avec de vrais écrans de travail concrets.
             </p>
 
             <!-- Champ de saisie -->
@@ -163,8 +166,8 @@
             </div>
         </div>
 
-        <!-- ZONE DU "AVANT" (LES FENÊTRES VISUELLES CONCRÈTES) + "APRÈS" (TON SIMULATEUR VALIDÉ) -->
-        <div id="liveCreationContainer" class="hidden w-full text-left space-y-8 animate-pop mt-2">
+        <!-- ZONE DU "AVANT" (LES FENÊTRES QUI S'OUVRENT EN CASCADE) + "APRÈS" (TON SIMULATEUR) -->
+        <div id="liveCreationContainer" class="hidden w-full text-left space-y-8 mt-2">
             
             <div class="flex justify-between items-center bg-slate-900/90 p-4 rounded-2xl border border-white/10 shadow-lg">
                 <div class="flex items-center gap-3">
@@ -174,7 +177,7 @@
                         <div class="dot dot-green"></div>
                     </div>
                     <div>
-                        <span class="text-[9px] uppercase tracking-wider font-mono font-bold text-brand-400 block">APERÇU DES FENÊTRES DE VOTRE PLATEFORME</span>
+                        <span class="text-[9px] uppercase tracking-wider font-mono font-bold text-brand-400 block">OUVERTURE DES FENÊTRES DE LA PLATEFORME</span>
                         <h2 class="text-lg font-black text-white" id="appTitleDisplay">Logiciel en direct</h2>
                     </div>
                 </div>
@@ -183,7 +186,7 @@
                 </button>
             </div>
 
-            <!-- FENÊTRE VISUELLE PRINCIPALE : LES 3 ÉCRANS DU LOGICIEL (LE CONCRET AVANT DE PAYER) -->
+            <!-- FENÊTRE VISUELLE PRINCIPALE : LES 3 ÉCRANS QUI S'OUVRENT EN CASCADE -->
             <div class="glass-card p-6 rounded-3xl border border-brand-500/50 glow-box space-y-6">
                 
                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 border-b border-white/10 pb-4">
@@ -201,7 +204,7 @@
                     </span>
                 </div>
 
-                <!-- LES 3 FENÊTRES / ÉCRANS VISUELS CONCRETS -->
+                <!-- LES 3 FENÊTRES SÉPARÉES AVEC LEURS ANIMATIONS D'OUVERTURE EN CASCADE -->
                 <div id="softwareMockupGrid" class="grid grid-cols-1 sm:grid-cols-3 gap-5">
                     <!-- Injecté dynamiquement -->
                 </div>
@@ -307,78 +310,96 @@
             document.getElementById('heroSection').classList.add('hidden');
             document.getElementById('liveCreationContainer').classList.remove('hidden');
             document.getElementById('appTitleDisplay').textContent = "Logiciel : " + input;
-            document.getElementById('softwareSubtitle').textContent = `Écrans et fenêtres actifs pour : "${input}"`;
+            document.getElementById('softwareSubtitle').textContent = `Fenêtres actives pour la gestion de : "${input}"`;
 
             const mockupGrid = document.getElementById('softwareMockupGrid');
 
             if (lower.includes('devis') || lower.includes('factur') || lower.includes('btp') || lower.includes('artisan')) {
                 mockupGrid.innerHTML = `
-                    <div class="bg-slate-900 rounded-2xl border border-white/10 overflow-hidden text-left space-y-3 shadow-xl">
-                        <div class="h-40 bg-slate-950 flex items-center justify-center text-brand-400 text-5xl border-b border-white/10 relative">
+                    <div class="anim-window-1 bg-slate-900 rounded-2xl border border-white/10 overflow-hidden text-left space-y-3 shadow-xl">
+                        <div class="bg-slate-950 px-3 py-2 border-b border-white/10 flex items-center justify-between">
+                            <div class="flex gap-1.5"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div>
+                            <span class="text-[9px] font-mono text-slate-400">fenetre_devis.exe</span>
+                        </div>
+                        <div class="h-32 bg-slate-950 flex items-center justify-center text-brand-400 text-4xl border-b border-white/10">
                             <i class="fa-solid fa-file-invoice-dollar"></i>
-                            <span class="absolute bottom-2 left-2 text-[9px] bg-slate-900/80 px-2 py-0.5 rounded text-white font-mono">Fenêtre 1 : Devis & TVA</span>
                         </div>
                         <div class="p-4 space-y-1">
-                            <span class="text-[10px] font-mono text-brand-400 uppercase tracking-wider font-bold">Éditeur de Factures Pro</span>
-                            <strong class="text-xs text-white block">Chiffrage rapide des chantiers</strong>
+                            <span class="text-[10px] font-mono text-brand-400 uppercase font-bold">Fenêtre 1 : Devis & TVA</span>
+                            <strong class="text-xs text-white block">Éditeur de Factures Pro</strong>
                             <p class="text-[11px] text-slate-400">Génération automatique des lignes de travaux et calcul des marges.</p>
                         </div>
                     </div>
-                    <div class="bg-slate-900 rounded-2xl border border-white/10 overflow-hidden text-left space-y-3 shadow-xl">
-                        <div class="h-40 bg-slate-950 flex items-center justify-center text-brand-400 text-5xl border-b border-white/10 relative">
+                    <div class="anim-window-2 bg-slate-900 rounded-2xl border border-white/10 overflow-hidden text-left space-y-3 shadow-xl">
+                        <div class="bg-slate-950 px-3 py-2 border-b border-white/10 flex items-center justify-between">
+                            <div class="flex gap-1.5"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div>
+                            <span class="text-[9px] font-mono text-slate-400">suivi_chantiers.app</span>
+                        </div>
+                        <div class="h-32 bg-slate-950 flex items-center justify-center text-brand-400 text-4xl border-b border-white/10">
                             <i class="fa-solid fa-helmet-safety"></i>
-                            <span class="absolute bottom-2 left-2 text-[9px] bg-slate-900/80 px-2 py-0.5 rounded text-white font-mono">Fenêtre 2 : Suivi Chantiers</span>
                         </div>
                         <div class="p-4 space-y-1">
-                            <span class="text-[10px] font-mono text-brand-400 uppercase tracking-wider font-bold">Planning & Interventions</span>
-                            <strong class="text-xs text-white block">Gestion des clients et adresses</strong>
+                            <span class="text-[10px] font-mono text-brand-400 uppercase font-bold">Fenêtre 2 : Suivi Chantiers</span>
+                            <strong class="text-xs text-white block">Planning & Interventions</strong>
                             <p class="text-[11px] text-slate-400">Centralisation de tous les chantiers en cours sur le terrain.</p>
                         </div>
                     </div>
-                    <div class="bg-slate-900 rounded-2xl border border-white/10 overflow-hidden text-left space-y-3 shadow-xl">
-                        <div class="h-40 bg-slate-950 flex items-center justify-center text-brand-400 text-5xl border-b border-white/10 relative">
+                    <div class="anim-window-3 bg-slate-900 rounded-2xl border border-white/10 overflow-hidden text-left space-y-3 shadow-xl">
+                        <div class="bg-slate-950 px-3 py-2 border-b border-white/10 flex items-center justify-between">
+                            <div class="flex gap-1.5"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div>
+                            <span class="text-[9px] font-mono text-slate-400">paiement_acompte.sys</span>
+                        </div>
+                        <div class="h-32 bg-slate-950 flex items-center justify-center text-brand-400 text-4xl border-b border-white/10">
                             <i class="fa-solid fa-signature"></i>
-                            <span class="absolute bottom-2 left-2 text-[9px] bg-slate-900/80 px-2 py-0.5 rounded text-white font-mono">Fenêtre 3 : Signature & Acomptes</span>
                         </div>
                         <div class="p-4 space-y-1">
-                            <span class="text-[10px] font-mono text-brand-400 uppercase tracking-wider font-bold">Validation Client Sécurisée</span>
-                            <strong class="text-xs text-white block">Encaissement immédiat</strong>
+                            <span class="text-[10px] font-mono text-brand-400 uppercase font-bold">Fenêtre 3 : Signature & Acomptes</span>
+                            <strong class="text-xs text-white block">Validation Client Sécurisée</strong>
                             <p class="text-[11px] text-slate-400">Signature sur smartphone et versement de l'acompte par CB.</p>
                         </div>
                     </div>
                 `;
             } else {
                 mockupGrid.innerHTML = `
-                    <div class="bg-slate-900 rounded-2xl border border-white/10 overflow-hidden text-left space-y-3 shadow-xl">
-                        <div class="h-40 bg-slate-950 flex items-center justify-center text-brand-400 text-5xl border-b border-white/10 relative">
+                    <div class="anim-window-1 bg-slate-900 rounded-2xl border border-white/10 overflow-hidden text-left space-y-3 shadow-xl">
+                        <div class="bg-slate-950 px-3 py-2 border-b border-white/10 flex items-center justify-between">
+                            <div class="flex gap-1.5"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div>
+                            <span class="text-[9px] font-mono text-slate-400">dashboard_principal.app</span>
+                        </div>
+                        <div class="h-32 bg-slate-950 flex items-center justify-center text-brand-400 text-4xl border-b border-white/10">
                             <i class="fa-solid fa-chart-pie"></i>
-                            <span class="absolute bottom-2 left-2 text-[9px] bg-slate-900/80 px-2 py-0.5 rounded text-white font-mono">Fenêtre 1 : Dashboard Principal</span>
                         </div>
                         <div class="p-4 space-y-1">
-                            <span class="text-[10px] font-mono text-brand-400 uppercase tracking-wider font-bold">Vue d'ensemble de l'activité</span>
-                            <strong class="text-xs text-white block">Indicateurs de performance</strong>
+                            <span class="text-[10px] font-mono text-brand-400 uppercase font-bold">Fenêtre 1 : Dashboard Principal</span>
+                            <strong class="text-xs text-white block">Vue d'ensemble de l'activité</strong>
                             <p class="text-[11px] text-slate-400">Suivi en direct des actions, des ventes et des utilisateurs.</p>
                         </div>
                     </div>
-                    <div class="bg-slate-900 rounded-2xl border border-white/10 overflow-hidden text-left space-y-3 shadow-xl">
-                        <div class="h-40 bg-slate-950 flex items-center justify-center text-brand-400 text-5xl border-b border-white/10 relative">
+                    <div class="anim-window-2 bg-slate-900 rounded-2xl border border-white/10 overflow-hidden text-left space-y-3 shadow-xl">
+                        <div class="bg-slate-950 px-3 py-2 border-b border-white/10 flex items-center justify-between">
+                            <div class="flex gap-1.5"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div>
+                            <span class="text-[9px] font-mono text-slate-400">moteur_metier.sys</span>
+                        </div>
+                        <div class="h-32 bg-slate-950 flex items-center justify-center text-brand-400 text-4xl border-b border-white/10">
                             <i class="fa-solid fa-sliders"></i>
-                            <span class="absolute bottom-2 left-2 text-[9px] bg-slate-900/80 px-2 py-0.5 rounded text-white font-mono">Fenêtre 2 : Moteur Métier</span>
                         </div>
                         <div class="p-4 space-y-1">
-                            <span class="text-[10px] font-mono text-brand-400 uppercase tracking-wider font-bold">Espace "${escapeHtml(input)}"</span>
-                            <strong class="text-xs text-white block">Outils de gestion sur-mesure</strong>
-                            <p class="text-[11px] text-slate-400">Fonctionnalités et automatismes configurés pour ce secteur.</p>
+                            <span class="text-[10px] font-mono text-brand-400 uppercase font-bold">Fenêtre 2 : Moteur Métier</span>
+                            <strong class="text-xs text-white block">Espace "${escapeHtml(input)}"</strong>
+                            <p class="text-[11px] text-slate-400">Outils de gestion et automatismes configurés pour ce secteur.</p>
                         </div>
                     </div>
-                    <div class="bg-slate-900 rounded-2xl border border-white/10 overflow-hidden text-left space-y-3 shadow-xl">
-                        <div class="h-40 bg-slate-950 flex items-center justify-center text-brand-400 text-5xl border-b border-white/10 relative">
+                    <div class="anim-window-3 bg-slate-900 rounded-2xl border border-white/10 overflow-hidden text-left space-y-3 shadow-xl">
+                        <div class="bg-slate-950 px-3 py-2 border-b border-white/10 flex items-center justify-between">
+                            <div class="flex gap-1.5"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div>
+                            <span class="text-[9px] font-mono text-slate-400">espace_ abonnes.net</span>
+                        </div>
+                        <div class="h-32 bg-slate-950 flex items-center justify-center text-brand-400 text-4xl border-b border-white/10">
                             <i class="fa-solid fa-users-gear"></i>
-                            <span class="absolute bottom-2 left-2 text-[9px] bg-slate-900/80 px-2 py-0.5 rounded text-white font-mono">Fenêtre 3 : Espace Abonnés</span>
                         </div>
                         <div class="p-4 space-y-1">
-                            <span class="text-[10px] font-mono text-brand-400 uppercase tracking-wider font-bold">Gestion des clients finaux</span>
-                            <strong class="text-xs text-white block">Comptes et abonnements Stripe</strong>
+                            <span class="text-[10px] font-mono text-brand-400 uppercase font-bold">Fenêtre 3 : Espace Abonnés</span>
+                            <strong class="text-xs text-white block">Gestion des clients finaux</strong>
                             <p class="text-[11px] text-slate-400">Portail sécurisé pour encaisser vos abonnés chaque mois.</p>
                         </div>
                     </div>
