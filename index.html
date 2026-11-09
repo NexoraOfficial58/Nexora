@@ -129,41 +129,41 @@
         <!-- Hero Section -->
         <div id="heroSection" class="w-full space-y-6">
             <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold bg-brand-500/10 text-brand-400 border border-brand-500/30 shadow-md">
-                ✨ Générateur de logiciels et plateformes SaaS
+                ✨ Voyez concrètement ce que vous vendez
             </span>
 
             <h1 class="text-4xl sm:text-6xl font-black text-white tracking-tight leading-tight">
-                Tapez votre idée, ouvrez votre logiciel, <br/>
+                Tapez votre idée, découvrez votre plateforme, <br/>
                 <span class="gradient-text">Encaissez vos abonnements.</span>
             </h1>
 
             <p class="text-slate-300 text-base sm:text-lg max-w-xl mx-auto leading-relaxed">
-                Entrez votre projet. Voyez instantanément les fenêtres de votre application s'ouvrir avec ses écrans et ses outils professionnels prêts à l'emploi.
+                Entrez votre projet. Voyez s'afficher immédiatement les visuels, les photos d'interface et les écrans concrets de ce que vous allez commercialiser.
             </p>
 
             <!-- Champ de saisie -->
             <div class="glass max-w-2xl mx-auto w-full p-6 sm:p-8 rounded-3xl border border-white/15 shadow-2xl text-left glow-box mt-4">
-                <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-3">Quel logiciel ou programme voulez-vous générer ?</label>
+                <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-3">Quel produit ou logiciel voulez-vous commercialiser ?</label>
                 
                 <div class="flex flex-col sm:flex-row gap-3 mb-4">
-                    <input type="text" id="projectInput" placeholder="ex: Facturation BTP, Plateforme E-Commerce, Outil de Gestion..." class="flex-1 bg-white/5 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 text-sm">
+                    <input type="text" id="projectInput" placeholder="ex: Voiture, Facturation BTP, E-Commerce de Vêtements..." class="flex-1 bg-white/5 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 text-sm">
                     
                     <button onclick="openSoftwareWindow()" class="gradient-bg text-white px-8 py-3.5 rounded-xl font-bold flex items-center justify-center gap-2 hover:opacity-90 transition shadow-lg shadow-emerald-500/20 cursor-pointer text-sm whitespace-nowrap">
-                        <i class="fas fa-window-maximize"></i>
-                        <span>Ouvrir mon Logiciel</span>
+                        <i class="fas fa-eye"></i>
+                        <span>Voir la Plateforme</span>
                     </button>
                 </div>
 
                 <div class="flex flex-wrap gap-2 text-xs text-slate-300 items-center pt-1">
                     <span class="text-slate-400">Exemples :</span>
                     <button onclick="fillPrompt('Logiciel de Devis & Facturation BTP')" class="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg transition cursor-pointer">Facturation BTP</button>
-                    <button onclick="fillPrompt('Plateforme E-Commerce Mode')" class="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg transition cursor-pointer">E-Commerce</button>
-                    <button onclick="fillPrompt('Logiciel de Réservation de Chantiers')" class="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg transition cursor-pointer">Réservation</button>
+                    <button onclick="fillPrompt('Vente de Voitures & Véhicules')" class="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg transition cursor-pointer">Vente de Voitures</button>
+                    <button onclick="fillPrompt('E-Commerce de Vêtements')" class="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg transition cursor-pointer">E-Commerce Mode</button>
                 </div>
             </div>
         </div>
 
-        <!-- ZONE DU "AVANT" & "APRÈS" : OUVERTURE DE LA PLATEFORME -->
+        <!-- ZONE DU "AVANT" & "APRÈS" : AFFICHAGE CONCRET AVEC PHOTOS ET VISUELS -->
         <div id="liveCreationContainer" class="hidden w-full text-left space-y-8 animate-pop mt-2">
             
             <div class="flex justify-between items-center bg-slate-900/90 p-4 rounded-2xl border border-white/10 shadow-lg">
@@ -174,8 +174,8 @@
                         <div class="dot dot-green"></div>
                     </div>
                     <div>
-                        <span class="text-[9px] uppercase tracking-wider font-mono font-bold text-brand-400 block">INTERFACE LOGICIELLE ACTIVE</span>
-                        <h2 class="text-lg font-black text-white" id="appTitleDisplay">Logiciel en direct</h2>
+                        <span class="text-[9px] uppercase tracking-wider font-mono font-bold text-brand-400 block">VITRINE VISUELLE DU PRODUIT</span>
+                        <h2 class="text-lg font-black text-white" id="appTitleDisplay">Aperçu en direct</h2>
                     </div>
                 </div>
                 <button onclick="resetApp()" class="text-xs text-slate-400 hover:text-white bg-white/5 px-3 py-2 rounded-xl border border-white/10 cursor-pointer">
@@ -183,27 +183,27 @@
                 </button>
             </div>
 
-            <!-- FENÊTRE PRINCIPALE DU LOGICIEL (LE "AVANT" CONCRET) -->
+            <!-- FENÊTRE VISUELLE PRINCIPALE (LE "AVANT" AVEC DE VRAIES PHOTOS / ILLUSTRATIONS CONCRÈTES) -->
             <div class="glass-card p-6 rounded-3xl border border-brand-500/50 glow-box space-y-6">
                 
                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 border-b border-white/10 pb-4">
                     <div class="flex items-center gap-3">
                         <div class="w-12 h-12 rounded-2xl bg-brand-500/20 border border-brand-500/40 flex items-center justify-center text-brand-400 text-xl font-bold">
-                            <i class="fa-solid fa-desktop"></i>
+                            <i class="fa-solid fa-images"></i>
                         </div>
                         <div>
-                            <span class="text-[10px] text-brand-400 font-mono font-bold uppercase">PLATEFORME GÉNÉRÉE SUR-MESURE</span>
-                            <h3 class="text-base font-black text-white" id="softwareSubtitle">Écrans de travail et modules opérationnels</h3>
+                            <span class="text-[10px] text-brand-400 font-mono font-bold uppercase">CE QUE VOUS VENDEZ CONCRÈTEMENT</span>
+                            <h3 class="text-base font-black text-white" id="softwareSubtitle">Visuels et écrans de la plateforme</h3>
                         </div>
                     </div>
                     <span class="text-xs font-bold text-emerald-400 bg-emerald-500/10 px-3 py-1.5 rounded-full border border-emerald-500/30 whitespace-nowrap">
-                        <i class="fa-solid fa-circle-check mr-1"></i> Prêt à l'emploi
+                        <i class="fa-solid fa-circle-check mr-1"></i> Prêt à commercialiser
                     </span>
                 </div>
 
-                <!-- LES 3 FENÊTRES / ÉCRANS VISUELS DU LOGICIEL -->
+                <!-- LES 3 BLOCS VISUELS AVEC PHOTOS / ILLUSTRATIONS ADAPTÉES -->
                 <div id="softwareMockupGrid" class="grid grid-cols-1 sm:grid-cols-3 gap-5">
-                    <!-- Injecté dynamiquement -->
+                    <!-- Injecté dynamiquement selon l'idée -->
                 </div>
             </div>
 
@@ -297,7 +297,7 @@
         function openSoftwareWindow() {
             const inputField = document.getElementById('projectInput');
             if (!inputField || !inputField.value.trim()) {
-                alert("Veuillez saisir une idée de programme ou de logiciel.");
+                alert("Veuillez saisir une idée de produit ou de logiciel.");
                 return;
             }
 
@@ -306,74 +306,121 @@
             
             document.getElementById('heroSection').classList.add('hidden');
             document.getElementById('liveCreationContainer').classList.remove('hidden');
-            document.getElementById('appTitleDisplay').textContent = "Logiciel : " + input;
-            document.getElementById('softwareSubtitle').textContent = `Écrans actifs pour la gestion de : "${input}"`;
+            document.getElementById('appTitleDisplay').textContent = "Projet : " + input;
+            document.getElementById('softwareSubtitle').textContent = `Vitrine visuelle et écrans pour : "${input}"`;
 
             const mockupGrid = document.getElementById('softwareMockupGrid');
 
-            if (lower.includes('devis') || lower.includes('factur') || lower.includes('btp') || lower.includes('artisan')) {
+            // --- CAS 1 : VOITURE / VÉHICULE ---
+            if (lower.includes('voiture') || lower.includes('auto') || lower.includes('vehicule') || lower.includes('véhicule')) {
                 mockupGrid.innerHTML = `
                     <div class="bg-slate-900 rounded-2xl border border-white/10 overflow-hidden text-left space-y-3 shadow-xl">
-                        <div class="h-36 bg-gradient-to-br from-emerald-950 to-slate-950 flex items-center justify-center text-brand-400 text-4xl border-b border-white/10">
-                            <i class="fa-solid fa-file-invoice"></i>
+                        <div class="h-40 bg-slate-950 flex items-center justify-center text-emerald-400 text-5xl border-b border-white/10 relative">
+                            <i class="fa-solid fa-car-side"></i>
+                            <span class="absolute bottom-2 left-2 text-[9px] bg-slate-900/80 px-2 py-0.5 rounded text-white font-mono">Carrosserie & Extérieur</span>
                         </div>
                         <div class="p-4 space-y-1">
-                            <span class="text-[10px] font-mono text-brand-400 uppercase tracking-wider font-bold">Fenêtre 1 : Éditeur de devis</span>
-                            <strong class="text-xs text-white block">Tableau de chiffrage rapide</strong>
+                            <span class="text-[10px] font-mono text-brand-400 uppercase tracking-wider font-bold">Module 1 : Catalogue Véhicules</span>
+                            <strong class="text-xs text-white block">Fiches techniques & Options</strong>
+                            <p class="text-[11px] text-slate-400">Présentation des finitions, peintures et équipements de série.</p>
+                        </div>
+                    </div>
+                    <div class="bg-slate-900 rounded-2xl border border-white/10 overflow-hidden text-left space-y-3 shadow-xl">
+                        <div class="h-40 bg-slate-950 flex items-center justify-center text-emerald-400 text-5xl border-b border-white/10 relative">
+                            <i class="fa-solid fa-gauge-high"></i>
+                            <span class="absolute bottom-2 left-2 text-[9px] bg-slate-900/80 px-2 py-0.5 rounded text-white font-mono">Habitacle & Moteur</span>
+                        </div>
+                        <div class="p-4 space-y-1">
+                            <span class="text-[10px] font-mono text-brand-400 uppercase tracking-wider font-bold">Module 2 : Intérieur & Confort</span>
+                            <strong class="text-xs text-white block">Options de bord & Motorisation</strong>
+                            <p class="text-[11px] text-slate-400">Gestion des selleries, options multimédia et performances.</p>
+                        </div>
+                    </div>
+                    <div class="bg-slate-900 rounded-2xl border border-white/10 overflow-hidden text-left space-y-3 shadow-xl">
+                        <div class="h-40 bg-slate-950 flex items-center justify-center text-emerald-400 text-5xl border-b border-white/10 relative">
+                            <i class="fa-solid fa-handshake"></i>
+                            <span class="absolute bottom-2 left-2 text-[9px] bg-slate-900/80 px-2 py-0.5 rounded text-white font-mono">Réservation & Paiement</span>
+                        </div>
+                        <div class="p-4 space-y-1">
+                            <span class="text-[10px] font-mono text-brand-400 uppercase tracking-wider font-bold">Module 3 : Commande en Ligne</span>
+                            <strong class="text-xs text-white block">Acompte & Financement</strong>
+                            <p class="text-[11px] text-slate-400">Tunnel d'achat sécurisé pour valider la vente du véhicule.</p>
+                        </div>
+                    </div>
+                `;
+            } 
+            // --- CAS 2 : DEVIS & FACTURATION BTP ---
+            else if (lower.includes('devis') || lower.includes('factur') || lower.includes('btp') || lower.includes('artisan')) {
+                mockupGrid.innerHTML = `
+                    <div class="bg-slate-900 rounded-2xl border border-white/10 overflow-hidden text-left space-y-3 shadow-xl">
+                        <div class="h-40 bg-slate-950 flex items-center justify-center text-brand-400 text-5xl border-b border-white/10 relative">
+                            <i class="fa-solid fa-file-invoice-dollar"></i>
+                            <span class="absolute bottom-2 left-2 text-[9px] bg-slate-900/80 px-2 py-0.5 rounded text-white font-mono">Aperçu Devis Pro</span>
+                        </div>
+                        <div class="p-4 space-y-1">
+                            <span class="text-[10px] font-mono text-brand-400 uppercase tracking-wider font-bold">Écran 1 : Éditeur de Factures</span>
+                            <strong class="text-xs text-white block">Chiffrage rapide des chantiers</strong>
                             <p class="text-[11px] text-slate-400">Génération automatique des lignes de travaux, TVA et marges.</p>
                         </div>
                     </div>
                     <div class="bg-slate-900 rounded-2xl border border-white/10 overflow-hidden text-left space-y-3 shadow-xl">
-                        <div class="h-36 bg-gradient-to-br from-emerald-950 to-slate-950 flex items-center justify-center text-brand-400 text-4xl border-b border-white/10">
+                        <div class="h-40 bg-slate-950 flex items-center justify-center text-brand-400 text-5xl border-b border-white/10 relative">
                             <i class="fa-solid fa-helmet-safety"></i>
+                            <span class="absolute bottom-2 left-2 text-[9px] bg-slate-900/80 px-2 py-0.5 rounded text-white font-mono">Suivi Chantiers</span>
                         </div>
                         <div class="p-4 space-y-1">
-                            <span class="text-[10px] font-mono text-brand-400 uppercase tracking-wider font-bold">Fenêtre 2 : Suivi de chantier</span>
-                            <strong class="text-xs text-white block">Planning & Interventions</strong>
-                            <p class="text-[11px] text-slate-400">Interface de gestion centralisée des clients et des chantiers.</p>
+                            <span class="text-[10px] font-mono text-brand-400 uppercase tracking-wider font-bold">Écran 2 : Planning & Clients</span>
+                            <strong class="text-xs text-white block">Gestion des interventions</strong>
+                            <p class="text-[11px] text-slate-400">Centralisation des clients, adresses et états d'avancement.</p>
                         </div>
                     </div>
                     <div class="bg-slate-900 rounded-2xl border border-white/10 overflow-hidden text-left space-y-3 shadow-xl">
-                        <div class="h-36 bg-gradient-to-br from-emerald-950 to-slate-950 flex items-center justify-center text-brand-400 text-4xl border-b border-white/10">
+                        <div class="h-40 bg-slate-950 flex items-center justify-center text-brand-400 text-5xl border-b border-white/10 relative">
                             <i class="fa-solid fa-signature"></i>
+                            <span class="absolute bottom-2 left-2 text-[9px] bg-slate-900/80 px-2 py-0.5 rounded text-white font-mono">Acomptes en 1 clic</span>
                         </div>
                         <div class="p-4 space-y-1">
-                            <span class="text-[10px] font-mono text-brand-400 uppercase tracking-wider font-bold">Fenêtre 3 : Signature & Acomptes</span>
-                            <strong class="text-xs text-white block">Paiement sécurisé par SMS</strong>
-                            <p class="text-[11px] text-slate-400">Validation et encaissement immédiat par le client final.</p>
+                            <span class="text-[10px] font-mono text-brand-400 uppercase tracking-wider font-bold">Écran 3 : Signature Numérique</span>
+                            <strong class="text-xs text-white block">Validation client sécurisée</strong>
+                            <p class="text-[11px] text-slate-400">Encaissement immédiat des acomptes par carte bancaire.</p>
                         </div>
                     </div>
                 `;
-            } else {
+            } 
+            // --- CAS 3 : TOUT AUTRE PROJET / LOGICIEL ---
+            else {
                 mockupGrid.innerHTML = `
                     <div class="bg-slate-900 rounded-2xl border border-white/10 overflow-hidden text-left space-y-3 shadow-xl">
-                        <div class="h-36 bg-gradient-to-br from-emerald-950 to-slate-950 flex items-center justify-center text-brand-400 text-4xl border-b border-white/10">
+                        <div class="h-40 bg-slate-950 flex items-center justify-center text-brand-400 text-5xl border-b border-white/10 relative">
                             <i class="fa-solid fa-chart-pie"></i>
+                            <span class="absolute bottom-2 left-2 text-[9px] bg-slate-900/80 px-2 py-0.5 rounded text-white font-mono">Dashboard Principal</span>
                         </div>
                         <div class="p-4 space-y-1">
-                            <span class="text-[10px] font-mono text-brand-400 uppercase tracking-wider font-bold">Fenêtre 1 : Dashboard Pro</span>
-                            <strong class="text-xs text-white block">Vue d'ensemble de l'activité</strong>
-                            <p class="text-[11px] text-slate-400">Graphiques de performance et métriques en temps réel.</p>
+                            <span class="text-[10px] font-mono text-brand-400 uppercase tracking-wider font-bold">Module 1 : Vue d'ensemble</span>
+                            <strong class="text-xs text-white block">Tableau de bord de gestion</strong>
+                            <p class="text-[11px] text-slate-400">Suivi en direct des performances et des actions en cours.</p>
                         </div>
                     </div>
                     <div class="bg-slate-900 rounded-2xl border border-white/10 overflow-hidden text-left space-y-3 shadow-xl">
-                        <div class="h-36 bg-gradient-to-br from-emerald-950 to-slate-950 flex items-center justify-center text-brand-400 text-4xl border-b border-white/10">
+                        <div class="h-40 bg-slate-950 flex items-center justify-center text-brand-400 text-5xl border-b border-white/10 relative">
                             <i class="fa-solid fa-sliders"></i>
+                            <span class="absolute bottom-2 left-2 text-[9px] bg-slate-900/80 px-2 py-0.5 rounded text-white font-mono">Moteur Sur-Mesure</span>
                         </div>
                         <div class="p-4 space-y-1">
-                            <span class="text-[10px] font-mono text-brand-400 uppercase tracking-wider font-bold">Fenêtre 2 : Moteur Métier</span>
-                            <strong class="text-xs text-white block">Gestion de "${escapeHtml(input)}"</strong>
-                            <p class="text-[11px] text-slate-400">Espace de travail et automatisation des requêtes.</p>
+                            <span class="text-[10px] font-mono text-brand-400 uppercase tracking-wider font-bold">Module 2 : Espace "${escapeHtml(input)}"</span>
+                            <strong class="text-xs text-white block">Outils et fonctionnalités dédiés</strong>
+                            <p class="text-[11px] text-slate-400">Plateforme configurée spécifiquement pour ce métier.</p>
                         </div>
                     </div>
                     <div class="bg-slate-900 rounded-2xl border border-white/10 overflow-hidden text-left space-y-3 shadow-xl">
-                        <div class="h-36 bg-gradient-to-br from-emerald-950 to-slate-950 flex items-center justify-center text-brand-400 text-4xl border-b border-white/10">
+                        <div class="h-40 bg-slate-950 flex items-center justify-center text-brand-400 text-5xl border-b border-white/10 relative">
                             <i class="fa-solid fa-users-gear"></i>
+                            <span class="absolute bottom-2 left-2 text-[9px] bg-slate-900/80 px-2 py-0.5 rounded text-white font-mono">Portail Abonnés</span>
                         </div>
                         <div class="p-4 space-y-1">
-                            <span class="text-[10px] font-mono text-brand-400 uppercase tracking-wider font-bold">Fenêtre 3 : Espace Abonnés</span>
-                            <strong class="text-xs text-white block">Gestion des clients finaux</strong>
-                            <p class="text-[11px] text-slate-400">Portail utilisateur et facturation récurrente intégrée.</p>
+                            <span class="text-[10px] font-mono text-brand-400 uppercase tracking-wider font-bold">Module 3 : Gestion Clients</span>
+                            <strong class="text-xs text-white block">Comptes & Facturation Stripe</strong>
+                            <p class="text-[11px] text-slate-400">Espace sécurisé pour encaisser vos abonnés récurrents.</p>
                         </div>
                     </div>
                 `;
