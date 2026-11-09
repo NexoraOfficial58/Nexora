@@ -33,28 +33,11 @@
         .glow-box { box-shadow: 0 0 50px rgba(34, 197, 94, 0.15); }
         .font-mono { font-family: 'Fira Code', monospace; }
 
-        .floating-window {
-            position: absolute;
-            background: rgba(15, 23, 42, 0.88);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(34, 197, 94, 0.3);
-            border-radius: 1rem;
-            padding: 1rem;
-            z-index: 10;
-            pointer-events: none;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
-        }
-        .window-header { display: flex; align-items: center; gap: 6px; margin-bottom: 0.75rem; }
-        .dot { width: 8px; height: 8px; border-radius: 50%; }
-        .dot-red { background: #ef4444; }
-        .dot-yellow { background: #f59e0b; }
-        .dot-green { background: #22c55e; }
-
         @keyframes popIn {
-            0% { opacity: 0; transform: translateY(20px); }
+            0% { opacity: 0; transform: translateY(15px); }
             100% { opacity: 1; transform: translateY(0); }
         }
-        .animate-pop { animation: popIn 0.4s ease-out forwards; }
+        .animate-pop { animation: popIn 0.3s ease-out forwards; }
     </style>
 </head>
 <body class="text-slate-100 min-h-screen flex flex-col justify-between selection:bg-brand-500 selection:text-white relative">
@@ -83,69 +66,53 @@
         <!-- Hero Section -->
         <div id="heroSection" class="w-full space-y-6">
             <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold bg-brand-500/10 text-brand-400 border border-brand-500/30 shadow-md">
-                ✨ Générateur de Micro-SaaS automatisé
+                ✨ Voyez directement le logiciel que vous achetez
             </span>
 
             <h1 class="text-4xl sm:text-6xl font-black text-white tracking-tight leading-tight">
-                Tapez votre idée, générez votre SaaS, <br/>
+                Tapez votre idée, découvrez votre plateforme, <br/>
                 <span class="gradient-text">Encaissez vos abonnements.</span>
             </h1>
 
             <p class="text-slate-300 text-base sm:text-lg max-w-xl mx-auto leading-relaxed">
-                Entrez le nom de votre logiciel. Notre intelligence artificielle assemble instantanément le code source, la base de données et l'interface prête à vendre.
+                Entrez votre projet. Voyez s'afficher immédiatement les écrans réels de la plateforme logicielle que vous allez commercialiser.
             </p>
 
             <!-- Champ de saisie -->
             <div class="glass max-w-2xl mx-auto w-full p-6 sm:p-8 rounded-3xl border border-white/15 shadow-2xl text-left glow-box mt-4">
-                <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-3">Quel logiciel SaaS voulez-vous créer ?</label>
+                <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-3">Quel logiciel ou plateforme voulez-vous voir ?</label>
                 
                 <div class="flex flex-col sm:flex-row gap-3 mb-4">
-                    <input type="text" id="projectInput" placeholder="ex: Facturation BTP, Gestion de stock, CRM Immobilier..." class="flex-1 bg-white/5 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 text-sm font-mono">
+                    <input type="text" id="projectInput" placeholder="ex: Facturation BTP, Gestion de stock, CRM..." class="flex-1 bg-white/5 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 text-sm">
                     
-                    <button onclick="generateSaaSApp()" class="gradient-bg text-white px-8 py-3.5 rounded-xl font-bold flex items-center justify-center gap-2 hover:opacity-90 transition shadow-lg shadow-emerald-500/20 cursor-pointer text-sm whitespace-nowrap">
-                        <i class="fas fa-microchip"></i>
-                        <span>Générer le SaaS</span>
+                    <button onclick="showPlatformScreens()" class="gradient-bg text-white px-8 py-3.5 rounded-xl font-bold flex items-center justify-center gap-2 hover:opacity-90 transition shadow-lg shadow-emerald-500/20 cursor-pointer text-sm whitespace-nowrap">
+                        <i class="fas fa-eye"></i>
+                        <span>Voir la Plateforme</span>
                     </button>
                 </div>
 
                 <div class="flex flex-wrap gap-2 text-xs text-slate-300 items-center pt-1">
                     <span class="text-slate-400">Exemples :</span>
-                    <button onclick="fillPrompt('Logiciel de Devis & Facturation BTP')" class="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg transition cursor-pointer">Facturation BTP</button>
-                    <button onclick="fillPrompt('SaaS de Gestion de Bijouterie')" class="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg transition cursor-pointer">Gestion Bijouterie</button>
-                    <button onclick="fillPrompt('Plateforme E-Commerce de Mode')" class="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg transition cursor-pointer">E-Commerce</button>
+                    <button onclick="fillPrompt('Facturation BTP')" class="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg transition cursor-pointer">Facturation BTP</button>
+                    <button onclick="fillPrompt('Gestion de Bijouterie')" class="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg transition cursor-pointer">Gestion Bijouterie</button>
+                    <button onclick="fillPrompt('E-Commerce de Mode')" class="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg transition cursor-pointer">E-Commerce</button>
                 </div>
             </div>
         </div>
 
-        <!-- ZONE DE TRANSITION / CHARGEMENT ANIMÉ (CE QUI SE PASSE QUAND ON CLIQUE) -->
-        <div id="loadingSection" class="hidden w-full max-w-xl mx-auto py-12 space-y-6 text-center">
-            <div class="glass-card p-8 rounded-3xl border border-brand-500/40 glow-box space-y-6">
-                <div class="w-16 h-16 rounded-2xl bg-brand-500/20 border border-brand-500/40 flex items-center justify-center text-brand-400 text-2xl mx-auto animate-spin">
-                    <i class="fa-solid fa-gear"></i>
-                </div>
-                <div class="space-y-2">
-                    <span class="text-[10px] font-mono font-bold text-brand-400 uppercase tracking-widest">GÉNÉRATION DU CODE SOURCE EN COURS</span>
-                    <h3 class="text-lg font-black text-white" id="loadingStatusText">Création de la base de données PostgreSQL...</h3>
-                </div>
-                <div class="w-full bg-slate-950 h-2 rounded-full overflow-hidden border border-white/10">
-                    <div id="progressBar" class="gradient-bg h-full w-[20%] transition-all duration-300"></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ZONE DU RÉSULTAT : APERÇU DU SAAS + SIMULATEUR DE FIN -->
+        <!-- ZONE DU RÉSULTAT : LA VRAIE PLATEFORME VISIBLE + TON SIMULATEUR DE FIN -->
         <div id="resultSection" class="hidden w-full text-left space-y-8 animate-pop mt-2">
             
             <div class="flex justify-between items-center bg-slate-900/90 p-4 rounded-2xl border border-white/10 shadow-lg">
                 <div class="flex items-center gap-3">
                     <div class="flex gap-1.5">
-                        <div class="dot dot-red"></div>
-                        <div class="dot dot-yellow"></div>
-                        <div class="dot dot-green"></div>
+                        <div class="w-2.5 h-2.5 rounded-full bg-red-500"></div>
+                        <div class="w-2.5 h-2.5 rounded-full bg-yellow-500"></div>
+                        <div class="w-2.5 h-2.5 rounded-full bg-green-500"></div>
                     </div>
                     <div>
-                        <span class="text-[9px] uppercase tracking-wider font-mono font-bold text-brand-400 block">SAAS GÉNÉRÉ AVEC SUCCÈS</span>
-                        <h2 class="text-lg font-black text-white" id="appTitleDisplay">Nom du SaaS</h2>
+                        <span class="text-[9px] uppercase tracking-wider font-mono font-bold text-brand-400 block">INTERFACE DE LA PLATEFORME EN DIRECT</span>
+                        <h2 class="text-lg font-black text-white" id="appTitleDisplay">Logiciel SaaS</h2>
                     </div>
                 </div>
                 <button onclick="resetApp()" class="text-xs text-slate-400 hover:text-white bg-white/5 px-3 py-2 rounded-xl border border-white/10 cursor-pointer">
@@ -153,17 +120,17 @@
                 </button>
             </div>
 
-            <!-- APERÇU VISUEL DE L'APPLICATION (LES MODULES SaaS CONCRETS) -->
+            <!-- APERÇU CONCRET DE LA PLATEFORME (CE QUE LE CLIENT VOIT) -->
             <div class="glass-card p-6 rounded-3xl border border-brand-500/50 glow-box space-y-6">
                 
                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 border-b border-white/10 pb-4">
                     <div class="flex items-center gap-3">
                         <div class="w-12 h-12 rounded-2xl bg-brand-500/20 border border-brand-500/40 flex items-center justify-center text-brand-400 text-xl font-bold">
-                            <i class="fa-solid fa-code"></i>
+                            <i class="fa-solid fa-desktop"></i>
                         </div>
                         <div>
-                            <span class="text-[10px] text-brand-400 font-mono font-bold uppercase">ARCHITECTURES ET INTERFACES DU LOGICIEL</span>
-                            <h3 class="text-base font-black text-white" id="softwareSubtitle">Modules inclus dans votre SaaS</h3>
+                            <span class="text-[10px] text-brand-400 font-mono font-bold uppercase">APERÇU VISUEL DE CE QUE VOUS VENDEZ</span>
+                            <h3 class="text-base font-black text-white" id="softwareSubtitle">Écrans de travail du logiciel</h3>
                         </div>
                     </div>
                     <span class="text-xs font-bold text-emerald-400 bg-emerald-500/10 px-3 py-1.5 rounded-full border border-emerald-500/30 whitespace-nowrap">
@@ -171,36 +138,9 @@
                     </span>
                 </div>
 
-                <!-- LES 3 MODULES DU SAAS (STYLE CODE / TABLEAU DE BORD NUMÉRIQUE PROPRE) -->
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
-                    
-                    <div class="bg-slate-900 rounded-2xl border border-white/10 overflow-hidden text-left space-y-3 shadow-xl p-5">
-                        <div class="flex justify-between items-center text-brand-400 font-mono text-xs border-b border-white/10 pb-3">
-                            <span><i class="fa-solid fa-chart-line mr-1"></i> Module 01</span>
-                            <span class="text-[10px] bg-emerald-500/10 px-2 py-0.5 rounded text-emerald-400">Actif</span>
-                        </div>
-                        <h4 class="text-sm font-bold text-white">Tableau de Bord & Stats</h4>
-                        <p class="text-xs text-slate-400">Interface de pilotage en temps réel, graphiques de croissance et métriques clés pour l'utilisateur final.</p>
-                    </div>
-
-                    <div class="bg-slate-900 rounded-2xl border border-white/10 overflow-hidden text-left space-y-3 shadow-xl p-5">
-                        <div class="flex justify-between items-center text-brand-400 font-mono text-xs border-b border-white/10 pb-3">
-                            <span><i class="fa-solid fa-database mr-1"></i> Module 02</span>
-                            <span class="text-[10px] bg-emerald-500/10 px-2 py-0.5 rounded text-emerald-400">Configuré</span>
-                        </div>
-                        <h4 class="text-sm font-bold text-white" id="dynamicModuleTitle">Moteur Métier SaaS</h4>
-                        <p class="text-xs text-slate-400" id="dynamicModuleDesc">Algorithmes et bases de données dédiés au traitement spécifique de votre thématique.</p>
-                    </div>
-
-                    <div class="bg-slate-900 rounded-2xl border border-white/10 overflow-hidden text-left space-y-3 shadow-xl p-5">
-                        <div class="flex justify-between items-center text-brand-400 font-mono text-xs border-b border-white/10 pb-3">
-                            <span><i class="fa-solid fa-credit-card mr-1"></i> Module 03</span>
-                            <span class="text-[10px] bg-emerald-500/10 px-2 py-0.5 rounded text-emerald-400">Intégré</span>
-                        </div>
-                        <h4 class="text-sm font-bold text-white">Facturation & Abonnements Stripe</h4>
-                        <p class="text-xs text-slate-400">Portail client automatisé pour encaisser les paiements récurrents de vos abonnés chaque mois.</p>
-                    </div>
-
+                <!-- LES 3 ÉCRANS CONCRETS DE LA PLATEFORME (GÉNÉRÉS SELON LE MOT TAPÉ) -->
+                <div id="platformScreensGrid" class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+                    <!-- Injecté par script -->
                 </div>
             </div>
 
@@ -272,59 +212,126 @@
     <script>
         function fillPrompt(text) {
             document.getElementById('projectInput').value = text;
-            generateSaaSApp();
+            showPlatformScreens();
         }
 
-        function generateSaaSApp() {
+        function showPlatformScreens() {
             const inputField = document.getElementById('projectInput');
             if (!inputField || !inputField.value.trim()) {
-                alert("Veuillez saisir une idée de logiciel SaaS.");
+                alert("Veuillez saisir une idée de logiciel ou de plateforme.");
                 return;
             }
 
             const input = inputField.value.trim();
+            const lower = input.toLowerCase();
             
-            // Masquer le hero et afficher la transition de chargement
             document.getElementById('heroSection').classList.add('hidden');
-            document.getElementById('loadingSection').classList.remove('hidden');
-            document.getElementById('resultSection').classList.add('hidden');
+            document.getElementById('resultSection').classList.remove('hidden');
+            
+            document.getElementById('appTitleDisplay').textContent = "Plateforme : " + input;
+            document.getElementById('softwareSubtitle').textContent = `Écrans et interfaces concrets pour : "${input}"`;
 
-            const progressBar = document.getElementById('progressBar');
-            const statusText = document.getElementById('loadingStatusText');
+            const grid = document.getElementById('platformScreensGrid');
 
-            // Séquence de transition fluide de 1.5 seconde pour voir la machine tourner
-            setTimeout(() => {
-                progressBar.style.width = "50%";
-                statusText.textContent = `Compilation des modules logiques pour "${input}"...`;
-            }, 500);
+            // --- CAS PARTICULIER : FACTURATION BTP ---
+            if (lower.includes('btp') || lower.includes('factur') || lower.includes('devis')) {
+                grid.innerHTML = `
+                    <div class="bg-slate-900 rounded-2xl border border-white/10 overflow-hidden text-left space-y-3 shadow-xl p-4">
+                        <div class="bg-slate-950 p-3 rounded-xl border border-white/10 font-mono text-[11px] space-y-1">
+                            <div class="text-emerald-400 font-bold">📄 DEVIS #2026-842</div>
+                            <div class="text-slate-300">Client : M. Dupont (Preserville)</div>
+                            <div class="text-slate-400">Ravalement façade + Enduit : 4 500 €</div>
+                            <div class="text-brand-400 font-bold">TVA (10%) : 450 €</div>
+                        </div>
+                        <div>
+                            <span class="text-[10px] font-mono text-brand-400 font-bold uppercase">Écran 1 : Éditeur de Devis</span>
+                            <strong class="text-xs text-white block">Chiffrage rapide des chantiers</strong>
+                            <p class="text-[11px] text-slate-400">Génération des lignes de travaux et calcul automatique de la TVA.</p>
+                        </div>
+                    </div>
 
-            setTimeout(() => {
-                progressBar.style.width = "90%";
-                statusText.textContent = "Branchement du système de facturation Stripe...";
-            }, 1000);
+                    <div class="bg-slate-900 rounded-2xl border border-white/10 overflow-hidden text-left space-y-3 shadow-xl p-4">
+                        <div class="bg-slate-950 p-3 rounded-xl border border-white/10 font-mono text-[11px] space-y-1">
+                            <div class="text-emerald-400 font-bold">👷 SUIVI CHANTIERS EN COURS</div>
+                            <div class="text-slate-300">Preserville - Maison principale</div>
+                            <div class="text-amber-400">Statut : En cours (Enduit extérieur)</div>
+                            <div class="text-slate-400">Prochaine intervention : Jeudi 8h00</div>
+                        </div>
+                        <div>
+                            <span class="text-[10px] font-mono text-brand-400 font-bold uppercase">Écran 2 : Planning & Terrain</span>
+                            <strong class="text-xs text-white block">Gestion des chantiers</strong>
+                            <p class="text-[11px] text-slate-400">Centralisation des adresses, des clients et des états d'avancement.</p>
+                        </div>
+                    </div>
 
-            setTimeout(() => {
-                progressBar.style.width = "100%";
-                statusText.textContent = "SaaS généré avec succès !";
-            }, 1400);
+                    <div class="bg-slate-900 rounded-2xl border border-white/10 overflow-hidden text-left space-y-3 shadow-xl p-4">
+                        <div class="bg-slate-950 p-3 rounded-xl border border-white/10 font-mono text-[11px] space-y-1">
+                            <div class="text-emerald-400 font-bold">💳 ACOMPTE ENCAISSÉ (Stripe)</div>
+                            <div class="text-slate-300">Montant : 1 350,00 € (30%)</div>
+                            <div class="text-emerald-400">Statut : Payé par Carte Bancaire 🟢</div>
+                            <div class="text-slate-400">Facture acquittée envoyée au client.</div>
+                        </div>
+                        <div>
+                            <span class="text-[10px] font-mono text-brand-400 font-bold uppercase">Écran 3 : Encaissement Acompte</span>
+                            <strong class="text-xs text-white block">Paiement sécurisé par CB</strong>
+                            <p class="text-[11px] text-slate-400">Validation client en un clic pour sécuriser l'acompte du chantier.</p>
+                        </div>
+                    </div>
+                `;
+            } 
+            // --- CAS GÉNÉRAL : TOUT AUTRE LOGICIEL / PLATEFORME ---
+            else {
+                grid.innerHTML = `
+                    <div class="bg-slate-900 rounded-2xl border border-white/10 overflow-hidden text-left space-y-3 shadow-xl p-4">
+                        <div class="bg-slate-950 p-3 rounded-xl border border-white/10 font-mono text-[11px] space-y-1">
+                            <div class="text-emerald-400 font-bold">📊 TABLEAU DE BORD ACTIF</div>
+                            <div class="text-slate-300">Chiffre d'affaires : 12 450 €</div>
+                            <div class="text-brand-400">Clients actifs : 142 abonnés</div>
+                            <div class="text-slate-400">Croissance : +18.4% ce mois</div>
+                        </div>
+                        <div>
+                            <span class="text-[10px] font-mono text-brand-400 font-bold uppercase">Écran 1 : Dashboard Principal</span>
+                            <strong class="text-xs text-white block">Pilotage de l'activité en direct</strong>
+                            <p class="text-[11px] text-slate-400">Visualisation immédiate des indicateurs clés et des performances.</p>
+                        </div>
+                    </div>
 
-            setTimeout(() => {
-                document.getElementById('loadingSection').classList.add('hidden');
-                document.getElementById('resultSection').classList.remove('hidden');
-                
-                document.getElementById('appTitleDisplay').textContent = "SaaS : " + input;
-                document.getElementById('softwareSubtitle').textContent = `Modules logiques générés pour : "${input}"`;
-                document.getElementById('dynamicModuleTitle').textContent = "Moteur : " + input;
-                document.getElementById('dynamicModuleDesc').textContent = `Fonctions automatisées, requêtes et structure de données sur-mesure pour votre projet "${input}".`;
+                    <div class="bg-slate-900 rounded-2xl border border-white/10 overflow-hidden text-left space-y-3 shadow-xl p-4">
+                        <div class="bg-slate-950 p-3 rounded-xl border border-white/10 font-mono text-[11px] space-y-1">
+                            <div class="text-emerald-400 font-bold">⚙️ MODULE : ${escapeHtml(input.toUpperCase())}</div>
+                            <div class="text-slate-300">Catalogue & Gestion des flux</div>
+                            <div class="text-brand-400">Stock / Données : Synchronisé</div>
+                            <div class="text-slate-400">Automatismes : Activés</div>
+                        </div>
+                        <div>
+                            <span class="text-[10px] font-mono text-brand-400 font-bold uppercase">Écran 2 : Espace Métier</span>
+                            <strong class="text-xs text-white block">Outils et fonctions dédiés</strong>
+                            <p class="text-[11px] text-slate-400">L'interface sur-mesure configurée spécifiquement pour ce secteur.</p>
+                        </div>
+                    </div>
 
-                calculateGoal();
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }, 1700);
+                    <div class="bg-slate-900 rounded-2xl border border-white/10 overflow-hidden text-left space-y-3 shadow-xl p-4">
+                        <div class="bg-slate-950 p-3 rounded-xl border border-white/10 font-mono text-[11px] space-y-1">
+                            <div class="text-emerald-400 font-bold">👥 PORTAIL CLIENTS & STRIPE</div>
+                            <div class="text-slate-300">Abonnements récurrents : Actifs</div>
+                            <div class="text-emerald-400">Renouvellement automatique : OK</div>
+                            <div class="text-slate-400">Factures générées : 100%</div>
+                        </div>
+                        <div>
+                            <span class="text-[10px] font-mono text-brand-400 font-bold uppercase">Écran 3 : Gestion Abonnés</span>
+                            <strong class="text-xs text-white block">Espace de facturation récurrente</strong>
+                            <p class="text-[11px] text-slate-400">Plateforme sécurisée pour encaisser vos abonnés chaque mois.</p>
+                        </div>
+                    </div>
+                `;
+            }
+
+            calculateGoal();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         function resetApp() {
             document.getElementById('resultSection').classList.add('hidden');
-            document.getElementById('loadingSection').classList.add('hidden');
             document.getElementById('heroSection').classList.remove('hidden');
             document.getElementById('projectInput').value = "";
         }
@@ -359,6 +366,10 @@
                     </div>
                 </div>
             `;
+        }
+
+        function escapeHtml(text) {
+            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
         }
     </script>
 </body>
