@@ -106,7 +106,7 @@ h1 {font-size:clamp(36px,6vw,60px);font-weight:900;line-height:1.1;margin-bottom
   transition: width 0.1s linear;
 }
 
-/* ZONE APERÇU ET SUPER SIMULATEUR */
+/* ZONE APERÇU ET SUPER SIMULATEUR AVEC GRILLES DE CARRÉS */
 #preview {
   display:none;
   margin-top:25px;
@@ -122,19 +122,41 @@ h1 {font-size:clamp(36px,6vw,60px);font-weight:900;line-height:1.1;margin-bottom
   padding:25px;
   margin-top:25px;
 }
-.sim-group {
-  margin-bottom: 20px;
-}
-.sim-label {
-  display: flex;
-  justify-content: space-between;
+.sim-section-title {
   font-size: 13px;
   color: var(--muted);
-  margin-bottom: 6px;
+  margin-bottom: 8px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
-.sim-label b {
+.options-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.option-card {
+  background: #131f3b;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  padding: 12px 8px;
+  text-align: center;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  color: #f5f7ff;
+  transition: all 0.2s ease;
+}
+.option-card:hover {
+  border-color: rgba(57,135,255,0.5);
+  background: #19294d;
+}
+.option-card.active {
+  background: linear-gradient(110deg, var(--blue), var(--purple));
+  border-color: transparent;
+  box-shadow: 0 4px 15px rgba(57,135,255,0.3);
   color: #fff;
-  font-size: 15px;
 }
 .revenue-display {
   background: linear-gradient(135deg, rgba(74,165,255,0.15), rgba(157,114,255,0.15));
@@ -142,7 +164,7 @@ h1 {font-size:clamp(36px,6vw,60px);font-weight:900;line-height:1.1;margin-bottom
   padding: 22px;
   border-radius: 14px;
   text-align: center;
-  margin-top: 20px;
+  margin-top: 25px;
 }
 .revenue-amount {
   font-size: 22px;
@@ -218,7 +240,7 @@ footer {border-top:1px solid var(--border);padding:35px 0;text-align:center;colo
 
       <button class="btn" style="width:100%;" onclick="startMegaShow()">✦ Générer mon logiciel en direct</button>
 
-      <!-- RESULTAT ET SUPER SIMULATEUR STRATEGIQUE -->
+      <!-- RESULTAT ET SUPER SIMULATEUR AVEC BOUTONS CARRÉS -->
       <div id="preview" aria-live="polite">
         <div style="font-size:14px; color:#4ade80; font-weight:bold; margin-bottom:15px; text-align:center;">
           ✅ Logiciel et Code Source entièrement générés avec succès !
@@ -257,45 +279,49 @@ footer {border-top:1px solid var(--border);padding:35px 0;text-align:center;colo
           </div>
         </div>
 
-        <!-- SUPER SIMULATEUR STRATÉGIQUE INTERACTIF -->
+        <!-- SUPER SIMULATEUR AVEC SÉLECTION PAR CARRÉS -->
         <div class="simulator-box">
           <h4 style="color:#fff;margin-bottom:8px;font-size:17px;">🎯 Simulateur de Stratégie & Plan d'Action SaaS</h4>
-          <p style="font-size:13px;color:var(--muted);margin-bottom:20px;">Personnalisez vos paramètres pour calculer votre plan d'attaque exact :</p>
+          <p style="font-size:13px;color:var(--muted);margin-bottom:20px;">Cliquez sur vos critères pour générer votre plan d'attaque exact :</p>
 
           <!-- 1. Objectif de CA -->
-          <div class="sim-group">
-            <div class="sim-label">
-              <span>Objectif de chiffre d'affaires visé :</span>
-              <b id="lblGoal">10 000 € / mois</b>
-            </div>
-            <input type="range" id="simGoal" min="2000" max="50000" step="1000" value="10000" style="width:100%;accent-color:#3987ff;cursor:pointer;" oninput="updateSimulation()">
+          <div class="sim-section-title">1. Objectif de chiffre d'affaires visé / mois :</div>
+          <div class="options-grid" id="gridGoal">
+            <div class="option-card" onclick="setGoal(5000, this)">5 000 €</div>
+            <div class="option-card active" onclick="setGoal(10000, this)">10 000 €</div>
+            <div class="option-card" onclick="setGoal(20000, this)">20 000 €</div>
+            <div class="option-card" onclick="setGoal(30000, this)">30 000 €</div>
+            <div class="option-card" onclick="setGoal(40000, this)">40 000 €</div>
+            <div class="option-card" onclick="setGoal(50000, this)">50 000 €</div>
           </div>
 
-          <!-- 2. Délai souhaité -->
-          <div class="sim-group">
-            <div class="sim-label">
-              <span>Délai pour atteindre l'objectif :</span>
-              <b id="lblDays">30 jours</b>
-            </div>
-            <input type="range" id="simDays" min="7" max="90" step="1" value="30" style="width:100%;accent-color:#8657ff;cursor:pointer;" oninput="updateSimulation()">
+          <!-- 2. Délai -->
+          <div class="sim-section-title">2. Délai pour atteindre l'objectif :</div>
+          <div class="options-grid" id="gridDays">
+            <div class="option-card" onclick="setDays(7, this)">7 Jours</div>
+            <div class="option-card active" onclick="setDays(30, this)">30 Jours</div>
+            <div class="option-card" onclick="setDays(60, this)">60 Jours</div>
+            <div class="option-card" onclick="setDays(90, this)">90 Jours</div>
           </div>
 
-          <!-- 3. Temps passé par jour -->
-          <div class="sim-group">
-            <div class="sim-label">
-              <span>Temps consacré par jour :</span>
-              <b id="lblHours">2 heures / jour</b>
-            </div>
-            <input type="range" id="simHours" min="1" max="8" step="1" value="2" style="width:100%;accent-color:#27c93f;cursor:pointer;" oninput="updateSimulation()">
+          <!-- 3. Temps par jour -->
+          <div class="sim-section-title">3. Temps consacré par jour :</div>
+          <div class="options-grid" id="gridHours">
+            <div class="option-card" onclick="setHours(1, this)">1 h / jour</div>
+            <div class="option-card active" onclick="setHours(2, this)">2 h / jour</div>
+            <div class="option-card" onclick="setHours(4, this)">4 h / jour</div>
+            <div class="option-card" onclick="setHours(8, this)">8 h / jour</div>
           </div>
 
           <!-- 4. Prix de vente abonnement -->
-          <div class="sim-group">
-            <div class="sim-label">
-              <span>Prix de votre abonnement client :</span>
-              <b id="lblPrice">39 € / mois</b>
-            </div>
-            <input type="range" id="simPrice" min="10" max="150" step="1" value="39" style="width:100%;accent-color:#ffbd2e;cursor:pointer;" oninput="updateSimulation()">
+          <div class="sim-section-title">4. Prix de votre abonnement client :</div>
+          <div class="options-grid" id="gridPrice">
+            <div class="option-card" onclick="setPrice(29, this)">29 €</div>
+            <div class="option-card active" onclick="setPrice(39, this)">39 €</div>
+            <div class="option-card" onclick="setPrice(49, this)">49 €</div>
+            <div class="option-card" onclick="setPrice(59, this)">59 €</div>
+            <div class="option-card" onclick="setPrice(79, this)">79 €</div>
+            <div class="option-card" onclick="setPrice(199, this)">199 €</div>
           </div>
 
           <!-- RÉSULTAT DU CALCUL STRATÉGIQUE -->
@@ -322,33 +348,59 @@ footer {border-top:1px solid var(--border);padding:35px 0;text-align:center;colo
 </footer>
 
 <script>
+// Variables d'état du simulateur par carrés
+let currentGoal = 10000;
+let currentDays = 30;
+let currentHours = 2;
+let currentPrice = 39;
+
 function fill(val) {
   document.getElementById("project").value = val;
   startMegaShow();
 }
 
+function setGoal(val, el) {
+  currentGoal = val;
+  updateActiveCard('gridGoal', el);
+  updateSimulation();
+}
+
+function setDays(val, el) {
+  currentDays = val;
+  updateActiveCard('gridDays', el);
+  updateSimulation();
+}
+
+function setHours(val, el) {
+  currentHours = val;
+  updateActiveCard('gridHours', el);
+  updateSimulation();
+}
+
+function setPrice(val, el) {
+  currentPrice = val;
+  updateActiveCard('gridPrice', el);
+  updateSimulation();
+}
+
+function updateActiveCard(gridId, selectedEl) {
+  const grid = document.getElementById(gridId);
+  const cards = grid.getElementsByClassName('option-card');
+  for (let card of cards) {
+    card.classList.remove('active');
+  }
+  selectedEl.classList.add('active');
+}
+
 function updateSimulation() {
-  const goal = parseInt(document.getElementById("simGoal").value) || 10000;
-  const days = parseInt(document.getElementById("simDays").value) || 30;
-  const hoursPerDay = parseInt(document.getElementById("simHours").value) || 2;
-  const price = parseInt(document.getElementById("simPrice").value) || 39;
-  
-  // Mise à jour des libellés affichés
-  document.getElementById("lblGoal").textContent = goal.toLocaleString("fr-FR") + " € / mois";
-  document.getElementById("lblDays").textContent = days + " jours";
-  document.getElementById("lblHours").textContent = hoursPerDay + " heure" + (hoursPerDay > 1 ? "s" : "") + " / jour";
-  document.getElementById("lblPrice").textContent = price + " € / mois";
-  
-  // Calculs stratégiques
-  const clientsNeeded = Math.ceil(goal / price);
-  const clientsPerDay = (clientsNeeded / days).toFixed(1);
-  const totalHours = days * hoursPerDay;
+  const clientsNeeded = Math.ceil(currentGoal / currentPrice);
+  const clientsPerDay = (clientsNeeded / currentDays).toFixed(1);
+  const totalHours = currentDays * currentHours;
   const clientsPerHour = (clientsNeeded / totalHours).toFixed(2);
   
-  // Affichage dynamique du résultat
   document.getElementById("calcClients").textContent = "Il vous faut " + clientsNeeded.toLocaleString("fr-FR") + " clients actifs";
-  document.getElementById("calcAction").innerHTML = "🎯 Objectif : <b>" + clientsPerDay + " nouveau" + (clientsPerDay > 1 ? "s" : "") + " client" + (clientsPerDay > 1 ? "s" : "") + " par jour</b> pendant " + days + " jours.";
-  document.getElementById("calcWork").innerHTML = "⚡ Rendement estimé : ~<b>" + clientsPerHour + " client" + (clientsPerHour > 1 ? "s" : "") + "</b> par heure investie (" + hoursPerDay + "h/jour).";
+  document.getElementById("calcAction").innerHTML = "🎯 Objectif : <b>" + clientsPerDay + " nouveau" + (clientsPerDay > 1 ? "s" : "") + " client" + (clientsPerDay > 1 ? "s" : "") + " par jour</b> pendant " + currentDays + " jours.";
+  document.getElementById("calcWork").innerHTML = "⚡ Rendement estimé : ~<b>" + clientsPerHour + " client" + (clientsPerHour > 1 ? "s" : "") + "</b> par heure investie (" + currentHours + "h/jour).";
 }
 
 // SCRIPTS DES POP-UPS
