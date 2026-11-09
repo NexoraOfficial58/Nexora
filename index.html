@@ -33,6 +33,23 @@
         .glow-box { box-shadow: 0 0 50px rgba(34, 197, 94, 0.15); }
         .font-mono { font-family: 'Fira Code', monospace; }
 
+        .floating-window {
+            position: absolute;
+            background: rgba(15, 23, 42, 0.88);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            border-radius: 1rem;
+            padding: 1rem;
+            z-index: 10;
+            pointer-events: none;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+        }
+        .window-header { display: flex; align-items: center; gap: 6px; margin-bottom: 0.75rem; }
+        .dot { width: 8px; height: 8px; border-radius: 50%; }
+        .dot-red { background: #ef4444; }
+        .dot-yellow { background: #f59e0b; }
+        .dot-green { background: #22c55e; }
+
         @keyframes popIn {
             0% { opacity: 0; transform: translateY(15px); }
             100% { opacity: 1; transform: translateY(0); }
@@ -41,6 +58,30 @@
     </style>
 </head>
 <body class="text-slate-100 min-h-screen flex flex-col justify-between selection:bg-brand-500 selection:text-white relative">
+
+    <!-- FENÊTRES FLOTTANTES (INDICATEURS VIVANTS) -->
+    <div class="floating-window hidden xl:block left-6 top-32 w-64">
+        <div class="window-header">
+            <div class="dot dot-red"></div>
+            <div class="dot dot-yellow"></div>
+            <div class="dot dot-green"></div>
+            <span class="text-[10px] text-brand-400 font-mono ml-1 font-bold">⚡ activite_en_direct.json</span>
+        </div>
+        <div class="space-y-2 font-mono text-[11px]">
+            <div class="flex justify-between items-center text-slate-300">
+                <span>Créateurs en ligne :</span>
+                <span id="liveCreators" class="text-brand-400 font-bold">42 actifs</span>
+            </div>
+            <div class="flex justify-between items-center text-slate-300">
+                <span>Logiciels générés :</span>
+                <span id="liveProjects" class="text-white font-bold">186 SaaS</span>
+            </div>
+            <div class="bg-emerald-500/10 p-2 rounded border border-emerald-500/30 flex justify-between items-center">
+                <span class="text-emerald-300">🔥 Déploiement</span>
+                <span class="text-brand-400 font-bold">+29,00 €</span>
+            </div>
+        </div>
+    </div>
 
     <!-- Header -->
     <header class="glass sticky top-0 z-50 px-6 sm:px-8 py-4 flex justify-between items-center border-b border-white/10 shadow-xl">
@@ -52,7 +93,7 @@
         </div>
         <div class="flex items-center gap-4">
             <span class="hidden sm:inline-flex items-center gap-1.5 text-xs text-brand-400 font-bold bg-brand-500/10 px-3 py-1.5 rounded-full border border-brand-500/20">
-                <span class="w-2 h-2 rounded-full bg-brand-400 animate-ping"></span> 42 créateurs connectés
+                <span class="w-2 h-2 rounded-full bg-brand-400 animate-ping"></span> <span id="headerCreators">42</span> créateurs connectés
             </span>
             <a href="https://buy.stripe.com/aFa14f2UT9JQ2hSell9fW02" target="_blank" class="px-5 py-2.5 rounded-xl text-sm font-bold gradient-bg text-white shadow-lg shadow-brand-500/25 hover:opacity-95 transition">
                 <i class="fa-solid fa-rocket"></i> Passer Pro (29€)
@@ -100,7 +141,7 @@
             </div>
         </div>
 
-        <!-- ZONE DU RÉSULTAT : LA VRAIE PLATEFORME VISIBLE + TON SIMULATEUR DE FIN -->
+        <!-- ZONE DU RÉSULTAT : LA VRAIE PLATEFORME VISIBLE + SIMULATEUR + PAYWALL -->
         <div id="resultSection" class="hidden w-full text-left space-y-8 animate-pop mt-2">
             
             <div class="flex justify-between items-center bg-slate-900/90 p-4 rounded-2xl border border-white/10 shadow-lg">
@@ -138,7 +179,7 @@
                     </span>
                 </div>
 
-                <!-- LES 3 ÉCRANS CONCRETS DE LA PLATEFORME (GÉNÉRÉS SELON LE MOT TAPÉ) -->
+                <!-- LES 3 ÉCRANS CONCRETS DE LA PLATEFORME -->
                 <div id="platformScreensGrid" class="grid grid-cols-1 sm:grid-cols-3 gap-5">
                     <!-- Injecté par script -->
                 </div>
@@ -210,6 +251,22 @@
 
     <!-- Scripts -->
     <script>
+        let currentProjectsCount = 186;
+        let currentCreatorsCount = 42;
+
+        setInterval(() => {
+            const creatorDelta = Math.floor(Math.random() * 5) - 2;
+            currentCreatorsCount = Math.max(35, Math.min(55, currentCreatorsCount + creatorDelta));
+
+            if (Math.random() > 0.4) {
+                currentProjectsCount += Math.floor(Math.random() * 2);
+            }
+
+            document.getElementById('liveCreators').textContent = currentCreatorsCount + ' actifs';
+            document.getElementById('headerCreators').textContent = currentCreatorsCount;
+            document.getElementById('liveProjects').textContent = currentProjectsCount + ' SaaS';
+        }, 4500);
+
         function fillPrompt(text) {
             document.getElementById('projectInput').value = text;
             showPlatformScreens();
@@ -233,7 +290,6 @@
 
             const grid = document.getElementById('platformScreensGrid');
 
-            // --- CAS PARTICULIER : FACTURATION BTP ---
             if (lower.includes('btp') || lower.includes('factur') || lower.includes('devis')) {
                 grid.innerHTML = `
                     <div class="bg-slate-900 rounded-2xl border border-white/10 overflow-hidden text-left space-y-3 shadow-xl p-4">
@@ -278,9 +334,7 @@
                         </div>
                     </div>
                 `;
-            } 
-            // --- CAS GÉNÉRAL : TOUT AUTRE LOGICIEL / PLATEFORME ---
-            else {
+            } else {
                 grid.innerHTML = `
                     <div class="bg-slate-900 rounded-2xl border border-white/10 overflow-hidden text-left space-y-3 shadow-xl p-4">
                         <div class="bg-slate-950 p-3 rounded-xl border border-white/10 font-mono text-[11px] space-y-1">
