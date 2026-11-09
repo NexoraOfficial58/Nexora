@@ -50,14 +50,11 @@
         .dot-yellow { background: #f59e0b; }
         .dot-green { background: #22c55e; }
 
-        /* Animation d'apparition en cascade des écrans de logiciel */
-        @keyframes appWindowOpen {
-            0% { opacity: 0; transform: scale(0.9) translateY(30px); }
-            100% { opacity: 1; transform: scale(1) translateY(0); }
+        @keyframes popIn {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
-        .anim-app-1 { animation: appWindowOpen 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-        .anim-app-2 { opacity: 0; animation: appWindowOpen 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards; }
-        .anim-app-3 { opacity: 0; animation: appWindowOpen 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards; }
+        .animate-pop { animation: popIn 0.4s ease-out forwards; }
     </style>
 </head>
 <body class="text-slate-100 min-h-screen flex flex-col justify-between selection:bg-brand-500 selection:text-white relative">
@@ -132,7 +129,7 @@
         <!-- Hero Section -->
         <div id="heroSection" class="w-full space-y-6">
             <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold bg-brand-500/10 text-brand-400 border border-brand-500/30 shadow-md">
-                ✨ Générateur de Micro-SaaS automatisé
+                ✨ Voyez les photos et visuels de votre plateforme
             </span>
 
             <h1 class="text-4xl sm:text-6xl font-black text-white tracking-tight leading-tight">
@@ -141,7 +138,7 @@
             </h1>
 
             <p class="text-slate-300 text-base sm:text-lg max-w-xl mx-auto leading-relaxed">
-                Entrez votre projet. Voyez les interfaces logicielles de votre plateforme s'ouvrir instantanément sous vos yeux.
+                Entrez votre projet. Découvrez immédiatement de vraies photos et captures d'écran de votre future plateforme avant d'accéder au code et au simulateur.
             </p>
 
             <!-- Champ de saisie -->
@@ -166,8 +163,8 @@
             </div>
         </div>
 
-        <!-- ZONE DU RÉSULTAT : LES ÉCRANS DU LOGICIEL QUI S'OUVRENT EN CASCADE + SIMULATEUR -->
-        <div id="resultSection" class="hidden w-full text-left space-y-8 mt-2">
+        <!-- ZONE DU RÉSULTAT : PHOTOS DU LOGICIEL (AVANT) + CARRÉS DE DÉTAILS + SIMULATEUR DE FIN -->
+        <div id="resultSection" class="hidden w-full text-left space-y-8 animate-pop mt-2">
             
             <div class="flex justify-between items-center bg-slate-900/90 p-4 rounded-2xl border border-white/10 shadow-lg">
                 <div class="flex items-center gap-3">
@@ -186,15 +183,26 @@
                 </button>
             </div>
 
-            <!-- LES 3 FENÊTRES DE TRAVAIL DU LOGICIEL ( QUI S'OUVRENT EN CASCADE ) -->
+            <!-- 1. LES VRAIES PHOTOS / VISUELS DU PRODUIT (CE QUI S'affiche AVANT LES CARRÉS) -->
             <div class="space-y-4">
                 <div class="text-xs font-mono font-bold text-brand-400 uppercase tracking-wider px-2 flex items-center justify-between">
-                    <span><i class="fa-solid fa-window-maximize mr-1"></i> Écrans actifs générés pour votre logiciel :</span>
-                    <span class="text-[10px] text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/30">Connecté & Opérationnel</span>
+                    <span><i class="fa-solid fa-camera mr-1"></i> Aperçu visuel et photos de votre futur logiciel :</span>
+                    <span class="text-[10px] text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/30">Visuels du produit final</span>
+                </div>
+
+                <div id="productPhotosContainer" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Injecté par script avec de vraies images de preview -->
+                </div>
+            </div>
+
+            <!-- 2. LES TROIS CARRÉS DE DÉTAILS TECHNIQUES -->
+            <div class="space-y-4">
+                <div class="text-xs font-mono font-bold text-slate-400 uppercase tracking-wider px-2">
+                    <i class="fa-solid fa-server mr-1"></i> Modules techniques et architecture :
                 </div>
 
                 <div id="appScreensContainer" class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <!-- Injecté dynamiquement avec animation d'ouverture -->
+                    <!-- Injecté par script -->
                 </div>
             </div>
 
@@ -300,133 +308,114 @@
             
             document.getElementById('appTitleDisplay').textContent = "SaaS : " + input;
 
+            const photoContainer = document.getElementById('productPhotosContainer');
             const container = document.getElementById('appScreensContainer');
 
+            // --- IMAGES ET PHOTOS DU PRODUIT (AFFICHÉES AVANT LES CARRÉS) ---
             if (lower.includes('btp') || lower.includes('factur') || lower.includes('devis')) {
-                container.innerHTML = `
-                    <div class="anim-app-1 glass-card rounded-2xl border border-brand-500/40 overflow-hidden shadow-2xl flex flex-col">
-                        <div class="bg-slate-950 px-4 py-2.5 border-b border-white/10 flex items-center justify-between">
-                            <div class="flex items-center gap-1.5"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div>
-                            <span class="text-[10px] font-mono text-emerald-400 font-bold">editeur_devis.app</span>
+                photoContainer.innerHTML = `
+                    <div class="glass-card rounded-2xl border border-brand-500/40 overflow-hidden shadow-2xl flex flex-col">
+                        <div class="h-44 relative overflow-hidden bg-slate-950">
+                            <img src="https://images.unsplash.com/photo-1541888946425-d0fbb18fdb9e?auto=format&fit=crop&w=600&q=80" alt="Chantier BTP" class="w-full h-full object-cover opacity-90 hover:scale-105 transition duration-500">
+                            <span class="absolute bottom-2 left-2 bg-slate-950/80 px-2.5 py-1 rounded text-[10px] text-brand-400 font-mono font-bold border border-brand-500/30">📸 Photo : Chantier & Façade</span>
                         </div>
-                        <div class="p-5 space-y-4 flex-grow flex flex-col justify-between">
-                            <div class="bg-slate-950 p-3.5 rounded-xl border border-white/10 font-mono text-xs space-y-1">
-                                <div class="text-emerald-400 font-bold">📄 DEVIS CHANTIER #842</div>
-                                <div class="text-slate-300">Client : M. Dupont</div>
-                                <div class="text-slate-400">Travaux : Façade & Isolation</div>
-                                <div class="text-brand-400 font-bold">Total : 4 500,00 €</div>
-                            </div>
-                            <div>
-                                <span class="text-[10px] font-mono text-brand-400 font-bold uppercase">Fenêtre 1 : Éditeur de Devis</span>
-                                <strong class="text-xs text-white block">Chiffrage et TVA automatiques</strong>
-                                <p class="text-[11px] text-slate-400">Génération et envoi des devis professionnels en 1 clic.</p>
-                            </div>
-                        </div>
+                        <div class="p-4"><strong class="text-xs text-white block">Visuel Chantier Actif</strong><p class="text-[11px] text-slate-400">Rendu visuel sur le terrain pour les artisans.</p></div>
                     </div>
-
-                    <div class="anim-app-2 glass-card rounded-2xl border border-brand-500/40 overflow-hidden shadow-2xl flex flex-col">
-                        <div class="bg-slate-950 px-4 py-2.5 border-b border-white/10 flex items-center justify-between">
-                            <div class="flex items-center gap-1.5"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div>
-                            <span class="text-[10px] font-mono text-emerald-400 font-bold">suivi_chantiers.exe</span>
+                    <div class="glass-card rounded-2xl border border-brand-500/40 overflow-hidden shadow-2xl flex flex-col">
+                        <div class="h-44 relative overflow-hidden bg-slate-950">
+                            <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80" alt="Devis pro" class="w-full h-full object-cover opacity-90 hover:scale-105 transition duration-500">
+                            <span class="absolute bottom-2 left-2 bg-slate-950/80 px-2.5 py-1 rounded text-[10px] text-brand-400 font-mono font-bold border border-brand-500/30">📸 Photo : Logiciel de Devis</span>
                         </div>
-                        <div class="p-5 space-y-4 flex-grow flex flex-col justify-between">
-                            <div class="bg-slate-950 p-3.5 rounded-xl border border-white/10 font-mono text-xs space-y-1">
-                                <div class="text-emerald-400 font-bold">👷 PLANNING TERRAIN</div>
-                                <div class="text-slate-300">Chantier : Preserville</div>
-                                <div class="text-amber-400">Statut : En cours</div>
-                                <div class="text-slate-400">Équipe : Assignée</div>
-                            </div>
-                            <div>
-                                <span class="text-[10px] font-mono text-brand-400 font-bold uppercase">Fenêtre 2 : Suivi de Chantier</span>
-                                <strong class="text-xs text-white block">Planning et interventions</strong>
-                                <p class="text-[11px] text-slate-400">Interface de gestion centralisée pour les artisans sur le terrain.</p>
-                            </div>
-                        </div>
+                        <div class="p-4"><strong class="text-xs text-white block">Écran Chiffrage & TVA</strong><p class="text-[11px] text-slate-400">Interface de facturation rapide.</p></div>
                     </div>
-
-                    <div class="anim-app-3 glass-card rounded-2xl border border-brand-500/40 overflow-hidden shadow-2xl flex flex-col">
-                        <div class="bg-slate-950 px-4 py-2.5 border-b border-white/10 flex items-center justify-between">
-                            <div class="flex items-center gap-1.5"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div>
-                            <span class="text-[10px] font-mono text-emerald-400 font-bold">paiement_stripe.sys</span>
+                    <div class="glass-card rounded-2xl border border-brand-500/40 overflow-hidden shadow-2xl flex flex-col">
+                        <div class="h-44 relative overflow-hidden bg-slate-950">
+                            <img src="https://images.unsplash.com/photo-1556742049-0a67d553c2ec?auto=format&fit=crop&w=600&q=80" alt="Paiement mobile" class="w-full h-full object-cover opacity-90 hover:scale-105 transition duration-500">
+                            <span class="absolute bottom-2 left-2 bg-slate-950/80 px-2.5 py-1 rounded text-[10px] text-brand-400 font-mono font-bold border border-brand-500/30">📸 Photo : Encaissement CB</span>
                         </div>
-                        <div class="p-5 space-y-4 flex-grow flex flex-col justify-between">
-                            <div class="bg-slate-950 p-3.5 rounded-xl border border-white/10 font-mono text-xs space-y-1">
-                                <div class="text-emerald-400 font-bold">💳 ACOMPTE 30% REÇU</div>
-                                <div class="text-slate-300">Montant : 1 350,00 €</div>
-                                <div class="text-emerald-400">Statut : Payé par CB 🟢</div>
-                                <div class="text-slate-400">Sécurisé par Stripe</div>
-                            </div>
-                            <div>
-                                <span class="text-[10px] font-mono text-brand-400 font-bold uppercase">Fenêtre 3 : Encaissement</span>
-                                <strong class="text-xs text-white block">Acomptes sécurisés en ligne</strong>
-                                <p class="text-[11px] text-slate-400">Validation et paiement direct par le client final.</p>
-                            </div>
+                        <div class="p-4"><strong class="text-xs text-white block">Paiement Acompte en Ligne</strong><p class="text-[11px] text-slate-400">Validation sécurisée par le client.</p></div>
+                    </div>
+                `;
+            } else if (lower.includes('bijou') || lower.includes('ecommerce') || lower.includes('e-commerce') || lower.includes('mode')) {
+                photoContainer.innerHTML = `
+                    <div class="glass-card rounded-2xl border border-brand-500/40 overflow-hidden shadow-2xl flex flex-col">
+                        <div class="h-44 relative overflow-hidden bg-slate-950">
+                            <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=600&q=80" alt="Bijoux" class="w-full h-full object-cover opacity-90 hover:scale-105 transition duration-500">
+                            <span class="absolute bottom-2 left-2 bg-slate-950/80 px-2.5 py-1 rounded text-[10px] text-brand-400 font-mono font-bold border border-brand-500/30">📸 Photo : Vitrine Boutique</span>
                         </div>
+                        <div class="p-4"><strong class="text-xs text-white block">Catalogue Produits & Vitrine</strong><p class="text-[11px] text-slate-400">Mise en valeur des articles en ligne.</p></div>
+                    </div>
+                    <div class="glass-card rounded-2xl border border-brand-500/40 overflow-hidden shadow-2xl flex flex-col">
+                        <div class="h-44 relative overflow-hidden bg-slate-950">
+                            <img src="https://images.unsplash.com/photo-1526738549149-8e07eca6c147?auto=format&fit=crop&w=600&q=80" alt="Stock" class="w-full h-full object-cover opacity-90 hover:scale-105 transition duration-500">
+                            <span class="absolute bottom-2 left-2 bg-slate-950/80 px-2.5 py-1 rounded text-[10px] text-brand-400 font-mono font-bold border border-brand-500/30">📸 Photo : Gestion de Stock</span>
+                        </div>
+                        <div class="p-4"><strong class="text-xs text-white block">Interface Inventaire</strong><p class="text-[11px] text-slate-400">Suivi des quantités en temps réel.</p></div>
+                    </div>
+                    <div class="glass-card rounded-2xl border border-brand-500/40 overflow-hidden shadow-2xl flex flex-col">
+                        <div class="h-44 relative overflow-hidden bg-slate-950">
+                            <img src="https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&w=600&q=80" alt="Commandes" class="w-full h-full object-cover opacity-90 hover:scale-105 transition duration-500">
+                            <span class="absolute bottom-2 left-2 bg-slate-950/80 px-2.5 py-1 rounded text-[10px] text-brand-400 font-mono font-bold border border-brand-500/30">📸 Photo : Tunnel d'Achat</span>
+                        </div>
+                        <div class="p-4"><strong class="text-xs text-white block">Panier & Commandes Clients</strong><p class="text-[11px] text-slate-400">Encaissement sécurisé par carte.</p></div>
                     </div>
                 `;
             } else {
-                container.innerHTML = `
-                    <div class="anim-app-1 glass-card rounded-2xl border border-brand-500/40 overflow-hidden shadow-2xl flex flex-col">
-                        <div class="bg-slate-950 px-4 py-2.5 border-b border-white/10 flex items-center justify-between">
-                            <div class="flex items-center gap-1.5"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div>
-                            <span class="text-[10px] font-mono text-emerald-400 font-bold">dashboard_principal.app</span>
+                photoContainer.innerHTML = `
+                    <div class="glass-card rounded-2xl border border-brand-500/40 overflow-hidden shadow-2xl flex flex-col">
+                        <div class="h-44 relative overflow-hidden bg-slate-950">
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80" alt="Dashboard" class="w-full h-full object-cover opacity-90 hover:scale-105 transition duration-500">
+                            <span class="absolute bottom-2 left-2 bg-slate-950/80 px-2.5 py-1 rounded text-[10px] text-brand-400 font-mono font-bold border border-brand-500/30">📸 Photo : Tableau de Bord</span>
                         </div>
-                        <div class="p-5 space-y-4 flex-grow flex flex-col justify-between">
-                            <div class="bg-slate-950 p-3.5 rounded-xl border border-white/10 font-mono text-xs space-y-1">
-                                <div class="text-emerald-400 font-bold">📊 ANALYTICS EN DIRECT</div>
-                                <div class="text-slate-300">Chiffre d'affaires : 12 450 €</div>
-                                <div class="text-brand-400">Abonnés actifs : 142</div>
-                                <div class="text-slate-400">Croissance : +18.4%</div>
-                            </div>
-                            <div>
-                                <span class="text-[10px] font-mono text-brand-400 font-bold uppercase">Fenêtre 1 : Tableau de Bord</span>
-                                <strong class="text-xs text-white block">Pilotage et performances</strong>
-                                <p class="text-[11px] text-slate-400">Vue d'ensemble instantanée des métriques clés de l'activité.</p>
-                            </div>
-                        </div>
+                        <div class="p-4"><strong class="text-xs text-white block">Écran Principal & Stats</strong><p class="text-[11px] text-slate-400">Pilotage de l'activité en direct.</p></div>
                     </div>
-
-                    <div class="anim-app-2 glass-card rounded-2xl border border-brand-500/40 overflow-hidden shadow-2xl flex flex-col">
-                        <div class="bg-slate-950 px-4 py-2.5 border-b border-white/10 flex items-center justify-between">
-                            <div class="flex items-center gap-1.5"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div>
-                            <span class="text-[10px] font-mono text-emerald-400 font-bold">moteur_metier.sys</span>
+                    <div class="glass-card rounded-2xl border border-brand-500/40 overflow-hidden shadow-2xl flex flex-col">
+                        <div class="h-44 relative overflow-hidden bg-slate-950">
+                            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80" alt="Workflow" class="w-full h-full object-cover opacity-90 hover:scale-105 transition duration-500">
+                            <span class="absolute bottom-2 left-2 bg-slate-950/80 px-2.5 py-1 rounded text-[10px] text-brand-400 font-mono font-bold border border-brand-500/30">📸 Photo : Espace Métier</span>
                         </div>
-                        <div class="p-5 space-y-4 flex-grow flex flex-col justify-between">
-                            <div class="bg-slate-950 p-3.5 rounded-xl border border-white/10 font-mono text-xs space-y-1">
-                                <div class="text-emerald-400 font-bold">⚙️ MODULE : ${escapeHtml(input.toUpperCase())}</div>
-                                <div class="text-slate-300">Gestion des flux : Actif</div>
-                                <div class="text-brand-400">Automatismes : OK</div>
-                                <div class="text-slate-400">Base de données : Connectée</div>
-                            </div>
-                            <div>
-                                <span class="text-[10px] font-mono text-brand-400 font-bold uppercase">Fenêtre 2 : Espace Métier</span>
-                                <strong class="text-xs text-white block">Outils et fonctions dédiés</strong>
-                                <p class="text-[11px] text-slate-400">L'interface sur-mesure configurée spécifiquement pour ce secteur.</p>
-                            </div>
-                        </div>
+                        <div class="p-4"><strong class="text-xs text-white block">Outils et Automatismes</strong><p class="text-[11px] text-slate-400">Gestion sur-mesure du secteur.</p></div>
                     </div>
-
-                    <div class="anim-app-3 glass-card rounded-2xl border border-brand-500/40 overflow-hidden shadow-2xl flex flex-col">
-                        <div class="bg-slate-950 px-4 py-2.5 border-b border-white/10 flex items-center justify-between">
-                            <div class="flex items-center gap-1.5"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div>
-                            <span class="text-[10px] font-mono text-emerald-400 font-bold">espace_abonnes.net</span>
+                    <div class="glass-card rounded-2xl border border-brand-500/40 overflow-hidden shadow-2xl flex flex-col">
+                        <div class="h-44 relative overflow-hidden bg-slate-950">
+                            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=600&q=80" alt="Clients" class="w-full h-full object-cover opacity-90 hover:scale-105 transition duration-500">
+                            <span class="absolute bottom-2 left-2 bg-slate-950/80 px-2.5 py-1 rounded text-[10px] text-brand-400 font-mono font-bold border border-brand-500/30">📸 Photo : Portail Abonnés</span>
                         </div>
-                        <div class="p-5 space-y-4 flex-grow flex flex-col justify-between">
-                            <div class="bg-slate-950 p-3.5 rounded-xl border border-white/10 font-mono text-xs space-y-1">
-                                <div class="text-emerald-400 font-bold">👥 PAIEMENTS RÉCURRENTS</div>
-                                <div class="text-slate-300">Passerelle : Stripe Connect</div>
-                                <div class="text-emerald-400">Abonnement : 49€ / mois</div>
-                                <div class="text-slate-400">Facturation automatique</div>
-                            </div>
-                            <div>
-                                <span class="text-[10px] font-mono text-brand-400 font-bold uppercase">Fenêtre 3 : Gestion Clients</span>
-                                <strong class="text-xs text-white block">Portail abonnés Stripe</strong>
-                                <p class="text-[11px] text-slate-400">Espace sécurisé pour encaisser les abonnements chaque mois.</p>
-                            </div>
-                        </div>
+                        <div class="p-4"><strong class="text-xs text-white block">Gestion des Utilisateurs</strong><p class="text-[11px] text-slate-400">Paiements récurrents Stripe.</p></div>
                     </div>
                 `;
             }
+
+            // --- LES TROIS CARRÉS CLASSIQUES (SUIVENT APRÈS LES PHOTOS) ---
+            container.innerHTML = `
+                <div class="glass-card rounded-2xl border border-white/10 overflow-hidden shadow-2xl p-5 flex flex-col justify-between">
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center text-brand-400 font-mono text-xs border-b border-white/10 pb-2">
+                            <span>Module 01</span><span class="text-[10px] bg-emerald-500/10 px-2 py-0.5 rounded text-emerald-400">Actif</span>
+                        </div>
+                        <h4 class="text-sm font-bold text-white">Dashboard & Statistiques</h4>
+                        <p class="text-xs text-slate-400">Visualisation instantanée de la croissance et des métriques clés de l'application.</p>
+                    </div>
+                </div>
+                <div class="glass-card rounded-2xl border border-white/10 overflow-hidden shadow-2xl p-5 flex flex-col justify-between">
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center text-brand-400 font-mono text-xs border-b border-white/10 pb-2">
+                            <span>Module 02</span><span class="text-[10px] bg-emerald-500/10 px-2 py-0.5 rounded text-emerald-400">Généré</span>
+                        </div>
+                        <h4 class="text-sm font-bold text-white">Moteur : ${escapeHtml(input)}</h4>
+                        <p class="text-xs text-slate-400">Base de données et automatismes configurés sur-mesure pour ce secteur d'activité.</p>
+                    </div>
+                </div>
+                <div class="glass-card rounded-2xl border border-white/10 overflow-hidden shadow-2xl p-5 flex flex-col justify-between">
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center text-brand-400 font-mono text-xs border-b border-white/10 pb-2">
+                            <span>Module 03</span><span class="text-[10px] bg-emerald-500/10 px-2 py-0.5 rounded text-emerald-400">Intégré</span>
+                        </div>
+                        <h4 class="text-sm font-bold text-white">Paiements Abonnements Stripe</h4>
+                        <p class="text-xs text-slate-400">Portail client sécurisé pour encaisser vos abonnés et gérer la facturation récurrente.</p>
+                    </div>
+                </div>
+            `;
 
             calculateGoal();
             window.scrollTo({ top: 0, behavior: 'smooth' });
