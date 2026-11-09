@@ -53,7 +53,7 @@
 </head>
 <body class="text-slate-100 min-h-screen flex flex-col justify-between selection:bg-brand-500 selection:text-white relative">
 
-    <!-- FENÊTRES FLOTTANTES (INDICATEURS VIVANTS SUR LES CÔTÉS) -->
+    <!-- FENÊTRES FLOTTANTES (INDICATEURS VIVANTS) -->
     <div class="floating-window hidden lg:block left-8 top-36 w-72">
         <div class="window-header">
             <div class="dot dot-red"></div>
@@ -67,11 +67,11 @@
                 <span id="liveCreators" class="text-brand-400 font-bold">42 actifs</span>
             </div>
             <div class="flex justify-between items-center text-slate-300">
-                <span>SaaS générés ce mois :</span>
-                <span id="liveProjects" class="text-white font-bold">184 projets</span>
+                <span>Logiciels générés ce mois :</span>
+                <span id="liveProjects" class="text-white font-bold">184 SaaS</span>
             </div>
             <div class="bg-emerald-500/10 p-2 rounded border border-emerald-500/30 flex justify-between items-center">
-                <span class="text-emerald-300">🔥 Dernier abonnement</span>
+                <span class="text-emerald-300">🔥 Dernier déploiement</span>
                 <span class="text-brand-400 font-bold">+29,00 €</span>
             </div>
         </div>
@@ -123,109 +123,128 @@
         <!-- Hero Section -->
         <div id="heroSection">
             <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold bg-brand-500/10 text-brand-400 border border-brand-500/30 mb-6 shadow-md">
-                ⚡ Générateur d'applications & de plateformes SaaS
+                ⚡ Studio de Génération Logicielle & SaaS
             </span>
 
             <h1 class="text-4xl sm:text-6xl font-black text-white tracking-tight mb-6 leading-tight">
-                Tapez une idée, créez votre logiciel, <br/>
+                Tapez votre idée, bâtissez votre logiciel, <br/>
                 <span class="gradient-text">Encaissez vos abonnements.</span>
             </h1>
 
             <p class="text-slate-300 text-base sm:text-lg max-w-xl mx-auto mb-8 leading-relaxed">
-                Entrez n'importe quel domaine ou idée. Nexora construit l'ébauche complète de votre application et génère l'ensemble de ses fenêtres de travail.
+                Entrez n'importe quel projet de logiciel. Nexora assemble l'architecture technique, la base de données et l'environnement de votre programme en direct.
             </p>
 
             <!-- Champ de saisie -->
             <div class="glass max-w-2xl mx-auto w-full p-6 sm:p-8 rounded-3xl border border-white/15 shadow-2xl text-left glow-box mb-8">
-                <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-3">Quel service ou logiciel voulez-vous commercialiser ?</label>
+                <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-3">Quel logiciel ou programme voulez-vous générer ?</label>
                 
                 <div class="flex flex-col sm:flex-row gap-3 mb-4">
-                    <input type="text" id="projectInput" placeholder="ex: Vente de vêtements, Devis BTP, Vente de nuages..." class="flex-1 bg-white/5 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500">
+                    <input type="text" id="projectInput" placeholder="ex: Logiciel de Facturation BTP, Plateforme E-Commerce, SaaS de Gestion..." class="flex-1 bg-white/5 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500">
                     
-                    <button onclick="generateMultiWindowApp()" class="gradient-bg text-white px-8 py-4 rounded-xl font-bold flex items-center justify-center gap-2 hover:opacity-90 transition shadow-lg shadow-emerald-500/20 cursor-pointer">
-                        <i class="fas fa-wand-magic-sparkles"></i>
-                        <span>Créer mon SaaS</span>
+                    <button onclick="startSoftwareEngine()" class="gradient-bg text-white px-8 py-4 rounded-xl font-bold flex items-center justify-center gap-2 hover:opacity-90 transition shadow-lg shadow-emerald-500/20 cursor-pointer">
+                        <i class="fas fa-microchip"></i>
+                        <span>Bâtir le Programme</span>
                     </button>
                 </div>
 
                 <div class="flex flex-wrap gap-2 text-xs text-slate-300 items-center">
                     <span class="text-slate-400">Exemples :</span>
-                    <button onclick="fillPrompt('Vente de vêtements en ligne')" class="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg transition cursor-pointer">Vente de vêtements</button>
-                    <button onclick="fillPrompt('Logiciel de Devis & Factures BTP')" class="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg transition cursor-pointer">Devis & Factures BTP</button>
-                    <button onclick="fillPrompt('Vente de nuages et météo personnalisée')" class="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg transition cursor-pointer">Vente de nuages</button>
+                    <button onclick="fillPrompt('Logiciel de Devis & Facturation BTP')" class="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg transition cursor-pointer">Logiciel BTP</button>
+                    <button onclick="fillPrompt('Plateforme E-Commerce Multi-boutiques')" class="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg transition cursor-pointer">Plateforme E-Commerce</button>
+                    <button onclick="fillPrompt('Logiciel SaaS de Gestion de Planning')" class="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg transition cursor-pointer">Gestionnaire de Planning</button>
                 </div>
             </div>
         </div>
 
-        <!-- ESPACE MULTI-FENÊTRES DENSE (L'ENVIRONNEMENT LOGICIEL COMPLET) -->
+        <!-- LE "AVANT" REVISÉ : L'ATELIER D'ASSEMBLAGE DU LOGICIEL (LE PROGRAMME EN CONSTRUCTION) -->
         <div id="visualAppContainer" class="hidden w-full text-left space-y-6">
             
             <div class="flex justify-between items-center bg-slate-900/90 p-4 rounded-2xl border border-white/10">
                 <div class="flex items-center gap-3">
                     <div class="w-3 h-3 rounded-full bg-brand-400 animate-ping"></div>
                     <div>
-                        <span class="text-[10px] uppercase tracking-wider font-bold text-brand-400">STRUCTURE MULTI-MODULES EN DIRECT</span>
-                        <h2 class="text-xl font-black text-white" id="appTitleDisplay">Titre du projet</h2>
+                        <span class="text-[10px] uppercase tracking-wider font-mono font-bold text-brand-400">ATELIER LOGICIEL EN DIRECT</span>
+                        <h2 class="text-xl font-black text-white" id="appTitleDisplay">Nom du Software</h2>
                     </div>
                 </div>
                 <button onclick="resetApp()" class="text-xs text-slate-400 hover:text-white bg-white/5 px-3 py-2 rounded-xl border border-white/10">
-                    <i class="fa-solid fa-rotate-left"></i> Tester une autre idée
+                    <i class="fa-solid fa-rotate-left"></i> Autre projet
                 </button>
             </div>
 
-            <!-- SUITE DE FENÊTRES DENSE ET ADAPTÉE -->
+            <!-- STRUCTURE TECHNIQUE DU LOGICIEL (LE CŒUR AVANT LE SIMULATEUR) -->
             <div class="space-y-6">
                 
-                <!-- FENÊTRE PRINCIPALE : CŒUR DU MÉTIER / ÉDITEUR / CATALOGUE -->
+                <!-- Bloc 1 : Le Squelette Base de Données SQL -->
                 <div class="glass-card p-6 rounded-3xl border border-brand-500/40 glow-box space-y-4">
-                    <div id="dynamicAppHeader" class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 border-b border-white/10 pb-4">
+                    <div class="flex justify-between items-center border-b border-white/10 pb-3">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-database text-brand-400"></i>
+                            <span class="text-xs font-bold text-white uppercase font-mono">1. Architecture PostgreSQL & Tables Métier</span>
+                        </div>
+                        <span class="text-[10px] bg-brand-500/20 text-brand-400 px-2.5 py-1 rounded-full font-mono font-bold">Synchronisé</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 font-mono text-xs">
+                        <div class="bg-slate-950 p-4 rounded-2xl border border-white/10 space-y-2">
+                            <div class="text-brand-400 font-bold flex justify-between">
+                                <span>[Table: Users]</span>
+                                <i class="fa-solid fa-lock text-[10px]"></i>
+                            </div>
+                            <p class="text-slate-400 text-[11px] leading-relaxed">
+                                • id (UUID)<br>
+                                • email (VARCHAR)<br>
+                                • role (ADMIN / CLIENT)<br>
+                                • token_auth (JWT)
+                            </p>
+                        </div>
+                        <div class="bg-slate-950 p-4 rounded-2xl border border-white/10 space-y-2">
+                            <div class="text-brand-400 font-bold flex justify-between">
+                                <span>[Table: Engine_Core]</span>
+                                <i class="fa-solid fa-gears text-[10px]"></i>
+                            </div>
+                            <p class="text-slate-400 text-[11px] leading-relaxed">
+                                • module_name (TEXT)<br>
+                                • core_logic (BUILD)<br>
+                                • status (ONLINE)<br>
+                                • api_sync (ACTIVE)
+                            </p>
+                        </div>
+                        <div class="bg-slate-950 p-4 rounded-2xl border border-white/10 space-y-2">
+                            <div class="text-brand-400 font-bold flex justify-between">
+                                <span>[Table: Stripe_Billing]</span>
+                                <i class="fa-brands fa-stripe text-[10px]"></i>
+                            </div>
+                            <p class="text-slate-400 text-[11px] leading-relaxed">
+                                • customer_id (STRIPE)<br>
+                                • plan_price (29€/49€)<br>
+                                • webhook_status (200)<br>
+                                • renew_date (AUTO)
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bloc 2 : Les Modules Métier Générés -->
+                <div class="glass-card p-6 rounded-3xl border border-white/15 space-y-4">
+                    <div class="flex justify-between items-center border-b border-white/10 pb-3">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-microchip text-brand-400"></i>
+                            <span class="text-xs font-bold text-white uppercase font-mono">2. Assemblage des Modules du Programme</span>
+                        </div>
+                        <span class="text-[10px] bg-emerald-500/20 text-emerald-400 px-2.5 py-1 rounded-full font-mono font-bold">Compilé avec succès</span>
+                    </div>
+
+                    <div id="dynamicSoftwareModules" class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                         <!-- Injecté dynamiquement -->
                     </div>
-
-                    <div id="mainWorkspace" class="pt-2">
-                        <!-- Module principal injecté en fonction du mot tapé -->
-                    </div>
                 </div>
 
-                <!-- GRILLE DE 2 FENÊTRES SECONDAIRES (GESTION CLIENTS + INFRASTRUCTURE DE PAIEMENT) -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    
-                    <!-- Fenêtre 2 : Module de Gestion des Utilisateurs / Abonnés -->
-                    <div class="glass-card p-5 rounded-3xl border border-white/10 space-y-3">
-                        <div class="flex justify-between items-center border-b border-white/10 pb-3">
-                            <div class="flex items-center gap-2">
-                                <i class="fa-solid fa-users text-brand-400"></i>
-                                <span class="text-xs font-bold text-white">Comptes Clients & Accès Réseau</span>
-                            </div>
-                            <span class="text-[10px] bg-brand-500/20 text-brand-400 px-2 py-0.5 rounded font-mono font-bold">JWT Secure</span>
-                        </div>
-                        <div id="clientModuleContent" class="space-y-2 text-xs">
-                            <!-- Injecté dynamiquement -->
-                        </div>
-                    </div>
-
-                    <!-- Fenêtre 3 : Connexion Passerelle & Base de Données -->
-                    <div class="glass-card p-5 rounded-3xl border border-white/10 space-y-3">
-                        <div class="flex justify-between items-center border-b border-white/10 pb-3">
-                            <div class="flex items-center gap-2">
-                                <i class="fa-brands fa-stripe text-brand-400 text-base"></i>
-                                <span class="text-xs font-bold text-white">Infrastructure Cloud & Stripe</span>
-                            </div>
-                            <span class="text-[10px] bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded font-mono font-bold">Webhooks 200 OK</span>
-                        </div>
-                        <div class="space-y-2 text-xs font-mono text-slate-300 bg-slate-950 p-3 rounded-xl border border-white/5">
-                            <div class="flex justify-between"><span>Database:</span> <span class="text-brand-400">PostgreSQL Cloud</span></div>
-                            <div class="flex justify-between"><span>Tables:</span> <span class="text-white">users, orders, config</span></div>
-                            <div class="flex justify-between"><span>Stripe API:</span> <span class="text-emerald-400 font-bold">Connecté (Live)</span></div>
-                        </div>
-                    </div>
-
-                </div>
-
-                <!-- SIMULATEUR INTÉGRÉ AU BAS DE L'APPLICATION -->
+                <!-- LE "APRÈS" : LE SIMULATEUR DE REVENUS (QUE TU AS VALIDÉ) -->
                 <div class="glass-card p-6 rounded-3xl border border-brand-500/30 space-y-4">
-                    <div class="flex items-center gap-2 text-brand-400 font-bold text-xs uppercase tracking-wider">
-                        <i class="fa-solid fa-calculator"></i> Projection de Rentabilité du Projet
+                    <div class="flex items-center gap-2 text-brand-400 font-bold text-xs uppercase tracking-wider font-mono">
+                        <i class="fa-solid fa-calculator"></i> 3. Simulation des Gains & Rentabilité du Logiciel
                     </div>
                     
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 items-center">
@@ -234,12 +253,12 @@
                             <input type="number" id="targetIncomeInput" value="5000" step="500" oninput="calculateGoal()" class="w-full bg-slate-950 border border-white/20 rounded-xl px-4 py-2.5 text-base font-bold text-brand-400 focus:outline-none focus:border-brand-500">
                         </div>
                         <div>
-                            <label class="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1">Prix de votre Abonnement Client</label>
+                            <label class="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1">Prix de l'Abonnement à votre Software</label>
                             <select id="priceSelect" onchange="calculateGoal()" class="w-full bg-slate-950 text-white font-bold rounded-xl px-4 py-3 border border-white/20 text-xs">
-                                <option value="29">29 € / mois par abonné</option>
-                                <option value="49" selected>49 € / mois par abonné</option>
-                                <option value="79">79 € / mois par abonné</option>
-                                <option value="99">99 € / mois par abonné</option>
+                                <option value="29">29 € / mois par utilisateur</option>
+                                <option value="49" selected>49 € / mois par utilisateur</option>
+                                <option value="79">79 € / mois par utilisateur</option>
+                                <option value="99">99 € / mois par utilisateur</option>
                             </select>
                         </div>
                     </div>
@@ -249,7 +268,7 @@
                 </div>
             </div>
 
-            <!-- PAYWALL ULTRA-CONCRET (CODE SOURCE FLOUTÉ ET CADENAS) -->
+            <!-- PAYWALL (CODE SOURCE & DÉPLOIEMENT) -->
             <div class="relative rounded-3xl overflow-hidden border border-brand-500/50 bg-slate-950 p-6 text-center shadow-2xl">
                 
                 <div class="filter blur-[6px] select-none text-left font-mono text-[10px] text-slate-500 opacity-40 space-y-1">
@@ -265,17 +284,17 @@
 
                 <div class="absolute inset-0 bg-slate-950/85 backdrop-blur-sm flex flex-col items-center justify-center p-6 space-y-3 z-10">
                     <div class="w-12 h-12 rounded-2xl bg-brand-500/20 border border-brand-500/40 flex items-center justify-center text-brand-400 text-xl shadow-lg shadow-brand-500/20">
-                        <i class="fa-solid fa-lock"></i>
+                        <i class="fa-solid fa-code"></i>
                     </div>
                     <div>
-                        <h4 class="text-xl font-black text-white">Déployez votre SaaS & Récupérez le Code Source</h4>
-                        <p class="text-xs text-slate-300 mt-1 max-w-md">L'infrastructure complète et le code source de cette application sont prêts à être téléchargés et lancés.</p>
+                        <h4 class="text-xl font-black text-white">Téléchargez le Programme & Déployez l'Infrastructure</h4>
+                        <p class="text-xs text-slate-300 mt-1 max-w-md">Récupérez le code source complet, la base de données PostgreSQL et les clés d'installation immédiatement.</p>
                     </div>
 
                     <a href="https://buy.stripe.com/aFa14f2UT9JQ2hSell9fW02" target="_blank" class="w-full sm:w-auto px-8 py-4 rounded-xl font-extrabold gradient-bg text-white shadow-xl shadow-brand-500/30 hover:scale-105 transition flex items-center justify-center gap-2">
                         <i class="fa-solid fa-bolt"></i> Obtenir le Code Source & Déployer (29€) →
                     </a>
-                    <p class="text-[10px] text-slate-400">Téléchargement immédiat + Support technique inclus.</p>
+                    <p class="text-[10px] text-slate-400">Téléchargement immédiat + Clés de déploiement incluses.</p>
                 </div>
             </div>
 
@@ -289,187 +308,59 @@
 
     <!-- Scripts -->
     <script>
-        // Animation discrète des chiffres de côté
         setInterval(() => {
             const creators = Math.floor(Math.random() * 5) + 40;
             const projects = Math.floor(Math.random() * 4) + 183;
             document.getElementById('liveCreators').textContent = creators + ' actifs';
             document.getElementById('headerCreators').textContent = creators;
-            document.getElementById('liveProjects').textContent = projects + ' projets';
+            document.getElementById('liveProjects').textContent = projects + ' SaaS';
         }, 4000);
 
         function fillPrompt(text) {
             document.getElementById('projectInput').value = text;
-            generateMultiWindowApp();
+            startSoftwareEngine();
         }
 
-        function generateMultiWindowApp() {
+        function startSoftwareEngine() {
             const inputField = document.getElementById('projectInput');
             if (!inputField || !inputField.value.trim()) {
-                alert("Veuillez saisir une idée de service ou de logiciel.");
+                alert("Veuillez saisir une idée de programme ou de logiciel.");
                 return;
             }
 
             const input = inputField.value.trim();
-            const lower = input.toLowerCase();
             
             document.getElementById('heroSection').classList.add('hidden');
-            document.getElementById('appTitleDisplay').textContent = input;
+            document.getElementById('appTitleDisplay').textContent = "Logiciel : " + input;
 
-            const headerContainer = document.getElementById('dynamicAppHeader');
-            const mainWorkspace = document.getElementById('mainWorkspace');
-            const clientModuleContent = document.getElementById('clientModuleContent');
+            const modulesContainer = document.getElementById('dynamicSoftwareModules');
 
-            // --- CAS 1 : VÊTEMENTS / MODE / FRINGUES ---
-            if (lower.includes('vêtement') || lower.includes('vetement') || lower.includes('habits') || lower.includes('mode') || lower.includes('fringues')) {
-                headerContainer.innerHTML = `
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-xl bg-brand-500/20 text-brand-400 flex items-center justify-center text-lg font-bold"><i class="fa-solid fa-shirt"></i></div>
-                        <div>
-                            <span class="text-[10px] text-brand-400 font-mono font-bold uppercase">Plateforme Mode & E-Commerce</span>
-                            <h3 class="text-sm font-bold text-white">Gestionnaire de Collections & Tailles</h3>
-                        </div>
+            modulesContainer.innerHTML = `
+                <div class="bg-slate-950 p-4 rounded-2xl border border-white/10 space-y-2 text-left">
+                    <div class="flex items-center gap-2 text-brand-400 font-bold text-xs font-mono">
+                        <i class="fa-solid fa-server"></i> Moteur Métier
                     </div>
-                    <span class="text-xs font-bold text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/30"><i class="fa-solid fa-check mr-1"></i> Panier & Paiement stripe prêts</span>
-                `;
-
-                mainWorkspace.innerHTML = `
-                    <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
-                        <div class="bg-slate-900 p-3.5 rounded-2xl border border-white/10 text-left space-y-2">
-                            <div class="h-32 bg-slate-950 rounded-xl flex items-center justify-center text-emerald-400 text-3xl border border-white/5"><i class="fa-solid fa-shirt"></i></div>
-                            <span class="text-[11px] text-white font-bold block">T-Shirt Premium Oversize</span>
-                            <div class="flex justify-between items-center text-xs"><strong class="text-brand-400">39,90 €</strong><span class="text-[10px] bg-slate-800 text-slate-300 px-2 py-0.5 rounded">S-XL</span></div>
-                        </div>
-                        <div class="bg-slate-900 p-3.5 rounded-2xl border border-white/10 text-left space-y-2">
-                            <div class="h-32 bg-slate-950 rounded-xl flex items-center justify-center text-emerald-400 text-3xl border border-white/5"><i class="fa-solid fa-vest"></i></div>
-                            <span class="text-[11px] text-white font-bold block">Veste Capuche Heavyweight</span>
-                            <div class="flex justify-between items-center text-xs"><strong class="text-brand-400">79,90 €</strong><span class="text-[10px] bg-slate-800 text-slate-300 px-2 py-0.5 rounded">Stock: 45</span></div>
-                        </div>
-                        <div class="bg-slate-900 p-3.5 rounded-2xl border border-white/10 text-left space-y-2">
-                            <div class="h-32 bg-slate-950 rounded-xl flex items-center justify-center text-emerald-400 text-3xl border border-white/5"><i class="fa-solid fa-user-ninja"></i></div>
-                            <span class="text-[11px] text-white font-bold block">Pantalon Cargo Urban</span>
-                            <div class="flex justify-between items-center text-xs"><strong class="text-brand-400">64,90 €</strong><span class="text-[10px] bg-slate-800 text-slate-300 px-2 py-0.5 rounded">Stock: 18</span></div>
-                        </div>
-                        <div class="bg-slate-900 p-3.5 rounded-2xl border border-white/10 text-left space-y-2">
-                            <div class="h-32 bg-slate-950 rounded-xl flex items-center justify-center text-emerald-400 text-3xl border border-white/5"><i class="fa-solid fa-hat-cowboy"></i></div>
-                            <span class="text-[11px] text-white font-bold block">Casquette Broderie HD</span>
-                            <div class="flex justify-between items-center text-xs"><strong class="text-brand-400">29,90 €</strong><span class="text-[10px] bg-slate-800 text-slate-300 px-2 py-0.5 rounded">Stock: 80</span></div>
-                        </div>
+                    <strong class="text-xs text-white block">Logique de traitement</strong>
+                    <p class="text-[11px] text-slate-400">Automatisation des flux pour "${escapeHtml(input)}".</p>
+                    <span class="text-[10px] bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded font-mono font-bold inline-block">Compilé OK</span>
+                </div>
+                <div class="bg-slate-950 p-4 rounded-2xl border border-white/10 space-y-2 text-left">
+                    <div class="flex items-center gap-2 text-brand-400 font-bold text-xs font-mono">
+                        <i class="fa-solid fa-key"></i> Sécurité & Sessions
                     </div>
-                `;
-
-                clientModuleContent.innerHTML = `
-                    <div class="bg-slate-950 p-2.5 rounded-xl border border-white/5 flex justify-between items-center">
-                        <div><strong class="text-white block">Sophie M. (Commande #1042)</strong><span class="text-slate-400 text-[10px]">1x Veste Heavyweight</span></div>
-                        <span class="text-brand-400 font-bold">79,90 €</span>
+                    <strong class="text-xs text-white block">Authentification JWT</strong>
+                    <p class="text-[11px] text-slate-400">Gestion des rôles, profils et accès utilisateurs.</p>
+                    <span class="text-[10px] bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded font-mono font-bold inline-block">Sécurisé AES</span>
+                </div>
+                <div class="bg-slate-950 p-4 rounded-2xl border border-white/10 space-y-2 text-left">
+                    <div class="flex items-center gap-2 text-brand-400 font-bold text-xs font-mono">
+                        <i class="fa-brands fa-stripe"></i> Facturation Abonnés
                     </div>
-                    <div class="bg-slate-950 p-2.5 rounded-xl border border-white/5 flex justify-between items-center">
-                        <div><strong class="text-white block">Alexandre T. (Commande #1041)</strong><span class="text-slate-400 text-[10px]">2x T-Shirt Oversize</span></div>
-                        <span class="text-brand-400 font-bold">79,80 €</span>
-                    </div>
-                `;
-            }
-            // --- CAS 2 : DEVIS & FACTURES BTP ---
-            else if (lower.includes('devis') || lower.includes('facture') || lower.includes('btp') || lower.includes('artisan') || lower.includes('chantier')) {
-                headerContainer.innerHTML = `
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-xl bg-brand-500/20 text-brand-400 flex items-center justify-center text-lg font-bold"><i class="fa-solid fa-file-invoice-dollar"></i></div>
-                        <div>
-                            <span class="text-[10px] text-brand-400 font-mono font-bold uppercase">Éditeur de Devis & Chantiers BTP</span>
-                            <h3 class="text-sm font-bold text-white">Gestionnaire des Prestations & Signature PDF</h3>
-                        </div>
-                    </div>
-                    <span class="text-xs font-bold text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/30"><i class="fa-solid fa-check mr-1"></i> Module PDF & Acomptes Actif</span>
-                `;
-
-                mainWorkspace.innerHTML = `
-                    <div class="bg-slate-950 p-5 rounded-2xl border border-white/10 space-y-4">
-                        <div class="flex justify-between items-start border-b border-white/10 pb-3 text-xs">
-                            <div>
-                                <strong class="text-white font-mono text-sm">DEVIS N° 2026-089</strong>
-                                <span class="text-slate-400 block mt-0.5">Client: M. Dupont (Preserville)</span>
-                            </div>
-                            <span class="text-xs bg-brand-500/20 text-brand-400 px-3 py-1 rounded-full font-bold">Prêt à envoyer</span>
-                        </div>
-                        <div class="space-y-2 text-xs">
-                            <div class="flex justify-between p-2 bg-slate-900 rounded-lg border border-white/5">
-                                <span>Ravalement de façade enduit taloché (120 m²)</span>
-                                <strong class="text-white">2 400,00 € HT</strong>
-                            </div>
-                            <div class="flex justify-between p-2 bg-slate-900 rounded-lg border border-white/5">
-                                <span>Installation échafaudage & protection de chantier</span>
-                                <strong class="text-white">650,00 € HT</strong>
-                            </div>
-                            <div class="flex justify-between p-2 bg-slate-900 rounded-lg border border-white/5">
-                                <span>Nettoyage haute pression & traitement anti-mousse</span>
-                                <strong class="text-white">400,00 € HT</strong>
-                            </div>
-                        </div>
-                        <div class="flex justify-between items-center pt-2 border-t border-white/10 text-xs">
-                            <span class="text-slate-400">Total HT : 3 450,00 € | TVA (10%) : 345,00 €</span>
-                            <strong class="text-base text-brand-400 font-black">Total TTC : 3 795,00 €</strong>
-                        </div>
-                    </div>
-                `;
-
-                clientModuleContent.innerHTML = `
-                    <div class="bg-slate-950 p-2.5 rounded-xl border border-white/5 flex justify-between items-center">
-                        <div><strong class="text-white block">Mme. Martin (Chantier Isolation)</strong><span class="text-slate-400 text-[10px]">Devis envoyé il y a 2h</span></div>
-                        <span class="text-amber-400 font-bold">5 120,00 €</span>
-                    </div>
-                    <div class="bg-slate-950 p-2.5 rounded-xl border border-white/5 flex justify-between items-center">
-                        <div><strong class="text-white block">M. Leroy (Toiture Zinc)</strong><span class="text-slate-400 text-[10px]">Facture d'acompte payée</span></div>
-                        <span class="text-brand-400 font-bold">1 280,00 €</span>
-                    </div>
-                `;
-            }
-            // --- CAS 3 : TOUT AUTRE MOT-CLÉ (EX: NUAGES, RESTAURANT, ETC.) ---
-            else {
-                headerContainer.innerHTML = `
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-xl bg-brand-500/20 text-brand-400 flex items-center justify-center text-lg font-bold"><i class="fa-solid fa-cloud-sun"></i></div>
-                        <div>
-                            <span class="text-[10px] text-brand-400 font-mono font-bold uppercase">Plateforme Spécialisée</span>
-                            <h3 class="text-sm font-bold text-white">Application Sur-Mesure : ${escapeHtml(input)}</h3>
-                        </div>
-                    </div>
-                    <span class="text-xs font-bold text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/30"><i class="fa-solid fa-check mr-1"></i> Architecture dédiée opérationnelle</span>
-                `;
-
-                mainWorkspace.innerHTML = `
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                        <div class="bg-slate-900 p-4 rounded-2xl border border-white/10 space-y-3">
-                            <div class="w-10 h-10 rounded-xl bg-brand-500/10 text-brand-400 flex items-center justify-center text-lg"><i class="fa-solid fa-sliders"></i></div>
-                            <strong class="text-xs text-white block">Gestionnaire de Services "${escapeHtml(input)}"</strong>
-                            <p class="text-[11px] text-slate-400">Module principal configuré pour la gestion des offres et requêtes clients.</p>
-                            <span class="text-emerald-400 text-xs font-bold block">100% Fonctionnel</span>
-                        </div>
-                        <div class="bg-slate-900 p-4 rounded-2xl border border-white/10 space-y-3">
-                            <div class="w-10 h-10 rounded-xl bg-brand-500/10 text-brand-400 flex items-center justify-center text-lg"><i class="fa-solid fa-credit-card"></i></div>
-                            <strong class="text-xs text-white block">Module d'Abonnement Récurrent</strong>
-                            <p class="text-[11px] text-slate-400">Facturation automatique mensuelle par carte bancaire via Stripe.</p>
-                            <span class="text-brand-400 text-xs font-bold block">Tarifs 29€ / 49€ activés</span>
-                        </div>
-                        <div class="bg-slate-900 p-4 rounded-2xl border border-white/10 space-y-3">
-                            <div class="w-10 h-10 rounded-xl bg-brand-500/10 text-brand-400 flex items-center justify-center text-lg"><i class="fa-solid fa-chart-line"></i></div>
-                            <strong class="text-xs text-white block">Tableau de Bord & Analytics</strong>
-                            <p class="text-[11px] text-slate-400">Suivi en direct des inscriptions et des revenus générés.</p>
-                            <span class="text-emerald-400 text-xs font-bold block">Données en direct</span>
-                        </div>
-                    </div>
-                `;
-
-                clientModuleContent.innerHTML = `
-                    <div class="bg-slate-950 p-2.5 rounded-xl border border-white/5 flex justify-between items-center">
-                        <div><strong class="text-white block">Utilisateur #804</strong><span class="text-slate-400 text-[10px]">Abonnement actif sur ${escapeHtml(input)}</span></div>
-                        <span class="text-brand-400 font-bold">+49,00 €</span>
-                    </div>
-                    <div class="bg-slate-950 p-2.5 rounded-xl border border-white/5 flex justify-between items-center">
-                        <div><strong class="text-white block">Utilisateur #805</strong><span class="text-slate-400 text-[10px]">Compte Pro configuré</span></div>
-                        <span class="text-brand-400 font-bold">+29,00 €</span>
-                    </div>
-                `;
-            }
+                    <strong class="text-xs text-white block">Passerelle Stripe Direct</strong>
+                    <p class="text-[11px] text-slate-400">Paiements récurrents et webhooks connectés.</p>
+                    <span class="text-[10px] bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded font-mono font-bold inline-block">API Active</span>
+                </div>
+            `;
 
             document.getElementById('visualAppContainer').classList.remove('hidden');
             calculateGoal();
@@ -503,11 +394,11 @@
             analysisDetails.innerHTML = `
                 <div class="flex flex-col sm:flex-row justify-between items-center gap-2">
                     <div>
-                        <span class="text-[11px] text-slate-400 block">Pour atteindre <strong>${target.toLocaleString('fr-FR')} € / mois</strong> à ${price} € / abonné :</span>
-                        <span class="text-xs text-slate-200">Il vous faut <strong class="text-brand-400 text-sm">${clientsNeeded} clients</strong> abonnés.</span>
+                        <span class="text-[11px] text-slate-400 block">Pour atteindre <strong>${target.toLocaleString('fr-FR')} € / mois</strong> à ${price} € / utilisateur :</span>
+                        <span class="text-xs text-slate-200">Il vous faut <strong class="text-brand-400 text-sm">${clientsNeeded} abonnés</strong> à votre programme.</span>
                     </div>
                     <div class="text-right">
-                        <span class="text-[10px] text-slate-400 block">Revenu estimé :</span>
+                        <span class="text-[10px] text-slate-400 block">Revenu logiciel estimé :</span>
                         <strong class="text-sm font-black text-brand-400">${exactRevenue.toLocaleString('fr-FR')} € / mois</strong>
                     </div>
                 </div>
