@@ -50,14 +50,14 @@
         .dot-yellow { background: #f59e0b; }
         .dot-green { background: #22c55e; }
 
-        /* Animation d'ouverture progressive de fenêtre */
+        /* Animation fluide d'ouverture des fenêtres */
         @keyframes windowOpen {
-            0% { opacity: 0; transform: scale(0.92) translateY(30px); }
+            0% { opacity: 0; transform: scale(0.90) translateY(40px); }
             100% { opacity: 1; transform: scale(1) translateY(0); }
         }
-        .anim-window-1 { animation: windowOpen 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-        .anim-window-2 { opacity: 0; animation: windowOpen 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards; }
-        .anim-window-3 { opacity: 0; animation: windowOpen 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards; }
+        .anim-window-1 { animation: windowOpen 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .anim-window-2 { opacity: 0; animation: windowOpen 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards; }
+        .anim-window-3 { opacity: 0; animation: windowOpen 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards; }
     </style>
 </head>
 <body class="text-slate-100 min-h-screen flex flex-col justify-between selection:bg-brand-500 selection:text-white relative">
@@ -132,7 +132,7 @@
         <!-- Hero Section -->
         <div id="heroSection" class="w-full space-y-6">
             <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold bg-brand-500/10 text-brand-400 border border-brand-500/30 shadow-md">
-                ✨ Ouvrez les fenêtres de votre futur logiciel
+                ✨ Voyez concrètement le produit que vous achetez
             </span>
 
             <h1 class="text-4xl sm:text-6xl font-black text-white tracking-tight leading-tight">
@@ -141,7 +141,7 @@
             </h1>
 
             <p class="text-slate-300 text-base sm:text-lg max-w-xl mx-auto leading-relaxed">
-                Entrez votre projet. Voyez s'ouvrir les fenêtres de votre plateforme avec de vrais écrans de travail concrets.
+                Entrez votre projet. Regardez les fenêtres de votre plateforme s'ouvrir en direct avec de vraies photos et aperçus visuels du produit.
             </p>
 
             <!-- Champ de saisie -->
@@ -149,7 +149,7 @@
                 <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-3">Quel logiciel ou programme voulez-vous générer ?</label>
                 
                 <div class="flex flex-col sm:flex-row gap-3 mb-4">
-                    <input type="text" id="projectInput" placeholder="ex: Facturation BTP, Plateforme E-Commerce, Outil de Gestion..." class="flex-1 bg-white/5 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 text-sm">
+                    <input type="text" id="projectInput" placeholder="ex: Facturation BTP, Voiture, E-Commerce..." class="flex-1 bg-white/5 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 text-sm">
                     
                     <button onclick="openPlatformDirectly()" class="gradient-bg text-white px-8 py-3.5 rounded-xl font-bold flex items-center justify-center gap-2 hover:opacity-90 transition shadow-lg shadow-emerald-500/20 cursor-pointer text-sm whitespace-nowrap">
                         <i class="fas fa-window-maximize"></i>
@@ -160,13 +160,13 @@
                 <div class="flex flex-wrap gap-2 text-xs text-slate-300 items-center pt-1">
                     <span class="text-slate-400">Exemples :</span>
                     <button onclick="fillPrompt('Logiciel de Devis & Facturation BTP')" class="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg transition cursor-pointer">Facturation BTP</button>
-                    <button onclick="fillPrompt('Plateforme E-Commerce Mode')" class="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg transition cursor-pointer">E-Commerce</button>
-                    <button onclick="fillPrompt('Logiciel de Réservation de Chantiers')" class="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg transition cursor-pointer">Réservation</button>
+                    <button onclick="fillPrompt('Vente de Voitures')" class="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg transition cursor-pointer">Vente de Voitures</button>
+                    <button onclick="fillPrompt('Plateforme E-Commerce')" class="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg transition cursor-pointer">E-Commerce</button>
                 </div>
             </div>
         </div>
 
-        <!-- ZONE DU "AVANT" (LES FENÊTRES QUI S'OUVRENT EN CASCADE) + "APRÈS" (TON SIMULATEUR) -->
+        <!-- ZONE DU "AVANT" (LES VRAIES FENÊTRES AVEC PHOTOS QUI S'OUVRENT) + "APRÈS" (TON SIMULATEUR) -->
         <div id="liveCreationContainer" class="hidden w-full text-left space-y-8 mt-2">
             
             <div class="flex justify-between items-center bg-slate-900/90 p-4 rounded-2xl border border-white/10 shadow-lg">
@@ -186,7 +186,7 @@
                 </button>
             </div>
 
-            <!-- FENÊTRE VISUELLE PRINCIPALE : LES 3 ÉCRANS QUI S'OUVRENT EN CASCADE -->
+            <!-- FENÊTRE VISUELLE PRINCIPALE : LES 3 FENÊTRES CONCRÈTES QUI S'OUVRENT EN CASCADE AVEC PHOTOS -->
             <div class="glass-card p-6 rounded-3xl border border-brand-500/50 glow-box space-y-6">
                 
                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 border-b border-white/10 pb-4">
@@ -195,16 +195,16 @@
                             <i class="fa-solid fa-desktop"></i>
                         </div>
                         <div>
-                            <span class="text-[10px] text-brand-400 font-mono font-bold uppercase">CE QUE LE CLIENT VA VOIR ET UTILISER</span>
-                            <h3 class="text-base font-black text-white" id="softwareSubtitle">Écrans actifs de votre logiciel</h3>
+                            <span class="text-[10px] text-brand-400 font-mono font-bold uppercase">VOICI LE PRODUIT QUE VOUS ALLEZ COMMERCIALISER</span>
+                            <h3 class="text-base font-black text-white" id="softwareSubtitle">Aperçu visuel des fenêtres de votre logiciel</h3>
                         </div>
                     </div>
                     <span class="text-xs font-bold text-emerald-400 bg-emerald-500/10 px-3 py-1.5 rounded-full border border-emerald-500/30 whitespace-nowrap">
-                        <i class="fa-solid fa-circle-check mr-1"></i> Prêt à commercialiser
+                        <i class="fa-solid fa-circle-check mr-1"></i> Prêt à l'emploi
                     </span>
                 </div>
 
-                <!-- LES 3 FENÊTRES SÉPARÉES AVEC LEURS ANIMATIONS D'OUVERTURE EN CASCADE -->
+                <!-- LES 3 FENÊTRES AVEC VRAIES PHOTOS / VISUELS CONCRETS ET ANIMATION EN CASCADE -->
                 <div id="softwareMockupGrid" class="grid grid-cols-1 sm:grid-cols-3 gap-5">
                     <!-- Injecté dynamiquement -->
                 </div>
@@ -314,15 +314,67 @@
 
             const mockupGrid = document.getElementById('softwareMockupGrid');
 
-            if (lower.includes('devis') || lower.includes('factur') || lower.includes('btp') || lower.includes('artisan')) {
+            // --- CAS 1 : VOITURE / VÉHICULE (AVEC PHOTOS / VISUELS CONCRETS DE CARROSSERIE ET HABITACLE) ---
+            if (lower.includes('voiture') || lower.includes('auto') || lower.includes('vehicule') || lower.includes('véhicule')) {
                 mockupGrid.innerHTML = `
                     <div class="anim-window-1 bg-slate-900 rounded-2xl border border-white/10 overflow-hidden text-left space-y-3 shadow-xl">
                         <div class="bg-slate-950 px-3 py-2 border-b border-white/10 flex items-center justify-between">
                             <div class="flex gap-1.5"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div>
-                            <span class="text-[9px] font-mono text-slate-400">fenetre_devis.exe</span>
+                            <span class="text-[9px] font-mono text-slate-400">catalogue_exterieur.app</span>
                         </div>
-                        <div class="h-32 bg-slate-950 flex items-center justify-center text-brand-400 text-4xl border-b border-white/10">
-                            <i class="fa-solid fa-file-invoice-dollar"></i>
+                        <div class="h-36 bg-slate-950 relative overflow-hidden flex items-center justify-center border-b border-white/10">
+                            <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=600&q=80" alt="Carrosserie" class="absolute inset-0 w-full h-full object-cover opacity-75 hover:opacity-100 transition duration-300">
+                            <span class="relative z-10 bg-slate-950/80 px-3 py-1 rounded text-[10px] text-emerald-400 font-mono font-bold border border-emerald-500/30">📸 Photo : Carrosserie & Peinture</span>
+                        </div>
+                        <div class="p-4 space-y-1">
+                            <span class="text-[10px] font-mono text-brand-400 uppercase font-bold">Fenêtre 1 : Extérieur Véhicule</span>
+                            <strong class="text-xs text-white block">Design & Finitions</strong>
+                            <p class="text-[11px] text-slate-400">Visuel réel des jantes, optiques et lignes de caisse de la voiture.</p>
+                        </div>
+                    </div>
+                    <div class="anim-window-2 bg-slate-900 rounded-2xl border border-white/10 overflow-hidden text-left space-y-3 shadow-xl">
+                        <div class="bg-slate-950 px-3 py-2 border-b border-white/10 flex items-center justify-between">
+                            <div class="flex gap-1.5"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div>
+                            <span class="text-[9px] font-mono text-slate-400">habitacle_interieur.app</span>
+                        </div>
+                        <div class="h-36 bg-slate-950 relative overflow-hidden flex items-center justify-center border-b border-white/10">
+                            <img src="https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=600&q=80" alt="Habitacle" class="absolute inset-0 w-full h-full object-cover opacity-75 hover:opacity-100 transition duration-300">
+                            <span class="relative z-10 bg-slate-950/80 px-3 py-1 rounded text-[10px] text-emerald-400 font-mono font-bold border border-emerald-500/30">📸 Photo : Intérieur & Tableau de bord</span>
+                        </div>
+                        <div class="p-4 space-y-1">
+                            <span class="text-[10px] font-mono text-brand-400 uppercase font-bold">Fenêtre 2 : Habitacle & Confort</span>
+                            <strong class="text-xs text-white block">Sellerie cuir & Multimédia</strong>
+                            <p class="text-[11px] text-slate-400">Aperçu direct du poste de conduite et des équipements à bord.</p>
+                        </div>
+                    </div>
+                    <div class="anim-window-3 bg-slate-900 rounded-2xl border border-white/10 overflow-hidden text-left space-y-3 shadow-xl">
+                        <div class="bg-slate-950 px-3 py-2 border-b border-white/10 flex items-center justify-between">
+                            <div class="flex gap-1.5"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div>
+                            <span class="text-[9px] font-mono text-slate-400">tunnel_commande.sys</span>
+                        </div>
+                        <div class="h-36 bg-slate-950 relative overflow-hidden flex items-center justify-center border-b border-white/10">
+                            <img src="https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=600&q=80" alt="Clés et Paiement" class="absolute inset-0 w-full h-full object-cover opacity-75 hover:opacity-100 transition duration-300">
+                            <span class="relative z-10 bg-slate-950/80 px-3 py-1 rounded text-[10px] text-emerald-400 font-mono font-bold border border-emerald-500/30">📸 Photo : Livraison & Clés</span>
+                        </div>
+                        <div class="p-4 space-y-1">
+                            <span class="text-[10px] font-mono text-brand-400 uppercase font-bold">Fenêtre 3 : Vente & Paiement</span>
+                            <strong class="text-xs text-white block">Acompte et bon de commande</strong>
+                            <p class="text-[11px] text-slate-400">Interface sécurisée pour finaliser l'acquisition du véhicule.</p>
+                        </div>
+                    </div>
+                `;
+            } 
+            // --- CAS 2 : DEVIS & FACTURATION BTP ---
+            else if (lower.includes('devis') || lower.includes('factur') || lower.includes('btp') || lower.includes('artisan')) {
+                mockupGrid.innerHTML = `
+                    <div class="anim-window-1 bg-slate-900 rounded-2xl border border-white/10 overflow-hidden text-left space-y-3 shadow-xl">
+                        <div class="bg-slate-950 px-3 py-2 border-b border-white/10 flex items-center justify-between">
+                            <div class="flex gap-1.5"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div>
+                            <span class="text-[9px] font-mono text-slate-400">editeur_devis.app</span>
+                        </div>
+                        <div class="h-36 bg-slate-950 relative overflow-hidden flex items-center justify-center border-b border-white/10">
+                            <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80" alt="Devis" class="absolute inset-0 w-full h-full object-cover opacity-75 hover:opacity-100 transition duration-300">
+                            <span class="relative z-10 bg-slate-950/80 px-3 py-1 rounded text-[10px] text-brand-400 font-mono font-bold border border-brand-500/30">💻 Interface : Chiffrage & TVA</span>
                         </div>
                         <div class="p-4 space-y-1">
                             <span class="text-[10px] font-mono text-brand-400 uppercase font-bold">Fenêtre 1 : Devis & TVA</span>
@@ -333,10 +385,11 @@
                     <div class="anim-window-2 bg-slate-900 rounded-2xl border border-white/10 overflow-hidden text-left space-y-3 shadow-xl">
                         <div class="bg-slate-950 px-3 py-2 border-b border-white/10 flex items-center justify-between">
                             <div class="flex gap-1.5"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div>
-                            <span class="text-[9px] font-mono text-slate-400">suivi_chantiers.app</span>
+                            <span class="text-[9px] font-mono text-slate-400">planning_chantiers.app</span>
                         </div>
-                        <div class="h-32 bg-slate-950 flex items-center justify-center text-brand-400 text-4xl border-b border-white/10">
-                            <i class="fa-solid fa-helmet-safety"></i>
+                        <div class="h-36 bg-slate-950 relative overflow-hidden flex items-center justify-center border-b border-white/10">
+                            <img src="https://images.unsplash.com/photo-1581094288338-2314dddb7ece?auto=format&fit=crop&w=600&q=80" alt="Chantier" class="absolute inset-0 w-full h-full object-cover opacity-75 hover:opacity-100 transition duration-300">
+                            <span class="relative z-10 bg-slate-950/80 px-3 py-1 rounded text-[10px] text-brand-400 font-mono font-bold border border-brand-500/30">💻 Interface : Suivi Chantier</span>
                         </div>
                         <div class="p-4 space-y-1">
                             <span class="text-[10px] font-mono text-brand-400 uppercase font-bold">Fenêtre 2 : Suivi Chantiers</span>
@@ -347,10 +400,11 @@
                     <div class="anim-window-3 bg-slate-900 rounded-2xl border border-white/10 overflow-hidden text-left space-y-3 shadow-xl">
                         <div class="bg-slate-950 px-3 py-2 border-b border-white/10 flex items-center justify-between">
                             <div class="flex gap-1.5"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div>
-                            <span class="text-[9px] font-mono text-slate-400">paiement_acompte.sys</span>
+                            <span class="text-[9px] font-mono text-slate-400">signature_client.sys</span>
                         </div>
-                        <div class="h-32 bg-slate-950 flex items-center justify-center text-brand-400 text-4xl border-b border-white/10">
-                            <i class="fa-solid fa-signature"></i>
+                        <div class="h-36 bg-slate-950 relative overflow-hidden flex items-center justify-center border-b border-white/10">
+                            <img src="https://images.unsplash.com/photo-1556742049-0a67d553c2ec?auto=format&fit=crop&w=600&q=80" alt="Paiement" class="absolute inset-0 w-full h-full object-cover opacity-75 hover:opacity-100 transition duration-300">
+                            <span class="relative z-10 bg-slate-950/80 px-3 py-1 rounded text-[10px] text-brand-400 font-mono font-bold border border-brand-500/30">💻 Interface : Acomptes & CB</span>
                         </div>
                         <div class="p-4 space-y-1">
                             <span class="text-[10px] font-mono text-brand-400 uppercase font-bold">Fenêtre 3 : Signature & Acomptes</span>
@@ -359,15 +413,18 @@
                         </div>
                     </div>
                 `;
-            } else {
+            } 
+            // --- CAS 3 : TOUT AUTRE LOGICIEL / PROJET ---
+            else {
                 mockupGrid.innerHTML = `
                     <div class="anim-window-1 bg-slate-900 rounded-2xl border border-white/10 overflow-hidden text-left space-y-3 shadow-xl">
                         <div class="bg-slate-950 px-3 py-2 border-b border-white/10 flex items-center justify-between">
                             <div class="flex gap-1.5"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div>
-                            <span class="text-[9px] font-mono text-slate-400">dashboard_principal.app</span>
+                            <span class="text-[9px] font-mono text-slate-400">dashboard_pro.app</span>
                         </div>
-                        <div class="h-32 bg-slate-950 flex items-center justify-center text-brand-400 text-4xl border-b border-white/10">
-                            <i class="fa-solid fa-chart-pie"></i>
+                        <div class="h-36 bg-slate-950 relative overflow-hidden flex items-center justify-center border-b border-white/10">
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80" alt="Dashboard" class="absolute inset-0 w-full h-full object-cover opacity-75 hover:opacity-100 transition duration-300">
+                            <span class="relative z-10 bg-slate-950/80 px-3 py-1 rounded text-[10px] text-brand-400 font-mono font-bold border border-brand-500/30">💻 Interface : Graphiques & Stats</span>
                         </div>
                         <div class="p-4 space-y-1">
                             <span class="text-[10px] font-mono text-brand-400 uppercase font-bold">Fenêtre 1 : Dashboard Principal</span>
@@ -380,8 +437,9 @@
                             <div class="flex gap-1.5"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div>
                             <span class="text-[9px] font-mono text-slate-400">moteur_metier.sys</span>
                         </div>
-                        <div class="h-32 bg-slate-950 flex items-center justify-center text-brand-400 text-4xl border-b border-white/10">
-                            <i class="fa-solid fa-sliders"></i>
+                        <div class="h-36 bg-slate-950 relative overflow-hidden flex items-center justify-center border-b border-white/10">
+                            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80" alt="Outils" class="absolute inset-0 w-full h-full object-cover opacity-75 hover:opacity-100 transition duration-300">
+                            <span class="relative z-10 bg-slate-950/80 px-3 py-1 rounded text-[10px] text-brand-400 font-mono font-bold border border-brand-500/30">💻 Interface : Outils Métier</span>
                         </div>
                         <div class="p-4 space-y-1">
                             <span class="text-[10px] font-mono text-brand-400 uppercase font-bold">Fenêtre 2 : Moteur Métier</span>
@@ -392,10 +450,11 @@
                     <div class="anim-window-3 bg-slate-900 rounded-2xl border border-white/10 overflow-hidden text-left space-y-3 shadow-xl">
                         <div class="bg-slate-950 px-3 py-2 border-b border-white/10 flex items-center justify-between">
                             <div class="flex gap-1.5"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div>
-                            <span class="text-[9px] font-mono text-slate-400">espace_ abonnes.net</span>
+                            <span class="text-[9px] font-mono text-slate-400">espace_abonnes.net</span>
                         </div>
-                        <div class="h-32 bg-slate-950 flex items-center justify-center text-brand-400 text-4xl border-b border-white/10">
-                            <i class="fa-solid fa-users-gear"></i>
+                        <div class="h-36 bg-slate-950 relative overflow-hidden flex items-center justify-center border-b border-white/10">
+                            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=600&q=80" alt="Clients" class="absolute inset-0 w-full h-full object-cover opacity-75 hover:opacity-100 transition duration-300">
+                            <span class="relative z-10 bg-slate-950/80 px-3 py-1 rounded text-[10px] text-brand-400 font-mono font-bold border border-brand-500/30">💻 Interface : Gestion Abonnés</span>
                         </div>
                         <div class="p-4 space-y-1">
                             <span class="text-[10px] font-mono text-brand-400 uppercase font-bold">Fenêtre 3 : Espace Abonnés</span>
