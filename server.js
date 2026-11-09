@@ -123,7 +123,7 @@ async function sendProjectEmail(email, idea, code) {
                 <h3>Code Source complet (index.html)</h3>
                 <textarea style="width: 100%; height: 350px; background: #080e1d; color: #4ade80; border: 1px solid rgba(255,255,255,0.2); padding: 15px; font-family: monospace; border-radius: 8px;" readonly>${cleanCode}</textarea>
             </div>
-        `
+        `,
         attachments: [
             {
                 filename: 'index.html',
