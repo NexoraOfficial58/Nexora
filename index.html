@@ -106,7 +106,7 @@ h1 {font-size:clamp(36px,6vw,60px);font-weight:900;line-height:1.1;margin-bottom
   transition: width 0.1s linear;
 }
 
-/* ZONE APERÇU ET SUPER SIMULATEUR */
+/* ZONE APERÇU ET SIMULATEUR */
 #preview {
   display:none;
   margin-top:25px;
@@ -114,6 +114,7 @@ h1 {font-size:clamp(36px,6vw,60px);font-weight:900;line-height:1.1;margin-bottom
   padding:25px;
   border:1px solid rgba(92,143,255,.4);
   border-radius:18px;
+  position: relative;
 }
 .simulator-box {
   background:#0d162d;
@@ -161,30 +162,44 @@ h1 {font-size:clamp(36px,6vw,60px);font-weight:900;line-height:1.1;margin-bottom
   color: #fff;
 }
 
-/* LE BLOC DE RÉSULTAT ULTRA PERCUTANT QUI APPARAÎT EN FIN */
-.revenue-display {
-  background: linear-gradient(135deg, rgba(39,201,63,0.18), rgba(57,135,255,0.18));
-  border: 2px solid #27c93f;
-  padding: 25px;
-  border-radius: 14px;
-  text-align: center;
-  width: 100%;
-  margin-top: 10px;
-  box-shadow: 0 0 30px rgba(39,201,63,0.25);
-  animation: popInResult 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+/* LE GROS BLOC MODAL DE RÉVÉLATION QUI VIENT PAR-DESSUS */
+.reveal-modal-overlay {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(7, 11, 24, 0.94);
+  backdrop-filter: blur(10px);
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  border-radius: 18px;
+  animation: fadeInModal 0.3s ease-out forwards;
 }
 
-@keyframes popInResult {
-  from { opacity: 0; transform: scale(0.9) translateY(15px); }
-  to { opacity: 1; transform: scale(1) translateY(0); }
+@keyframes fadeInModal {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.reveal-card {
+  background: linear-gradient(135deg, #101c38, #091126);
+  border: 2px solid #27c93f;
+  padding: 30px;
+  border-radius: 20px;
+  text-align: center;
+  width: 100%;
+  max-width: 600px;
+  box-shadow: 0 0 50px rgba(39, 201, 63, 0.35);
 }
 
 .revenue-amount {
-  font-size: 26px;
+  font-size: 32px;
   font-weight: 900;
   color: #4ade80;
-  margin: 8px 0;
+  margin: 12px 0;
 }
+
 footer {border-top:1px solid var(--border);padding:35px 0;text-align:center;color:#8290aa;font-size:13px;margin-top:80px;}
 </style>
 </head>
@@ -255,6 +270,25 @@ footer {border-top:1px solid var(--border);padding:35px 0;text-align:center;colo
 
       <!-- RESULTAT ET SUPER SIMULATEUR -->
       <div id="preview" aria-live="polite">
+        
+        <!-- MODALE DE RÉVÉLATION QUI VIENT SE METTRE PAR-DESSUS -->
+        <div class="reveal-modal-overlay" id="revealModal">
+          <div class="reveal-card">
+            <div style="font-size:12px; color:#4ade80; text-transform:uppercase; font-weight:bold; letter-spacing:1px;">⚡ Plan d'Action Stratégique Calculé</div>
+            <div class="revenue-amount" id="modalClients">Il vous faut 257 clients actifs</div>
+            <div style="font-size:15px; color:#f5f7ff; margin:10px 0 6px;" id="modalAction">🎯 Objectif : <b>8.6 nouveaux clients par jour</b> pendant 30 jours.</div>
+            <div style="font-size:13px; color:#a5b1ca; margin-bottom:20px;" id="modalWork">⚡ Rendement estimé : ~4.3 clients par heure investie (2h/jour).</div>
+            
+            <a href="https://buy.stripe.com/afA14f2UT9J3Q2hSe119fW02" target="_blank" class="btn" style="width:100%; background:linear-gradient(110deg,#27c93f,#10b981); font-size:16px; padding:18px; box-shadow:0 10px 30px rgba(39,201,63,0.4);">
+              ✦ Obtenir et télécharger mon code complet (29 €) →
+            </a>
+            
+            <div style="margin-top:12px;">
+              <button onclick="closeRevealModal()" style="background:none; border:none; color:var(--muted); font-size:13px; cursor:pointer; text-decoration:underline;">Modifier mes critères de simulation</button>
+            </div>
+          </div>
+        </div>
+
         <div style="font-size:14px; color:#4ade80; font-weight:bold; margin-bottom:15px; text-align:center;">
           ✅ Logiciel et Code Source entièrement générés avec succès !
         </div>
@@ -292,12 +326,11 @@ footer {border-top:1px solid var(--border);padding:35px 0;text-align:center;colo
           </div>
         </div>
 
-        <!-- SUPER SIMULATEUR AVEC DÉLAI 1 JOUR & APPARITION DU RÉSULTAT -->
+        <!-- SUPER SIMULATEUR -->
         <div class="simulator-box">
           <h4 style="color:#fff;margin-bottom:4px;font-size:17px;">🎯 Simulateur de Stratégie & Plan d'Action SaaS</h4>
           <p style="font-size:13px;color:var(--muted);margin-bottom:10px;">Sélectionnez vos 4 critères pour générer votre plan d'attaque exact :</p>
 
-          <!-- 1. Objectif de CA -->
           <div>
             <div class="sim-section-title">1. Objectif de chiffre d'affaires visé / mois :</div>
             <div class="options-grid" id="gridGoal">
@@ -310,7 +343,6 @@ footer {border-top:1px solid var(--border);padding:35px 0;text-align:center;colo
             </div>
           </div>
 
-          <!-- 2. Délai (Ajout de 1 Jour) -->
           <div>
             <div class="sim-section-title">2. Délai pour atteindre l'objectif :</div>
             <div class="options-grid" id="gridDays">
@@ -322,7 +354,6 @@ footer {border-top:1px solid var(--border);padding:35px 0;text-align:center;colo
             </div>
           </div>
 
-          <!-- 3. Temps par jour -->
           <div>
             <div class="sim-section-title">3. Temps consacré par jour :</div>
             <div class="options-grid" id="gridHours">
@@ -333,7 +364,6 @@ footer {border-top:1px solid var(--border);padding:35px 0;text-align:center;colo
             </div>
           </div>
 
-          <!-- 4. Prix de vente abonnement -->
           <div>
             <div class="sim-section-title">4. Prix de votre abonnement client :</div>
             <div class="options-grid" id="gridPrice">
@@ -346,19 +376,12 @@ footer {border-top:1px solid var(--border);padding:35px 0;text-align:center;colo
             </div>
           </div>
 
-          <!-- RÉSULTAT DU CALCUL STRATÉGIQUE (QUI S'AFFICHE EN GRAND) -->
-          <div class="revenue-display" id="resultBox">
-            <div style="font-size:12px;color:#a5b1ca;text-transform:uppercase;font-weight:bold;letter-spacing:1px;">⚡ Plan d'Action Calculé par l'IA</div>
-            <div class="revenue-amount" id="calcClients">Il vous faut 257 clients actifs</div>
-            <div style="font-size:14px;color:#f5f7ff;margin-top:6px;" id="calcAction">🎯 Objectif : <b>8.6 nouveaux clients par jour</b> pendant 30 jours.</div>
-            <div style="font-size:13px;color:#4ade80;margin-top:4px;" id="calcWork">⚡ Rendement estimé : ~4.3 clients par heure investie (2h/jour).</div>
-          </div>
+          <!-- BOUTON POUR AFFICHER LA MODALE MANUELLEMENT SI BESOIN -->
+          <button class="btn" style="width:100%; margin-top:15px; background:linear-gradient(110deg,#27c93f,#10b981);" onclick="showRevealModal()">
+            ✦ Afficher mon plan d'action personnalisé →
+          </button>
         </div>
 
-        <!-- BOUTON STRIPE DE 29 € -->
-        <a href="https://buy.stripe.com/afA14f2UT9J3Q2hSe119fW02" target="_blank" class="btn" style="margin-top:25px; width:100%; background:linear-gradient(110deg,#27c93f,#10b981); font-size:16px; padding:18px;">
-          ✦ Obtenir et télécharger mon code complet (29 €) →
-        </a>
       </div>
 
     </div>
@@ -419,20 +442,24 @@ function updateSimulation() {
   const totalHours = currentDays * currentHours;
   const clientsPerHour = (clientsNeeded / totalHours).toFixed(2);
   
-  document.getElementById("calcClients").textContent = "Il vous faut " + clientsNeeded.toLocaleString("fr-FR") + " clients actifs";
+  document.getElementById("modalClients").textContent = "Il vous faut " + clientsNeeded.toLocaleString("fr-FR") + " clients actifs";
   
   if (currentDays === 1) {
-    document.getElementById("calcAction").innerHTML = "🎯 Objectif Flash : <b>" + clientsNeeded.toLocaleString("fr-FR") + " clients</b> à convaincre en 1 seul jour (" + currentHours + "h de travail).";
+    document.getElementById("modalAction").innerHTML = "🎯 Objectif Flash : <b>" + clientsNeeded.toLocaleString("fr-FR") + " clients</b> à convaincre en 1 seul jour (" + currentHours + "h de travail).";
   } else {
-    document.getElementById("calcAction").innerHTML = "🎯 Objectif : <b>" + clientsPerDay + " nouveau" + (clientsPerDay > 1 ? "s" : "") + " client" + (clientsPerDay > 1 ? "s" : "") + " par jour</b> pendant " + currentDays + " jours.";
+    document.getElementById("modalAction").innerHTML = "🎯 Objectif : <b>" + clientsPerDay + " nouveau" + (clientsPerDay > 1 ? "s" : "") + " client" + (clientsPerDay > 1 ? "s" : "") + " par jour</b> pendant " + currentDays + " jours.";
   }
   
-  document.getElementById("calcWork").innerHTML = "⚡ Rendement estimé : ~<b>" + clientsPerHour + " client" + (clientsPerHour > 1 ? "s" : "") + "</b> par heure investie (" + currentHours + "h/jour).";
+  document.getElementById("modalWork").innerHTML = "⚡ Rendement estimé : ~<b>" + clientsPerHour + " client" + (clientsPerHour > 1 ? "s" : "") + "</b> par heure investie (" + currentHours + "h/jour).";
+}
 
-  // Petit effet visuel d'impulsion à chaque changement de choix
-  const box = document.getElementById("resultBox");
-  box.style.transform = "scale(1.02)";
-  setTimeout(() => { box.style.transform = "scale(1)"; }, 150);
+function showRevealModal() {
+  updateSimulation();
+  document.getElementById("revealModal").style.display = "flex";
+}
+
+function closeRevealModal() {
+  document.getElementById("revealModal").style.display = "none";
 }
 
 function typeCode(elementId, textLines, barId, duration, onComplete) {
@@ -521,6 +548,8 @@ function startMegaShow() {
         document.getElementById("moduleProjectName").textContent = val;
         preview.style.display = "block";
         updateSimulation();
+        // Ouvre automatiquement la modale de révélation en grand par-dessus pour un effet waouh immédiat !
+        showRevealModal();
         preview.scrollIntoView({ behavior: "smooth", block: "center" });
       });
     });
