@@ -50,11 +50,14 @@
         .dot-yellow { background: #f59e0b; }
         .dot-green { background: #22c55e; }
 
-        @keyframes popIn {
-            0% { opacity: 0; transform: translateY(20px); }
-            100% { opacity: 1; transform: translateY(0); }
+        /* Animation de pop-up publicitaire / fenêtre de logiciel qui jaillit en cascade */
+        @keyframes popupOpen {
+            0% { opacity: 0; transform: scale(0.8) translateY(50px) rotate(-2deg); }
+            100% { opacity: 1; transform: scale(1) translateY(0) rotate(0deg); }
         }
-        .animate-pop { animation: popIn 0.4s ease-out forwards; }
+        .popup-anim-1 { animation: popupOpen 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .popup-anim-2 { opacity: 0; animation: popupOpen 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards; }
+        .popup-anim-3 { opacity: 0; animation: popupOpen 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards; }
     </style>
 </head>
 <body class="text-slate-100 min-h-screen flex flex-col justify-between selection:bg-brand-500 selection:text-white relative">
@@ -129,7 +132,7 @@
         <!-- Hero Section -->
         <div id="heroSection" class="w-full space-y-6">
             <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold bg-brand-500/10 text-brand-400 border border-brand-500/30 shadow-md">
-                ✨ Voyez les photos et visuels de votre plateforme
+                ✨ Ouvrez les fenêtres pop-up de votre futur SaaS
             </span>
 
             <h1 class="text-4xl sm:text-6xl font-black text-white tracking-tight leading-tight">
@@ -138,7 +141,7 @@
             </h1>
 
             <p class="text-slate-300 text-base sm:text-lg max-w-xl mx-auto leading-relaxed">
-                Entrez votre projet. Découvrez immédiatement de vraies photos et captures d'écran de votre future plateforme avant d'accéder au code et au simulateur.
+                Entrez votre projet. Voyez de vraies fenêtres pop-up interactives s'ouvrir en cascade avec les interfaces graphiques et les codes de votre plateforme.
             </p>
 
             <!-- Champ de saisie -->
@@ -146,10 +149,10 @@
                 <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-3">Quel logiciel SaaS voulez-vous créer ?</label>
                 
                 <div class="flex flex-col sm:flex-row gap-3 mb-4">
-                    <input type="text" id="projectInput" placeholder="ex: Facturation BTP, E-Commerce, CRM..." class="flex-1 bg-white/5 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 text-sm">
+                    <input type="text" id="projectInput" placeholder="ex: Facturation BTP, Vente de Bijoux, E-Commerce..." class="flex-1 bg-white/5 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 text-sm">
                     
                     <button onclick="launchSaaSPlatform()" class="gradient-bg text-white px-8 py-3.5 rounded-xl font-bold flex items-center justify-center gap-2 hover:opacity-90 transition shadow-lg shadow-emerald-500/20 cursor-pointer text-sm whitespace-nowrap">
-                        <i class="fas fa-microchip"></i>
+                        <i class="fas fa-window-restore"></i>
                         <span>Générer mon SaaS</span>
                     </button>
                 </div>
@@ -163,8 +166,8 @@
             </div>
         </div>
 
-        <!-- ZONE DU RÉSULTAT : PHOTOS DU LOGICIEL (AVANT) + CARRÉS DE DÉTAILS + SIMULATEUR DE FIN -->
-        <div id="resultSection" class="hidden w-full text-left space-y-8 animate-pop mt-2">
+        <!-- ZONE DU RÉSULTAT : LES VRAIES FENÊTRES POP-UP ANIMÉES (AVANT LES CARRÉS ET LE SIMULATEUR) -->
+        <div id="resultSection" class="hidden w-full text-left space-y-8 mt-2">
             
             <div class="flex justify-between items-center bg-slate-900/90 p-4 rounded-2xl border border-white/10 shadow-lg">
                 <div class="flex items-center gap-3">
@@ -174,7 +177,7 @@
                         <div class="w-2.5 h-2.5 rounded-full bg-green-500"></div>
                     </div>
                     <div>
-                        <span class="text-[9px] uppercase tracking-wider font-mono font-bold text-brand-400 block">PLATEFORME LOGICIELLE EN COURS D'EXÉCUTION</span>
+                        <span class="text-[9px] uppercase tracking-wider font-mono font-bold text-brand-400 block">FENÊTRES POP-UP DU LOGICIEL EN DIRECT</span>
                         <h2 class="text-lg font-black text-white" id="appTitleDisplay">Logiciel SaaS</h2>
                     </div>
                 </div>
@@ -183,19 +186,19 @@
                 </button>
             </div>
 
-            <!-- 1. LES VRAIES PHOTOS / VISUELS DU PRODUIT (CE QUI S'affiche AVANT LES CARRÉS) -->
+            <!-- LES 3 VRAIES FENÊTRES POP-UP ANIMÉES QUI JAILLISSENT -->
             <div class="space-y-4">
                 <div class="text-xs font-mono font-bold text-brand-400 uppercase tracking-wider px-2 flex items-center justify-between">
-                    <span><i class="fa-solid fa-camera mr-1"></i> Aperçu visuel et photos de votre futur logiciel :</span>
-                    <span class="text-[10px] text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/30">Visuels du produit final</span>
+                    <span><i class="fa-solid fa-wand-magic-sparkles mr-1"></i> Fenêtres publicitaires & interfaces logicielles générées :</span>
+                    <span class="text-[10px] text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/30">Effet Pop-up Actif 🚀</span>
                 </div>
 
-                <div id="productPhotosContainer" class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <!-- Injecté par script avec de vraies images de preview -->
+                <div id="popupWindowsContainer" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Injecté par script avec animation de pop-up -->
                 </div>
             </div>
 
-            <!-- 2. LES TROIS CARRÉS DE DÉTAILS TECHNIQUES -->
+            <!-- LES TROIS CARRÉS DE DÉTAILS TECHNIQUES -->
             <div class="space-y-4">
                 <div class="text-xs font-mono font-bold text-slate-400 uppercase tracking-wider px-2">
                     <i class="fa-solid fa-server mr-1"></i> Modules techniques et architecture :
@@ -308,85 +311,139 @@
             
             document.getElementById('appTitleDisplay').textContent = "SaaS : " + input;
 
-            const photoContainer = document.getElementById('productPhotosContainer');
+            const popupContainer = document.getElementById('popupWindowsContainer');
             const container = document.getElementById('appScreensContainer');
 
-            // --- IMAGES ET PHOTOS DU PRODUIT (AFFICHÉES AVANT LES CARRÉS) ---
+            // --- FENÊTRES POP-UP ANIMÉES (AFFICHÉES AVANT LES CARRÉS) ---
             if (lower.includes('btp') || lower.includes('factur') || lower.includes('devis')) {
-                photoContainer.innerHTML = `
-                    <div class="glass-card rounded-2xl border border-brand-500/40 overflow-hidden shadow-2xl flex flex-col">
-                        <div class="h-44 relative overflow-hidden bg-slate-950">
-                            <img src="https://images.unsplash.com/photo-1541888946425-d0fbb18fdb9e?auto=format&fit=crop&w=600&q=80" alt="Chantier BTP" class="w-full h-full object-cover opacity-90 hover:scale-105 transition duration-500">
-                            <span class="absolute bottom-2 left-2 bg-slate-950/80 px-2.5 py-1 rounded text-[10px] text-brand-400 font-mono font-bold border border-brand-500/30">📸 Photo : Chantier & Façade</span>
+                popupContainer.innerHTML = `
+                    <div class="popup-anim-1 glass-card rounded-2xl border border-brand-500/40 overflow-hidden shadow-2xl flex flex-col">
+                        <div class="bg-slate-950 px-4 py-2.5 border-b border-white/10 flex items-center justify-between">
+                            <div class="flex items-center gap-1.5"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div>
+                            <span class="text-[10px] font-mono text-emerald-400 font-bold">pop-up_devis.app</span>
                         </div>
-                        <div class="p-4"><strong class="text-xs text-white block">Visuel Chantier Actif</strong><p class="text-[11px] text-slate-400">Rendu visuel sur le terrain pour les artisans.</p></div>
+                        <div class="p-5 space-y-3 bg-slate-950/60 font-mono text-xs text-slate-300">
+                            <div class="text-emerald-400 font-bold">📄 POP-UP : DEVIS INSTANTANÉ</div>
+                            <div>Client : M. Dupont</div>
+                            <div class="text-brand-400 font-bold">Montant : 4 500 € + TVA</div>
+                            <div class="bg-emerald-500/10 p-2 rounded border border-emerald-500/30 text-emerald-300 text-[11px]">⚡ Généré en 0.4s par IA</div>
+                        </div>
+                        <div class="p-4 bg-slate-900"><strong class="text-xs text-white block">Fenêtre Pop-up Devis</strong><p class="text-[11px] text-slate-400">Aperçu publicitaire de l'éditeur de factures.</p></div>
                     </div>
-                    <div class="glass-card rounded-2xl border border-brand-500/40 overflow-hidden shadow-2xl flex flex-col">
-                        <div class="h-44 relative overflow-hidden bg-slate-950">
-                            <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80" alt="Devis pro" class="w-full h-full object-cover opacity-90 hover:scale-105 transition duration-500">
-                            <span class="absolute bottom-2 left-2 bg-slate-950/80 px-2.5 py-1 rounded text-[10px] text-brand-400 font-mono font-bold border border-brand-500/30">📸 Photo : Logiciel de Devis</span>
+                    <div class="popup-anim-2 glass-card rounded-2xl border border-brand-500/40 overflow-hidden shadow-2xl flex flex-col">
+                        <div class="bg-slate-950 px-4 py-2.5 border-b border-white/10 flex items-center justify-between">
+                            <div class="flex items-center gap-1.5"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div>
+                            <span class="text-[10px] font-mono text-emerald-400 font-bold">pop-up_chantier.exe</span>
                         </div>
-                        <div class="p-4"><strong class="text-xs text-white block">Écran Chiffrage & TVA</strong><p class="text-[11px] text-slate-400">Interface de facturation rapide.</p></div>
+                        <div class="p-5 space-y-3 bg-slate-950/60 font-mono text-xs text-slate-300">
+                            <div class="text-emerald-400 font-bold">👷 POP-UP : SUIVI TERRAIN</div>
+                            <div>Chantier : Preserville</div>
+                            <div class="text-amber-400">Statut : Intervention en cours</div>
+                            <div class="bg-amber-500/10 p-2 rounded border border-amber-500/30 text-amber-300 text-[11px]">📍 GPS & Planning actifs</div>
+                        </div>
+                        <div class="p-4 bg-slate-900"><strong class="text-xs text-white block">Fenêtre Pop-up Chantiers</strong><p class="text-[11px] text-slate-400">Aperçu de la gestion des interventions.</p></div>
                     </div>
-                    <div class="glass-card rounded-2xl border border-brand-500/40 overflow-hidden shadow-2xl flex flex-col">
-                        <div class="h-44 relative overflow-hidden bg-slate-950">
-                            <img src="https://images.unsplash.com/photo-1556742049-0a67d553c2ec?auto=format&fit=crop&w=600&q=80" alt="Paiement mobile" class="w-full h-full object-cover opacity-90 hover:scale-105 transition duration-500">
-                            <span class="absolute bottom-2 left-2 bg-slate-950/80 px-2.5 py-1 rounded text-[10px] text-brand-400 font-mono font-bold border border-brand-500/30">📸 Photo : Encaissement CB</span>
+                    <div class="popup-anim-3 glass-card rounded-2xl border border-brand-500/40 overflow-hidden shadow-2xl flex flex-col">
+                        <div class="bg-slate-950 px-4 py-2.5 border-b border-white/10 flex items-center justify-between">
+                            <div class="flex items-center gap-1.5"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div>
+                            <span class="text-[10px] font-mono text-emerald-400 font-bold">pop-up_stripe.sys</span>
                         </div>
-                        <div class="p-4"><strong class="text-xs text-white block">Paiement Acompte en Ligne</strong><p class="text-[11px] text-slate-400">Validation sécurisée par le client.</p></div>
+                        <div class="p-5 space-y-3 bg-slate-950/60 font-mono text-xs text-slate-300">
+                            <div class="text-emerald-400 font-bold">💳 POP-UP : ACOMPTE CB</div>
+                            <div>Montant : 1 350,00 € (30%)</div>
+                            <div class="text-emerald-400 font-bold">Paiement : Validé 🟢</div>
+                            <div class="bg-emerald-500/10 p-2 rounded border border-emerald-500/30 text-emerald-300 text-[11px]">🔒 Sécurisé par Stripe</div>
+                        </div>
+                        <div class="p-4 bg-slate-900"><strong class="text-xs text-white block">Fenêtre Pop-up Paiement</strong><p class="text-[11px] text-slate-400">Tunnel de conversion client direct.</p></div>
                     </div>
                 `;
             } else if (lower.includes('bijou') || lower.includes('ecommerce') || lower.includes('e-commerce') || lower.includes('mode')) {
-                photoContainer.innerHTML = `
-                    <div class="glass-card rounded-2xl border border-brand-500/40 overflow-hidden shadow-2xl flex flex-col">
-                        <div class="h-44 relative overflow-hidden bg-slate-950">
-                            <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=600&q=80" alt="Bijoux" class="w-full h-full object-cover opacity-90 hover:scale-105 transition duration-500">
-                            <span class="absolute bottom-2 left-2 bg-slate-950/80 px-2.5 py-1 rounded text-[10px] text-brand-400 font-mono font-bold border border-brand-500/30">📸 Photo : Vitrine Boutique</span>
+                popupContainer.innerHTML = `
+                    <div class="popup-anim-1 glass-card rounded-2xl border border-brand-500/40 overflow-hidden shadow-2xl flex flex-col">
+                        <div class="bg-slate-950 px-4 py-2.5 border-b border-white/10 flex items-center justify-between">
+                            <div class="flex items-center gap-1.5"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div>
+                            <span class="text-[10px] font-mono text-emerald-400 font-bold">pop-up_vitrine.shop</span>
                         </div>
-                        <div class="p-4"><strong class="text-xs text-white block">Catalogue Produits & Vitrine</strong><p class="text-[11px] text-slate-400">Mise en valeur des articles en ligne.</p></div>
+                        <div class="p-5 space-y-3 bg-slate-950/60 font-mono text-xs text-slate-300">
+                            <div class="text-emerald-400 font-bold">💎 POP-UP : CATALOGUE BIJOUX</div>
+                            <div>Article : Bague Or 18K</div>
+                            <div class="text-brand-400 font-bold">Prix : 690,00 €</div>
+                            <div class="bg-emerald-500/10 p-2 rounded border border-emerald-500/30 text-emerald-300 text-[11px]">✨ Vitrine interactive active</div>
+                        </div>
+                        <div class="p-4 bg-slate-900"><strong class="text-xs text-white block">Fenêtre Pop-up Vitrine</strong><p class="text-[11px] text-slate-400">Aperçu publicitaire de la boutique.</p></div>
                     </div>
-                    <div class="glass-card rounded-2xl border border-brand-500/40 overflow-hidden shadow-2xl flex flex-col">
-                        <div class="h-44 relative overflow-hidden bg-slate-950">
-                            <img src="https://images.unsplash.com/photo-1526738549149-8e07eca6c147?auto=format&fit=crop&w=600&q=80" alt="Stock" class="w-full h-full object-cover opacity-90 hover:scale-105 transition duration-500">
-                            <span class="absolute bottom-2 left-2 bg-slate-950/80 px-2.5 py-1 rounded text-[10px] text-brand-400 font-mono font-bold border border-brand-500/30">📸 Photo : Gestion de Stock</span>
+                    <div class="popup-anim-2 glass-card rounded-2xl border border-brand-500/40 overflow-hidden shadow-2xl flex flex-col">
+                        <div class="bg-slate-950 px-4 py-2.5 border-b border-white/10 flex items-center justify-between">
+                            <div class="flex items-center gap-1.5"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div>
+                            <span class="text-[10px] font-mono text-emerald-400 font-bold">pop-up_stock.exe</span>
                         </div>
-                        <div class="p-4"><strong class="text-xs text-white block">Interface Inventaire</strong><p class="text-[11px] text-slate-400">Suivi des quantités en temps réel.</p></div>
+                        <div class="p-5 space-y-3 bg-slate-950/60 font-mono text-xs text-slate-300">
+                            <div class="text-emerald-400 font-bold">📦 POP-UP : GESTION STOCK</div>
+                            <div>Coffre-fort : Sécurisé</div>
+                            <div class="text-amber-400">Unités restantes : 4 pièces</div>
+                            <div class="bg-amber-500/10 p-2 rounded border border-amber-500/30 text-amber-300 text-[11px]">⚠️ Alerte stock bas</div>
+                        </div>
+                        <div class="p-4 bg-slate-900"><strong class="text-xs text-white block">Fenêtre Pop-up Inventaire</strong><p class="text-[11px] text-slate-400">Suivi des flux en temps réel.</p></div>
                     </div>
-                    <div class="glass-card rounded-2xl border border-brand-500/40 overflow-hidden shadow-2xl flex flex-col">
-                        <div class="h-44 relative overflow-hidden bg-slate-950">
-                            <img src="https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&w=600&q=80" alt="Commandes" class="w-full h-full object-cover opacity-90 hover:scale-105 transition duration-500">
-                            <span class="absolute bottom-2 left-2 bg-slate-950/80 px-2.5 py-1 rounded text-[10px] text-brand-400 font-mono font-bold border border-brand-500/30">📸 Photo : Tunnel d'Achat</span>
+                    <div class="popup-anim-3 glass-card rounded-2xl border border-brand-500/40 overflow-hidden shadow-2xl flex flex-col">
+                        <div class="bg-slate-950 px-4 py-2.5 border-b border-white/10 flex items-center justify-between">
+                            <div class="flex items-center gap-1.5"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div>
+                            <span class="text-[10px] font-mono text-emerald-400 font-bold">pop-up_panier.sys</span>
                         </div>
-                        <div class="p-4"><strong class="text-xs text-white block">Panier & Commandes Clients</strong><p class="text-[11px] text-slate-400">Encaissement sécurisé par carte.</p></div>
+                        <div class="p-5 space-y-3 bg-slate-950/60 font-mono text-xs text-slate-300">
+                            <div class="text-emerald-400 font-bold">🛒 POP-UP : PANIER CLIENT</div>
+                            <div>Total commande : 690,00 €</div>
+                            <div class="text-emerald-400 font-bold">Paiement : 1-clic Apple/CB</div>
+                            <div class="bg-emerald-500/10 p-2 rounded border border-emerald-500/30 text-emerald-300 text-[11px]">🚀 Conversion instantanée</div>
+                        </div>
+                        <div class="p-4 bg-slate-900"><strong class="text-xs text-white block">Fenêtre Pop-up Tunnel</strong><p class="text-[11px] text-slate-400">Encaissement direct de l'acheteur.</p></div>
                     </div>
                 `;
             } else {
-                photoContainer.innerHTML = `
-                    <div class="glass-card rounded-2xl border border-brand-500/40 overflow-hidden shadow-2xl flex flex-col">
-                        <div class="h-44 relative overflow-hidden bg-slate-950">
-                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80" alt="Dashboard" class="w-full h-full object-cover opacity-90 hover:scale-105 transition duration-500">
-                            <span class="absolute bottom-2 left-2 bg-slate-950/80 px-2.5 py-1 rounded text-[10px] text-brand-400 font-mono font-bold border border-brand-500/30">📸 Photo : Tableau de Bord</span>
+                popupContainer.innerHTML = `
+                    <div class="popup-anim-1 glass-card rounded-2xl border border-brand-500/40 overflow-hidden shadow-2xl flex flex-col">
+                        <div class="bg-slate-950 px-4 py-2.5 border-b border-white/10 flex items-center justify-between">
+                            <div class="flex items-center gap-1.5"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div>
+                            <span class="text-[10px] font-mono text-emerald-400 font-bold">pop-up_dashboard.app</span>
                         </div>
-                        <div class="p-4"><strong class="text-xs text-white block">Écran Principal & Stats</strong><p class="text-[11px] text-slate-400">Pilotage de l'activité en direct.</p></div>
+                        <div class="p-5 space-y-3 bg-slate-950/60 font-mono text-xs text-slate-300">
+                            <div class="text-emerald-400 font-bold">📊 POP-UP : STATS LIVE</div>
+                            <div>Chiffre d'affaires : 12 450 €</div>
+                            <div class="text-brand-400">Abonnés actifs : 142</div>
+                            <div class="bg-emerald-500/10 p-2 rounded border border-emerald-500/30 text-emerald-300 text-[11px]">📈 Croissance +18%</div>
+                        </div>
+                        <div class="p-4 bg-slate-900"><strong class="text-xs text-white block">Fenêtre Pop-up Dashboard</strong><p class="text-[11px] text-slate-400">Aperçu publicitaire du tableau de bord.</p></div>
                     </div>
-                    <div class="glass-card rounded-2xl border border-brand-500/40 overflow-hidden shadow-2xl flex flex-col">
-                        <div class="h-44 relative overflow-hidden bg-slate-950">
-                            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80" alt="Workflow" class="w-full h-full object-cover opacity-90 hover:scale-105 transition duration-500">
-                            <span class="absolute bottom-2 left-2 bg-slate-950/80 px-2.5 py-1 rounded text-[10px] text-brand-400 font-mono font-bold border border-brand-500/30">📸 Photo : Espace Métier</span>
+                    <div class="popup-anim-2 glass-card rounded-2xl border border-brand-500/40 overflow-hidden shadow-2xl flex flex-col">
+                        <div class="bg-slate-950 px-4 py-2.5 border-b border-white/10 flex items-center justify-between">
+                            <div class="flex items-center gap-1.5"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div>
+                            <span class="text-[10px] font-mono text-emerald-400 font-bold">pop-up_moteur.sys</span>
                         </div>
-                        <div class="p-4"><strong class="text-xs text-white block">Outils et Automatismes</strong><p class="text-[11px] text-slate-400">Gestion sur-mesure du secteur.</p></div>
+                        <div class="p-5 space-y-3 bg-slate-950/60 font-mono text-xs text-slate-300">
+                            <div class="text-emerald-400 font-bold">⚙️ POP-UP : MOTEUR MÉTIER</div>
+                            <div>Secteur : ${escapeHtml(input)}</div>
+                            <div class="text-brand-400">Automatismes : Activés</div>
+                            <div class="bg-emerald-500/10 p-2 rounded border border-emerald-500/30 text-emerald-300 text-[11px]">🤖 IA intégrée</div>
+                        </div>
+                        <div class="p-4 bg-slate-900"><strong class="text-xs text-white block">Fenêtre Pop-up Moteur</strong><p class="text-[11px] text-slate-400">Fonctionnalités clés du logiciel.</p></div>
                     </div>
-                    <div class="glass-card rounded-2xl border border-brand-500/40 overflow-hidden shadow-2xl flex flex-col">
-                        <div class="h-44 relative overflow-hidden bg-slate-950">
-                            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=600&q=80" alt="Clients" class="w-full h-full object-cover opacity-90 hover:scale-105 transition duration-500">
-                            <span class="absolute bottom-2 left-2 bg-slate-950/80 px-2.5 py-1 rounded text-[10px] text-brand-400 font-mono font-bold border border-brand-500/30">📸 Photo : Portail Abonnés</span>
+                    <div class="popup-anim-3 glass-card rounded-2xl border border-brand-500/40 overflow-hidden shadow-2xl flex flex-col">
+                        <div class="bg-slate-950 px-4 py-2.5 border-b border-white/10 flex items-center justify-between">
+                            <div class="flex items-center gap-1.5"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div>
+                            <span class="text-[10px] font-mono text-emerald-400 font-bold">pop-up_stripe.net</span>
                         </div>
-                        <div class="p-4"><strong class="text-xs text-white block">Gestion des Utilisateurs</strong><p class="text-[11px] text-slate-400">Paiements récurrents Stripe.</p></div>
+                        <div class="p-5 space-y-3 bg-slate-950/60 font-mono text-xs text-slate-300">
+                            <div class="text-emerald-400 font-bold">👥 POP-UP : STRIPE RECURRENT</div>
+                            <div>Abonnement : 49€ / mois</div>
+                            <div class="text-emerald-400">Paiement automatique : OK</div>
+                            <div class="bg-emerald-500/10 p-2 rounded border border-emerald-500/30 text-emerald-300 text-[11px]">💰 Encaissement mensuel</div>
+                        </div>
+                        <div class="p-4 bg-slate-900"><strong class="text-xs text-white block">Fenêtre Pop-up Abonnés</strong><p class="text-[11px] text-slate-400">Portail de facturation récurrente.</p></div>
                     </div>
                 `;
             }
 
-            // --- LES TROIS CARRÉS CLASSIQUES (SUIVENT APRÈS LES PHOTOS) ---
+            // --- LES TROIS CARRÉS CLASSIQUES (SUIVENT APRÈS LES POP-UPS) ---
             container.innerHTML = `
                 <div class="glass-card rounded-2xl border border-white/10 overflow-hidden shadow-2xl p-5 flex flex-col justify-between">
                     <div class="space-y-3">
