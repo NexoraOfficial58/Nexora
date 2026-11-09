@@ -33,7 +33,6 @@ h1 {font-size:clamp(36px,6vw,60px);font-weight:900;line-height:1.1;margin-bottom
 .examples {display:flex;flex-wrap:wrap;gap:8px;margin-bottom:25px;}
 .example {padding:8px 14px;border-radius:8px;background:#1c2945;color:#b9caff;border:1px solid var(--border);cursor:pointer;font-size:13px;}
 
-/* Écran du conteneur de prévisualisation */
 #preview {
   display:none;
   margin-top:25px;
@@ -43,27 +42,27 @@ h1 {font-size:clamp(36px,6vw,60px);font-weight:900;line-height:1.1;margin-bottom
   border-radius:18px;
 }
 
-/* Animations d'apparition des fenêtres pop-up (l'effet Dubaï/Rêve) */
-.pop-card {
-  opacity:0;
-  transform:translateY(20px) scale(0.95);
-  transition:all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-  background:#131f3b;
-  padding:18px;
-  border-radius:12px;
-  border:1px solid rgba(255,255,255,0.08);
-  box-shadow:0 10px 30px rgba(0,0,0,0.3);
+/* Style des fenêtres de démonstration (les aperçus du logiciel) */
+.showcase-window {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.5s ease;
+  background: #0b1329;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 14px;
+  overflow: hidden;
+  margin-bottom: 15px;
+  text-align: left;
 }
-
-.pop-card.visible {
-  opacity:1;
-  transform:translateY(0) scale(1);
+.showcase-window.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .simulator-box {
-  opacity:0;
-  transform:translateY(20px);
-  transition:all 0.6s ease;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.5s ease;
   background:#0d162d;
   border:1px solid rgba(86,135,255,0.3);
   border-radius:16px;
@@ -71,8 +70,8 @@ h1 {font-size:clamp(36px,6vw,60px);font-weight:900;line-height:1.1;margin-bottom
   margin-top:25px;
 }
 .simulator-box.visible {
-  opacity:1;
-  transform:translateY(0);
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .revenue-display {background:linear-gradient(135deg, rgba(74,165,255,0.15), rgba(157,114,255,0.15));border:1px solid rgba(74,165,255,0.4);padding:20px;border-radius:14px;text-align:center;margin-top:20px;}
@@ -91,8 +90,8 @@ footer {border-top:1px solid var(--border);padding:35px 0;text-align:center;colo
 
 <main class="container">
   <section class="hero">
-    <h1>Votre idée mérite de devenir<br><span class="gradient">un logiciel sur-mesure.</span></h1>
-    <p style="color:var(--muted);max-width:600px;margin:0 auto;font-size:16px;">Tapez votre projet et regardez l'IA concevoir la maquette dynamique de votre application sous vos yeux.</p>
+    <h1>Votre idée mérite de devenir<br><span class="gradient">un logiciel puissant.</span></h1>
+    <p style="color:var(--muted);max-width:600px;margin:0 auto;font-size:16px;">Saisissez votre projet et visualisez en direct les interfaces et écrans de votre futur logiciel.</p>
 
     <div class="builder">
       <label style="display:block;font-weight:800;margin-bottom:10px;">Quel logiciel souhaitez-vous créer ?</label>
@@ -104,59 +103,65 @@ footer {border-top:1px solid var(--border);padding:35px 0;text-align:center;colo
         <button class="example" onclick="fill('Plateforme de gestion de rendez-vous')">📅 Agenda & RDV</button>
       </div>
 
-      <button class="btn" style="width:100%;" onclick="generateVisualApp()">✦ Générer mon application en direct</button>
+      <button class="btn" style="width:100%;" onclick="startShowcase()">✦ Lancer la démonstration des écrans</button>
 
-      <!-- LE CADRE GLOBAL DE L'APERÇU CONCRET -->
+      <!-- ZONE DES APERÇUS ET DU SIMULATEUR -->
       <div id="preview" aria-live="polite">
-        <div id="statusHeader" style="font-size:14px; color:#4ca5ff; font-weight:bold; margin-bottom:15px; text-align:center;">
-          ⚡ Connexion aux serveurs IA... Assemblage du projet en cours
+        <div id="loadingStatus" style="font-size:14px; color:#4ca5ff; font-weight:bold; margin-bottom:15px; text-align:center;">
+          🔍 Analyse de votre projet et génération des écrans...
         </div>
 
-        <h3 style="margin-bottom:15px;font-size:20px;">🚀 Application en cours de création : <span id="previewTitle" style="color:#4ca5ff;"></span></h3>
+        <h3 style="margin-bottom:20px;font-size:20px;">🖥️ Écrans générés pour : <span id="previewTitle" style="color:#4ca5ff;"></span></h3>
         
-        <!-- FENÊTRE PRINCIPALE DU DASHBOARD -->
-        <div style="background:#0b1329; border:1px solid rgba(255,255,255,0.15); border-radius:14px; overflow:hidden; text-align:left;">
+        <!-- FENÊTRE 1 : APERÇU DE L'INTERFACE PRINCIPALE -->
+        <div class="showcase-window" id="win1">
           <div style="background:#070c1b; padding:10px 16px; border-bottom:1px solid rgba(255,255,255,0.08); display:flex; align-items:center; justify-content:space-between;">
-            <div style="display:flex; gap:6px;">
-              <span style="width:10px;height:10px;border-radius:50%;background:#ff5f56;display:inline-block;"></span>
-              <span style="width:10px;height:10px;border-radius:50%;background:#ffbd2e;display:inline-block;"></span>
-              <span style="width:10px;height:10px;border-radius:50%;background:#27c93f;display:inline-block;"></span>
-            </div>
-            <span style="font-size:11px; color:#687b9e; font-family:monospace;">app.nexora.ai/workspace/dashboard</span>
-            <span style="font-size:10px; background:rgba(39,201,63,0.15); color:#4ade80; padding:2px 8px; border-radius:10px; border:1px solid rgba(39,201,63,0.3);">En direct</span>
+            <span style="font-size:11px; color:#4ca5ff; font-weight:bold;">✨ Écran 1/3 : Tableau de bord & Gestion des clients</span>
+            <span style="font-size:10px; background:rgba(39,201,63,0.15); color:#4ade80; padding:2px 8px; border-radius:10px;">Interface active</span>
           </div>
-          
-          <!-- LES FENÊTRES POP-UP QUI S'OUVRENT EN CASCADE -->
-          <div style="padding:20px; display:grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap:15px;">
-            
-            <!-- POP-UP 1 -->
-            <div class="pop-card" id="card1">
-              <div style="font-size:11px; color:#8657ff; font-weight:bold; text-transform:uppercase;">MODULE 01 — MÉTRIQUES</div>
-              <div style="font-size:20px; font-weight:bold; color:white; margin:8px 0 4px;">12 450 €</div>
-              <div style="font-size:11px; color:#4ade80;">↑ +14.2% ce mois</div>
+          <div style="padding:20px;">
+            <div style="font-size:14px; font-weight:bold; color:white; margin-bottom:8px;">Liste des dossiers récents & Statut des clients</div>
+            <div style="font-size:12px; color:var(--muted); background:#080e1d; padding:12px; border-radius:8px; border:1px solid rgba(255,255,255,0.05);">
+              📄 <b>Client #104</b> — Devis validé (Montant : 2 450 €) <span style="color:#4ade80; float:right;">[Prêt à facturer]</span><br>
+              📄 <b>Client #105</b> — Intervention en cours (Chantier principal) <span style="color:#3987ff; float:right;">[En cours]</span>
             </div>
-
-            <!-- POP-UP 2 (Projet personnalisé) -->
-            <div class="pop-card" id="card2">
-              <div style="font-size:11px; color:#3987ff; font-weight:bold; text-transform:uppercase;">MODULE 02 — PROJET</div>
-              <div id="moduleProjectName" style="font-size:13px; font-weight:bold; color:white; margin:8px 0 4px; word-break:break-all;">-</div>
-              <div style="font-size:11px; color:#a5b1ca;">Base de données active</div>
-            </div>
-
-            <!-- POP-UP 3 -->
-            <div class="pop-card" id="card3">
-              <div style="font-size:11px; color:#4ade80; font-weight:bold; text-transform:uppercase;">MODULE 03 — PAIEMENT</div>
-              <div style="font-size:14px; font-weight:bold; color:white; margin:8px 0 4px;">Stripe Connecté</div>
-              <div style="font-size:11px; color:#4ade80;">Prêt à encaisser</div>
-            </div>
-
           </div>
         </div>
 
-        <!-- LE SIMULATEUR DE RENTABILITÉ APPARAÎT EN SUITE -->
+        <!-- FENÊTRE 2 : APERÇU DU MODULE MÉTIER (FACTURATION / CATALOGUE) -->
+        <div class="showcase-window" id="win2">
+          <div style="background:#070c1b; padding:10px 16px; border-bottom:1px solid rgba(255,255,255,0.08); display:flex; align-items:center; justify-content:space-between;">
+            <span style="font-size:11px; color:#8657ff; font-weight:bold;">✨ Écran 2/3 : Moteur de Facturation & Devis Automatisés</span>
+            <span style="font-size:10px; background:rgba(134,87,255,0.15); color:#a77aff; padding:2px 8px; border-radius:10px;">Module métier</span>
+          </div>
+          <div style="padding:20px;">
+            <div style="font-size:14px; font-weight:bold; color:white; margin-bottom:8px;">Génération instantanée de documents légaux</div>
+            <div style="font-size:12px; color:var(--muted); background:#080e1d; padding:12px; border-radius:8px; border:1px solid rgba(255,255,255,0.05);">
+              🧾 TVA automatique (20%) • Mentions légales BTP intégrées • Export PDF en un clic.<br>
+              <span style="color:#4ade80;">✓ Votre logiciel rédige et envoie les factures à votre place.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- FENÊTRE 3 : MODULE DE PAIEMENT STRIPE INTÉGRÉ -->
+        <div class="showcase-window" id="win3">
+          <div style="background:#070c1b; padding:10px 16px; border-bottom:1px solid rgba(255,255,255,0.08); display:flex; align-items:center; justify-content:space-between;">
+            <span style="font-size:11px; color:#27c93f; font-weight:bold;">✨ Écran 3/3 : Encaissement des clients par Carte Bancaire</span>
+            <span style="font-size:10px; background:rgba(39,201,63,0.15); color:#4ade80; padding:2px 8px; border-radius:10px;">Paiement en ligne</span>
+          </div>
+          <div style="padding:20px;">
+            <div style="font-size:14px; font-weight:bold; color:white; margin-bottom:8px;">Passerelle de paiement sécurisée intégrée</div>
+            <div style="font-size:12px; color:var(--muted); background:#080e1d; padding:12px; border-radius:8px; border:1px solid rgba(255,255,255,0.05);">
+              💳 Vos clients règlent directement depuis l'application via Stripe.<br>
+              <span style="color:#4ade80;">✓ Les fonds arrivent directement sur votre compte bancaire.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- LE SIMULATEUR DE RENTABILITÉ -->
         <div class="simulator-box" id="simBox">
-          <h4 style="color:#fff;margin-bottom:10px;font-size:16px;">💰 Simulateur d'objectif de chiffre d'affaires</h4>
-          <p style="font-size:13px;color:var(--muted);margin-bottom:20px;">Ajustez votre objectif pour voir le nombre de clients à aller chercher :</p>
+          <h4 style="color:#fff;margin-bottom:10px;font-size:16px;">💰 Simulateur de Business Plan & Rentabilité</h4>
+          <p style="font-size:13px;color:var(--muted);margin-bottom:20px;">Ajustez vos objectifs pour calculer le nombre de clients nécessaires :</p>
 
           <div style="margin-bottom:15px;">
             <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:5px;">
@@ -168,7 +173,7 @@ footer {border-top:1px solid var(--border);padding:35px 0;text-align:center;colo
 
           <div style="margin-bottom:15px;">
             <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:5px;">
-              <span>Prix de votre abonnement client :</span>
+              <span>Prix de vente de votre abonnement client :</span>
               <b id="priceVal" style="color:#3987ff;font-size:15px;">49 € / mois</b>
             </div>
             <input type="range" id="simPrice" min="10" max="150" step="1" value="49" style="width:100%;accent-color:#8657ff;cursor:pointer;" oninput="updateSimulation()">
@@ -181,9 +186,9 @@ footer {border-top:1px solid var(--border);padding:35px 0;text-align:center;colo
           </div>
         </div>
 
-        <!-- BOUTON FINAL VERS STRIPE DE 29 € -->
+        <!-- BOUTON FINAL STRIPE -->
         <a id="stripeBtn" href="https://buy.stripe.com/afA14f2UT9J3Q2hSe119fW02" target="_blank" class="btn" style="display:none; margin-top:25px; width:100%; background:linear-gradient(110deg,#27c93f,#10b981);">
-          ✦ Obtenir et télécharger mon code complet (29 €) →
+          ✦ Recevoir tout le code source complet de cette application (29 €) →
         </a>
       </div>
 
@@ -198,7 +203,7 @@ footer {border-top:1px solid var(--border);padding:35px 0;text-align:center;colo
 <script>
 function fill(val) {
   document.getElementById("project").value = val;
-  generateVisualApp();
+  startShowcase();
 }
 
 function updateSimulation() {
@@ -214,14 +219,14 @@ function updateSimulation() {
   document.getElementById("calcSub").textContent = "✓ Pour générer " + goal.toLocaleString("fr-FR") + " € de chiffre d'affaires récurrent mensuel";
 }
 
-function generateVisualApp() {
+function startShowcase() {
   const input = document.getElementById("project");
   const preview = document.getElementById("preview");
-  const status = document.getElementById("statusHeader");
+  const status = document.getElementById("loadingStatus");
   
-  const card1 = document.getElementById("card1");
-  const card2 = document.getElementById("card2");
-  const card3 = document.getElementById("card3");
+  const win1 = document.getElementById("win1");
+  const win2 = document.getElementById("win2");
+  const win3 = document.getElementById("win3");
   const simBox = document.getElementById("simBox");
   const stripeBtn = document.getElementById("stripeBtn");
 
@@ -231,43 +236,42 @@ function generateVisualApp() {
     return;
   }
 
-  // Réinitialisation des états
+  // Reset
   preview.style.display = "block";
-  card1.classList.remove("visible");
-  card2.classList.remove("visible");
-  card3.classList.remove("visible");
+  win1.classList.remove("visible");
+  win2.classList.remove("visible");
+  win3.classList.remove("visible");
   simBox.classList.remove("visible");
   stripeBtn.style.display = "none";
 
   document.getElementById("previewTitle").textContent = input.value;
-  document.getElementById("moduleProjectName").textContent = input.value;
   preview.scrollIntoView({ behavior: "smooth", block: "center" });
 
-  // ÉTAPE 1 : Pop-up de la 1ère fenêtre (après 400ms)
-  status.textContent = "⚙️ Génération du Module Métriques...";
+  // Étape 1 : Ouverture de la fenêtre 1 (0.4s)
+  status.textContent = "⚙️ Chargement de l'interface principale...";
   setTimeout(() => {
-    card1.classList.add("visible");
+    win1.classList.add("visible");
   }, 400);
 
-  // ÉTAPE 2 : Pop-up de la 2ème fenêtre Projet (après 900ms)
+  // Étape 2 : Ouverture de la fenêtre 2 (1.0s)
   setTimeout(() => {
-    status.textContent = "⚡ Modélisation du projet " + input.value + "...";
-    card2.classList.add("visible");
-  }, 900);
+    status.textContent = "⚡ Génération du module métier (Facturation/Gestion)...";
+    win2.classList.add("visible");
+  }, 1000);
 
-  // ÉTAPE 3 : Pop-up de la 3ème fenêtre Stripe (après 1400ms)
+  // Étape 3 : Ouverture de la fenêtre 3 (1.6s)
   setTimeout(() => {
-    status.textContent = "💳 Intégration des passerelles de paiement...";
-    card3.classList.add("visible");
-  }, 1400);
+    status.textContent = "💳 Connexion de la passerelle de paiement Stripe...";
+    win3.classList.add("visible");
+  }, 1600);
 
-  // ÉTAPE 4 : Apparition du simulateur & du bouton d'achat (après 1900ms)
+  // Étape 4 : Apparition du simulateur & du bouton d'achat (2.2s)
   setTimeout(() => {
-    status.textContent = "✅ Maquette SaaS générée avec succès !";
+    status.textContent = "✅ Écrans et modules générés avec succès ! Découvrez votre potentiel ci-dessous :";
     simBox.classList.add("visible");
     stripeBtn.style.display = "inline-flex";
     updateSimulation();
-  }, 1900);
+  }, 2200);
 }
 </script>
 
