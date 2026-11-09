@@ -50,14 +50,11 @@
         .dot-yellow { background: #f59e0b; }
         .dot-green { background: #22c55e; }
 
-        /* Animation de pop-up publicitaire / fenêtre de logiciel qui jaillit en cascade */
-        @keyframes popupOpen {
-            0% { opacity: 0; transform: scale(0.8) translateY(50px) rotate(-2deg); }
-            100% { opacity: 1; transform: scale(1) translateY(0) rotate(0deg); }
+        @keyframes popIn {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
-        .popup-anim-1 { animation: popupOpen 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-        .popup-anim-2 { opacity: 0; animation: popupOpen 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards; }
-        .popup-anim-3 { opacity: 0; animation: popupOpen 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards; }
+        .animate-pop { animation: popIn 0.4s ease-out forwards; }
     </style>
 </head>
 <body class="text-slate-100 min-h-screen flex flex-col justify-between selection:bg-brand-500 selection:text-white relative">
@@ -73,11 +70,11 @@
         <div class="space-y-2 font-mono text-[11px]">
             <div class="flex justify-between items-center text-slate-300">
                 <span>Créateurs en ligne :</span>
-                <span id="liveCreators" class="text-brand-400 font-bold">42 actifs</span>
+                <span id="liveCreators" class="text-brand-400 font-bold">46 actifs</span>
             </div>
             <div class="flex justify-between items-center text-slate-300">
                 <span>Logiciels générés :</span>
-                <span id="liveProjects" class="text-white font-bold">186 SaaS</span>
+                <span id="liveProjects" class="text-white font-bold">189 SaaS</span>
             </div>
             <div class="bg-emerald-500/10 p-2 rounded border border-emerald-500/30 flex justify-between items-center">
                 <span class="text-emerald-300">🔥 Déploiement</span>
@@ -118,7 +115,7 @@
         </div>
         <div class="flex items-center gap-4">
             <span class="hidden sm:inline-flex items-center gap-1.5 text-xs text-brand-400 font-bold bg-brand-500/10 px-3 py-1.5 rounded-full border border-brand-500/20">
-                <span class="w-2 h-2 rounded-full bg-brand-400 animate-ping"></span> <span id="headerCreators">42</span> créateurs connectés
+                <span class="w-2 h-2 rounded-full bg-brand-400 animate-ping"></span> <span id="headerCreators">46</span> créateurs connectés
             </span>
             <a href="https://buy.stripe.com/aFa14f2UT9JQ2hSell9fW02" target="_blank" class="px-5 py-2.5 rounded-xl text-sm font-bold gradient-bg text-white shadow-lg shadow-brand-500/25 hover:opacity-95 transition">
                 <i class="fa-solid fa-rocket"></i> Passer Pro (29€)
@@ -132,7 +129,7 @@
         <!-- Hero Section -->
         <div id="heroSection" class="w-full space-y-6">
             <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold bg-brand-500/10 text-brand-400 border border-brand-500/30 shadow-md">
-                ✨ Ouvrez les fenêtres pop-up de votre futur SaaS
+                ✨ Donnez vie à votre plateforme logicielle en direct
             </span>
 
             <h1 class="text-4xl sm:text-6xl font-black text-white tracking-tight leading-tight">
@@ -141,7 +138,7 @@
             </h1>
 
             <p class="text-slate-300 text-base sm:text-lg max-w-xl mx-auto leading-relaxed">
-                Entrez votre projet. Voyez de vraies fenêtres pop-up interactives s'ouvrir en cascade avec les interfaces graphiques et les codes de votre plateforme.
+                Entrez votre projet. Regardez les fenêtres de votre future boutique et de votre logiciel s'ouvrir dynamiquement sous vos yeux.
             </p>
 
             <!-- Champ de saisie -->
@@ -149,25 +146,48 @@
                 <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-3">Quel logiciel SaaS voulez-vous créer ?</label>
                 
                 <div class="flex flex-col sm:flex-row gap-3 mb-4">
-                    <input type="text" id="projectInput" placeholder="ex: Facturation BTP, Vente de Bijoux, E-Commerce..." class="flex-1 bg-white/5 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 text-sm">
+                    <input type="text" id="projectInput" placeholder="ex: Vente de Bijoux, Facturation BTP, E-Commerce..." class="flex-1 bg-white/5 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 text-sm">
                     
-                    <button onclick="launchSaaSPlatform()" class="gradient-bg text-white px-8 py-3.5 rounded-xl font-bold flex items-center justify-center gap-2 hover:opacity-90 transition shadow-lg shadow-emerald-500/20 cursor-pointer text-sm whitespace-nowrap">
-                        <i class="fas fa-window-restore"></i>
+                    <button onclick="startPlatformAnimation()" class="gradient-bg text-white px-8 py-3.5 rounded-xl font-bold flex items-center justify-center gap-2 hover:opacity-90 transition shadow-lg shadow-emerald-500/20 cursor-pointer text-sm whitespace-nowrap">
+                        <i class="fas fa-play"></i>
                         <span>Générer mon SaaS</span>
                     </button>
                 </div>
 
                 <div class="flex flex-wrap gap-2 text-xs text-slate-300 items-center pt-1">
                     <span class="text-slate-400">Exemples :</span>
-                    <button onclick="fillPrompt('Facturation BTP')" class="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg transition cursor-pointer">Facturation BTP</button>
                     <button onclick="fillPrompt('Vente de Bijoux')" class="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg transition cursor-pointer">Vente de Bijoux</button>
+                    <button onclick="fillPrompt('Facturation BTP')" class="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg transition cursor-pointer">Facturation BTP</button>
                     <button onclick="fillPrompt('Plateforme E-Commerce')" class="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg transition cursor-pointer">E-Commerce</button>
                 </div>
             </div>
         </div>
 
-        <!-- ZONE DU RÉSULTAT : LES VRAIES FENÊTRES POP-UP ANIMÉES (AVANT LES CARRÉS ET LE SIMULATEUR) -->
-        <div id="resultSection" class="hidden w-full text-left space-y-8 mt-2">
+        <!-- ZONE D'ANIMATION INTERACTIVE (CE QUI SE PASSE "ENTRE LES DEUX") -->
+        <div id="animationStage" class="hidden w-full max-w-2xl mx-auto py-8 space-y-4 text-center">
+            <div class="glass-card p-6 rounded-3xl border border-brand-500/50 glow-box space-y-4">
+                <div class="flex items-center justify-between border-b border-white/10 pb-3">
+                    <div class="flex items-center gap-2">
+                        <div class="w-3 h-3 rounded-full bg-red-500 animate-pulse"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                        <span id="animWindowTitle" class="text-xs font-mono text-brand-400 font-bold ml-2">Initialisation de la plateforme...</span>
+                    </div>
+                    <span id="animStepCounter" class="text-[10px] font-mono text-slate-400">Étape 1/3</span>
+                </div>
+
+                <!-- Fenêtre interactive dynamique qui change sous les yeux du client -->
+                <div id="animWindowContent" class="bg-slate-950 p-6 rounded-2xl border border-white/10 min-h-[160px] flex flex-col justify-center items-center text-center space-y-3 transition-all duration-300">
+                    <div class="w-10 h-10 rounded-xl bg-brand-500/20 text-brand-400 flex items-center justify-center text-lg animate-spin">
+                        <i class="fa-solid fa-circle-notch"></i>
+                    </div>
+                    <p id="animWindowText" class="text-sm font-bold text-white">Connexion au moteur de création de logiciels...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ZONE DU RÉSULTAT FINAL (LES MODULES + SIMULATEUR DE FIN) -->
+        <div id="resultSection" class="hidden w-full text-left space-y-8 animate-pop mt-2">
             
             <div class="flex justify-between items-center bg-slate-900/90 p-4 rounded-2xl border border-white/10 shadow-lg">
                 <div class="flex items-center gap-3">
@@ -177,7 +197,7 @@
                         <div class="w-2.5 h-2.5 rounded-full bg-green-500"></div>
                     </div>
                     <div>
-                        <span class="text-[9px] uppercase tracking-wider font-mono font-bold text-brand-400 block">FENÊTRES POP-UP DU LOGICIEL EN DIRECT</span>
+                        <span class="text-[9px] uppercase tracking-wider font-mono font-bold text-brand-400 block">PLATEFORME LOGICIELLE OPÉRATIONNELLE</span>
                         <h2 class="text-lg font-black text-white" id="appTitleDisplay">Logiciel SaaS</h2>
                     </div>
                 </div>
@@ -186,22 +206,11 @@
                 </button>
             </div>
 
-            <!-- LES 3 VRAIES FENÊTRES POP-UP ANIMÉES QUI JAILLISSENT -->
+            <!-- LES TROIS MODULES TECHNIQUES DE LA PLATEFORME -->
             <div class="space-y-4">
                 <div class="text-xs font-mono font-bold text-brand-400 uppercase tracking-wider px-2 flex items-center justify-between">
-                    <span><i class="fa-solid fa-wand-magic-sparkles mr-1"></i> Fenêtres publicitaires & interfaces logicielles générées :</span>
-                    <span class="text-[10px] text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/30">Effet Pop-up Actif 🚀</span>
-                </div>
-
-                <div id="popupWindowsContainer" class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <!-- Injecté par script avec animation de pop-up -->
-                </div>
-            </div>
-
-            <!-- LES TROIS CARRÉS DE DÉTAILS TECHNIQUES -->
-            <div class="space-y-4">
-                <div class="text-xs font-mono font-bold text-slate-400 uppercase tracking-wider px-2">
-                    <i class="fa-solid fa-server mr-1"></i> Modules techniques et architecture :
+                    <span><i class="fa-solid fa-window-maximize mr-1"></i> Modules et interfaces actifs de votre logiciel :</span>
+                    <span class="text-[10px] text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/30">Prêt à l'emploi 🚀</span>
                 </div>
 
                 <div id="appScreensContainer" class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -275,12 +284,12 @@
 
     <!-- Scripts -->
     <script>
-        let currentProjectsCount = 186;
-        let currentCreatorsCount = 42;
+        let currentProjectsCount = 189;
+        let currentCreatorsCount = 46;
 
         setInterval(() => {
             const creatorDelta = Math.floor(Math.random() * 5) - 2;
-            currentCreatorsCount = Math.max(35, Math.min(55, currentCreatorsCount + creatorDelta));
+            currentCreatorsCount = Math.max(38, Math.min(60, currentCreatorsCount + creatorDelta));
 
             if (Math.random() > 0.4) {
                 currentProjectsCount += Math.floor(Math.random() * 2);
@@ -293,10 +302,11 @@
 
         function fillPrompt(text) {
             document.getElementById('projectInput').value = text;
-            launchSaaSPlatform();
+            startPlatformAnimation();
         }
 
-        function launchSaaSPlatform() {
+        // --- C'EST ICI QUE TOUT SE PASSE ENTRE LES DEUX (L'ANIMATION VISUELLE) ---
+        function startPlatformAnimation() {
             const inputField = document.getElementById('projectInput');
             if (!inputField || !inputField.value.trim()) {
                 alert("Veuillez saisir une idée de logiciel SaaS.");
@@ -305,181 +315,166 @@
 
             const input = inputField.value.trim();
             const lower = input.toLowerCase();
-            
-            document.getElementById('heroSection').classList.add('hidden');
-            document.getElementById('resultSection').classList.remove('hidden');
-            
-            document.getElementById('appTitleDisplay').textContent = "SaaS : " + input;
 
-            const popupContainer = document.getElementById('popupWindowsContainer');
+            // 1. Masquer le hero et afficher la scène d'animation interactive
+            document.getElementById('heroSection').classList.add('hidden');
+            document.getElementById('resultSection').classList.add('hidden');
+            document.getElementById('animationStage').classList.remove('hidden');
+
+            const windowTitle = document.getElementById('animWindowTitle');
+            const stepCounter = document.getElementById('animStepCounter');
+            const contentBox = document.getElementById('animWindowContent');
+
+            // ÉTAPE 1 : Ouverture de la fenêtre de structure
+            setTimeout(() => {
+                windowTitle.textContent = "creation_architecture_" + lower.replace(/\s+/g, '_') + ".app";
+                stepCounter.textContent = "Étape 1/3";
+                contentBox.innerHTML = `
+                    <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-lg">
+                        <i class="fa-solid fa-database"></i>
+                    </div>
+                    <span class="text-xs font-mono text-emerald-400 font-bold">Génération de la base de données...</span>
+                    <p class="text-xs text-slate-300">Mise en place des tables sécurisées pour votre projet <strong>"${escapeHtml(input)}"</strong>.</p>
+                `;
+            }, 300);
+
+            // ÉTAPE 2 : Ouverture de la fenêtre de design & vitrine
+            setTimeout(() => {
+                windowTitle.textContent = "interface_visuelle_et_vitrine.net";
+                stepCounter.textContent = "Étape 2/3";
+                contentBox.innerHTML = `
+                    <div class="w-10 h-10 rounded-xl bg-brand-500/20 text-brand-400 flex items-center justify-center text-lg">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    </div>
+                    <span class="text-xs font-mono text-brand-400 font-bold">Design des écrans & vitrines interactives...</span>
+                    <p class="text-xs text-slate-300">Assemblage des composants graphiques et des tunnels de conversion pour <strong>"${escapeHtml(input)}"</strong>.</p>
+                `;
+            }, 1200);
+
+            // ÉTAPE 3 : Connexion du paiement et finalisation
+            setTimeout(() => {
+                windowTitle.textContent = "passerelle_stripe_active.sys";
+                stepCounter.textContent = "Étape 3/3";
+                contentBox.innerHTML = `
+                    <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-lg">
+                        <i class="fa-solid fa-credit-card"></i>
+                    </div>
+                    <span class="text-xs font-mono text-emerald-400 font-bold">Branchement des abonnements Stripe...</span>
+                    <p class="text-xs text-slate-300">Votre plateforme est prête à encaisser vos premiers clients.</p>
+                `;
+            }, 2100);
+
+            // FIN DE L'ANIMATION : Affichage du résultat final (Modules + Simulateur)
+            setTimeout(() => {
+                document.getElementById('animationStage').classList.add('hidden');
+                document.getElementById('resultSection').classList.remove('hidden');
+                
+                document.getElementById('appTitleDisplay').textContent = "SaaS : " + input;
+                buildAppScreens(input, lower);
+                calculateGoal();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }, 2900);
+        }
+
+        function buildAppScreens(input, lower) {
             const container = document.getElementById('appScreensContainer');
 
-            // --- FENÊTRES POP-UP ANIMÉES (AFFICHÉES AVANT LES CARRÉS) ---
             if (lower.includes('btp') || lower.includes('factur') || lower.includes('devis')) {
-                popupContainer.innerHTML = `
-                    <div class="popup-anim-1 glass-card rounded-2xl border border-brand-500/40 overflow-hidden shadow-2xl flex flex-col">
-                        <div class="bg-slate-950 px-4 py-2.5 border-b border-white/10 flex items-center justify-between">
-                            <div class="flex items-center gap-1.5"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div>
-                            <span class="text-[10px] font-mono text-emerald-400 font-bold">pop-up_devis.app</span>
+                container.innerHTML = `
+                    <div class="glass-card rounded-2xl border border-brand-500/40 overflow-hidden shadow-2xl p-5 flex flex-col justify-between">
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center text-brand-400 font-mono text-xs border-b border-white/10 pb-2">
+                                <span>Écran 01</span><span class="text-[10px] bg-emerald-500/10 px-2 py-0.5 rounded text-emerald-400">Actif</span>
+                            </div>
+                            <h4 class="text-sm font-bold text-white">Éditeur de Devis & TVA</h4>
+                            <p class="text-xs text-slate-400">Génération rapide des factures et chiffrage sur-mesure pour les chantiers.</p>
                         </div>
-                        <div class="p-5 space-y-3 bg-slate-950/60 font-mono text-xs text-slate-300">
-                            <div class="text-emerald-400 font-bold">📄 POP-UP : DEVIS INSTANTANÉ</div>
-                            <div>Client : M. Dupont</div>
-                            <div class="text-brand-400 font-bold">Montant : 4 500 € + TVA</div>
-                            <div class="bg-emerald-500/10 p-2 rounded border border-emerald-500/30 text-emerald-300 text-[11px]">⚡ Généré en 0.4s par IA</div>
-                        </div>
-                        <div class="p-4 bg-slate-900"><strong class="text-xs text-white block">Fenêtre Pop-up Devis</strong><p class="text-[11px] text-slate-400">Aperçu publicitaire de l'éditeur de factures.</p></div>
                     </div>
-                    <div class="popup-anim-2 glass-card rounded-2xl border border-brand-500/40 overflow-hidden shadow-2xl flex flex-col">
-                        <div class="bg-slate-950 px-4 py-2.5 border-b border-white/10 flex items-center justify-between">
-                            <div class="flex items-center gap-1.5"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div>
-                            <span class="text-[10px] font-mono text-emerald-400 font-bold">pop-up_chantier.exe</span>
+                    <div class="glass-card rounded-2xl border border-brand-500/40 overflow-hidden shadow-2xl p-5 flex flex-col justify-between">
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center text-brand-400 font-mono text-xs border-b border-white/10 pb-2">
+                                <span>Écran 02</span><span class="text-[10px] bg-emerald-500/10 px-2 py-0.5 rounded text-emerald-400">Généré</span>
+                            </div>
+                            <h4 class="text-sm font-bold text-white">Suivi Chantiers & Terrain</h4>
+                            <p class="text-xs text-slate-400">Centralisation des adresses, des plannings et des états d'avancement.</p>
                         </div>
-                        <div class="p-5 space-y-3 bg-slate-950/60 font-mono text-xs text-slate-300">
-                            <div class="text-emerald-400 font-bold">👷 POP-UP : SUIVI TERRAIN</div>
-                            <div>Chantier : Preserville</div>
-                            <div class="text-amber-400">Statut : Intervention en cours</div>
-                            <div class="bg-amber-500/10 p-2 rounded border border-amber-500/30 text-amber-300 text-[11px]">📍 GPS & Planning actifs</div>
-                        </div>
-                        <div class="p-4 bg-slate-900"><strong class="text-xs text-white block">Fenêtre Pop-up Chantiers</strong><p class="text-[11px] text-slate-400">Aperçu de la gestion des interventions.</p></div>
                     </div>
-                    <div class="popup-anim-3 glass-card rounded-2xl border border-brand-500/40 overflow-hidden shadow-2xl flex flex-col">
-                        <div class="bg-slate-950 px-4 py-2.5 border-b border-white/10 flex items-center justify-between">
-                            <div class="flex items-center gap-1.5"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div>
-                            <span class="text-[10px] font-mono text-emerald-400 font-bold">pop-up_stripe.sys</span>
+                    <div class="glass-card rounded-2xl border border-brand-500/40 overflow-hidden shadow-2xl p-5 flex flex-col justify-between">
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center text-brand-400 font-mono text-xs border-b border-white/10 pb-2">
+                                <span>Écran 03</span><span class="text-[10px] bg-emerald-500/10 px-2 py-0.5 rounded text-emerald-400">Intégré</span>
+                            </div>
+                            <h4 class="text-sm font-bold text-white">Encaissement Acompte CB</h4>
+                            <p class="text-xs text-slate-400">Validation client directe sur smartphone pour sécuriser le début des travaux.</p>
                         </div>
-                        <div class="p-5 space-y-3 bg-slate-950/60 font-mono text-xs text-slate-300">
-                            <div class="text-emerald-400 font-bold">💳 POP-UP : ACOMPTE CB</div>
-                            <div>Montant : 1 350,00 € (30%)</div>
-                            <div class="text-emerald-400 font-bold">Paiement : Validé 🟢</div>
-                            <div class="bg-emerald-500/10 p-2 rounded border border-emerald-500/30 text-emerald-300 text-[11px]">🔒 Sécurisé par Stripe</div>
-                        </div>
-                        <div class="p-4 bg-slate-900"><strong class="text-xs text-white block">Fenêtre Pop-up Paiement</strong><p class="text-[11px] text-slate-400">Tunnel de conversion client direct.</p></div>
                     </div>
                 `;
             } else if (lower.includes('bijou') || lower.includes('ecommerce') || lower.includes('e-commerce') || lower.includes('mode')) {
-                popupContainer.innerHTML = `
-                    <div class="popup-anim-1 glass-card rounded-2xl border border-brand-500/40 overflow-hidden shadow-2xl flex flex-col">
-                        <div class="bg-slate-950 px-4 py-2.5 border-b border-white/10 flex items-center justify-between">
-                            <div class="flex items-center gap-1.5"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div>
-                            <span class="text-[10px] font-mono text-emerald-400 font-bold">pop-up_vitrine.shop</span>
+                container.innerHTML = `
+                    <div class="glass-card rounded-2xl border border-brand-500/40 overflow-hidden shadow-2xl p-5 flex flex-col justify-between">
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center text-brand-400 font-mono text-xs border-b border-white/10 pb-2">
+                                <span>Écran 01</span><span class="text-[10px] bg-emerald-500/10 px-2 py-0.5 rounded text-emerald-400">Actif</span>
+                            </div>
+                            <h4 class="text-sm font-bold text-white">Vitrine & Catalogue Produits</h4>
+                            <p class="text-xs text-slate-400">Mise en valeur élégante des articles avec photos haute définition et prix.</p>
                         </div>
-                        <div class="p-5 space-y-3 bg-slate-950/60 font-mono text-xs text-slate-300">
-                            <div class="text-emerald-400 font-bold">💎 POP-UP : CATALOGUE BIJOUX</div>
-                            <div>Article : Bague Or 18K</div>
-                            <div class="text-brand-400 font-bold">Prix : 690,00 €</div>
-                            <div class="bg-emerald-500/10 p-2 rounded border border-emerald-500/30 text-emerald-300 text-[11px]">✨ Vitrine interactive active</div>
-                        </div>
-                        <div class="p-4 bg-slate-900"><strong class="text-xs text-white block">Fenêtre Pop-up Vitrine</strong><p class="text-[11px] text-slate-400">Aperçu publicitaire de la boutique.</p></div>
                     </div>
-                    <div class="popup-anim-2 glass-card rounded-2xl border border-brand-500/40 overflow-hidden shadow-2xl flex flex-col">
-                        <div class="bg-slate-950 px-4 py-2.5 border-b border-white/10 flex items-center justify-between">
-                            <div class="flex items-center gap-1.5"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div>
-                            <span class="text-[10px] font-mono text-emerald-400 font-bold">pop-up_stock.exe</span>
+                    <div class="glass-card rounded-2xl border border-brand-500/40 overflow-hidden shadow-2xl p-5 flex flex-col justify-between">
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center text-brand-400 font-mono text-xs border-b border-white/10 pb-2">
+                                <span>Écran 02</span><span class="text-[10px] bg-emerald-500/10 px-2 py-0.5 rounded text-emerald-400">Généré</span>
+                            </div>
+                            <h4 class="text-sm font-bold text-white">Gestion des Stocks & Flux</h4>
+                            <p class="text-xs text-slate-400">Suivi des quantités en temps réel et alertes automatiques en cas de rupture.</p>
                         </div>
-                        <div class="p-5 space-y-3 bg-slate-950/60 font-mono text-xs text-slate-300">
-                            <div class="text-emerald-400 font-bold">📦 POP-UP : GESTION STOCK</div>
-                            <div>Coffre-fort : Sécurisé</div>
-                            <div class="text-amber-400">Unités restantes : 4 pièces</div>
-                            <div class="bg-amber-500/10 p-2 rounded border border-amber-500/30 text-amber-300 text-[11px]">⚠️ Alerte stock bas</div>
-                        </div>
-                        <div class="p-4 bg-slate-900"><strong class="text-xs text-white block">Fenêtre Pop-up Inventaire</strong><p class="text-[11px] text-slate-400">Suivi des flux en temps réel.</p></div>
                     </div>
-                    <div class="popup-anim-3 glass-card rounded-2xl border border-brand-500/40 overflow-hidden shadow-2xl flex flex-col">
-                        <div class="bg-slate-950 px-4 py-2.5 border-b border-white/10 flex items-center justify-between">
-                            <div class="flex items-center gap-1.5"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div>
-                            <span class="text-[10px] font-mono text-emerald-400 font-bold">pop-up_panier.sys</span>
+                    <div class="glass-card rounded-2xl border border-brand-500/40 overflow-hidden shadow-2xl p-5 flex flex-col justify-between">
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center text-brand-400 font-mono text-xs border-b border-white/10 pb-2">
+                                <span>Écran 03</span><span class="text-[10px] bg-emerald-500/10 px-2 py-0.5 rounded text-emerald-400">Intégré</span>
+                            </div>
+                            <h4 class="text-sm font-bold text-white">Tunnel de Paiement 1-Clic</h4>
+                            <p class="text-xs text-slate-400">Passerelle sécurisée pour encaisser les commandes instantanément.</p>
                         </div>
-                        <div class="p-5 space-y-3 bg-slate-950/60 font-mono text-xs text-slate-300">
-                            <div class="text-emerald-400 font-bold">🛒 POP-UP : PANIER CLIENT</div>
-                            <div>Total commande : 690,00 €</div>
-                            <div class="text-emerald-400 font-bold">Paiement : 1-clic Apple/CB</div>
-                            <div class="bg-emerald-500/10 p-2 rounded border border-emerald-500/30 text-emerald-300 text-[11px]">🚀 Conversion instantanée</div>
-                        </div>
-                        <div class="p-4 bg-slate-900"><strong class="text-xs text-white block">Fenêtre Pop-up Tunnel</strong><p class="text-[11px] text-slate-400">Encaissement direct de l'acheteur.</p></div>
                     </div>
                 `;
             } else {
-                popupContainer.innerHTML = `
-                    <div class="popup-anim-1 glass-card rounded-2xl border border-brand-500/40 overflow-hidden shadow-2xl flex flex-col">
-                        <div class="bg-slate-950 px-4 py-2.5 border-b border-white/10 flex items-center justify-between">
-                            <div class="flex items-center gap-1.5"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div>
-                            <span class="text-[10px] font-mono text-emerald-400 font-bold">pop-up_dashboard.app</span>
+                container.innerHTML = `
+                    <div class="glass-card rounded-2xl border border-brand-500/40 overflow-hidden shadow-2xl p-5 flex flex-col justify-between">
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center text-brand-400 font-mono text-xs border-b border-white/10 pb-2">
+                                <span>Écran 01</span><span class="text-[10px] bg-emerald-500/10 px-2 py-0.5 rounded text-emerald-400">Actif</span>
+                            </div>
+                            <h4 class="text-sm font-bold text-white">Dashboard & Statistiques</h4>
+                            <p class="text-xs text-slate-400">Pilotage en direct de la croissance et des métriques clés de l'application.</p>
                         </div>
-                        <div class="p-5 space-y-3 bg-slate-950/60 font-mono text-xs text-slate-300">
-                            <div class="text-emerald-400 font-bold">📊 POP-UP : STATS LIVE</div>
-                            <div>Chiffre d'affaires : 12 450 €</div>
-                            <div class="text-brand-400">Abonnés actifs : 142</div>
-                            <div class="bg-emerald-500/10 p-2 rounded border border-emerald-500/30 text-emerald-300 text-[11px]">📈 Croissance +18%</div>
-                        </div>
-                        <div class="p-4 bg-slate-900"><strong class="text-xs text-white block">Fenêtre Pop-up Dashboard</strong><p class="text-[11px] text-slate-400">Aperçu publicitaire du tableau de bord.</p></div>
                     </div>
-                    <div class="popup-anim-2 glass-card rounded-2xl border border-brand-500/40 overflow-hidden shadow-2xl flex flex-col">
-                        <div class="bg-slate-950 px-4 py-2.5 border-b border-white/10 flex items-center justify-between">
-                            <div class="flex items-center gap-1.5"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div>
-                            <span class="text-[10px] font-mono text-emerald-400 font-bold">pop-up_moteur.sys</span>
+                    <div class="glass-card rounded-2xl border border-brand-500/40 overflow-hidden shadow-2xl p-5 flex flex-col justify-between">
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center text-brand-400 font-mono text-xs border-b border-white/10 pb-2">
+                                <span>Écran 02</span><span class="text-[10px] bg-emerald-500/10 px-2 py-0.5 rounded text-emerald-400">Généré</span>
+                            </div>
+                            <h4 class="text-sm font-bold text-white">Moteur Métier : ${escapeHtml(input)}</h4>
+                            <p class="text-xs text-slate-400">Base de données et automatismes configurés sur-mesure pour ce secteur.</p>
                         </div>
-                        <div class="p-5 space-y-3 bg-slate-950/60 font-mono text-xs text-slate-300">
-                            <div class="text-emerald-400 font-bold">⚙️ POP-UP : MOTEUR MÉTIER</div>
-                            <div>Secteur : ${escapeHtml(input)}</div>
-                            <div class="text-brand-400">Automatismes : Activés</div>
-                            <div class="bg-emerald-500/10 p-2 rounded border border-emerald-500/30 text-emerald-300 text-[11px]">🤖 IA intégrée</div>
-                        </div>
-                        <div class="p-4 bg-slate-900"><strong class="text-xs text-white block">Fenêtre Pop-up Moteur</strong><p class="text-[11px] text-slate-400">Fonctionnalités clés du logiciel.</p></div>
                     </div>
-                    <div class="popup-anim-3 glass-card rounded-2xl border border-brand-500/40 overflow-hidden shadow-2xl flex flex-col">
-                        <div class="bg-slate-950 px-4 py-2.5 border-b border-white/10 flex items-center justify-between">
-                            <div class="flex items-center gap-1.5"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div>
-                            <span class="text-[10px] font-mono text-emerald-400 font-bold">pop-up_stripe.net</span>
+                    <div class="glass-card rounded-2xl border border-brand-500/40 overflow-hidden shadow-2xl p-5 flex flex-col justify-between">
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center text-brand-400 font-mono text-xs border-b border-white/10 pb-2">
+                                <span>Écran 03</span><span class="text-[10px] bg-emerald-500/10 px-2 py-0.5 rounded text-emerald-400">Intégré</span>
+                            </div>
+                            <h4 class="text-sm font-bold text-white">Paiements Abonnements Stripe</h4>
+                            <p class="text-xs text-slate-400">Portail client sécurisé pour encaisser vos abonnés chaque mois.</p>
                         </div>
-                        <div class="p-5 space-y-3 bg-slate-950/60 font-mono text-xs text-slate-300">
-                            <div class="text-emerald-400 font-bold">👥 POP-UP : STRIPE RECURRENT</div>
-                            <div>Abonnement : 49€ / mois</div>
-                            <div class="text-emerald-400">Paiement automatique : OK</div>
-                            <div class="bg-emerald-500/10 p-2 rounded border border-emerald-500/30 text-emerald-300 text-[11px]">💰 Encaissement mensuel</div>
-                        </div>
-                        <div class="p-4 bg-slate-900"><strong class="text-xs text-white block">Fenêtre Pop-up Abonnés</strong><p class="text-[11px] text-slate-400">Portail de facturation récurrente.</p></div>
                     </div>
                 `;
             }
-
-            // --- LES TROIS CARRÉS CLASSIQUES (SUIVENT APRÈS LES POP-UPS) ---
-            container.innerHTML = `
-                <div class="glass-card rounded-2xl border border-white/10 overflow-hidden shadow-2xl p-5 flex flex-col justify-between">
-                    <div class="space-y-3">
-                        <div class="flex justify-between items-center text-brand-400 font-mono text-xs border-b border-white/10 pb-2">
-                            <span>Module 01</span><span class="text-[10px] bg-emerald-500/10 px-2 py-0.5 rounded text-emerald-400">Actif</span>
-                        </div>
-                        <h4 class="text-sm font-bold text-white">Dashboard & Statistiques</h4>
-                        <p class="text-xs text-slate-400">Visualisation instantanée de la croissance et des métriques clés de l'application.</p>
-                    </div>
-                </div>
-                <div class="glass-card rounded-2xl border border-white/10 overflow-hidden shadow-2xl p-5 flex flex-col justify-between">
-                    <div class="space-y-3">
-                        <div class="flex justify-between items-center text-brand-400 font-mono text-xs border-b border-white/10 pb-2">
-                            <span>Module 02</span><span class="text-[10px] bg-emerald-500/10 px-2 py-0.5 rounded text-emerald-400">Généré</span>
-                        </div>
-                        <h4 class="text-sm font-bold text-white">Moteur : ${escapeHtml(input)}</h4>
-                        <p class="text-xs text-slate-400">Base de données et automatismes configurés sur-mesure pour ce secteur d'activité.</p>
-                    </div>
-                </div>
-                <div class="glass-card rounded-2xl border border-white/10 overflow-hidden shadow-2xl p-5 flex flex-col justify-between">
-                    <div class="space-y-3">
-                        <div class="flex justify-between items-center text-brand-400 font-mono text-xs border-b border-white/10 pb-2">
-                            <span>Module 03</span><span class="text-[10px] bg-emerald-500/10 px-2 py-0.5 rounded text-emerald-400">Intégré</span>
-                        </div>
-                        <h4 class="text-sm font-bold text-white">Paiements Abonnements Stripe</h4>
-                        <p class="text-xs text-slate-400">Portail client sécurisé pour encaisser vos abonnés et gérer la facturation récurrente.</p>
-                    </div>
-                </div>
-            `;
-
-            calculateGoal();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         function resetApp() {
             document.getElementById('resultSection').classList.add('hidden');
+            document.getElementById('animationStage').classList.add('hidden');
             document.getElementById('heroSection').classList.remove('hidden');
             document.getElementById('projectInput').value = "";
         }
