@@ -34,6 +34,9 @@ h1 {font-size:clamp(36px,6vw,60px);font-weight:900;line-height:1.1;margin-bottom
 .example {padding:8px 14px;border-radius:8px;background:#1c2945;color:#b9caff;border:1px solid var(--border);cursor:pointer;font-size:13px;}
 #loadingState {display:none;text-align:center;padding:30px;color:#a5b1ca;font-style:italic;}
 #preview {display:none;margin-top:25px;background:#080e1d;padding:25px;border:1px solid rgba(92,143,255,.4);border-radius:18px;}
+.simulator-box {background:#0d162d;border:1px solid rgba(86,135,255,0.3);border-radius:16px;padding:25px;margin-top:25px;}
+.revenue-display {background:linear-gradient(135deg, rgba(74,165,255,0.15), rgba(157,114,255,0.15));border:1px solid rgba(74,165,255,0.4);padding:20px;border-radius:14px;text-align:center;margin-top:20px;}
+.revenue-amount {font-size:36px;font-weight:900;color:#4ade80;margin-top:5px;}
 footer {border-top:1px solid var(--border);padding:35px 0;text-align:center;color:#8290aa;font-size:13px;margin-top:80px;}
 </style>
 </head>
@@ -49,7 +52,7 @@ footer {border-top:1px solid var(--border);padding:35px 0;text-align:center;colo
 <main class="container">
   <section class="hero">
     <h1>Votre idée mérite de devenir<br><span class="gradient">un logiciel sur-mesure.</span></h1>
-    <p style="color:var(--muted);max-width:600px;margin:0 auto;font-size:16px;">Testez votre projet en direct, l'IA génère l'ébauche de votre tableau de bord sous vos yeux.</p>
+    <p style="color:var(--muted);max-width:600px;margin:0 auto;font-size:16px;">Saisissez votre idée et laissez l'IA concevoir l'ébauche dynamique de votre futur logiciel.</p>
 
     <div class="builder">
       <label style="display:block;font-weight:800;margin-bottom:10px;">Quel logiciel souhaitez-vous créer ?</label>
@@ -63,16 +66,17 @@ footer {border-top:1px solid var(--border);padding:35px 0;text-align:center;colo
 
       <button class="btn" style="width:100%;" onclick="startGeneration()">✦ Générer l'aperçu dynamique</button>
 
-      <!-- Étape de chargement magique -->
+      <!-- 1. ÉTAPE DE CHARGEMENT / FABRICATION PAR L'IA -->
       <div id="loadingState">
-        <div style="font-size:18px;margin-bottom:8px;color:#4ca5ff;">🤖 L'intelligence artificielle conçoit votre application...</div>
-        <div style="font-size:13px;">Génération des modules de données, structuration et design en cours.</div>
+        <div style="font-size:18px;margin-bottom:8px;color:#4ca5ff;">⚙️ L'IA conçoit votre application en direct...</div>
+        <div style="font-size:13px;">Analyse de votre besoin, création des 3 modules et configuration du simulateur.</div>
       </div>
 
-      <!-- Les fameuses fenêtres de prévisualisation -->
+      <!-- 2. RÉSULTAT : ÉBAUCHE + SIMULATEUR + STRIPE -->
       <div id="preview" aria-live="polite">
         <h3 style="margin-bottom:15px;font-size:20px;">🚀 Aperçu généré pour : <span id="previewTitle" style="color:#4ca5ff;"></span></h3>
         
+        <!-- Ébauche visuelle (les 3 fenêtres) -->
         <div style="background:#0b1329; border:1px solid rgba(255,255,255,0.15); border-radius:14px; overflow:hidden; text-align:left;">
           <div style="background:#070c1b; padding:10px 16px; border-bottom:1px solid rgba(255,255,255,0.08); display:flex; align-items:center; justify-content:space-between;">
             <div style="display:flex; gap:6px;">
@@ -103,7 +107,27 @@ footer {border-top:1px solid var(--border);padding:35px 0;text-align:center;colo
           </div>
         </div>
 
-        <!-- Bouton de paiement final Stripe avec ton lien exact réparé -->
+        <!-- Simulateur de revenus futurs -->
+        <div class="simulator-box">
+          <h4 style="color:#fff;margin-bottom:10px;font-size:16px;">💰 Simulateur d'objectif de chiffre d'affaires</h4>
+          <p style="font-size:13px;color:var(--muted);margin-bottom:15px;">Glissez pour choisir le montant que vous souhaitez générer chaque mois avec votre logiciel :</p>
+          
+          <div style="margin-bottom:10px;">
+            <div style="display:flex;justify-content:space-between;font-size:14px;font-weight:bold;margin-bottom:5px;">
+              <span>Objectif visé :</span>
+              <span id="targetGoal" style="color:#4ade80;">10 000 € / mois</span>
+            </div>
+            <input type="range" id="simRange" min="2000" max="50000" step="1000" value="10000" style="width:100%;accent-color:#3987ff;cursor:pointer;" oninput="updateGoal()">
+          </div>
+
+          <div class="revenue-display">
+            <div style="font-size:12px;color:#a5b1ca;text-transform:uppercase;font-weight:bold;">Potentiel estimé de votre application</div>
+            <div class="revenue-amount" id="finalPotential">10 000 € / mois</div>
+            <div style="font-size:12px;color:#4ade80;margin-top:5px;">✓ Modèle validé par l'IA — Prêt à être déployé</div>
+          </div>
+        </div>
+
+        <!-- Bouton final vers le lien Stripe direct -->
         <a href="https://buy.stripe.com/afA14f2UT9J3Q2hSe119fW02" target="_blank" class="btn" style="margin-top:25px; width:100%; background:linear-gradient(110deg,#27c93f,#10b981);">
           ✦ Générer et recevoir mon code complet (29 €) →
         </a>
@@ -123,6 +147,13 @@ function fill(val) {
   startGeneration();
 }
 
+function updateGoal() {
+  const val = document.getElementById("simRange").value;
+  const formatted = parseInt(val).toLocaleString("fr-FR") + " € / mois";
+  document.getElementById("targetGoal").textContent = formatted;
+  document.getElementById("finalPotential").textContent = formatted;
+}
+
 function startGeneration() {
   const input = document.getElementById("project");
   const loading = document.getElementById("loadingState");
@@ -138,12 +169,12 @@ function startGeneration() {
   loading.style.display = "block";
   loading.scrollIntoView({ behavior: "smooth", block: "center" });
 
-  // Effet magique de l'IA qui "réfléchit" pendant 1.2 seconde avant d'afficher les fenêtres
   setTimeout(() => {
     loading.style.display = "none";
     document.getElementById("previewTitle").textContent = input.value;
     document.getElementById("moduleProjectName").textContent = input.value;
     preview.style.display = "block";
+    updateGoal();
     preview.scrollIntoView({ behavior: "smooth", block: "center" });
   }, 1200);
 }
