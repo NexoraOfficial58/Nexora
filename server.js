@@ -127,7 +127,7 @@ async function sendProjectEmail(email, idea, code) {
             {
                 filename: 'index.html',
                 content: cleanCode,
-                contentType: 'text/html'
+                contentType: 'text/html' 
             }
         ]
     });
