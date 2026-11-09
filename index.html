@@ -33,35 +33,37 @@ h1 {font-size:clamp(36px,6vw,60px);font-weight:900;line-height:1.1;margin-bottom
 .examples {display:flex;flex-wrap:wrap;gap:8px;margin-bottom:25px;}
 .example {padding:8px 14px;border-radius:8px;background:#1c2945;color:#b9caff;border:1px solid var(--border);cursor:pointer;font-size:13px;}
 
-/* SYSTEME DE FENETRES POP-UP EN TROMPE L'OEIL (L'EFFET DE CONSTRUCTEUR EN DIRECT) */
-.popup-stage {
+/* SYSTEME DE SPECTACLE POP-UP HAUTE DENSITE */
+.popup-overlay {
   position: fixed;
   top: 0; left: 0; width: 100vw; height: 100vh;
-  background: rgba(4, 7, 16, 0.85);
-  backdrop-filter: blur(10px);
-  z-index: 999;
+  background: rgba(3, 5, 12, 0.92);
+  backdrop-filter: blur(12px);
+  z-index: 9999;
   display: none;
   align-items: center;
   justify-content: center;
 }
 
-.popup-window {
-  width: min(600px, 90%);
-  background: #0d162d;
-  border: 1px solid rgba(74, 165, 255, 0.4);
+.popup-card {
+  position: absolute;
+  width: min(650px, 92%);
+  background: #091124;
+  border: 1px solid rgba(74, 165, 255, 0.5);
   border-radius: 16px;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.9), 0 0 40px rgba(57, 135, 255, 0.2);
   overflow: hidden;
-  animation: popIn 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  display: none;
+  animation: popIn 0.4s ease-out forwards;
 }
 
 @keyframes popIn {
-  from { opacity:0; transform: scale(0.8) translateY(30px); }
+  from { opacity:0; transform: scale(0.85) translateY(40px); }
   to { opacity:1; transform: scale(1) translateY(0); }
 }
 
-.popup-header {
-  background: #070c1b;
+.popup-topbar {
+  background: #050a16;
   padding: 12px 18px;
   border-bottom: 1px solid rgba(255,255,255,0.1);
   display: flex;
@@ -69,29 +71,48 @@ h1 {font-size:clamp(36px,6vw,60px);font-weight:900;line-height:1.1;margin-bottom
   justify-content: space-between;
 }
 .popup-dots { display: flex; gap: 6px; }
-.popup-dot { width: 10px; height: 10px; border-radius: 50%; }
-.dot-red { background: #ff5f56; }
-.dot-yellow { background: #ffbd2e; }
-.dot-green { background: #27c93f; }
+.popup-dot { width: 11px; height: 11px; border-radius: 50%; }
+.dot-r { background: #ff5f56; }
+.dot-y { background: #ffbd2e; }
+.dot-g { background: #27c93f; }
 
-.popup-body {
-  padding: 25px;
-  font-family: monospace;
+.popup-content {
+  padding: 22px;
+  font-family: 'Courier New', Courier, monospace;
   font-size: 13px;
-  color: #c4d3f5;
+  color: #7dd3fc;
   line-height: 1.6;
 }
 
-.popup-code {
-  background: #050814;
-  padding: 15px;
+.code-stream {
+  background: #030712;
+  border: 1px solid rgba(255,255,255,0.08);
   border-radius: 10px;
-  border: 1px solid rgba(255,255,255,0.05);
-  margin-top: 15px;
+  padding: 15px;
+  margin-top: 12px;
+  height: 160px;
+  overflow-y: hidden;
   color: #4ade80;
+  font-size: 12px;
+  white-space: pre-wrap;
 }
 
-/* Zone d'affichage du résultat et du simulateur */
+.progress-bar-bg {
+  width: 100%;
+  height: 8px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 10px;
+  margin-top: 15px;
+  overflow: hidden;
+}
+.progress-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #3987ff, #8657ff);
+  transition: width 0.1s linear;
+}
+
+/* Zone d'affichage du bilan et du simulateur */
 #preview {
   display:none;
   margin-top:25px;
@@ -108,25 +129,48 @@ footer {border-top:1px solid var(--border);padding:35px 0;text-align:center;colo
 </head>
 <body>
 
-<!-- LES FENETRES POP-UP SYSTEME QUI S'AFFICHENT EN DIRECT AU CLIC -->
-<div class="popup-stage" id="popupOverlay">
-  <div class="popup-window">
-    <div class="popup-header">
-      <div class="popup-dots">
-        <div class="popup-dot dot-red"></div>
-        <div class="popup-dot dot-yellow"></div>
-        <div class="popup-dot dot-green"></div>
-      </div>
-      <div style="font-size:12px; color:#4ca5ff; font-weight:bold;" id="popStepTitle">NEXORA ENGINE v4.2</div>
+<!-- LE OVERLAY QUI CONTIENT LES 3 POP-UPS SYSTEME DE CODE -->
+<div class="popup-overlay" id="popOverlay">
+  
+  <!-- POP-UP 1 : ENCODAGE DU PROGRAMME & FRONTEND -->
+  <div class="popup-card" id="pop1">
+    <div class="popup-topbar">
+      <div class="popup-dots"><div class="popup-dot dot-r"></div><div class="popup-dot dot-y"></div><div class="popup-dot dot-g"></div></div>
+      <div style="font-size:12px; color:#3987ff; font-weight:bold;">NEXORA ENGINE — Compilateur de Code Source v4.2</div>
     </div>
-    <div class="popup-body">
-      <div id="popMessage" style="font-size:15px; font-weight:bold; color:white;">Initialisation du générateur SaaS...</div>
-      <div class="popup-code" id="popCode">
-        > Initializing modules...<br>
-        > Building user database scheme...
-      </div>
+    <div class="popup-content">
+      <div style="font-size:15px; font-weight:bold; color:white;">⚙️ Écriture du programme et de la structure du logiciel...</div>
+      <div class="code-stream" id="code1"></div>
+      <div class="progress-bar-bg"><div class="progress-bar-fill" id="pbar1"></div></div>
     </div>
   </div>
+
+  <!-- POP-UP 2 : BASE DE DONNEES & BACKEND -->
+  <div class="popup-card" id="pop2">
+    <div class="popup-topbar">
+      <div class="popup-dots"><div class="popup-dot dot-r"></div><div class="popup-dot dot-y"></div><div class="popup-dot dot-g"></div></div>
+      <div style="font-size:12px; color:#8657ff; font-weight:bold;">DATABASE BUILDER — Modélisation du Système</div>
+    </div>
+    <div class="popup-content">
+      <div style="font-size:15px; font-weight:bold; color:white;">🗄️ Création des tables SQL, authentification & sécurité API...</div>
+      <div class="code-stream" id="code2"></div>
+      <div class="progress-bar-bg"><div class="progress-bar-fill" id="pbar2"></div></div>
+    </div>
+  </div>
+
+  <!-- POP-UP 3 : MODULE DE PAIEMENT STRIPE & LIVRAISON -->
+  <div class="popup-card" id="pop3">
+    <div class="popup-topbar">
+      <div class="popup-dots"><div class="popup-dot dot-r"></div><div class="popup-dot dot-y"></div><div class="popup-dot dot-g"></div></div>
+      <div style="font-size:12px; color:#27c93f; font-weight:bold;">STRIPE CONNECT — Module de Facturation en Ligne</div>
+    </div>
+    <div class="popup-content">
+      <div style="font-size:15px; font-weight:bold; color:white;">💳 Chiffrement des clés de paiement & Génération du paquet prêt à déployer...</div>
+      <div class="code-stream" id="code3"></div>
+      <div class="progress-bar-bg"><div class="progress-bar-fill" id="pbar3"></div></div>
+    </div>
+  </div>
+
 </div>
 
 <header>
@@ -151,12 +195,12 @@ footer {border-top:1px solid var(--border);padding:35px 0;text-align:center;colo
         <button class="example" onclick="fill('Plateforme de gestion de rendez-vous')">📅 Agenda & RDV</button>
       </div>
 
-      <button class="btn" style="width:100%;" onclick="runLiveGenerator()">✦ Générer mon logiciel en direct</button>
+      <button class="btn" style="width:100%;" onclick="startMegaShow()">✦ Générer mon logiciel en direct</button>
 
       <!-- RESULTAT ET SIMULATEUR FINAL -->
       <div id="preview" aria-live="polite">
         <div style="font-size:14px; color:#4ade80; font-weight:bold; margin-bottom:15px; text-align:center;">
-          ✅ Maquette SaaS générée avec succès !
+          ✅ Logiciel et Code Source entièrement générés avec succès !
         </div>
 
         <h3 style="margin-bottom:15px;font-size:20px;">🚀 Application créée : <span id="previewTitle" style="color:#4ca5ff;"></span></h3>
@@ -220,7 +264,7 @@ footer {border-top:1px solid var(--border);padding:35px 0;text-align:center;colo
           </div>
         </div>
 
-        <!-- BOUTON STRIPE -->
+        <!-- BOUTON STRIPE DE 29 € DIRECT -->
         <a href="https://buy.stripe.com/afA14f2UT9J3Q2hSe119fW02" target="_blank" class="btn" style="margin-top:25px; width:100%; background:linear-gradient(110deg,#27c93f,#10b981);">
           ✦ Obtenir et télécharger mon code complet (29 €) →
         </a>
@@ -237,7 +281,7 @@ footer {border-top:1px solid var(--border);padding:35px 0;text-align:center;colo
 <script>
 function fill(val) {
   document.getElementById("project").value = val;
-  runLiveGenerator();
+  startMegaShow();
 }
 
 function updateSimulation() {
@@ -253,50 +297,102 @@ function updateSimulation() {
   document.getElementById("calcSub").textContent = "✓ Pour générer " + goal.toLocaleString("fr-FR") + " € de chiffre d'affaires récurrent mensuel";
 }
 
-function runLiveGenerator() {
-  const input = document.getElementById("project");
-  const overlay = document.getElementById("popupOverlay");
-  const stepTitle = document.getElementById("popStepTitle");
-  const message = document.getElementById("popMessage");
-  const code = document.getElementById("popCode");
-  const preview = document.getElementById("preview");
+// SCRIPTS DES TROIS POP-UPS D'ENCODAGE EN DIRECT
+function typeCode(elementId, textLines, barId, duration, onComplete) {
+  const el = document.getElementById(elementId);
+  const bar = document.getElementById(barId);
+  el.textContent = "";
+  let lineIdx = 0;
+  const intervalTime = duration / textLines.length;
 
+  const interval = setInterval(() => {
+    if (lineIdx < textLines.length) {
+      el.textContent += textLines[lineIdx] + "\n";
+      el.scrollTop = el.scrollHeight;
+      lineIdx++;
+      bar.style.width = Math.round((lineIdx / textLines.length) * 100) + "%";
+    } else {
+      clearInterval(interval);
+      setTimeout(onComplete, 400);
+    }
+  }, intervalTime);
+}
+
+function startMegaShow() {
+  const input = document.getElementById("project");
   const val = input.value.trim();
+
   if (!val) {
     alert("Veuillez saisir ou choisir un projet !");
     input.focus();
     return;
   }
 
-  // 1. AFFICHER LA PREMIÈRE POP-UP (CONSTRUCTION SERVEUR / IA)
+  const overlay = document.getElementById("popOverlay");
+  const pop1 = document.getElementById("pop1");
+  const pop2 = document.getElementById("pop2");
+  const pop3 = document.getElementById("pop3");
+  const preview = document.getElementById("preview");
+
+  preview.style.display = "none";
   overlay.style.display = "flex";
-  stepTitle.textContent = "CONSTRUCTEUR IA — PHASE 1/3";
-  message.textContent = "🖥️ Génération du Code Source pour : " + val;
-  code.innerHTML = "> npm install nexora-core-ai<br>> Compiling components for " + val + "...<br>> Creating PostgreSQL tables & schema... [OK]";
+  pop1.style.display = "block";
+  pop2.style.display = "none";
+  pop3.style.display = "none";
 
-  // 2. POP-UP D'INTERFACE METIER (APRES 1.2s)
-  setTimeout(() => {
-    stepTitle.textContent = "CONSTRUCTEUR IA — PHASE 2/3";
-    message.textContent = "🎨 Assemblage des Interfaces & Formulaires...";
-    code.innerHTML = "> Generating Dashboard Views...<br>> Injecting PDF Billing Engine & Client CRM... [OK]<br>> Setting up User Auth & Security Protocols... [OK]";
-  }, 1200);
+  // PHASES DE CODE TEXTUEL QUI S'ANIMENT LIGNE PAR LIGNE (3,5 SECONDES PAR FENÊTRE POP-UP)
+  const codeStep1 = [
+    "import { NexoraCore } from '@nexora/ai-engine';",
+    "const app = new NexoraCore({ name: '" + val + "' });",
+    "--> Compiling HTML5/CSS3 Responsive Layout...",
+    "--> Injecting Tailwind System & Custom Dark Palette...",
+    "--> Generating Navbar, Sidebar & Interactive Modules...",
+    "--> Building User Dashboard Interface...",
+    "SUCCESS: Frontend Architecture compiled [OK]"
+  ];
 
-  // 3. POP-UP CONNECTEUR STRIPE (APRES 2.4s)
-  setTimeout(() => {
-    stepTitle.textContent = "CONSTRUCTEUR IA — PHASE 3/3";
-    message.textContent = "💳 Intégration de la Passerelle Stripe & Webhooks...";
-    code.innerHTML = "> Connecting Stripe API v3 keys...<br>> Securing Webhook Endpoints... [OK]<br>> Production build created successfully!";
-  }, 2400);
+  const codeStep2 = [
+    "CREATE TABLE users (id SERIAL PRIMARY KEY, email VARCHAR, role TEXT);",
+    "CREATE TABLE invoices (id INT, client_name TEXT, amount NUMERIC);",
+    "--> Connecting PostgreSQL Data Cluster...",
+    "--> Injecting JWT Security Tokens & Auth Protocols...",
+    "--> Optimizing SQL queries for " + val + "...",
+    "SUCCESS: Database Schema built & locked [OK]"
+  ];
 
-  // 4. FERMUTATION DE LA POP-UP ET REVELATION DU PROJET (APRES 3.5s)
-  setTimeout(() => {
-    overlay.style.display = "none";
-    document.getElementById("previewTitle").textContent = val;
-    document.getElementById("moduleProjectName").textContent = val;
-    preview.style.display = "block";
-    updateSimulation();
-    preview.scrollIntoView({ behavior: "smooth", block: "center" });
-  }, 3500);
+  const codeStep3 = [
+    "import Stripe from 'stripe';",
+    "const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);",
+    "--> Linking Stripe Checkout Webhooks...",
+    "--> Securing HTTPS 256-Bit SSL Endpoints...",
+    "--> Packaging full repository & deployment files...",
+    "SUCCESS: SaaS application ready for production!"
+  ];
+
+  // POP-UP 1 (3.5 SECONDES)
+  typeCode("code1", codeStep1, "pbar1", 3200, () => {
+    pop1.style.display = "none";
+    pop2.style.display = "block";
+
+    // POP-UP 2 (3.5 SECONDES)
+    typeCode("code2", codeStep2, "pbar2", 3200, () => {
+      pop2.style.display = "none";
+      pop3.style.display = "block";
+
+      // POP-UP 3 (3.5 SECONDES)
+      typeCode("code3", codeStep3, "pbar3", 3200, () => {
+        pop3.style.display = "none";
+        overlay.style.display = "none";
+
+        // REVELATION DU BILAN ET DU SIMULATEUR APRES LES POP-UPS
+        document.getElementById("previewTitle").textContent = val;
+        document.getElementById("moduleProjectName").textContent = val;
+        preview.style.display = "block";
+        updateSimulation();
+        preview.scrollIntoView({ behavior: "smooth", block: "center" });
+      });
+    });
+  });
 }
 </script>
 
